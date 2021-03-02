@@ -1,0 +1,29 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "at-rule-no-unknown": [
+            true,
+            {
+                "ignoreAtRules": [
+                    "apply",
+                    "responsive",
+                    "variants",
+                    "screen"
+                ]
+            }
+        ],
+        "color-no-invalid-hex": true,
+        "indentation": 4,
+        "max-empty-lines": 2,
+        "declaration-colon-space-after": "always",
+        "no-eol-whitespace": null,
+        "value-list-comma-newline-after": null,
+        "declaration-colon-newline-after": null,
+        "selector-pseudo-class-no-unknown": [true, {
+          "ignorePseudoClasses": ["global"]
+        }],
+        "selector-pseudo-element-no-unknown": [true, {
+          "ignorePseudoElements": ["global"]
+        }]
+    }
+}

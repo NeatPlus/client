@@ -1,0 +1,3 @@
+[submodule "src/vendor/react-arsenal"]
+	path = src/vendor/react-arsenal
+	url = git@gitlab.com:nepware-internals/react-arsenal.git

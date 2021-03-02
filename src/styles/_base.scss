@@ -1,0 +1,43 @@
+@import '../vendor/react-arsenal/styles/_base.scss';
+
+:root {
+    /* Colors */
+    --color-white: #fff;
+    --color-black: #000;
+
+    /* Font */
+    --font-size-base: 1rem;             // 16px
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    
+    @media only screen and (max-width: 991px) {
+        font-size: 14px;
+    }
+
+    @media only screen and (max-width: 719px) {
+        font-size: 13px;
+    }
+
+    @media only screen and (max-width: 479px) {
+        font-size: 12px;
+
+        input {
+            font-size: 16px !important; // For mobile devices
+        }
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}

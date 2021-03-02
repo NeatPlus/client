@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "@ra/*": ["src/vendor/react-arsenal/*"]
+        }
+    },
+    "include": [
+        "src"
+    ]
+}
