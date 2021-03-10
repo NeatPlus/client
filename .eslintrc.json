@@ -21,6 +21,8 @@
         "ecmaVersion": 11
     },
     "rules": {
+        "css-modules/no-unused-class": [2, {"camelCase": true}],
+        "css-modules/no-undef-class": [2, {"camelCase": true}],
         "jsx-a11y/anchor-is-valid": 0,
         "no-var": "error",
         "no-unused-vars": [
