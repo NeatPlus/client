@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './styles.module.scss';
+import styles from './styles.scss';
 
 const Home = () => {
     return (
-        <div className={styles.container}>
+        <div className={styles.containerHome}>
             <p>
                 Edit <code>src/App.js</code> and save to reload.
             </p>
