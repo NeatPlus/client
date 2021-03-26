@@ -1,5 +1,9 @@
 const path = require('path');
-const {override, addBabelPlugins, adjustStyleLoaders} = require('customize-cra');
+const {
+    override,
+    addBabelPlugins, 
+    adjustStyleLoaders,
+} = require('customize-cra');
 
 const resolve = dir => path.resolve(__dirname, dir);
 
@@ -19,3 +23,4 @@ module.exports = override(
     },
     process.env.NODE_ENV !== 'development' && addBabelPlugins('transform-remove-console'),
 );
+

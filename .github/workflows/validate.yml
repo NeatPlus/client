@@ -1,0 +1,50 @@
+name: Linting, Unit and Integration Tests
+
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "develop"
+
+
+jobs:
+  validate-code-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14.x]
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: |
+          yarn install --non-interactive
+
+      - name: Run Lint
+        run: |
+          yarn lint
+
+      - name: Run Unit and Integration tests
+        run: |
+          yarn test --watchAll=false --testPathIgnorePatterns src/vendor
