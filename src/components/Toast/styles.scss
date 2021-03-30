@@ -1,0 +1,38 @@
+.container {
+    position: absolute;
+    bottom: 3em;
+    right: 3em;
+    background-color: var(--color-background);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 9999;
+
+    :global {
+        .success {
+            background-color: var(--color-success);
+            color: var(--color-success-text);
+        }
+
+        .danger {
+            background-color: var(--color-danger);
+            color: var(--color-danger-text);
+        }
+
+        .warning {
+            background-color: var(--color-warning);
+            color: var(--color-warning-text);
+        }
+    }
+
+    .content {
+        position: relative;
+        padding: 1.5em 1.5em;
+
+        .close {
+            position: absolute;
+            top: 0.2em;
+            right: 0.2em;
+            cursor: pointer;
+        }
+    }
+}
