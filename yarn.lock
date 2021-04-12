@@ -12760,10 +12760,10 @@ yargs@^15.4.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yet-another-abortcontroller-polyfill@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/yet-another-abortcontroller-polyfill/-/yet-another-abortcontroller-polyfill-0.0.3.tgz#bbbdb1e7fcfdb1f028baf87778f9fa27ccf63595"
-  integrity sha512-B4O92xxxZP6QhNMVYKv4qZcFbTB1txXQT2lUPq38e9TMuGQhGl2Ow+NN/XflY7aT4v4H/NZI1VTJT7B6YHc5iw==
+yet-another-abortcontroller-polyfill@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/yet-another-abortcontroller-polyfill/-/yet-another-abortcontroller-polyfill-0.0.4.tgz#ce2270e564a4f2d07351812f599e10143526f98b"
+  integrity sha512-6do/P+mjm7FDUD+q8FrZ0ClMIbjGuKyWuWm3Vz2O7QmVf73HVLYIDV6toS7T0qoH1yeI2HPb8VgJp7w+zcVWvA==
 
 yocto-queue@^0.1.0:
   version "0.1.0"

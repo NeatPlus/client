@@ -14,7 +14,7 @@
     "redux-logger": "^3.0.6",
     "web-vitals": "^1.1.1",
     "whatwg-fetch": "^3.6.2",
-    "yet-another-abortcontroller-polyfill": "^0.0.3"
+    "yet-another-abortcontroller-polyfill": "^0.0.4"
   },
   "scripts": {
     "start": "react-app-rewired start",
