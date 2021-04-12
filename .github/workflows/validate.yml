@@ -22,7 +22,7 @@ jobs:
 
       - name: Get React Arsenal
         run: |
-          git clone https://testToken:${{ secrets.GITLAB_TOKEN }}@gitlab.com/nepware-internals/react-arsenal.git src/vendor/react-arsenal
+          git clone https://TestToken:${{ secrets.GITLAB_TOKEN }}@gitlab.com/nepware-internals/react-arsenal.git src/vendor/react-arsenal
 
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v2
