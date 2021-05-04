@@ -1,0 +1,22 @@
+.button {
+    padding: 12px 32px;
+
+    &:hover {
+        background-color: var(--color-primary);
+        border: 1.2px solid var(--color-primary);
+        box-shadow: 0 5px 15px 0 rgba(14, 163, 155, 0.38);
+    }
+
+    &:active {
+        background-color: transparent;
+        color: var(--color-primary);
+        border: 1.2px solid var(--color-primary);
+        box-shadow: unset;
+    }
+
+    &__disabled {
+        background-color: var(--color-grey-light);
+        border: 1.2px solid var(--color-grey-light);
+        filter: none;
+    }
+}

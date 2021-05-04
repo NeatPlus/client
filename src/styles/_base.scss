@@ -5,8 +5,39 @@
     --color-white: #fff;
     --color-black: #000;
 
+    /* Neutral Colors */
+    --color-dark: #262626;
+    --color-dark-alt: #404040;
+    --color-grey-dark: #595959;
+    --color-grey-dark-alt: #737373;
+    --color-grey: #8c8c8c;
+    --color-grey-light: #a6a6a6;
+    --color-grey-light-alt: #bfbfbf;
+    --color-light: #d9d9d9;
+    --color-light-alt: #f2f2f2;
+
+    /* Primary and Secondary Colors */
+    --color-primary: #00a297;
+    --color-primary-alt: #20c7bc;
+    --color-primary-light: #5deae0;
+    --color-primary-light-alt: #b2f8f3;
+    --color-secondary: #085ba3;
+    --color-secondary-alt: #257dc9;
+    --color-secondary-light: #5dabed;
+    --color-secondary-light-alt: #9dcffa;
+    --color-tertiary: #182c3d;
+    --color-tertiary-alt: #2e577b;
+    --color-tertiary-light: #6e9ec9;
+    --color-tertiary-light-alt: #b9ddfd;
+
     /* Font */
     --font-size-base: 1rem;             // 16px
+    --font-size-small: 0.875rem;        // 14px
+    --font-size-medium: 1.25rem;        // 20px
+    --font-size-medium-alt: 1.625rem;   // 26px
+    --font-size-large: 2rem;            // 32px
+    --font-size-large-alt: 2.5rem;      // 40px
+    --font-size-header: 3.25rem;        // 52px
 }
 
 * {
