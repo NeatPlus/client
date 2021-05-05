@@ -53,9 +53,11 @@
     "stylelint-config-standard": "^21.0.0"
   },
   "jest": {
-    "testPathIgnorePatterns": ["src/vendor"],
+    "testPathIgnorePatterns": [
+      "src/vendor"
+    ],
     "moduleNameMapper": {
-        "@ra/(.*)": "<rootDir>/src/vendor/react-arsenal/$1"
+      "@ra/(.*)": "<rootDir>/src/vendor/react-arsenal/$1"
     }
   }
 }

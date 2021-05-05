@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Lint
         run: |
-          yarn lint
+          yarn lint --fix
 
       - name: Run Unit and Integration tests
         run: |

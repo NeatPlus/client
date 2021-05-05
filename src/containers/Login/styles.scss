@@ -1,0 +1,103 @@
+.container {
+    min-height: 100vh;
+    padding: 0 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-light);
+
+    .header {
+        align-self: flex-start;
+        display: flex;
+        margin: 25px 0;
+
+        &-link {
+            text-decoration: none;
+            color: var(--color-black);
+        }
+    }
+
+    .sub-title {
+        color: var(--color-primary);
+        font-size: var(--font-size-medium);
+        line-height: 1.5em;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .title {
+        color: var(--color-tertiary);
+        font-size: var(--font-size-large-alt);
+        line-height: 52px;
+        margin: 10px 0;
+        font-family: var(--font-family-header);
+        font-weight: 600;
+    }
+
+    .bottom-links {
+        .link {
+            text-decoration: none;
+            color: var(--color-grey);
+            font-size: var(--font-size-small);
+            line-height: 1.5em;
+            margin: 0 12px;
+        }
+    }
+
+    .login-container {
+        margin: 30px 0;
+        background-color: var(--color-white);
+        padding: 35px;
+        border-radius: 6px;
+        width: 30vw;
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+
+            .input-group {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+                
+                .input-label {
+                    font-size: var(--font-size-small);
+                    color: var(--color-grey);
+                    line-height: 1.375em;
+                    margin-bottom: 7px;
+                }
+
+                .input {
+                    color: var(--color-dark);
+                    font-size: var(--font-size-base);
+                    line-height: 1.25em;
+                    outline-color: var(--color-primary-alt);
+                    caret-color: var(--color-primary);
+                }
+            }
+
+            .button {
+                margin: 20px 0;
+            }
+        }
+
+        .forgot-link {
+            text-decoration: none;
+            color: var(--color-primary);
+            margin: 10px 0;
+            font-size: var(--font-size-small);
+        }
+
+        .text {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--color-dark);
+            font-size: var(--font-size-small);
+
+            .link {
+                text-decoration: none;
+                color: var(--color-primary);
+            }
+        }
+    }
+}
