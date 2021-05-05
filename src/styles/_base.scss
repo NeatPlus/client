@@ -1,9 +1,11 @@
 @import '../vendor/react-arsenal/styles/_base.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600&display=swap');
 
 :root {
     /* Colors */
     --color-white: #fff;
     --color-black: #000;
+    --color-input-outline: #20c7bc;
 
     /* Neutral Colors */
     --color-dark: #262626;
@@ -38,11 +40,13 @@
     --font-size-large: 2rem;            // 32px
     --font-size-large-alt: 2.5rem;      // 40px
     --font-size-header: 3.25rem;        // 52px
+    --font-family-header: 'Poppins', sans-serif;
 }
 
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Inter', sans-serif;
     
     @media only screen and (max-width: 991px) {
         font-size: 14px;
