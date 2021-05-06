@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 17px 25px;
+    border-bottom: 1px solid var(--color-light);
+
+    .logo {
+        height: 27px;
+    }
+
+    .right-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .notification-icon {
+            color: var(--color-grey-dark-alt);
+            cursor: pointer;
+            margin-right: 32px;
+
+            path {
+                stroke-width: 42px;
+            }
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 21px;
+            font-size: 18px;
+            line-height: 31px;
+            color: #c0d0de;
+            background-color: var(--color-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    }
+}
