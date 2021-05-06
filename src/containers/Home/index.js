@@ -16,6 +16,9 @@ const Home = () => {
             <Link to="/login">
                 <Button className={styles.button}>Go to Login</Button>
             </Link>
+            <Link to="/projects">
+                <Button className={styles.button}>Go to projects</Button>
+            </Link>
         </div>
     );
 };
