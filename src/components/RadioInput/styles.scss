@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+    .radio {
+        color: var(--color-grey-light-alt);
+        margin-right: 10px;
+
+        &-checked {
+            color: var(--color-primary);
+            margin-right: 10px;
+            stroke-width: 12px;
+        }
+    }
+
+    .label {
+        font-size: var(--font-size-small);
+        color: var(--color-dark);
+    }
+
+    &:hover > .radio {
+        color: var(--color-primary);
+        filter: opacity(50%);
+    }
+}

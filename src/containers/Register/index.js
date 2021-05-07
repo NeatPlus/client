@@ -1,3 +1,4 @@
+import {useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 
 import Form from 'components/Form';
@@ -13,6 +14,27 @@ import cs from '@ra/cs';
 import styles from './styles.scss';
 
 const Register = () => {
+    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [inputData, setInputData] = useState({
+        fullName: '',
+        email: '',
+        password: '',
+        organization: '',
+        role: '',
+    });
+
+    const handleChange = useCallback(({name, value}) => setInputData({
+        ...inputData,
+        [name]: value
+    }), [inputData]);
+
+    const handleCheck = useCallback(({checked}) => setAcceptTerms(checked), []);
+    
+    const handleRegister = useCallback(() => {
+        // TODO: Register
+        console.log(inputData);
+    }, [inputData]);
+
     return (
         <div className={styles.container}>
             <div className={styles.nav}>
@@ -32,22 +54,31 @@ const Register = () => {
                             <Link to="#" className={styles.link}>Terms of Use</Link>
                         </div>
                     </div>
-                    <Form className={styles.form}>
+                    <Form onSubmit={handleRegister} className={styles.form}>
                         <h2 className={styles.formHeader}>Create your account</h2>
                         <div className={styles.inputGroup}>
                             <Label className={styles.inputLabel}>Full Name</Label>
-                            <TextInput className={styles.input} />
+                            <TextInput
+                                name="fullName"
+                                onChange={handleChange}
+                                className={styles.input} 
+                            />
                         </div>
                         <div className={styles.inputGroup}>
                             <Label className={styles.inputLabel}>Email</Label>
-                            <Input type="email" className={styles.input} />
+                            <Input 
+                                name="email"
+                                type="email"
+                                onChange={handleChange}
+                                className={styles.input}
+                            />
                         </div>
                         <div className={styles.inputGroup}>
                             <Label className={styles.inputLabel}>Enter Password</Label>
-                            <SecureTextInput className={styles.input} />
+                            <SecureTextInput name="password" className={styles.input} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Organization</Label>
+                            <Label name="organization" onChange={handleChange} className={styles.inputLabel}>Organization</Label>
                             <TextInput className={styles.input} />
                         </div>
                         <div className={styles.inputGroup}>
@@ -56,19 +87,20 @@ const Register = () => {
                                 searchable={false}
                                 placeholder="Select your role in the company" 
                                 className={cs(styles.input, styles.inputSelect)} 
+                                controlClassName={styles.inputSelectControl}
                             />
                         </div>
                         <div className={styles.termsInput}>
-                            <CheckboxInput className={styles.checkbox} />
-                            <Label className={styles.termsInputLabel}>
+                            <CheckboxInput id="termsCheckbox" onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
+                            <label htmlFor="termsCheckbox" className={styles.termsInputLabel}>
                             I accept Neat+ <Link to="#" className={styles.termsInputLabelLink}>Terms of Use</Link> and  <Link to="#" className={styles.termsInputLabelLink}>Privacy Policy</Link>
-                            </Label>
+                            </label>
                         </div>
-                        <Button>Create Account</Button>
+                        <Button disabled={!acceptTerms}>Create Account</Button>
                     </Form>
                 </main>
                 <p className={styles.loginText}>
-                Already have an account? <Link to="/login" className={styles.link}>Log in</Link>
+                    Already have an account? <Link to="/login" className={styles.link}>Log in</Link>
                 </p>
             </div>
         </div>
