@@ -1,14 +1,14 @@
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {MdClose} from 'react-icons/md';
 
 import Form from 'components/Form';
 import Button from 'components/Button';
+import RadioInput from 'components/RadioInput';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import TextInput from '@ra/components/Form/TextInput';
 import SelectInput from '@ra/components/Form/SelectInput';
-import RadioInput from '@ra/components/Form/RadioInput';
 
 import cs from '@ra/cs';
 
@@ -19,6 +19,10 @@ const CreateProjectModal = props => {
 
     const {isVisible, onClose} = props;
 
+    const [visibility, setVisibility] = useState(null);
+
+    const handleVisibilitySelect = useCallback(value => setVisibility(value), []);
+
     const handleCreateProject = useCallback(() => {
         // TODO: Create Project
         onClose && onClose();
@@ -28,7 +32,7 @@ const CreateProjectModal = props => {
     if(!isVisible) {
         return null;
     }
-        
+
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
@@ -56,18 +60,27 @@ const CreateProjectModal = props => {
                     <Label className={styles.inputLabel}>Visibility</Label>
                     {/* FIXME: Fix radio inputs */}
                     <div className={styles.radioInputs}>
-                        <div className={styles.radioInput}>
-                            <RadioInput />
-                            <Label className={styles.radioInputLabel}>Public</Label>
-                        </div>
-                        <div className={styles.radioInput}>
-                            <RadioInput />
-                            <Label className={styles.radioInputLabel}>Public within organization</Label>
-                        </div>
-                        <div className={styles.radioInput}>
-                            <RadioInput />
-                            <Label className={styles.radioInputLabel}>Private</Label>
-                        </div>
+                        <RadioInput 
+                            onCheck={handleVisibilitySelect} 
+                            className={styles.radioInput} 
+                            value="public" 
+                            label="Public" 
+                            checked={visibility==='public'}
+                        />
+                        <RadioInput 
+                            onCheck={handleVisibilitySelect} 
+                            className={styles.radioInput} 
+                            value="public_org" 
+                            label="Public within organization" 
+                            checked={visibility==='public_org'}
+                        />
+                        <RadioInput 
+                            onCheck={handleVisibilitySelect} 
+                            className={styles.radioInput} 
+                            value="private" 
+                            label="Private" 
+                            checked={visibility==='private'}
+                        />
                     </div>
                 </div>
                 <div className={styles.inputGroup}>

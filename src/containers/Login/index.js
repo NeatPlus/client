@@ -1,3 +1,4 @@
+import {useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 
 import Form from 'components/Form';
@@ -11,6 +12,21 @@ import logo from 'assets/images/logo-dark.svg';
 import styles from './styles.scss';
 
 const Login = () => {
+    const [inputData, setInputData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const handleChange = useCallback(({name, value}) => setInputData({
+        ...inputData,
+        [name]: value
+    }), [inputData]);
+
+    const handleLogin = useCallback(() => {
+        // TODO: Login
+        console.log(inputData);
+    }, [inputData]);
+
     return (
         <div className={styles.container}>
             <div className={styles.nav}>
@@ -22,14 +38,14 @@ const Login = () => {
                 <h2 className={styles.subTitle}>Welcome back!</h2>
                 <h1 className={styles.title}>Log in to Neat+</h1>
                 <div className={styles.loginContainer}>
-                    <Form className={styles.loginForm}>
+                    <Form onSubmit={handleLogin} className={styles.loginForm}>
                         <div className={styles.inputGroup}>
                             <Label className={styles.inputLabel}>Email or Username</Label>
-                            <Input type="email" className={styles.input} />
+                            <Input name="email" onChange={handleChange} type="email" className={styles.input} />
                         </div>
                         <div className={styles.inputGroup}>
                             <Label className={styles.inputLabel}>Password</Label>
-                            <SecureTextInput className={styles.input} />
+                            <SecureTextInput name="password" onChange={handleChange} className={styles.input} />
                         </div>
                         <Button className={styles.button}>Log in</Button>
                     </Form>
