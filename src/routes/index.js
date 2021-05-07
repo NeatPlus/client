@@ -7,6 +7,7 @@ import Toast from 'components/Toast';
 import Home from 'containers/Home';
 import Login from 'containers/Login';
 import Register from 'containers/Register';
+import Surveys from 'containers/Surveys';
 import Projects from 'containers/Projects';
 
 const Routes = () => {
@@ -18,6 +19,7 @@ const Routes = () => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated || true} /> {/* FIXME: Use actual auth state*/}
+                <PrivateRoute path="/surveys" component={Surveys} isAuthenticated={isAuthenticated || true} />
                 <Route exact path="/" component={Home} />
             </Switch>
             <Toast />
