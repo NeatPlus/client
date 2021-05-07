@@ -21,3 +21,16 @@
         filter: none;
     }
 }
+    
+.button-secondary,
+.button-secondary:hover {
+    background-color: #e6e6e6;
+    border: 1.2px solid #e6e6e6;
+    box-shadow: none;
+    color: var(--color-grey-dark);
+}
+
+.button-secondary:hover {
+    filter: contrast(75%) !important;
+    box-shadow: 0 5px 15px 0 rgba(#e6e6e6, 0.38);
+}
