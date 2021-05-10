@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {MdClose} from 'react-icons/md';
 
 import Button from 'components/Button';
@@ -9,16 +9,21 @@ import styles from './styles.scss';
 
 const TakeSurveyModal = (props) => {
     const history = useHistory();
+    const {projectId} = useParams();
+
     const {isVisible, onClose} = props;
 
     const handleTakeSurvey = useCallback(()=>{
-        // TODO:- Take Survey
+        // TODO:- Take Survey and get survey id
+        const surveyId = 1;
         onClose && onClose();
-        history.push('/surveys/dashboard');
-    }, [onClose, history]);
+        history.push(`/projects/${projectId}/surveys/${surveyId}/`);
+    }, [onClose, history, projectId]);
+    
     if(!isVisible){
         return null;
     }
+    
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>

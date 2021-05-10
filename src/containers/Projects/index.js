@@ -14,6 +14,7 @@ const Projects = () => {
             <div className={styles.content}>
                 <Switch>
                     <Route exact path='/projects/' component={List} />
+                    <Route exact path='/projects/:projectId/surveys' component={Dashboard} />
                     <Route path='/projects/:projectId' component={Dashboard} />
                 </Switch>
             </div>

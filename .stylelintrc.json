@@ -13,7 +13,7 @@
             }
         ],
         "color-no-invalid-hex": true,
-        "indentation": 4,
+        "indentation": [4],
         "max-empty-lines": 2,
         "declaration-colon-space-after": "always",
         "no-eol-whitespace": null,

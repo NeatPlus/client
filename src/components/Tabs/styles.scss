@@ -20,7 +20,7 @@
 }
 
 .tab-header-secondary {
-    background-color: #e4efee;
+    background-color: var(--color-white);
     padding: 4px;
     margin-bottom: 12px;
     border-radius: 6px;
@@ -30,7 +30,7 @@
         border-radius: 4px;
         display: flex;
         justify-content: center;
-        padding: 9px 32px;
+        padding: 10px 20px;
         font-weight: 500;
         color: var(--color-grey-dark);
         border: none;
@@ -38,7 +38,7 @@
         font-size: var(--font-size-small);
 
         &:hover {
-            filter: contrast(#e4efee, 25%);
+            filter: contrast(115%);
         }
 
         &__active {

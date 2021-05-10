@@ -1,4 +1,5 @@
 import {useState, useCallback} from 'react';
+import {Link} from 'react-router-dom';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import {BsPlus} from 'react-icons/bs';
 
@@ -17,7 +18,7 @@ const NoSurveys = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Surveys</h1>
+            <Link to="/projects" className={styles.backLink}>Back to Projects</Link>
             <main className={styles.content}>
                 <div className={styles.takeSurveyBox}>
                     <img src={noSurveyImage} alt="No Surveys" className={styles.infoImage} />

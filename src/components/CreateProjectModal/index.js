@@ -24,9 +24,10 @@ const CreateProjectModal = props => {
     const handleVisibilitySelect = useCallback(value => setVisibility(value), []);
 
     const handleCreateProject = useCallback(() => {
-        // TODO: Create Project
+        // TODO: Create Project and Get Project Id
+        const projectId = 1;
         onClose && onClose();
-        history.push('/projects/dashboard');
+        history.push(`/projects/${projectId}`);
     }, [onClose, history]);
 
     if(!isVisible) {
