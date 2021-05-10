@@ -1,12 +1,11 @@
-import {withNoSurvey} from 'components/NoSurvey';
 import styles from './styles.scss';
 
-const SurveyDashboard = withNoSurvey(() => {
+const SurveyDashboard = () => {
     return (
-        <div class={styles.container}>
-          Survey Dashboard
+        <div className={styles.container}>
+            Survey Dashboard
         </div>
     );
-});
+};
 
 export default SurveyDashboard;
