@@ -7,12 +7,6 @@ import Button from 'components/Button';
 const Home = () => {
     return (
         <div className={styles.containerHome}>
-            <p>
-                Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                Learn React
-            </a>
             <Link to="/login">
                 <Button className={styles.button}>Go to Login</Button>
             </Link>

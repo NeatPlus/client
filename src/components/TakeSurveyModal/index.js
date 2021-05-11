@@ -11,14 +11,14 @@ const TakeSurveyModal = (props) => {
     const history = useHistory();
     const {projectId} = useParams();
 
-    const {isVisible, onClose} = props;
+    const {isVisible, onComplete, onClose} = props;
 
     const handleTakeSurvey = useCallback(()=>{
         // TODO:- Take Survey and get survey id
         const surveyId = 1;
         onClose && onClose();
-        history.push(`/projects/${projectId}/surveys/${surveyId}/`);
-    }, [onClose, history, projectId]);
+        onComplete ? onComplete() : history.push(`/projects/${projectId}/surveys/${surveyId}/`);
+    }, [onClose, onComplete, history, projectId]);
     
     if(!isVisible){
         return null;

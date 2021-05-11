@@ -34,3 +34,14 @@
     filter: contrast(75%) !important;
     box-shadow: 0 5px 15px 0 rgba(#e6e6e6, 0.38);
 }
+
+.button-outline,
+.button-outline:active {
+    background-color: transparent;
+    color: var(--color-primary);
+
+    &:hover:not(:active) {
+        color: var(--color-white);
+    }
+}
+

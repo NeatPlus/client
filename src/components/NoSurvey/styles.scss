@@ -12,6 +12,17 @@
         font-size: var(--font-size-small);
         color: var(--color-dark);
         font-weight: 500;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+
+        &:hover {
+            filter: opacity(80%);
+        }
+
+        .back-icon {
+            margin-right: 12px;
+        }
     }
 
     .content {
