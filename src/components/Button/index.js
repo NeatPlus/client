@@ -4,7 +4,7 @@ import cs from '@ra/cs';
 import styles from './styles.scss';
 
 const _Button = props => {
-    const {className, disabled, secondary, ...buttonProps} = props;
+    const {className, disabled, secondary, outline, ...buttonProps} = props;
 
     return (
         <Button 
@@ -13,6 +13,7 @@ const _Button = props => {
                 styles.button, 
                 {[styles.buttonDisabled]: disabled},
                 {[styles.buttonSecondary]: secondary},
+                {[styles.buttonOutline]: outline},
             )} 
             disabled={disabled} 
             {...buttonProps} 

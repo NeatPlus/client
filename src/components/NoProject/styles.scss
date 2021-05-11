@@ -7,6 +7,9 @@
 
     .title {
         align-self: flex-start;
+        font-family: var(--font-family-header);
+        font-weight: 600;
+        font-size: var(--font-size-large);
     }
 
     .content {

@@ -2,6 +2,7 @@ import {useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import {BsPlus} from 'react-icons/bs';
+import {BiChevronLeft} from 'react-icons/bi';
 
 import Button from 'components/Button';
 import TakeSurveyModal from 'components/TakeSurveyModal';
@@ -18,7 +19,9 @@ const NoSurveys = () => {
 
     return (
         <div className={styles.container}>
-            <Link to="/projects" className={styles.backLink}>Back to Projects</Link>
+            <Link to="/projects" className={styles.backLink}>
+                <BiChevronLeft size={22} className={styles.backIcon} /> Back to Projects
+            </Link>
             <main className={styles.content}>
                 <div className={styles.takeSurveyBox}>
                     <img src={noSurveyImage} alt="No Surveys" className={styles.infoImage} />

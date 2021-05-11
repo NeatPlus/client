@@ -12,6 +12,17 @@
         font-size: var(--font-size-small);
         color: var(--color-dark);
         font-weight: 500;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+
+        &:hover {
+            filter: opacity(80%);
+        }
+
+        .back-icon {
+            margin-right: 12px;
+        }
     }
 
     .tabs {
@@ -21,6 +32,115 @@
         &-header {
             width: max-content;
             margin: 0 auto;
+        }
+    }
+}
+
+.summary-container {
+    flex: 1;
+    display: flex;
+    padding: 15px 0;
+    min-height: 60vh;
+
+    .surveys {
+        flex: 1;
+        margin-right: 15px;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        padding: 20px;
+
+        .survey-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .survey-title {
+                font-size: var(--font-size-medium);
+                color: var(--color-dark);
+                line-height: 1.5em;
+                font-weight: 700;
+            }
+
+            .button {
+                height: 35px;
+                display: flex;
+                align-items: center;
+                padding: 2px 14px;
+
+                &__icon {
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        .sub-title {
+            vertical-align: text-top;
+            font-size: var(--font-size-small);
+            color: var(--color-grey-dark);
+            margin-bottom: 20px;
+        }
+
+        .survey-table {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .overview {
+        flex: 2;
+        background-color: var(--color-white);
+        border-radius: 8px;
+        padding: 20px;
+
+        .overview-title {
+            font-size: var(--font-size-medium);
+            color: var(--color-dark);
+            line-height: 1.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .overview-content {
+            display: flex;
+
+            .concerns {
+                display: flex;
+                flex-direction: column;
+                margin-right: 48px;
+
+                &-title {
+                    font-size: var(--font-size-base);
+                    color: var(--color-dark);
+                    line-height: 1.5em;
+                    font-weight: 600;
+                }
+
+                &-table {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                &-chart {
+                    flex: 1;
+                }
+            }
+
+            .location {
+                display: flex;
+                flex-direction: column;
+
+                &-title {
+                    font-size: var(--font-size-base);
+                    color: var(--color-dark);
+                    line-height: 1.5em;
+                    font-weight: 600;
+                }
+
+                .map {
+                    flex: 1;
+                }
+            }
         }
     }
 }

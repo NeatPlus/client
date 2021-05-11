@@ -1,6 +1,36 @@
 .container {
     flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    padding: 25px 25px 0 25px;
+
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 13px;
+
+        .title {
+            font-family: var(--font-family-header);
+            font-weight: 600;
+            font-size: var(--font-size-large);
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-base);
+            width: 160px;
+
+            &-icon {
+                margin-right: 6px;
+            }
+        }
+    }
+
+    .content {
+        flex: 1;
+    }
 }
