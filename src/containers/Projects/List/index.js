@@ -38,16 +38,16 @@ const columns = [
 
 const maxRowsOptions = [
     {
-        label: '2',
-        value: 2,
-    },
-    {
-        label: '3',
-        value: 3,
-    },
-    {
         label: '10',
         value: 10,
+    },
+    {
+        label: '20',
+        value: 20,
+    },
+    {
+        label: '50',
+        value: 50,
     },
 ];
 

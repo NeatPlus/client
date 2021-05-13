@@ -52,6 +52,22 @@
                         font-size: var(--font-size-small);
                         font-weight: 600;
                         color: var(--color-grey);
+
+                        &:nth-child(1) {
+                            width: 22%;
+                        }
+
+                        &:nth-child(2) {
+                            width: 28%;
+                        }
+
+                        &:nth-child(3) {
+                            width: 10%;
+                        }
+
+                        &:nth-child(4) {
+                            width: 20%;
+                        }
                     }
                 }
             }

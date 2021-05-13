@@ -1,0 +1,125 @@
+.surveys {
+    flex: 1;
+    margin-right: 15px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .survey-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .survey-title {
+            font-size: var(--font-size-medium);
+            color: var(--color-dark);
+            line-height: 1.5em;
+            font-weight: 700;
+        }
+
+        .button {
+            align-self: center;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            padding: 2px 14px;
+
+            &__icon {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .sub-title {
+        vertical-align: text-top;
+        font-size: var(--font-size-small);
+        color: var(--color-grey-dark);
+        margin-bottom: 20px;
+    }
+
+    .survey-table {
+        display: flex;
+        flex-direction: column;
+
+        .table {
+            border: none;
+            border-collapse: collapse;
+            background-color: var(--color-white);
+            width: 100%;
+
+            .table-header {
+                background-color: var(--color-background);
+
+                .header__row {
+                    th {
+                        border: none;
+                        padding: 10px;
+                        text-align: left;
+                        line-height: 2em;
+                        font-size: var(--font-size-small);
+                        font-weight: 600;
+                        color: var(--color-grey);
+
+                        &:nth-child(1) {
+                            width: 50%;
+                        }
+
+                        &:nth-child(2) {
+                            width: 35%;
+                        }
+
+                        &:nth-child(3) {
+                            width: 15%;
+                        }
+                    }
+                }
+            }
+
+            .table-body {
+                .body__row {
+                    border: none;
+                    border-bottom: 1px solid #e2e2e2;
+
+                    &:hover {
+                        background-color: #ebf5fd;
+                    }
+
+                    .name-item {
+                        font-size: var(--font-size-small);
+                        font-weight: 500;
+                    }
+
+                    td {
+                        border: none;
+                        padding: 10px;
+                        font-size: var(--font-size-small);
+                        line-height: 2em;
+                        color: var(--color-dark-alt);
+                    }
+                }
+            }
+        }
+    }
+
+    .button-bottom {
+        margin-top: 36px;
+        font-weight: 600;
+        font-size: var(--font-size-small);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 20px;
+        border-color: var(--color-light);
+
+        &-icon {
+            margin-left: 12px;
+        }
+
+        &:hover:not(:active) {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+    }
+}

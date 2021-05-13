@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "topic": "Affected Community",
+        "high": 23,
+        "medium": 34,
+        "low": 40,
+        "total": 97
+    },
+    {
+        "id": 2,
+        "topic": "Affected Community",
+        "high": 23,
+        "medium": 34,
+        "low": 40,
+        "total": 97
+    },
+    {
+        "id": 3,
+        "topic": "Affected Community",
+        "high": 23,
+        "medium": 34,
+        "low": 40,
+        "total": 97
+    },
+    {
+        "id": 4,
+        "topic": "Affected Community",
+        "high": 23,
+        "medium": 34,
+        "low": 40,
+        "total": 97
+    }
+]
