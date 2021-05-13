@@ -1,0 +1,17 @@
+.visibility-icon {
+    margin-right: 12px;
+}
+
+.icon {
+    &-public {
+        color: var(--color-primary-alt);
+    }
+
+    &-private {
+        color: #ff964a;
+    }
+}
+
+.menu-icon {
+    color: var(--color-grey);
+}

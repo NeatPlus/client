@@ -1,14 +1,14 @@
 import {useCallback, useState} from 'react';
 import {Link, useLocation, useParams, useHistory} from 'react-router-dom';
-import {BsPlus} from 'react-icons/bs';
 import {BiChevronLeft} from 'react-icons/bi';
 
-import Button from 'components/Button';
 import {withNoSurvey} from 'components/NoSurvey';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import Tabs, {Tab} from 'components/Tabs';
 
 import Surveys from 'containers/Surveys';
+import SurveyTable from './SurveyTable';
+import ConcernsTable from './ConcernsTable';
 
 import styles from './styles.scss';
 
@@ -46,25 +46,14 @@ const ProjectDashboard = withNoSurvey(() => {
             >
                 <Tab label="summary" title="Summary">
                     <div className={styles.summaryContainer}>
-                        <div className={styles.surveys}>
-                            <div className={styles.surveyHeader}>
-                                <h3 className={styles.surveyTitle}>Surveys</h3>
-                                <Button outline onClick={handleShowTakeSurveyModal} className={styles.button}>
-                                    <BsPlus size={20} className={styles.buttonIcon} /> Take Survey
-                                </Button>
-                            </div>
-                            <p className={styles.subTitle}>10 surveys</p>
-                            <div className={styles.surveyTable}>
-                                SURVEYS TABLE
-                            </div>
-                        </div>
+                        <SurveyTable onTakeSurveyClick={handleShowTakeSurveyModal} />
                         <div className={styles.overview}>
                             <h3 className={styles.overviewTitle}>Overview</h3>
                             <div className={styles.overviewContent}>
                                 <div className={styles.concerns}>
                                     <h4 className={styles.concernsTitle}>Top concerns category</h4>
                                     <div className={styles.concernsTable}>
-                                        CONCERNS TABLE
+                                        <ConcernsTable />
                                     </div>
                                     <div className={styles.concernsChart}>
                                         CONCERNS CHART
