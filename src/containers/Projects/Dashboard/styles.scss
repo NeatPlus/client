@@ -52,7 +52,7 @@
             font-size: var(--font-size-medium);
             color: var(--color-dark);
             line-height: 1.5em;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-weight: 700;
         }
 
@@ -60,10 +60,12 @@
             display: flex;
 
             .concerns {
+                min-width: 420px;
                 flex: 6;
                 display: flex;
                 flex-direction: column;
                 margin-right: 48px;
+                justify-content: space-between;
 
                 &-title {
                     font-size: var(--font-size-base);
@@ -77,6 +79,7 @@
                 }
 
                 &-chart {
+                    width: 100%;
                     flex: 1;
                 }
             }
@@ -91,10 +94,13 @@
                     color: var(--color-dark);
                     line-height: 1.5em;
                     font-weight: 600;
+                    margin-bottom: 20px;
                 }
 
                 .map {
                     flex: 1;
+                    min-width: 366px;
+                    min-height: 500px;
                 }
             }
         }

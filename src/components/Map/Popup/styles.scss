@@ -1,0 +1,21 @@
+.popup {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+
+    .data-item {
+        margin: 7px 0;
+
+        &__label {
+            font-size: var(--font-size-tiny);
+            text-transform: uppercase;
+            color: var(--color-grey);
+        }
+
+        &__value {
+            font-size: var(--font-size-small);
+            font-weight: 500;
+            color: var(--color-dark);
+        }
+    }
+}

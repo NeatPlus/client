@@ -1,0 +1,52 @@
+.description-value {
+    font-size: var(--font-size-header-sm);
+    font-weight: 600;
+}
+
+.description-text {
+    font-size: var(--font-size-small);
+}
+
+.label-percent {
+    font-size: var(--font-size-large);
+    font-weight: 600;
+}
+
+.label-text {
+    font-size: var(--font-size-small);
+}
+
+.legend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+
+    .legend-item {
+        flex: 1;
+        font-size: var(--font-size-tiny);
+        color: var(--color-grey-dark-alt);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .legend-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 7px;
+            margin-right: 10px;
+        }
+    }
+}
+
+.tooltip {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: var(--color-white);
+    box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    &-label {
+        font-size: var(--font-size-small);
+    }
+}
