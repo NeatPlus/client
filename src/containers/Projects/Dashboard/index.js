@@ -5,10 +5,12 @@ import {BiChevronLeft} from 'react-icons/bi';
 import {withNoSurvey} from 'components/NoSurvey';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import Tabs, {Tab} from 'components/Tabs';
+import Map from 'components/Map';
+import ConcernsTable from 'components/Concerns/Table';
+import ConcernsChart from 'components/Concerns/Chart';
 
 import Surveys from 'containers/Surveys';
 import SurveyTable from './SurveyTable';
-import ConcernsTable from './ConcernsTable';
 
 import styles from './styles.scss';
 
@@ -51,18 +53,18 @@ const ProjectDashboard = withNoSurvey(() => {
                             <h3 className={styles.overviewTitle}>Overview</h3>
                             <div className={styles.overviewContent}>
                                 <div className={styles.concerns}>
-                                    <h4 className={styles.concernsTitle}>Top concerns category</h4>
+                                    <h4 className={styles.concernsTitle}>Top concerns topics</h4>
                                     <div className={styles.concernsTable}>
                                         <ConcernsTable />
                                     </div>
                                     <div className={styles.concernsChart}>
-                                        CONCERNS CHART
+                                        <ConcernsChart />
                                     </div>
                                 </div>
                                 <div className={styles.location}>
                                     <h4 className={styles.locationTitle}>Number of issues of concern by location</h4>
                                     <div className={styles.map}>
-                                        MAP
+                                        <Map />
                                     </div>
                                 </div>
                             </div>
