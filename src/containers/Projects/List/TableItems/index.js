@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import OptionsDropdown from 'components/OptionsDropdown';
 import {PublicIcon, OrganizationIcon, PrivateIcon} from 'components/Icons';
@@ -14,11 +14,9 @@ export const HeaderItem = ({column}) => {
 };
 
 export const DataItem = ({item, column}) => {
-    const history = useHistory();
-
     const handleEditClick = useCallback(() => {
-        history.push(`/projects/${item.id}/`);
-    }, [history, item]);
+        // TODO: Edit Functionality
+    }, []);
 
     const handleCloneClick = useCallback(() => {
         // TODO: Clone Functionality
@@ -29,7 +27,14 @@ export const DataItem = ({item, column}) => {
     }, []);
 
     if(column.Header==='Name') {
-        return <span className={styles.nameItem}>{item[column.accessor]}</span>;
+        return (
+            <Link 
+                to={`/projects/${item.id}/`} 
+                className={styles.nameItem}
+            >
+                {item[column.accessor]}
+            </Link>
+        );
     }
     if(column.Header==='Options') {
         return <OptionsDropdown onEdit={handleEditClick} onClone={handleCloneClick} onDelete={handleDeleteClick} />;

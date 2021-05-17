@@ -11,7 +11,7 @@ const Surveys = () => {
             <div className={styles.content}>
                 <Switch>
                     <Route exact path="/projects/:projectId/surveys/:surveyId" component={SurveyDashboard}/>
-                    <Route exact path="/projects/:projectId/surveys" component={SurveyList} />
+                    <Route exact path="/projects/:projectId/surveys/" component={SurveyList} />
                 </Switch>
             </div>
         </div>

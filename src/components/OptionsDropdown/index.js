@@ -4,9 +4,14 @@ import Dropdown from '@ra/components/Dropdown';
 
 import styles from './styles.scss';
 
-const OptionsDropdown = ({onEdit, onClone, onDelete}) => {
+const OptionsDropdown = ({className, onEdit, onClone, onDelete}) => {
     return (
-        <Dropdown align="right" renderLabel={OptionsIcon} labelContainerClassName={styles.menuIconContainer}>
+        <Dropdown 
+            className={className} 
+            align="right" 
+            renderLabel={OptionsIcon} 
+            labelContainerClassName={styles.menuIconContainer}
+        >
             <ul className={styles.projectControls}>
                 {onEdit && (
                     <li className={styles.projectControlItem} onClick={onEdit}>

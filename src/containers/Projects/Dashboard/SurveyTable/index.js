@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
 import Button from 'components/Button';
@@ -33,18 +33,16 @@ const HeaderItem = ({column}) => {
 };
 
 export const DataItem = ({item, column}) => {
-    const history = useHistory();
-
     const handleEditClick = useCallback(() => {
-        history.push(`surveys/${item.id}/`);
-    }, [history, item]);
+        //TODO: Edit Survey Functionality
+    }, []);
 
     const handleDeleteClick = useCallback(() => {
         // TODO: Delete Survey Functionality
     }, []);
 
     if(column.Header==='Name') {
-        return <span className={styles.nameItem}>{item[column.accessor]}</span>;
+        return <Link to={`surveys/${item.id}`} className={styles.nameItem}>{item[column.accessor]}</Link>;
     }
     if(column.Header==='Options') {
         return (

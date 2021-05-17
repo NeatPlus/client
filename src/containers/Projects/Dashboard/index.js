@@ -25,7 +25,7 @@ const ProjectDashboard = withNoSurvey(() => {
 
     const handleTabChange = useCallback(({activeTab}) => {
         if(activeTab === 'summary') {
-            return history.push(`/projects/${projectId}`);
+            return history.push(`/projects/${projectId}/`);
         }
         return history.push(`/projects/${projectId}/surveys/`);
     }, [projectId, history]);
@@ -40,7 +40,7 @@ const ProjectDashboard = withNoSurvey(() => {
                 <BiChevronLeft size={22} className={styles.backIcon} /> Back to Projects
             </Link>
             <Tabs 
-                defaultActiveTab={location.pathname.includes('surveys') ? 'surveys' : 'summary'}
+                activeTab={location.pathname.includes('surveys') ? 'surveys' : 'summary'}
                 secondary 
                 className={styles.tabs} 
                 headerClassName={styles.tabsHeader}
