@@ -27,7 +27,7 @@ const ConcernsChart = () => {
         return (
             <g>
                 <text x={5} y={cy} className={styles.descriptionValue} fill="#292929" textAnchor="left" dominantBaseline="left">165</text>
-                <text x={5} y={cy+20} className={styles.descriptionText} fill="#292929" textAnchor="left"dominantBaseline="left">High Concerns</text>
+                <text x={5} y={cy+20} className={styles.descriptionText} fill="#292929" textAnchor="left" dominantBaseline="left">High Concerns</text>
                 <text x={cx} y={cy-innerRadius/4} className={styles.labelPercent} fill="#292929" textAnchor="middle" dominantBaseline="middle">
                     40%
                 </text>

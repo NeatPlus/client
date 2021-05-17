@@ -121,18 +121,6 @@
                         line-height: 1.25em;
                         outline-color: var(--color-primary-alt);
                         caret-color: var(--color-primary);
-
-                        &-select {
-                            background-color: var(--color-white);
-                        }
-
-                        &-select__control {
-                            height: 40px;
-                            background-color: transparent;
-                            cursor: pointer;
-                            display: flex;
-                            align-items: center;
-                        }
                     }
                 }
 

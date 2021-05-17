@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import Form from 'components/Form';
 import Button from 'components/Button';
@@ -7,25 +7,41 @@ import Label from '@ra/components/Form/Label';
 import Input from '@ra/components/Form/Input';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
 
+import useRequest from 'hooks/useRequest';
+import {dispatchLogin} from 'utils/dispatch';
+
 import logo from 'assets/images/logo-dark.svg';
 
 import styles from './styles.scss';
 
 const Login = () => {
+    const history = useHistory();
+
     const [inputData, setInputData] = useState({
         email: '',
         password: '',
     });
+
+    const [{loading}, loginUser] = useRequest('/jwt/create/', {method: 'POST'});
 
     const handleChange = useCallback(({name, value}) => setInputData({
         ...inputData,
         [name]: value
     }), [inputData]);
 
-    const handleLogin = useCallback(() => {
-        // TODO: Login
-        console.log(inputData);
-    }, [inputData]);
+    const handleLogin = useCallback(async () => {
+        const {email, password} = inputData;
+        try {
+            const result = await loginUser({username: email.toLowerCase(), password: password});
+            if(result) {
+                const {access, refresh} = result;
+                await dispatchLogin(access, refresh);
+                history.push('/projects');
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }, [inputData, history, loginUser]);
 
     return (
         <div className={styles.container}>
@@ -47,11 +63,13 @@ const Login = () => {
                             <Label className={styles.inputLabel}>Password</Label>
                             <SecureTextInput name="password" onChange={handleChange} className={styles.input} />
                         </div>
-                        <Button className={styles.button}>Log in</Button>
+                        <Button loading={loading} className={styles.button}>
+                            Log in
+                        </Button>
                     </Form>
                     <Link className={styles.forgotLink} to="#">Forgot Password?</Link>
                     <p className={styles.text}>
-                    Don't have an account? <Link className={styles.link} to="/register">Register Now</Link>
+                        Don't have an account? <Link className={styles.link} to="/register">Register Now</Link>
                     </p>
                 </div>
                 <div className={styles.bottomLinks}>

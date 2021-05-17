@@ -6,10 +6,8 @@ import Button from 'components/Button';
 
 import Label from '@ra/components/Form/Label';
 import Input from '@ra/components/Form/Input';
-import {TextInput, SecureTextInput, SelectInput, CheckboxInput} from '@ra/components/Form/inputs';
+import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
 import logo from 'assets/images/logo-dark.svg';
-
-import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
@@ -31,7 +29,7 @@ const Register = () => {
     const handleCheck = useCallback(({checked}) => setAcceptTerms(checked), []);
     
     const handleRegister = useCallback(() => {
-        // TODO: Register
+        // TODO: Register -> username same as email
         console.log(inputData);
     }, [inputData]);
 
@@ -78,17 +76,12 @@ const Register = () => {
                             <SecureTextInput name="password" className={styles.input} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <Label name="organization" onChange={handleChange} className={styles.inputLabel}>Organization</Label>
-                            <TextInput className={styles.input} />
+                            <Label className={styles.inputLabel}>Organization</Label>
+                            <TextInput name="organization" onChange={handleChange} className={styles.input} />
                         </div>
                         <div className={styles.inputGroup}>
                             <Label className={styles.inputLabel}>What is your role?</Label>
-                            <SelectInput 
-                                searchable={false}
-                                placeholder="Select your role in the company" 
-                                className={cs(styles.input, styles.inputSelect)} 
-                                controlClassName={styles.inputSelectControl}
-                            />
+                            <TextInput name="role" onChange={handleChange} className={styles.input} />
                         </div>
                         <div className={styles.termsInput}>
                             <CheckboxInput id="termsCheckbox" onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />

@@ -1,10 +1,10 @@
-import {useRef, useReducer, useEffect} from 'react';
+import {useReducer, useCallback} from 'react';
 
 import {request} from 'services/api';
 
-const useRequest = (url, options, body) => {
-    const cache = useRef({});
+let apiVersion = process.env.REACT_APP_API_VERSION || 'v1';
 
+const useRequest = (url, options, body) => {
     const initialState = {
         loading: false,
         error: false,
@@ -25,57 +25,46 @@ const useRequest = (url, options, body) => {
         }
     }, initialState);
 
-    useEffect(() => {
-        let cancelRequest = false;
+    const callApi = useCallback(async (body, callOptions) => {
+        const shouldReturnData = options?.method && options?.method !== 'GET';
+
         if(!url) {
             return;
         }
 
-        const fetchData = async () => {
-            dispatch({type: 'FETCHING'});
-            if(cache.current[url]) {
-                const {data, response} = cache.current[url];
-                dispatch({type: 'FETCHED', data, response});
-            } else {
-                try {
-                    let requestOptions = {};
-                    if(options?.method && options?.method!=='GET') {
-                        requestOptions = {
-                            method: options.method,
-                            headers: options.headers || {'content-type': 'application/json'},
-                            body: options.headers ? body : JSON.stringify(body), 
-                        };
-                    }
-                    const {error, data, response} = await request(`/api/v1${url}`, requestOptions);
-                    cache.current[url] = {data, response};
-                    if(cancelRequest) {
-                        return;
-                    }
-                    if(response.status === 500) {
-                        throw new Error('500 Internal Server Error');
-                    }
-                    if(error) {
-                        console.log(data);
-                        throw data || new Error('Request Error');
-                    }
-                    dispatch({type: 'FETCHED', data, response});
-                } catch (err) {
-                    if(cancelRequest) {
-                        return;
-                    }
-                    dispatch({type: 'FETCH_ERROR', err});
-                }
+        dispatch({type: 'FETCHING'});
+        try {
+            let requestOptions = {};
+            if(options?.method && options?.method!=='GET') {
+                requestOptions = {
+                    method: options.method,
+                    headers: options.headers || {'content-type': 'application/json'},
+                    body: options.headers ? body : JSON.stringify(body), 
+                };
             }
-        };
+            const {error, data, response} = await request(`/api/${apiVersion}${url}`, requestOptions);
+            if(response.status === 500) {
+                throw new Error('500 Internal Server Error');
+            }
+            if(error || !response.ok) {
+                throw data || new Error('Request Error');
+            }
+            dispatch({type: 'FETCHED', data, response});
+            if(shouldReturnData) {
+                return data;
+            }
+        } catch (err) {
+            dispatch({type: 'FETCH_ERROR', err});
+            if(shouldReturnData) {
+                throw err;
+            }
+        }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [url, options],
+    );
 
-        fetchData();
-
-        return () => {
-            cancelRequest=true;
-        };
-    }, [url, options, body]);
-
-    return state;
+    return [state, callApi];
 };
 
 export default useRequest;
