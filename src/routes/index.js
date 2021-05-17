@@ -1,13 +1,12 @@
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import {PrivateRoute} from '@ra/auth/PrivateRoute';
+import { PrivateRoute } from '@ra/auth/PrivateRoute';
 import Toast from 'components/Toast';
-
 import Home from 'containers/Home';
 import Login from 'containers/Login';
 import Register from 'containers/Register';
 import Projects from 'containers/Projects';
+import Account from 'containers/Account';
 
 const Routes = () => {
     const { isAuthenticated } = useSelector(state => state.auth);
@@ -19,6 +18,7 @@ const Routes = () => {
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated || true} /> {/* FIXME: Use actual auth state*/}
                 <Route exact path="/" component={Home} />
+                <PrivateRoute path="/account" component={Account} isAuthenticated={isAuthenticated || true} />
             </Switch>
             <Toast />
         </>

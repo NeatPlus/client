@@ -1,0 +1,25 @@
+.accordion {
+    background-color: var(--color-white);
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+    .accordion-trigger {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 20px;
+        color: var(--color-primary);
+    }
+
+    .accordion-text {
+        color: var(--color--black);
+        padding: 0 15px 15px 15px;
+    }
+
+    .close-icon {
+        color: #737373;
+        background-color: var(--color-light-alt);
+        border-radius: 50%;
+        padding: 5px;
+    }
+}

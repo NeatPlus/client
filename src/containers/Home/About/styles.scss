@@ -1,0 +1,66 @@
+.about-section {
+    padding: 120px 130px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--color-white);
+  
+    .about-detail {
+        margin-bottom: 10px;
+
+        .title {
+            font-size: var(--font-size-large-alt);
+            line-height: 62px;
+            margin-bottom: 20px;
+            color: var(--color-tertiary);
+        }
+
+        .about-para {
+            font-size: var(--font-size-base);
+            line-height: 24px;
+            color: #292929;
+        }
+    }
+
+    .learn-more {
+        .learn-more-link {
+            margin-top: 10px;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            font-size: var(--font-size-base);
+            line-height: 24px;
+        }
+
+        .learn-more-icon {
+            margin-left: 10px;
+        }
+    }
+
+    .info-list {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+
+        .info-list-item {
+            display: grid;
+            grid-template-columns: 1fr 7fr;
+            justify-content: space-between;
+            padding: 10px;
+
+            .reason-title {
+                font-size: 20px;
+                margin-bottom: 10px;
+                line-height: 42px;
+                color: #314f6a;
+            }
+        }
+    }
+
+    .info-visual {
+        display: grid;
+        justify-content: right;
+
+        .infoImage {
+            max-height: 600px;
+        }
+    }
+}

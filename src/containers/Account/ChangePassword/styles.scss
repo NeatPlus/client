@@ -1,0 +1,83 @@
+.details {
+    color: var(--color-black);
+    padding: 20px;
+
+    .account-info {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 20px;
+
+        .save-btn {
+            background-color: var(--color-primary);
+            border-radius: 4px;
+            color: var(--color-white);
+            border: none;
+            font-size: var(--font-family-base);
+            line-height: 20px;
+            padding: 12px 25px;
+        }
+
+        .user-info {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: 1fr 2fr;
+            align-items: center;
+
+            .user-name {
+                padding-left: 10px;
+                font-size: var(--font-size-base);
+            }
+
+            .user-avatar {
+                width: 42px;
+                height: 42px;
+                border-radius: 21px;
+                font-size: 18px;
+                line-height: 31px;
+                color: #c0d0de;
+                background-color: #182c3d;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.edit-form {
+    display: grid;
+    grid-template-rows: 1fr;
+    margin-top: 30px;
+
+    .input-label {
+        font-size: var(--font-size-small);
+        color: var(--color-grey);
+        line-height: 1.375em;
+        margin-bottom: 7px;
+    }
+
+    .input {
+        color: var(--color-dark);
+        font-size: var(--font-size-base);
+        line-height: 1.25em;
+        outline-color: var(--color-primary-alt);
+        caret-color: var(--color-primary);
+        background-color: var(--color-white);
+    }
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .forgot-password-link {
+        color: var(--color-primary);
+        text-decoration: none;
+        font-size: var(--font-size-small);
+        padding: 5px 0 20px 0;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

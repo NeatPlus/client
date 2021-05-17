@@ -1,18 +1,18 @@
-import {Link} from 'react-router-dom';
 
-import styles from './styles.scss';
-
-import Button from 'components/Button';
+import Header from './Header';
+import About from './About';
+import Feature from './Feature';
+import AppInfo from './AppInfo';
+import Footer from './Footer';
 
 const Home = () => {
     return (
-        <div className={styles.containerHome}>
-            <Link to="/login">
-                <Button className={styles.button}>Go to Login</Button>
-            </Link>
-            <Link to="/projects">
-                <Button className={styles.button}>Go to projects</Button>
-            </Link>
+        <div>
+            <Header />
+            <About />
+            <Feature />
+            <AppInfo />
+            <Footer />
         </div>
     );
 };

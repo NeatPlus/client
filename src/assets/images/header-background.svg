@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1366" height="862.986" viewBox="0 0 1366 862.986">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Path_411" fill="#1f405d" d="M0 0h1366v593.114L0 862.986z"/>
+        </clipPath>
+        <style>
+            .cls-11,.cls-3{fill:none}.cls-3{stroke:#314f6a}.cls-4{fill:#314f6a}.cls-6{fill:#fff;opacity:.324}.cls-10{stroke:none}
+        </style>
+    </defs>
+    <g id="Mask_Group_7" clip-path="url(#clip-path)" opacity="0.698">
+        <g id="Group_657">
+            <g id="Group_4">
+                <g id="Rectangle_5" class="cls-3" transform="rotate(32 864.717 -209.183)">
+                    <rect width="601" height="1328.167" class="cls-10" rx="105"/>
+                    <rect width="600" height="1327.167" x=".5" y=".5" class="cls-11" rx="104.5"/>
+                </g>
+                <g id="Group_3" transform="translate(122)">
+                    <g id="Rectangle_7" class="cls-3" transform="rotate(32 1262.363 2078.662)">
+                        <rect width="601" height="874" class="cls-10" rx="105"/>
+                        <rect width="600" height="873" x=".5" y=".5" class="cls-11" rx="104.5"/>
+                    </g>
+                </g>
+                <g id="Rectangle_6" class="cls-3" transform="rotate(32 1071.437 -17.299)">
+                    <rect width="859.422" height="950" class="cls-10" rx="105"/>
+                    <rect width="858.422" height="949" x=".5" y=".5" class="cls-11" rx="104.5"/>
+                </g>
+            </g>
+            <g id="Group_6" transform="translate(-199.504 77.496)">
+                <circle id="Ellipse_1" cx="10.5" cy="10.5" r="10.5" class="cls-4" transform="translate(525.504 48.504)"/>
+                <g id="Group_5" opacity="0.521" transform="translate(530.832 54.187)">
+                    <path id="Path_3" d="M0 0h2.353v10.343H0z" class="cls-6" transform="rotate(-90 3.174 3.174)"/>
+                    <path id="Path_4" d="M0 0h2.353v10.343H0z" class="cls-6" transform="translate(3.995)"/>
+                </g>
+            </g>
+            <g id="Group_9" transform="translate(531.02 142.02)">
+                <circle id="Ellipse_1-2" cx="11.5" cy="11.5" r="11.5" class="cls-4" transform="translate(525.98 48.98)"/>
+                <g id="Group_5-2" opacity="0.552" transform="translate(531.545 54.953)">
+                    <path id="Path_3-2" d="M0 0h2.7v11.869H0z" class="cls-6" transform="rotate(-90 3.643 3.643)"/>
+                    <path id="Path_4-2" d="M0 0h2.7v11.869H0z" class="cls-6" transform="translate(4.585)"/>
+                </g>
+            </g>
+            <g id="Group_7" transform="translate(-508.641 410.359)">
+                <circle id="Ellipse_1-3" cx="9.5" cy="9.5" r="9.5" class="cls-4" transform="translate(525.641 48.641)"/>
+                <g id="Group_5-3" opacity="0.682" transform="translate(530.416 53.74)">
+                    <path id="Path_3-3" d="M0 0h2.15v9.451H0z" class="cls-6" transform="rotate(-90 2.9 2.9)"/>
+                    <path id="Path_4-3" d="M0 0h2.15v9.451H0z" class="cls-6" transform="translate(3.651)"/>
+                </g>
+            </g>
+            <g id="Group_8" transform="translate(84 233)">
+                <circle id="Ellipse_1-4" cx="13.5" cy="13.5" r="13.5" class="cls-4" transform="translate(526 49)"/>
+                <g id="Group_5-4" opacity="0.715" transform="translate(1.747 2.724)">
+                    <path id="Path_3-4" d="M0 0h3.175v13.958H0z" class="cls-6" transform="rotate(-90 296.308 -234.466)"/>
+                    <path id="Path_4-4" d="M0 0h3.175v13.958H0z" class="cls-6" transform="translate(536.165 53.276)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

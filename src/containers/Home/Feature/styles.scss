@@ -1,0 +1,75 @@
+.neat-feature {
+    padding: 120px 130px;
+    background-color: var(--color-light-alt);
+    padding-top: 80px;
+    padding-bottom: 100px;
+
+    .title {
+        font-size: var(--font-size-large-alt);
+        line-height: 40px;
+        color: var(--color-tertiary);
+        margin-bottom: 25px;
+    }
+
+    .neat-feature-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .main-para {
+        font-size: 20px;
+        line-height: 30px;
+        color: #404040;
+        font-weight: 500;
+        padding-bottom: 30px;
+    }
+
+    .neat-feature-cards {
+        display: grid;
+        padding: 20px;
+        grid-template-columns: 1fr 1fr;
+
+        .feature {
+            margin: 1em;
+            border: 3px solid white;
+            background-color: rgba(255, 255, 255, 0.42);
+            border-radius: 10px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+
+            .card-body {
+                margin-left: 35px;
+
+                .card-heading {
+                    font-size: 20px;
+                    line-height: 24px;
+                    padding-bottom: 15px;
+                }
+
+                .card-text {
+                    font-size: var(--font-size-base);
+                    line-height: 24px;
+                    color: #404040;
+                }
+            }
+        }
+    }
+
+    .neat-app-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 50px;
+
+        .app-info-para {
+            font-size: var(--font-size-base);
+            line-height: 24px;
+            text-align: left;
+        }
+
+        .visual {
+            display: grid;
+            justify-content: center;
+        }
+    }
+}
