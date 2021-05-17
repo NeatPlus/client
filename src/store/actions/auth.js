@@ -5,7 +5,7 @@ export const LOGOUT='LOGOUT';
 export const SET_TOKEN='SET_TOKEN';
 export const SET_REFRESH_TOKEN='SET_REFRESH_TOKEN';
 
-export function hasLoggedIn() {
+export function login() {
     return { type: LOGIN };
 }
 

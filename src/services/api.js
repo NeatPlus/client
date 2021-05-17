@@ -25,8 +25,8 @@ const RefreshTokenInterceptor = async res => {
 
 let apiVersion = process.env.REACT_APP_API_VERSION || 'v1';
 
-const request = new RequestBuilder(process.env.REACT_APP_API_BASE_URL)
-    .setRequestInterceptors([TokenInterceptor])
+export const request = new RequestBuilder(process.env.REACT_APP_API_BASE_URL)
+    .setRequestInterceptors([TokenInterceptor, console.log])
     .setResponseInterceptors([RefreshTokenInterceptor, console.log])
     .setRetryConfig({backoffFactor: 0, maxRetries: 2})
     .build();
@@ -129,6 +129,10 @@ class Api {
             dispatch(authActions.logout());
             console.log(error);
         }
+    }
+
+    async getUser() {
+        return await this.get('/user/me/');
     }
 }
 
