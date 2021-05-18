@@ -118,6 +118,7 @@ const SurveyList = () => {
                         defaultValue={maxRows}
                         clearable={false}
                         searchable={false}
+                        optionsDirection="up"
                     />
                     Rows
                 </div>
