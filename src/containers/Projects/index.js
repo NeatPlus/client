@@ -2,6 +2,7 @@ import {Route, Switch} from 'react-router-dom';
 
 import UserNav from 'components/UserNav';
 
+import SurveyDashboard from 'containers/Surveys/Dashboard';
 import List from './List';
 import Dashboard from './Dashboard';
 
@@ -14,6 +15,7 @@ const Projects = () => {
             <div className={styles.content}>
                 <Switch>
                     <Route exact path='/projects/' component={List} />
+                    <Route exact path='/projects/:projectId/surveys/:surveyId' component={SurveyDashboard} />
                     <Route exact path='/projects/:projectId/surveys' component={Dashboard} />
                     <Route path='/projects/:projectId' component={Dashboard} />
                 </Switch>

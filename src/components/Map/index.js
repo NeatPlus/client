@@ -9,7 +9,7 @@ const navControlStyle = {
     top: 10,
 };
 
-const Map = () => {
+const Map = ({showPopup}) => {
     const [viewport, setViewport] = useState({
         width: '100%',
         height: '100%',
@@ -25,11 +25,11 @@ const Map = () => {
             onViewportChange={setViewport}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_TOKEN}
             mapOptions={{
-                logoPosition: 'top-left',
+                logoPosition: showPopup ? 'top-left' : 'bottom-left',
             }}
         >
             <NavigationControl style={navControlStyle} showCompass={false} />
-            <Popup className={styles.popup} />
+            {showPopup && <Popup className={styles.popup} />}
         </ReactMapGL>
     );
 };

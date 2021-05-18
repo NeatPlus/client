@@ -1,4 +1,48 @@
 .container {
     flex: 1;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 25px 0 25px;
+
+    .back-link {
+        align-self: flex-start;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: var(--font-size-small);
+        color: var(--color-dark);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+
+        &:hover {
+            filter: opacity(80%);
+        }
+
+        .back-icon {
+            margin-right: 12px;
+        }
+    }
+
+    .tabs {
+        flex: 1;
+        align-self: stretch;
+
+        &-header {
+            width: max-content;
+            margin: 0 auto;
+            display: flex;
+            min-width: 50vw;
+            box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
+            
+            .header-item {
+                flex: 1;
+            }
+        }
+
+        .tab-content {
+            margin: 16px 0;
+        }
+    }
 }

@@ -9,7 +9,7 @@ import Map from 'components/Map';
 import ConcernsTable from 'components/Concerns/Table';
 import ConcernsChart from 'components/Concerns/Chart';
 
-import Surveys from 'containers/Surveys';
+import SurveyList from 'containers/Surveys/List';
 import SurveyTable from './SurveyTable';
 
 import styles from './styles.scss';
@@ -64,7 +64,7 @@ const ProjectDashboard = withNoSurvey(() => {
                                 <div className={styles.location}>
                                     <h4 className={styles.locationTitle}>Number of issues of concern by location</h4>
                                     <div className={styles.map}>
-                                        <Map />
+                                        <Map showPopup />
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@ const ProjectDashboard = withNoSurvey(() => {
                     </div>
                 </Tab>
                 <Tab label="surveys" title="Surveys">
-                    <Surveys />
+                    <SurveyList />
                 </Tab>
             </Tabs>
             <TakeSurveyModal isVisible={showTakeSurveyModal} onComplete={handleSurveyComplete} onClose={handleHideTakeSurveyModal} />
