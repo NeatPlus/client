@@ -1,8 +1,8 @@
 import {useCallback, useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import {MdClose} from 'react-icons/md';
 
-import Form from 'components/Form';
+import Form, {InputField} from '@ra/components/Form';
+
 import Button from 'components/Button';
 import RadioInput from 'components/RadioInput';
 import Modal from '@ra/components/Modal';
@@ -15,20 +15,16 @@ import cs from '@ra/cs';
 import styles from './styles.scss';
 
 const CreateProjectModal = props => {
-    const history = useHistory();
-
     const {isVisible, onClose} = props;
 
     const [visibility, setVisibility] = useState(null);
 
     const handleVisibilitySelect = useCallback(value => setVisibility(value), []);
 
-    const handleCreateProject = useCallback(() => {
+    const handleCreateProject = useCallback((formData) => {
+        console.log(formData);
         // TODO: Create Project and Get Project Id
-        const projectId = 1;
-        onClose && onClose();
-        history.push(`/projects/${projectId}`);
-    }, [onClose, history]);
+    }, []);
 
     if(!isVisible) {
         return null;
@@ -42,24 +38,36 @@ const CreateProjectModal = props => {
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div> 
-            <Form className={styles.content}>
-                <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>Name</Label>
-                    <TextInput className={styles.input} /> 
-                </div>
-                <div className={styles.inputGroup}>
-                    {/* TODO: Info Icon */}
-                    <Label className={styles.inputLabel}>Organization</Label>
-                    <TextInput className={styles.input} />
-                </div>
-                <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>Description</Label>
-                    <textarea className={cs(styles.input, styles.inputArea)} rows={4} cols={5} />
-                </div>
+            <Form className={styles.content} onSubmit={handleCreateProject}>
+                <InputField 
+                    name="name"
+                    component={TextInput}
+                    className={styles.input}
+                    label="Name"
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                />
+                <InputField 
+                    name="organization"
+                    component={TextInput}
+                    className={styles.input}
+                    label="Organization"
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                />                
+                <InputField 
+                    name="description"
+                    component="textarea"
+                    className={cs(styles.input, styles.inputArea)}
+                    rows={4}
+                    cols={5}
+                    label="Description"
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                />
                 <div className={styles.inputGroup}>
                     {/* TODO: Info Icon */}
                     <Label className={styles.inputLabel}>Visibility</Label>
-                    {/* FIXME: Fix radio inputs */}
                     <div className={styles.radioInputs}>
                         <RadioInput 
                             onCheck={handleVisibilitySelect} 
@@ -93,8 +101,8 @@ const CreateProjectModal = props => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <Button secondary className={styles.button} onClick={onClose}>Cancel</Button>
-                    <Button className={styles.button} onClick={handleCreateProject}>Create</Button>
+                    <Button type="button" secondary className={styles.button} onClick={onClose}>Cancel</Button>
+                    <Button className={styles.button}>Create</Button>
                 </div>
             </Form>
         </Modal>

@@ -1,10 +1,9 @@
-import {useState, useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 
-import Form from 'components/Form';
 import Button from 'components/Button';
-import Label from '@ra/components/Form/Label';
-import Input from '@ra/components/Form/Input';
+import Form, {InputField} from '@ra/components/Form';
+import TextInput from '@ra/components/Form/TextInput';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
 
 import useRequest from 'hooks/useRequest';
@@ -17,31 +16,23 @@ import styles from './styles.scss';
 const Login = () => {
     const history = useHistory();
 
-    const [inputData, setInputData] = useState({
-        email: '',
-        password: '',
-    });
-
+    const [error, setError] = useState(null);
     const [{loading}, loginUser] = useRequest('/jwt/create/', {method: 'POST'});
 
-    const handleChange = useCallback(({name, value}) => setInputData({
-        ...inputData,
-        [name]: value
-    }), [inputData]);
-
-    const handleLogin = useCallback(async () => {
-        const {email, password} = inputData;
+    const handleLogin = useCallback(async formData => {
+        const {username, password} = formData;
         try {
-            const result = await loginUser({username: email.toLowerCase(), password: password});
+            const result = await loginUser({username, password});
             if(result) {
                 const {access, refresh} = result;
                 await dispatchLogin(access, refresh);
-                history.push('/projects');
+                history.push('/projects/');
             }
         } catch(err) {
+            setError(err);
             console.log(err);
         }
-    }, [inputData, history, loginUser]);
+    }, [history, loginUser]);
 
     return (
         <div className={styles.container}>
@@ -54,15 +45,27 @@ const Login = () => {
                 <h2 className={styles.subTitle}>Welcome back!</h2>
                 <h1 className={styles.title}>Log in to Neat+</h1>
                 <div className={styles.loginContainer}>
-                    <Form onSubmit={handleLogin} className={styles.loginForm}>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Email or Username</Label>
-                            <Input name="email" onChange={handleChange} type="email" className={styles.input} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Password</Label>
-                            <SecureTextInput name="password" onChange={handleChange} className={styles.input} />
-                        </div>
+                    <Form 
+                        error={error} 
+                        onSubmit={handleLogin} 
+                        className={styles.loginForm}
+                    >
+                        <InputField 
+                            label="Email or Username" 
+                            component={TextInput} 
+                            name="username" 
+                            className={styles.input} 
+                            labelClassName={styles.inputLabel} 
+                            containerClassName={styles.inputGroup} 
+                        />
+                        <InputField
+                            label="Password"
+                            component={SecureTextInput}
+                            name="password"
+                            className={styles.input}
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
                         <Button loading={loading} className={styles.button}>
                             Log in
                         </Button>
