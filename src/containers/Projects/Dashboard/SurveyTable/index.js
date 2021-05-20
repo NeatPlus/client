@@ -55,7 +55,7 @@ export const DataItem = ({item, column}) => {
 const SurveyTable = ({onTakeSurveyClick}) => {
     const history = useHistory();
 
-    const handleSurveysClick = useCallback(() => history.push('surveys'), [history]);
+    const handleSurveysClick = useCallback(() => history.push('surveys/'), [history]);
 
     return (
         <div className={styles.surveys}>

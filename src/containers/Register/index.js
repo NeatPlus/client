@@ -1,10 +1,9 @@
 import {useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 
-import Form from 'components/Form';
 import Button from 'components/Button';
 
-import Label from '@ra/components/Form/Label';
+import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
 import logo from 'assets/images/logo-dark.svg';
@@ -13,25 +12,13 @@ import styles from './styles.scss';
 
 const Register = () => {
     const [acceptTerms, setAcceptTerms] = useState(false);
-    const [inputData, setInputData] = useState({
-        fullName: '',
-        email: '',
-        password: '',
-        organization: '',
-        role: '',
-    });
-
-    const handleChange = useCallback(({name, value}) => setInputData({
-        ...inputData,
-        [name]: value
-    }), [inputData]);
-
+    
     const handleCheck = useCallback(({checked}) => setAcceptTerms(checked), []);
     
-    const handleRegister = useCallback(() => {
-        // TODO: Register -> username same as email
-        console.log(inputData);
-    }, [inputData]);
+    const handleRegister = useCallback((formData) => {
+        // TODO: Register
+        console.log(formData);
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -54,35 +41,56 @@ const Register = () => {
                     </div>
                     <Form onSubmit={handleRegister} className={styles.form}>
                         <h2 className={styles.formHeader}>Create your account</h2>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Full Name</Label>
-                            <TextInput
-                                name="fullName"
-                                onChange={handleChange}
-                                className={styles.input} 
-                            />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Email</Label>
-                            <Input 
-                                name="email"
-                                type="email"
-                                onChange={handleChange}
-                                className={styles.input}
-                            />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Enter Password</Label>
-                            <SecureTextInput name="password" className={styles.input} onChange={handleChange} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>Organization</Label>
-                            <TextInput name="organization" onChange={handleChange} className={styles.input} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <Label className={styles.inputLabel}>What is your role?</Label>
-                            <TextInput name="role" onChange={handleChange} className={styles.input} />
-                        </div>
+                        <InputField
+                            name="fullName"
+                            component={TextInput}
+                            className={styles.input}
+                            label="Full Name"
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
+                        <InputField
+                            name="username"
+                            info="Length can be between 5 to 20. Letters, digits and ./-/_ only."
+                            component={TextInput}
+                            className={styles.input}
+                            label="Pick a username"
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
+                        <InputField
+                            name="email"
+                            type="email"
+                            component={Input}
+                            className={styles.input}
+                            label="Email"
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
+                        <InputField
+                            name="password"
+                            component={SecureTextInput}
+                            className={styles.input}
+                            label="Enter Password"
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
+                        <InputField
+                            name="organization"
+                            component={TextInput}
+                            className={styles.input}
+                            label="Organization"
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
+                        <InputField
+                            name="role"
+                            component={TextInput}
+                            className={styles.input}
+                            label="What is your role?"
+                            labelClassName={styles.inputLabel}
+                            containerClassName={styles.inputGroup}
+                        />
                         <div className={styles.termsInput}>
                             <CheckboxInput id="termsCheckbox" onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
                             <label htmlFor="termsCheckbox" className={styles.termsInputLabel}>
