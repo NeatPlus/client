@@ -1,0 +1,169 @@
+.container {
+    padding: 15vh 7.5vw;
+
+    @media screen and  (max-width: 767px) {
+        padding: 10vh 7.5vw;
+    }
+
+    .work-title {
+        font-family: var(--font-family-header);
+        font-size: var(--font-size-large-alt);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--color-tertiary);
+    }
+    .work-desc {
+        width: 60vw;
+        margin-top: 1.57em;
+        font-size: var(--font-size-medium-sm);
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--color-dark-alt);
+
+        @media screen and  (max-width: 767px) {
+            width: 85vw;
+        }
+    }
+
+    .work-nav {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        margin-top: 3em;
+        padding: 2.5em 0;
+        border-radius: 0.5em;
+        background-color: var(--color-white);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+
+        @media screen and  (max-width: 767px) {
+            margin-top: 2em;
+            padding: 0.5em 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 12em;
+            z-index: 2;
+
+            .nav-id {
+                cursor: pointer;
+                height: 2em;
+                width: 2em;
+                border-radius: 50%;
+                background-color: var(--color-white);
+                color: #595959;
+                border: solid 2px #d9d9d9;
+                font-size: 1.75em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 0.2em;
+                transition: 0.4s;
+            }
+
+            .nav-title {
+                text-align: center;
+                color: var(--color-dark-alt);
+                transition: 0.4s;
+            }
+
+            &.active, &:hover {
+                .nav-id {
+                    border: solid 2px transparent;
+                    color: var(--color-white);
+                    background-color: var(--color-primary);
+                }
+                .nav-title {
+                    color: var(--color-primary);
+                }
+            }
+
+            @media screen and  (max-width: 767px) {
+                .nav-title {
+                    display: none;
+                }
+            }
+        }
+
+        .bar-line {
+            width: 25vw;
+            height: 3px;
+            background-color: var(--color-light);
+            margin-left: -6em;
+            margin-right: -6em;
+            margin-top: 1.75em;
+        }
+    }
+
+    .access-content {
+        margin-top: 7em;
+        margin-bottom: 5em;
+        display: flex;
+        flex-direction: row;
+
+        &:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        @media screen and  (max-width: 767px) {
+            margin-top: 3em;
+            flex-direction: column;
+
+            &:nth-child(even) {
+                flex-direction: column;
+            }
+        }
+
+        .access-info {
+            flex: 1;
+
+            .accessStep {
+                font-size: var(--font-size-small);
+                font-weight: 500;
+                line-height: 1.43;
+                color: var(--color-primary);
+            }
+
+            .accessTitle {
+                font-size: var(--font-size-large-sm);
+                font-weight: 600;
+                line-height: 1.31;
+                color: #292929;
+                margin-bottom: 1em;
+            }
+
+            .accessDesc {
+                font-size: var(--font-size-base);
+                line-height: 1.5;
+                color: #292929;
+            }
+
+            @media screen and  (max-width: 767px) {
+                padding-bottom: 2em;
+            }
+        }
+
+        .access-image-wrapper {
+            flex: 1;
+            height: max-content;
+
+            img {
+                width: 100%;
+                height: 20em;
+                object-fit: contain;
+
+                @media screen and  (max-width: 767px) {
+                    height: 15em;
+                }
+            }
+        }
+    }
+}
