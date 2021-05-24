@@ -47,6 +47,14 @@
 
         .footer-nav-list {
             color: var(--color-white);
+
+            @media screen and (max-width: 767px) {
+                margin-bottom: 1em;
+            }
+
+            @media screen and (max-width: 480px) {
+                text-align: center;
+            }
         }
 
         .footer-nav-title {
@@ -62,10 +70,10 @@
         }
 
         .footer-nav-item {
-            padding-bottom: 1.5em;
-
+            padding: 0 1.5em 1.5em 0;
+            
             &:last-child {
-                padding-bottom: 0;
+                padding: 0;
             }
 
             .footer-nav-link {
@@ -73,6 +81,10 @@
                 text-decoration: none;
                 font-size: 0.81em;
                 line-height: 1.54;
+
+                &:hover {
+                    color: var(--color-primary);
+                }
             }
         }
     }
