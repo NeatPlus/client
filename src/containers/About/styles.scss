@@ -1,0 +1,46 @@
+.container-about {
+    background-color: var(--color-background);
+
+    .header {
+        background-color: var(--color-background-dark);
+        display: grid;
+
+        .hero {
+            padding: 20vh 0 5vw 7.5vw;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 5em;
+
+            .hero-info {
+                .hero-title {
+                    font-family: var(--font-family-header);
+                    font-size: var(--font-size-header-sm);
+                    font-weight: 600;
+                    line-height: 1.35;
+                    color: var(--color-white);
+                }
+
+                .hero-desc {
+                    margin-top: 1.57em;
+                    font-size: var(--font-size-base);
+                    line-height: 1.5;
+                    color: var(--color-white);
+                }
+            }
+
+            .hero-image {
+                width: 100%;
+                max-height: 80vh;
+                object-fit: contain;
+            }
+
+            @media screen and  (max-width: 767px) {
+                padding: 20vh 7.5vw 15vh 7.5vw;
+
+                .hero-image {
+                    display: none;
+                }
+            }
+        }
+    }
+}
