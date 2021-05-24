@@ -1,12 +1,12 @@
 import {useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 
-import Button from 'components/Button';
+import logo from 'assets/images/logo-dark.svg';
 
+import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
-import logo from 'assets/images/logo-dark.svg';
 
 import styles from './styles.scss';
 

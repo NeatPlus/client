@@ -1,0 +1,111 @@
+.modal {
+    border-radius: 8px;
+    width: 29vw;
+    background-color: var(--color-light-alt);
+
+    .header {
+        padding: 20px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .arrow-icon {
+                cursor: pointer;
+                margin-left: -8px;
+            }
+
+            .title {
+                color: var(--color-tertiary);
+                font-size: var(--font-size-medium);
+                font-family: var(--font-family-header);
+                font-weight: 600;
+                line-height: 1.75em;
+            }
+        }
+
+        .close-container {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .close-icon {
+                color: var(--color-grey-dark-alt);
+            }
+        }
+    }
+
+    .content {
+        padding: 30px 25px;
+        background-color: var(--color-white);
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        border-radius: 0 0 8px 8px;
+        overflow-y: auto;
+
+        p {
+            font-size: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+
+            .input-label {
+                font-size: var(--font-size-small);
+                color: var(--color-grey);
+                line-height: 1.375em;
+                margin-bottom: 7px;
+            }
+
+            .otpContainer {
+                display: flex;
+                gap: 10px;
+            }
+
+            .otpInput {
+                width: 35px;
+                height: 35px;
+                text-align: center;
+                border: 1px solid var(--color-border);
+                border-radius: var(--border-radius-small);
+                color: var(--color-dark);
+                font-size: var(--font-size-base);
+                font-weight: bold;
+                line-height: 1.25em;
+                outline-color: var(--color-primary-alt);
+                caret-color: var(--color-primary);
+
+                &:focus,
+                &:hover {
+                    border: 1px solid var(--color-input-outline);
+                }
+            }
+        }
+
+        .resend {
+            margin-top: -10px;
+
+            a {
+                text-decoration: none;
+                color: var(--color-primary);
+                font-size: var(--font-size-small);
+            }
+        }
+
+        .button {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
