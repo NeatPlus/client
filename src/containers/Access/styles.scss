@@ -1,0 +1,136 @@
+.card {
+    width: 35%;
+    background-color: var(--color-white);
+    padding: 2em;
+    margin: 3.75em 0 7em;
+    border-radius: 0.5em;
+    box-shadow: 5px 20px 45px 0 rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    @media screen and  (max-width: 920px) {
+        width: 70%;
+    }
+
+    @media screen and  (max-width: 767px) {
+        width: 100%;
+    }
+    
+    .card-image {
+        height: 6.2em;
+    }
+
+    .card-title {
+        margin: 0.5em 0;
+        font-size: var(--font-size-large-sm);
+        font-weight: 600;
+        line-height: 1.31;
+        color: #292929;
+    }
+
+    .card-desc {
+        font-size: var(--font-size-base);
+        line-height: 1.5;
+        color: #292929;
+    }
+
+    .button {
+        margin-top: 1.5em;
+        display: flex;
+        align-items: center;
+
+        .button-icon {
+            margin-left: 0.5em;
+            font-size: var(--font-size-medium-lg);
+        }
+    }
+
+    .file-image {
+        margin-top: 2.5em;
+        height: 3.75em;
+        object-fit: contain;
+    }
+}
+
+.container {
+    background-color: var(--color-background);
+
+    .header {
+        background-color: var(--color-background-dark);
+        display: grid;
+
+        .hero {
+            padding: 25vh 7.5vw 15vh 7.5vw;
+
+            @media screen and  (max-width: 767px) {
+                padding: 15vh 7.5vw 10vh 7.5vw;
+            }
+
+            .hero-title {
+                font-family: var(--font-family-header);
+                font-size: var(--font-size-normal);
+                color: var(--color-primary);
+                font-weight: 500;
+                line-height: 2.89;
+            }
+
+            .hero-sub-title {
+                font-family: var(--font-family-header);
+                font-size: var(--font-size-header-sm);
+                font-weight: 600;
+                line-height: 1.35;
+                color: var(--color-white);
+            }
+
+            .card-wrapper {
+                display: flex;
+                justify-content: space-between;
+
+                @media screen and  (max-width: 920px) {
+                    flex-direction: column;
+                    align-items: center;
+
+                    .questionMark {
+                        height: 20em;
+                    }
+                }
+
+                @media screen and  (max-width: 767px) {
+                    .questionMark {
+                        height: 10em;
+                    }
+                }
+
+            }
+
+            .hero-desc {
+                padding: 0 5vw;
+                margin-top: 1.57em;
+                font-size: var(--font-size-base);
+                line-height: 1.5;
+                text-align: center;
+                color: var(--color-white);
+            }
+        }
+    }
+
+    .faqContent {
+        padding: 15vh 15vw;
+
+        @media screen and  (max-width: 767px) {
+            padding: 5vh 7.5vw;
+        }
+
+        .contentTitle {
+            margin-bottom: 5vh;  
+            font-family: var(--font-family-header);
+            font-size: var(--font-size-large-alt);
+            font-weight: 600;
+            line-height: 1.3;
+            text-align: center;
+            color: #182c3d;
+        }
+    }
+}

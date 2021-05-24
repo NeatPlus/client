@@ -9,6 +9,7 @@ import Login from 'containers/Login';
 import Register from 'containers/Register';
 import Projects from 'containers/Projects';
 import About from 'containers/About';
+import Access from 'containers/Access';
 
 const Routes = () => {
     const { isAuthenticated } = useSelector(state => state.auth);
@@ -21,6 +22,7 @@ const Routes = () => {
                 <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated || true} /> {/* FIXME: Use actual auth state*/}
                 <Route exact path="/" component={Home} />
                 <Route exact path="/about" component={About} />
+                <Route exact path="/access" component={Access} />
             </Switch>
             <Toast />
         </>

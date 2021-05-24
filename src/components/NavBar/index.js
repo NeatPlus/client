@@ -36,7 +36,7 @@ export const NavBar = (props) => {
                     <NavLink to="/login" activeClassName={styles.navLinkActive} className={styles.navLink}>
                         <li className={styles.navItem}>Login</li>
                     </NavLink>
-                    <NavLink to="/access" className={styles.accessButton}>
+                    <NavLink to="/access" activeClassName={styles.accessButtonActive} className={styles.accessButton}>
                         <li className={styles.accessItem}>Access the NEAT+</li>
                     </NavLink>
                 </ul>
