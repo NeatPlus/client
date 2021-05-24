@@ -12,6 +12,7 @@
         line-height: 1.3;
         color: var(--color-tertiary);
     }
+
     .work-desc {
         width: 60vw;
         margin-top: 1.57em;
@@ -48,9 +49,9 @@
             align-items: center;
             width: 12em;
             z-index: 2;
+            cursor: pointer;
 
             .nav-id {
-                cursor: pointer;
                 height: 2em;
                 width: 2em;
                 border-radius: 50%;
@@ -71,12 +72,14 @@
                 transition: 0.4s;
             }
 
-            &.active, &:hover {
+            &.active,
+            &:hover {
                 .nav-id {
                     border: solid 2px transparent;
                     color: var(--color-white);
                     background-color: var(--color-primary);
                 }
+
                 .nav-title {
                     color: var(--color-primary);
                 }
@@ -100,6 +103,7 @@
     }
 
     .access-content {
+        scroll-margin-top: 13em;
         margin-top: 7em;
         margin-bottom: 5em;
         display: flex;
@@ -114,6 +118,7 @@
         }
 
         @media screen and  (max-width: 767px) {
+            scroll-margin-top: 6em;
             margin-top: 3em;
             flex-direction: column;
 

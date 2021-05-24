@@ -28,21 +28,67 @@
     .tabs {
         flex: 1;
         align-self: stretch;
+        display: flex;
+        flex-direction: column;
 
-        &-header {
-            width: max-content;
-            margin: 0 auto;
+        .header-container {
             display: flex;
-            min-width: 50vw;
-            box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
-            
-            .header-item {
+            align-items: center;
+            justify-content: center;
+
+            .tabs-header {
+                flex: 0 0 50%;
+                width: max-content;
+                display: flex;
+                min-width: 50vw;
+                box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
+                margin-bottom: 0;
+                padding: 4px;
+
+                .header-item {
+                    flex: 1;
+                }
+            }
+
+            .spacer {
                 flex: 1;
+            }
+
+            .header-controls {
+                flex: 1;
+                display: flex;
+                justify-content: flex-end;
+            
+                .control-button {
+                    margin-left: 10px;
+                    background-color: transparent;
+                    border: solid 1px #d1cdcd;
+                    color: var(--color-grey-dark);
+                    font-size: var(--font-size-small);
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+
+                    &:hover,
+                    &:active {
+                        border: solid 1px #d1cdcd;
+                        filter: contrast(60%);
+                        box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
+                    }
+
+                    .control-icon {
+                        margin-right: 6px;
+                    }
+                }
             }
         }
 
         .tab-content {
             margin: 16px 0;
+            flex: 1;
+            background-color: var(--color-white);
+            border-radius: 6px;
+            overflow: hidden;
         }
     }
 }
