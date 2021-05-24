@@ -13,6 +13,7 @@ import Projects from 'containers/Projects';
 import About from 'containers/About';
 import Access from 'containers/Access';
 import Action from 'containers/Action';
+import Contact from 'containers/Contact';
 
 const Routes = () => {
     const {pathname} = useLocation();
@@ -35,6 +36,7 @@ const Routes = () => {
                 {/* FIXME: Use actual auth state*/}
                 <Route exact path='/' component={Home} />
                 <Route exact path='/about' component={About} />
+                <Route exact path='/contact' component={Contact} />
                 <Route exact path='/access' component={Access} />
                 <PrivateRoute
                     path='/projects'
