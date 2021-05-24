@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94.005" height="154.264" viewBox="0 0 94.005 154.264">
+    <defs>
+        <style>
+            .cls-1{fill:#00a297}.cls-2{fill:#20c7bc}
+        </style>
+    </defs>
+    <g id="question_1_" transform="translate(-100)">
+        <path id="Path_426" d="M235.039 392L226 410.078l9.039 18.078a18.078 18.078 0 1 0 0-36.156z" class="cls-1" transform="translate(-88.037 -273.891)"/>
+        <path id="Path_427" d="M196 410.078a18.078 18.078 0 0 0 18.078 18.078V392A18.078 18.078 0 0 0 196 410.078z" class="cls-2" transform="translate(-67.075 -273.891)"/>
+        <path id="Path_428" d="M214.078 0L196 18.078l18.078 18.078a10.846 10.846 0 0 1 7.008 19.124l-7.008 5.958-12.052 23.916 12.052 23.916h18.078V93.325l12.346-10.5A47 47 0 0 0 214.078 0z" class="cls-1" transform="translate(-67.075)"/>
+        <g id="Group_713" transform="translate(100)">
+            <path id="Path_429" d="M196 218.616v32.462h18.078v-47.832z" class="cls-2" transform="translate(-167.075 -142.008)"/>
+            <path id="Path_430" d="M100 47v4.519h36.156V47A10.859 10.859 0 0 1 147 36.156V0a47.056 47.056 0 0 0-47 47z" class="cls-2" transform="translate(-100)"/>
+        </g>
+    </g>
+</svg>
