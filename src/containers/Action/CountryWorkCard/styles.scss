@@ -1,0 +1,60 @@
+.container {
+    margin: 0 0 15px 0;
+    padding: 1.56em 1.25em;
+    border-radius: 4px;
+    border: solid 1px var(--color-white);
+    background-color: var(--color-white);
+    .header {
+        margin-bottom: 1.25em;
+        display: flex;
+        justify-content: space-between;
+        .title {
+            max-width: 344px;
+            font-family: var(--font-family-header);
+            font-size: var(--font-size-medium-sm);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--color-primary);
+        }
+
+        .arrow-icon {
+            color: var(--color-primary);
+            cursor: pointer;
+        }
+    }
+
+    .organization {
+        margin-bottom: 1.25em;
+        .organization-title {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.54;
+            color: var(--color-grey);
+        }
+        .organization-name {
+            font-size: var(--font-size-small);
+            line-height: 1.43;
+            color: #292929;
+        }
+    }
+
+    .description {
+        .description-title {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.54;
+            color: var(--color-grey);
+        }
+        .description-text {
+            font-size: var(--font-size-small);
+            line-height: 1.43;
+            color: #292929;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+	.container {
+		max-width: 533px;
+	}
+}

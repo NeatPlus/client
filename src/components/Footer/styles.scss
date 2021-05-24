@@ -41,7 +41,7 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         margin: 4em 0;
 
-        @media screen and  (max-width: 767px) {
+        @media screen and (max-width: 767px) {
             margin: 2em 0;
         }
 
@@ -63,7 +63,7 @@
             letter-spacing: 0.7px;
             margin-bottom: 1.9em;
 
-            @media screen and  (max-width: 767px) {
+            @media screen and (max-width: 767px) {
                 margin-top: 2em;
                 margin-bottom: 1.9em;
             }
@@ -120,7 +120,7 @@
             }
         }
 
-        @media screen and  (max-width: 767px) {
+        @media screen and (max-width: 767px) {
             flex-direction: column-reverse;
 
             .right-content {
