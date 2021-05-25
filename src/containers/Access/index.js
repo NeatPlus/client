@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import {BsArrowRight} from 'react-icons/bs';
 
 import NavBar from 'components/NavBar';
@@ -21,7 +22,9 @@ const NeatCard = ({title, description, image, fileImage, buttonTitle}) => {
             <img src={image} className={styles.cardImage} alt="rural neat" />
             <h4 className={styles.cardTitle}>{title}</h4>
             <p className={styles.cardDesc}>{description}</p>
-            <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
+            <Link to="/projects">
+                <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
+            </Link>
             <img className={styles.fileImage} src={fileImage} alt="file-icon" />
         </div>
     );

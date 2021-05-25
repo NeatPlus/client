@@ -82,4 +82,9 @@ html {
     box-sizing: border-box;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+
+    a {
+        text-decoration: none;
+        color: var(--color-primary-alt);
+    }
 }

@@ -9,12 +9,8 @@ export const NavBar = (props) => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.navBrand}>
-                <Link to='/'>
-                    <img
-                        className={styles.logo}
-                        src={logo}
-                        alt='MeroGuru Logo'
-                    />
+                <Link to="/">
+                    <img className={styles.logo} src={logo} alt="logo" />
                 </Link>
             </div>
             <Input
@@ -40,15 +36,6 @@ export const NavBar = (props) => {
                         className={styles.navLink}
                     >
                         <li className={styles.navItem}>NEAT+ in Action</li>
-                    </NavLink>
-                    <NavLink
-                        to='/resource'
-                        activeClassName={styles.navLinkActive}
-                        className={styles.navLink}
-                    >
-                        <li className={styles.navItem}>
-                            Resources and Support
-                        </li>
                     </NavLink>
                     <NavLink
                         to='/contact'
