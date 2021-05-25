@@ -1,0 +1,55 @@
+.container {
+  background-color: var(--color-tertiary);
+
+  .contact-hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5em;
+    padding: 20vh 0 5vw 7.5vw;
+    align-items: center;
+
+    @media screen and (max-width: 789px) {
+        padding: 20vh 7.5vw 15vh 7.5vw;
+    }
+
+    .visual {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .text-section {
+      .sub-title {
+        font-family: var(--font-family-header);
+        color: var(--color-primary);
+        font-size: var(--font-size-normal);
+        font-weight: 500;
+        line-height: 2.89;
+      }
+
+      .title {
+        font-family: var(--font-family-header);
+        font-size: var(--font-size-header-sm);
+        font-weight: 600;
+        line-height: 1.35;
+        color: var(--color-white);
+      }
+
+      .hero-para {
+        margin-top: 1.57em;
+        font-size: var(--font-size-base);
+        line-height: 1.5;
+        color: var(--color-white);
+
+        .inner-link {
+          color: var(--color-primary);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
