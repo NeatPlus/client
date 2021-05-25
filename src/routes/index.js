@@ -1,4 +1,6 @@
-import {Route, Switch} from 'react-router-dom';
+import React, {useEffect} from 'react';
+
+import {Route, Switch, useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {PrivateRoute} from '@ra/auth/PrivateRoute';
@@ -13,7 +15,12 @@ import Access from 'containers/Access';
 import Action from 'containers/Action';
 
 const Routes = () => {
+    const {pathname} = useLocation();
     const {isAuthenticated} = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }, [pathname]);
 
     return (
         <>
