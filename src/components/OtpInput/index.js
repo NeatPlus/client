@@ -148,10 +148,11 @@ export function OTPInputComponent(props) {
                     }
                 });
                 setOTPValues(updatedOTPValues);
+                handleOtpChange(updatedOTPValues);
                 setActiveInput(Math.min(nextFocusIndex + 1, length - 1));
             }
         },
-        [activeInput, getRightValue, length, otpValues]
+        [activeInput, getRightValue, length, otpValues, handleOtpChange]
     );
 
     return (

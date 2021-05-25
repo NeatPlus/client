@@ -26,7 +26,7 @@ const PartnerSection = () => {
             <h1 className={styles.title}>NEAT+ was developed with the support of Joint Initiative* partners:</h1>
             <div className={styles.partnersWrapper}>
                 {partners.map(item =>
-                    <div className={styles.partnerCard}>
+                    <div key={item.id} className={styles.partnerCard}>
                         <img src={item.image} alt={item.title} />
                     </div>
                 )}

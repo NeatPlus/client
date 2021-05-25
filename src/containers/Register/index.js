@@ -1,24 +1,87 @@
 import {useState, useCallback} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
-import logo from 'assets/images/logo-dark.svg';
-
+import AuthModals from 'components/AuthModals';
 import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
 
+import logo from 'assets/images/logo-dark.svg';
+import useRequest from 'hooks/useRequest';
+import useAuthModals from 'hooks/useAuthModals';
+import {dispatchLogin} from 'utils/dispatch';
+
 import styles from './styles.scss';
 
 const Register = () => {
-    const [acceptTerms, setAcceptTerms] = useState(false);
+    const history = useHistory();
+    const authModalsConfig = useAuthModals();
     
+    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [error, setError] = useState(null);
+    const [loginData, setLoginData] = useState({
+        username: '',
+        password: '',
+    });
+    
+    const [{loading}, registerUser] = useRequest('/user/register/', {method: 'POST'});
+    const [, loginUser] = useRequest('/jwt/create/', {method: 'POST'});
+
     const handleCheck = useCallback(({checked}) => setAcceptTerms(checked), []);
     
-    const handleRegister = useCallback((formData) => {
-        // TODO: Register
-        console.log(formData);
-    }, []);
+    const handleRegister = useCallback(async (formData) => {
+        setError(null);
+
+        const {
+            fullName, 
+            username, 
+            email, 
+            password, 
+            organization, 
+            role
+        } = formData;
+
+        setLoginData({username, password});
+
+        const name = fullName.split(' ');
+        const firstName = name[0];
+        const lastName = fullName.substring(name[0].length).trim();
+
+        try {
+            const result = await registerUser({
+                firstName,
+                lastName,
+                username,
+                email,
+                password,
+                rePassword: password,
+                organization,
+                role,
+            });
+            if(result) {
+                authModalsConfig.handleShowVerifyEmail();
+            }
+        } catch(err) {
+            setError(err);
+            console.log(err);
+        }
+    }, [registerUser, authModalsConfig]);
+
+    const handleRegisterComplete = useCallback(async () => {
+        const {username, password} = loginData;
+        try {
+            const result = await loginUser({username, password});
+            if (result) {
+                const {access, refresh} = result;
+                await dispatchLogin(access, refresh);
+                history.push('/projects/');
+            }
+        } catch (err) {
+            setError(err);
+            console.log(err);
+        }
+    }, [history, loginData, loginUser]);
 
     return (
         <div className={styles.container}>
@@ -32,14 +95,19 @@ const Register = () => {
                     <div className={styles.info}>
                         <h1 className={styles.infoTitle}>Get Started with Neat+</h1>
                         <p className={styles.infoText}>
-                        NEAT+ is conducted on the KoBo Toolbox data collection platform – an open source data collection tool – (on phone, tablet or computer) and produces an automatically generated report in Microsoft Excel, categorizing areas of risk into low, medium and high level of concern. The tool assesses the current sensitivity of the crisis-affected environment, highlighting any underlying risks and vulnerabilities to the environment and affected communities.
+                            NEAT+ is conducted on the KoBo Toolbox data collection platform – an open source data collection tool – (on phone, tablet or computer) and produces an automatically generated report in Microsoft Excel, categorizing areas of risk into low, medium and high level of concern. The tool assesses the current sensitivity of the crisis-affected environment, highlighting any underlying risks and vulnerabilities to the environment and affected communities.
                         </p>
                         <div className={styles.infoLinks}>
                             <Link to="#" className={styles.link}>Privacy Policy</Link>
                             <Link to="#" className={styles.link}>Terms of Use</Link>
                         </div>
                     </div>
-                    <Form onSubmit={handleRegister} className={styles.form}>
+                    <Form 
+                        error={error}
+                        formErrorClassName={styles.error}
+                        onSubmit={handleRegister} 
+                        className={styles.form}
+                    >
                         <h2 className={styles.formHeader}>Create your account</h2>
                         <InputField
                             name="fullName"
@@ -94,16 +162,17 @@ const Register = () => {
                         <div className={styles.termsInput}>
                             <CheckboxInput id="termsCheckbox" onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
                             <label htmlFor="termsCheckbox" className={styles.termsInputLabel}>
-                            I accept Neat+ <Link to="#" className={styles.termsInputLabelLink}>Terms of Use</Link> and  <Link to="#" className={styles.termsInputLabelLink}>Privacy Policy</Link>
+                                I accept Neat+ <Link to="#" className={styles.termsInputLabelLink}>Terms of Use</Link> and  <Link to="#" className={styles.termsInputLabelLink}>Privacy Policy</Link>
                             </label>
                         </div>
-                        <Button disabled={!acceptTerms}>Create Account</Button>
+                        <Button loading={loading} disabled={!acceptTerms}>Create Account</Button>
                     </Form>
                 </main>
                 <p className={styles.loginText}>
                     Already have an account? <Link to="/login" className={styles.link}>Log in</Link>
                 </p>
             </div>
+            <AuthModals username={loginData.username} onRegisterComplete={handleRegisterComplete} {...authModalsConfig} />
         </div>
     );
 };

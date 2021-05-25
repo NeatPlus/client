@@ -11,7 +11,7 @@ import Input from '@ra/components/Form/Input';
 import styles from './styles.scss';
 
 const ForgotPasswordModal = (props) => {
-    const {isVisible, onClose, showEnterCodeModal} = props;
+    const {isVisible, onClose} = props;
     const [inputData, setInputData] = useState({
         email: '',
     });
@@ -31,14 +31,6 @@ const ForgotPasswordModal = (props) => {
             email: '',
         });
     }, [onClose]);
-
-    const showECM = useCallback(() => {
-        onClose();
-        showEnterCodeModal();
-        setInputData({
-            email: '',
-        });
-    }, [onClose, showEnterCodeModal]);
 
     if (!isVisible) {
         return null;
@@ -67,7 +59,7 @@ const ForgotPasswordModal = (props) => {
                     <Link to='#' onClick={closeThisModal}>
                         Return to Log in
                     </Link>
-                    <Button onClick={showECM}>Continue</Button>
+                    <Button onClick={closeThisModal}>Continue</Button>
                 </div>
             </div>
         </Modal>

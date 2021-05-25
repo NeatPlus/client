@@ -2,17 +2,22 @@ import {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import {MdClose} from 'react-icons/md';
+import {MdKeyboardArrowLeft} from 'react-icons/md';
 
-import Button from 'components/Button';
 import OTPInput from 'components/OtpInput';
+import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 
 import styles from './styles.scss';
 
-
-const VerifyEmailModal = (props) => {
-    const {isVisible, onClose} = props;
+const EnterCodeModal = (props) => {
+    const {
+        isVisible,
+        onClose,
+        showResetPasswordModal,
+        backToForgotPasswordModal,
+    } = props;
     const [otpData, setOtpData] = useState({otpCode: ''});
 
     const handleOtpChange = useCallback(
@@ -31,13 +36,36 @@ const VerifyEmailModal = (props) => {
         });
     }, [onClose]);
 
+    const backToFPM = useCallback(() => {
+        onClose();
+        backToForgotPasswordModal();
+        setOtpData({
+            otpCode: '',
+        });
+    }, [onClose, backToForgotPasswordModal]);
+
+    const showRPM = useCallback(() => {
+        onClose();
+        showResetPasswordModal();
+        setOtpData({
+            otpCode: '',
+        });
+    }, [onClose, showResetPasswordModal]);
+
     if (!isVisible) {
         return null;
     }
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Verify your email</h2>
+                <div className={styles.headerLeft}>
+                    <MdKeyboardArrowLeft
+                        size={30}
+                        onClick={backToFPM}
+                        className={styles.arrowIcon}
+                    />
+                    <h2 className={styles.title}>OK, You got a code</h2>
+                </div>
                 <div className={styles.closeContainer} onClick={closeThisModal}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
@@ -54,7 +82,7 @@ const VerifyEmailModal = (props) => {
                         length={6}
                         className={styles.otpContainer}
                         inputClassName={styles.otpInput}
-                        onChangeOTP={(otp) => handleOtpChange(otp)}
+                        onChangeOTP={handleOtpChange}
                     />
                 </div>
                 <p className={styles.resend}>
@@ -63,14 +91,11 @@ const VerifyEmailModal = (props) => {
                     <Link to='#'> Resend</Link>
                 </p>
                 <div className={styles.button}>
-                    <Link to='#' onClick={closeThisModal}>
-                        I'll do it later
-                    </Link>
-                    <Button>Done</Button>
+                    <Button onClick={showRPM}>Done</Button>
                 </div>
             </div>
         </Modal>
     );
 };
 
-export default VerifyEmailModal;
+export default EnterCodeModal;

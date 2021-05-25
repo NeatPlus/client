@@ -92,15 +92,28 @@
             }
         }
 
+        .info {
+            filter: opacity(70%);
+            border-radius: 4px;
+            background-color: var(--color-success);
+            padding: 12px;
+            text-align: center;
+            color: var(--color-success-text);
+        }
+
+        .error {
+            filter: opacity(70%);
+            border-radius: 4px;
+            background-color: var(--color-danger);
+            padding: 12px;
+            text-align: center;
+            color: var(--color-danger-text);
+        }
+
         .button {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-
-            a {
-                color: var(--color-primary);
-                font-size: var(--font-size-small);
-            }
+            justify-content: flex-end;
         }
     }
 }

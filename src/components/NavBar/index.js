@@ -1,11 +1,14 @@
 import {NavLink, Link} from 'react-router-dom';
-import Input from '@ra/components/Form/Input';
+import {useSelector} from 'react-redux';
 
+import Input from '@ra/components/Form/Input';
 import logo from 'assets/images/logo-light.svg';
 
 import styles from './styles.scss';
 
 export const NavBar = (props) => {
+    const {isAuthenticated} = useSelector(state => state.auth);
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.navBrand}>
@@ -46,13 +49,15 @@ export const NavBar = (props) => {
                     </NavLink>
                 </ul>
                 <ul className={styles.navItems}>
-                    <NavLink
-                        to='/login'
-                        activeClassName={styles.navLinkActive}
-                        className={styles.navLink}
-                    >
-                        <li className={styles.navItem}>Login</li>
-                    </NavLink>
+                    {!isAuthenticated && (
+                        <NavLink
+                            to='/login'
+                            activeClassName={styles.navLinkActive}
+                            className={styles.navLink}
+                        >
+                            <li className={styles.navItem}>Login</li>
+                        </NavLink>
+                    )}
                     <NavLink
                         to='/access'
                         activeClassName={styles.accessButtonActive}
