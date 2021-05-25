@@ -1,0 +1,104 @@
+.container {
+    background-color: var(--color-background);
+    min-height: 100vh;
+    min-width: 100vw;
+
+    .settings {
+        padding-top: 2em;
+        display: grid;
+        justify-content: center;
+
+        .text-section {
+            padding-bottom: 2em;
+
+            .backLink {
+                display: flex;
+                align-items: center;
+                color: var(--color-dark);
+                font-size: var(--font-size-base);
+                line-height: 1.5em;
+                margin-bottom: 1em;
+                font-weight: 500;
+            }
+
+            .title {
+                color: var(--color-tertiary);
+            }
+        }
+
+        .main-section {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            display: flex;
+
+            .panels {
+                border-right: 2px solid var(--color-background);
+                padding-top: 2em;
+
+                .panel-item {
+                    padding: 1em 2em 1em 1.5em;
+                    height: 3em;
+                    display: flex;
+                    align-items: center;
+                    border-right: 3px solid var(--color-white);
+                    text-decoration: none;
+                    color: #292929;
+                    cursor: pointer;
+
+                    .panel-icon {
+                        color: #909696;
+                        margin-right: 0.75em;
+                    }
+
+                    &Active {
+                        background-color: #e6f4f3;
+                        border-right: 3px solid var(--color-primary);
+                        color: var(--color-primary);
+
+                        .panel-icon {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+
+            .edit-section {
+                padding: 2em;
+            }
+        }
+
+        @media screen and (max-width: 786px) {
+            .main-section {
+                flex-direction: column;
+       
+                .panels {
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 2px solid var(--color-background);
+                    padding-top: 0;
+
+                    .panel-item {
+                        border-right: none;
+                        padding: 1.5em 2em;
+                        width: 100%;
+                        justify-content: center;
+
+                        .panel-icon {
+                            display: none;
+                        }
+
+                        &Active {
+                            border-bottom: 3px solid var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 482px) {
+        .settings {
+            padding: 2em;
+        }
+    }
+}

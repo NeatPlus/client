@@ -17,6 +17,7 @@ import Access from 'containers/Access';
 import Action from 'containers/Action';
 import Contact from 'containers/Contact';
 import Resources from 'containers/Resources';
+import Account from 'containers/Account';
 
 const Routes = () => {
     const {pathname} = useLocation();
@@ -32,6 +33,7 @@ const Routes = () => {
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/login" component={Login} />
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/register" component={Register} />
                 <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated} />
+                <PrivateRoute path="/account" component={Account} isAuthenticated={isAuthenticated} />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/about" component={About} />
                 <Route exact path='/contact' component={Contact} />
