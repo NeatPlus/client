@@ -51,6 +51,7 @@ $navbar-height: 90px;
             &::before {
                 top: -7px;
             }
+
             &::after {
                 top: 7px;
             }
@@ -99,7 +100,7 @@ $navbar-height: 90px;
                 }
             }
 
-            .accessButton {
+            .access-button {
                 cursor: pointer;
                 text-decoration: none;
                 padding: 0.6rem 1.5rem;
@@ -107,16 +108,17 @@ $navbar-height: 90px;
                 background-color: var(--color-white);
                 transition: 0.4s;
 
-                &Active {
+                &__active {
                     border: 1px solid var(--color-primary);
                     background-color: transparent;
+                    pointer-events: none;
                 }
 
                 @media only screen and (max-width: 1024px) {
                     padding: 0.6rem 0.5rem;
                 }
 
-                .accessItem {
+                .access-item {
                     font-size: 0.94em;
                     font-weight: 500;
                     line-height: 1.6;
@@ -127,7 +129,7 @@ $navbar-height: 90px;
                 &:hover {
                     background-color: var(--color-primary);
 
-                    .accessItem {
+                    .access-item {
                         color: var(--color-white);
                     }
                 }

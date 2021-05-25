@@ -6,52 +6,24 @@ import {dispatchLogin} from 'utils/dispatch';
 
 import logo from 'assets/images/logo-dark.svg';
 
+import AuthModals from 'components/AuthModals';
 import Button from 'components/Button';
-import ForgotPasswordModal from 'components/ForgotPasswordModal';
-import EnterCodeModal from 'components/EnterCodeModal';
-import ResetPasswordModal from 'components/ResetPasswordModal';
 import Form, {InputField} from '@ra/components/Form';
 import TextInput from '@ra/components/Form/TextInput';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
 
+import useAuthModals from 'hooks/useAuthModals';
+
 import styles from './styles.scss';
 
 const Login = () => {
+    const authModalsConfig = useAuthModals();
     const history = useHistory();
 
     const [error, setError] = useState(null);
     const [{loading}, loginUser] = useRequest('/jwt/create/', {
         method: 'POST',
     });
-    const [showForgotPasswordModal, setShowForgotPasswordModal] =
-        useState(false);
-    const [showEnterCodeModal, setShowEnterCodeModal] = useState(false);
-    const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
-
-    const handleShowForgotPasswordModal = useCallback(
-        () => setShowForgotPasswordModal(true),
-        []
-    );
-    const handleHideForgotPasswordModal = useCallback(
-        () => setShowForgotPasswordModal(false),
-        []
-    );
-    const handleShowEnterCodeModal = useCallback(
-        () => setShowEnterCodeModal(true),
-        []
-    );
-    const handleHideEnterCodeModal = useCallback(
-        () => setShowEnterCodeModal(false),
-        []
-    );
-    const handleShowResetPasswordModal = useCallback(
-        () => setShowResetPasswordModal(true),
-        []
-    );
-    const handleHideResetPasswordModal = useCallback(
-        () => setShowResetPasswordModal(false),
-        []
-    );
 
     const handleLogin = useCallback(
         async (formData) => {
@@ -89,6 +61,7 @@ const Login = () => {
                     <div className={styles.loginContainer}>
                         <Form
                             error={error}
+                            formErrorClassName={styles.error}
                             onSubmit={handleLogin}
                             className={styles.loginForm}
                         >
@@ -115,7 +88,7 @@ const Login = () => {
                         <Link
                             className={styles.forgotLink}
                             to='#'
-                            onClick={handleShowForgotPasswordModal}
+                            onClick={authModalsConfig.handleShowForgotPassword}
                         >
                             Forgot Password?
                         </Link>
@@ -136,21 +109,7 @@ const Login = () => {
                     </div>
                 </main>
             </div>
-            <ForgotPasswordModal
-                isVisible={showForgotPasswordModal}
-                onClose={handleHideForgotPasswordModal}
-                showEnterCodeModal={handleShowEnterCodeModal}
-            />
-            <EnterCodeModal
-                isVisible={showEnterCodeModal}
-                onClose={handleHideEnterCodeModal}
-                showResetPasswordModal={handleShowResetPasswordModal}
-                backToForgotPasswordModal={handleShowForgotPasswordModal}
-            />
-            <ResetPasswordModal
-                isVisible={showResetPasswordModal}
-                onClose={handleHideResetPasswordModal}
-            />
+            <AuthModals {...authModalsConfig} />
         </>
     );
 };

@@ -94,6 +94,12 @@
                 .button {
                     margin: 20px 0;
                 }
+
+                .error {
+                    text-align: center;
+                    color: var(--color-danger);
+                    margin-bottom: 12px;
+                }
             }
 
             .forgot-link {

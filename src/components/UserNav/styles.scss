@@ -39,3 +39,75 @@
         }
     }
 }
+
+.user-options {
+    background-color: var(--color-white);
+    box-shadow: 5px 20px 40px 0 rgba(0, 0, 0, 0.1);
+    list-style: none;
+    width: max-content;
+    border-radius: 10px;
+    font-size: var(--font-size-small);
+    padding: 8px 0;
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        padding: 0.45em 1.5em;
+        margin-bottom: 12px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ecf2f7;
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 21px;
+            font-size: 18px;
+            line-height: 31px;
+            color: #c0d0de;
+            background-color: var(--color-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-data {
+            margin: 0 15px;
+
+            .name {
+                font-family: var(--font-family-header);
+                font-size: var(--font-size-small);
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+
+            .email {
+                font-size: 12px;
+                color: var(--color-grey-dark);
+            }
+        }
+    }
+
+    .user-option {
+        text-decoration: none;
+        padding: 0.75em 1.5em;
+        cursor: pointer;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        transition: 0.3s;
+        color: var(--color-dark);
+
+        .userIcon {
+            color: #909696;
+            font-size: var(--font-size-medium-sm);
+            margin-right: 15px;
+        }
+
+        &:hover {
+            background-color: #ecf2f7;
+        }
+    }
+}

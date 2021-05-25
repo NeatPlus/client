@@ -30,7 +30,7 @@
             line-height: 1.67;
             color: #f2f2f2;
 
-            .link {
+            &-link {
                 color: var(--color-input-outline);
                 text-decoration: underline;
             }

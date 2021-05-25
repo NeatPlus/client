@@ -34,7 +34,6 @@ const WorkSection = () => {
             <p className={styles.workDesc}>The NEAT+ works by collecting data through a questionnaire, answered by users who should be familiar with the project area, including the planned intervention, the local and host communities, and environmental surroundings. </p>
             <Tabs 
                 defaultActiveTab="step-1" 
-                className={styles.workNav} 
                 headerClassName={styles.workNav}
                 mode="scroll" 
                 renderHeader={renderNavItem}
