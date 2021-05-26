@@ -102,11 +102,17 @@
                 }
             }
 
-            .forgot-link {
-                text-decoration: none;
-                color: var(--color-primary);
-                margin: 10px 0;
-                font-size: var(--font-size-small);
+            .links {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .link__item {
+                    text-decoration: none;
+                    color: var(--color-primary);
+                    margin: 10px 0;
+                    font-size: var(--font-size-small);
+                }
             }
 
             .text {

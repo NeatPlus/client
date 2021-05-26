@@ -21,6 +21,8 @@ const Login = () => {
     const history = useHistory();
 
     const [error, setError] = useState(null);
+    const [email, setEmail] = useState('');
+
     const [{loading}, loginUser] = useRequest('/jwt/create/', {
         method: 'POST',
     });
@@ -28,6 +30,8 @@ const Login = () => {
     const handleLogin = useCallback(
         async (formData) => {
             const {username, password} = formData;
+            setEmail(username);
+            setError(null);
             try {
                 const result = await loginUser({username, password});
                 if (result) {
@@ -69,6 +73,7 @@ const Login = () => {
                                 label='Email or Username'
                                 component={TextInput}
                                 name='username'
+                                required
                                 className={styles.input}
                                 labelClassName={styles.inputLabel}
                                 containerClassName={styles.inputGroup}
@@ -77,6 +82,7 @@ const Login = () => {
                                 label='Password'
                                 component={SecureTextInput}
                                 name='password'
+                                required
                                 className={styles.input}
                                 labelClassName={styles.inputLabel}
                                 containerClassName={styles.inputGroup}
@@ -85,13 +91,24 @@ const Login = () => {
                                 Log in
                             </Button>
                         </Form>
-                        <Link
-                            className={styles.forgotLink}
-                            to='#'
-                            onClick={authModalsConfig.handleShowForgotPassword}
-                        >
-                            Forgot Password?
-                        </Link>
+                        <div className={styles.links}>
+                            <Link
+                                className={styles.linkItem}
+                                to='#'
+                                onClick={authModalsConfig.handleShowForgotPassword}
+                            >
+                                Forgot Password?
+                            </Link>
+                            {!!error && (
+                                <Link 
+                                    className={styles.linkItem} 
+                                    to="#" 
+                                    onClick={authModalsConfig.handleShowVerifyEmail}
+                                >
+                                    Activate account?
+                                </Link>
+                            )}
+                        </div>
                         <p className={styles.text}>
                             Don't have an account?{' '}
                             <Link className={styles.link} to='/register'>
@@ -109,7 +126,7 @@ const Login = () => {
                     </div>
                 </main>
             </div>
-            <AuthModals {...authModalsConfig} />
+            <AuthModals username={email} {...authModalsConfig} />
         </>
     );
 };

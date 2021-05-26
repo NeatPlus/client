@@ -21,8 +21,8 @@ const VerifyEmailModal = (props) => {
     const [info, setInfo] = useState(null);
     const [error, setError] = useState(null);
 
-    const [, resendCode] = useRequest('/user/email_confirm/', {method: 'POST'});
-    const [, verifyEmail] = useRequest('/user/email_confirm/verify/', {method: 'POST'});
+    const [{loading: loadingCode}, resendCode] = useRequest('/user/email_confirm/', {method: 'POST'});
+    const [{loading: loadingEmail}, verifyEmail] = useRequest('/user/email_confirm/verify/', {method: 'POST'});
 
     const handleOtpChange = useCallback(
         (otp) =>
@@ -40,7 +40,7 @@ const VerifyEmailModal = (props) => {
             await resendCode({username});
             setInfo('Successfully resent confirmation mail!');
         } catch(err) {
-            setError('An error occured while sending email. Please try again!');
+            setError(err?.error || 'An error occured while sending email. Please try again!');
             console.log(err);    
         }
     }, [resendCode, username]);
@@ -99,7 +99,13 @@ const VerifyEmailModal = (props) => {
                 {!!info && <p className={styles.info}>{info}</p>}
                 {!!error && <p className={styles.error}>{error}</p>}
                 <div className={styles.button}>
-                    <Button disabled={otpData.otpCode?.length!==6} onClick={handleSubmitCode}>Done</Button>
+                    <Button 
+                        loading={loadingCode || loadingEmail}
+                        disabled={otpData.otpCode?.length!==6} 
+                        onClick={handleSubmitCode}
+                    >
+                        Done
+                    </Button>
                 </div>
             </div>
         </Modal>

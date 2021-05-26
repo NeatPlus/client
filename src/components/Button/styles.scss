@@ -20,9 +20,20 @@
         background-color: var(--color-grey-light);
         border: 1.2px solid var(--color-grey-light);
         filter: none;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .loader {
+            max-height: 16px;
+            margin-left: 24px;
+            display: flex;
+            align-items: center;
+        }
     }
 }
-    
+
 .button-secondary,
 .button-secondary:hover {
     background-color: #e6e6e6;
