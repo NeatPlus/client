@@ -111,6 +111,7 @@ const Register = () => {
                         <h2 className={styles.formHeader}>Create your account</h2>
                         <InputField
                             name="fullName"
+                            required
                             component={TextInput}
                             className={styles.input}
                             label="Full Name"
@@ -119,6 +120,7 @@ const Register = () => {
                         />
                         <InputField
                             name="username"
+                            required
                             info="Length can be between 5 to 20. Letters, digits and ./-/_ only."
                             component={TextInput}
                             className={styles.input}
@@ -128,6 +130,7 @@ const Register = () => {
                         />
                         <InputField
                             name="email"
+                            required
                             type="email"
                             component={Input}
                             className={styles.input}
@@ -137,6 +140,7 @@ const Register = () => {
                         />
                         <InputField
                             name="password"
+                            required
                             component={SecureTextInput}
                             className={styles.input}
                             label="Enter Password"
@@ -145,6 +149,7 @@ const Register = () => {
                         />
                         <InputField
                             name="organization"
+                            required
                             component={TextInput}
                             className={styles.input}
                             label="Organization"
@@ -153,6 +158,7 @@ const Register = () => {
                         />
                         <InputField
                             name="role"
+                            required
                             component={TextInput}
                             className={styles.input}
                             label="What is your role?"
