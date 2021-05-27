@@ -62,6 +62,13 @@
 
                 &-select {
                     cursor: pointer;
+
+                    .select-control {
+                        height: 2.4em;
+                        display: flex;
+                        align-items: center;
+                        background-color: var(--color-white);
+                    }
                 }
             }
 
@@ -87,6 +94,12 @@
             }
         }
 
+        .error {
+            color: var(--color-danger);
+            font-size: var(--font-size-small);
+            text-align: center;
+        }
+
         .buttons {
             margin-top: 20px;
             display: flex;
@@ -96,5 +109,17 @@
                 margin-left: 15px;
             }
         }
+    }
+
+    @media screen and (max-width: 991px) {
+        width: 60vw;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 75vw;
+    }
+
+    @media screen and (max-width: 480px) {
+        width: 95vw;
     }
 }

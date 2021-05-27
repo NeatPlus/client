@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import Routes from 'routes';
 import store from 'store';
 
-import 'styles/_base.scss';
+import 'services/bootstrap';
 
 function App() {
     return (

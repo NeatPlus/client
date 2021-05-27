@@ -36,6 +36,10 @@ export const DataItem = ({item, column}) => {
             </Link>
         );
     }
+    if(column.Header==='Created on') {
+        const date = new Date(item[column.accessor]);
+        return date.toLocaleDateString();
+    }
     if(column.Header==='Options') {
         return <OptionsDropdown onEdit={handleEditClick} onClone={handleCloneClick} onDelete={handleDeleteClick} />;
     }
@@ -48,7 +52,7 @@ export const DataItem = ({item, column}) => {
                 </div>
             );
         }
-        if(value==='public_organization') {
+        if(value==='public_within_organization') {
             return (
                 <div className={styles.visibilityItem}>
                     <OrganizationIcon /> Public within organization
