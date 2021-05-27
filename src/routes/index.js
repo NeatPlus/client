@@ -16,6 +16,7 @@ import About from 'containers/About';
 import Access from 'containers/Access';
 import Action from 'containers/Action';
 import Contact from 'containers/Contact';
+import Resources from 'containers/Resources';
 
 const Routes = () => {
     const {pathname} = useLocation();
@@ -36,6 +37,7 @@ const Routes = () => {
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path="/access" component={Access} />
                 <Route exact path='/action' component={Action} />
+                <Route exact path='/resource' component={Resources} />
             </Switch>
             <Toast />
         </>

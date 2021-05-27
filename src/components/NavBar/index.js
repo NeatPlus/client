@@ -7,13 +7,13 @@ import logo from 'assets/images/logo-light.svg';
 import styles from './styles.scss';
 
 export const NavBar = (props) => {
-    const {isAuthenticated} = useSelector(state => state.auth);
+    const {isAuthenticated} = useSelector((state) => state.auth);
 
     return (
         <nav className={styles.navbar}>
             <div className={styles.navBrand}>
-                <Link to="/">
-                    <img className={styles.logo} src={logo} alt="logo" />
+                <Link to='/'>
+                    <img className={styles.logo} src={logo} alt='logo' />
                 </Link>
             </div>
             <Input
@@ -39,6 +39,15 @@ export const NavBar = (props) => {
                         className={styles.navLink}
                     >
                         <li className={styles.navItem}>NEAT+ in Action</li>
+                    </NavLink>
+                    <NavLink
+                        to='/resource'
+                        activeClassName={styles.navLinkActive}
+                        className={styles.navLink}
+                    >
+                        <li className={styles.navItem}>
+                            Resources and Support
+                        </li>
                     </NavLink>
                     <NavLink
                         to='/contact'

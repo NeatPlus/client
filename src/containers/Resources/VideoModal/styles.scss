@@ -1,0 +1,29 @@
+.modal {
+	border-radius: 8px;
+	background-color: var(--color-white);
+	.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1em;
+	border-bottom: 1px solid var(--color-grey-light-alt);
+
+	.title {
+		font-size: var(--font-size-medium);
+		font-weight: 500;
+	}
+
+	.button {
+		cursor: pointer;
+		background-color: transparent;
+		border: none;
+	}
+	}
+    .video {
+        width: 853px;
+        max-width: 90vw;
+        height: 480px;
+        max-height: 60vw;
+		padding: 1em;
+    }
+}
