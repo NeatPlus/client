@@ -2,6 +2,8 @@ import RequestBuilder from '@ra/services/request';
 import store from 'store';
 
 import * as authActions from 'store/actions/auth';
+import * as organizationActions from 'store/actions/organization';
+import * as projectActions from 'store/actions/project';
 
 const dispatch = store.dispatch;
 
@@ -133,6 +135,24 @@ class Api {
 
     async getUser() {
         return await this.get('/user/me/');
+    }
+
+    async getOrganizations() {
+        try {
+            const data = await this.get('/organization/');
+            dispatch(organizationActions.setOrganizations(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    async getProjects() {
+        try {
+            const data = await this.get('/project/');
+            dispatch(projectActions.setProjects(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
     }
 }
 

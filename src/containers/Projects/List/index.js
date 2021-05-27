@@ -1,4 +1,5 @@
 import {useState, useCallback} from 'react';
+import {useSelector} from 'react-redux';
 import {BsPlus} from 'react-icons/bs';
 
 import Button from 'components/Button';
@@ -8,7 +9,7 @@ import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
 
-import projects from 'services/mockData/projects';
+import {getFormattedProjects} from 'store/selectors/project';
 
 import {HeaderItem, DataItem} from './TableItems';
 
@@ -17,13 +18,13 @@ import styles from './styles.scss';
 const columns = [
     {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'title',
     }, {
         Header: 'Organization',
         accessor: 'organization',
     }, {
         Header: 'Created on',
-        accessor: 'created_on',
+        accessor: 'createdAt',
     }, {
         Header: 'Visibility',
         accessor: 'visibility',
@@ -55,6 +56,8 @@ const keyExtractor = item => item.value;
 const labelExtractor = item => item.label;
 
 const ProjectList = withNoProject(() => {
+    const projects = useSelector(state => getFormattedProjects(state));
+
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [page, setPage] = useState(1);
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
