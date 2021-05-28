@@ -1,0 +1,70 @@
+.container-show {
+	opacity: 1;
+	margin: 3.125em 0;
+	transition: margin-top 0.5s, opacity 0.5s;
+}
+
+.container-hide {
+    opacity: 0;
+	margin: 0;
+	transition: margin 0.3s , opacity 0.3s ;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25em 0;
+    border-bottom: 1px solid var(--color-grey-light-alt);
+    gap: 0.8em;
+
+    .tag-button-show {
+        max-height: 30em;
+        transition: max-height 0.7s;
+    }
+
+    .tag-button-hide {
+        max-height: 0;
+        overflow-y: hidden;
+        transition: max-height 0.2s ;
+    }
+
+    .tag-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8em;
+
+        .tag-button {
+            height: 2.6em;
+            border-radius: 19px;
+            border: none;
+            padding: 0 0.9em;
+            cursor: pointer;
+            font-size: var(--font-size-small);
+            line-height: 1.43;
+            display: flex;
+            align-items: center;
+            gap: 0.2em;
+        }
+
+        .tag-button-clicked {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+    }
+
+    .clear-button {
+        border: none;
+        height: 2.6em;
+        min-width: 5em;
+        align-self: flex-start;
+        background-color: transparent;
+        color: var(--color-primary);
+        font-size: var(--font-size-base);
+        line-height: 1.43;
+        cursor: pointer;
+    }
+
+    .clear-button-hide {
+        display: none;
+    }
+}
