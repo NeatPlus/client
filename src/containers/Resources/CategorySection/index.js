@@ -118,12 +118,25 @@ const CategorySection = () => {
     }, [requiredDataSlice]);
 
     const handleChange = useCallback(
-        ({name, value}) =>
+        ({name, value}) => {
             setInputData({
                 ...inputData,
                 [name]: value,
-            }),
-        [inputData]
+            });
+			
+            if (inputData !== '') {
+                const inputFilterData = allResources.filter(
+                    (data) =>
+                        data.title
+                            .toLowerCase()
+                            .includes(value.toLowerCase()) ||
+                        data.tag.toLowerCase().includes(value.toLowerCase()) ||
+                        data.summary.toLowerCase().includes(value.toLowerCase())
+                );
+                setRequiredData(inputFilterData);
+            }
+        },
+        [inputData, allResources]
     );
 
     return (
@@ -172,7 +185,8 @@ const CategorySection = () => {
             <FilterTagButtons
                 clickedTags={clickedTags}
                 handleToggleClickedTag={handleToggleClickedTag}
-                handleClearAll={handleClearAll} filtersClicked={filtersClicked}
+                handleClearAll={handleClearAll}
+                filtersClicked={filtersClicked}
             />
             <div className={styles.cards}>
                 {!requiredData.length

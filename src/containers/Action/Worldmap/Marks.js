@@ -75,12 +75,15 @@ const Marks = ({
         [myanmarRef]
     );
 
-    const handleClick = (name) => {
-        if (name === 'Zambia') scrollToRef(zambiaRef);
-        if (name === 'Uganda') scrollToRef(ugandaRef);
-        if (name === 'Myanmar') scrollToRef(myanmarRef);
-        if (name === 'Colombia') scrollToRef(colombiaRef);
-    };
+    const handleClick = useCallback(
+        (name) => {
+            if (name === 'Zambia') scrollToRef(zambiaRef);
+            if (name === 'Uganda') scrollToRef(ugandaRef);
+            if (name === 'Colombia') scrollToRef(colombiaRef);
+            if (name === 'Myanmar') scrollToRef(myanmarRef);
+        },
+        [zambiaRef, ugandaRef, colombiaRef, myanmarRef, scrollToRef]
+    );
 
     return (
         <>
@@ -96,7 +99,7 @@ const Marks = ({
                 })}
             </g>
             <g>
-                {countries.map((country, i) => (
+                {countries.map((country) => (
                     <svg
                         key={country.countryName}
                         width='22'
