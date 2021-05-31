@@ -14,6 +14,7 @@
             padding: 20vh 0 20vh 7.5vw;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            align-content: center;
             grid-gap: 2em;
             overflow: hidden;
 
@@ -22,6 +23,10 @@
             }
 
             .hero-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
                 .hero-title {
                     font-family: var(--font-family-header);
                     font-size: var(--font-size-header-sm);

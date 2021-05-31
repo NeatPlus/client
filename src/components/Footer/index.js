@@ -21,23 +21,23 @@ const Footer = () => {
                 <div className={styles.footerNavList}>
                     <h4 className={styles.footerNavTitle}>ABOUT</h4>
                     <div className={styles.footerNavItem}>
-                        <Link className={styles.footerNavLink} to="#">
+                        <Link className={styles.footerNavLink} to="/about">
                             Why Environmental Assessments
                             in Humanitarian Operations?
                         </Link>
                     </div>
                     <div className={styles.footerNavItem}>
-                        <Link className={styles.footerNavLink} to="#">
+                        <Link className={styles.footerNavLink} to="/about">
                             About NEAT+
                         </Link>
                     </div>
                     <div className={styles.footerNavItem}>
-                        <Link className={styles.footerNavLink} to="#">
+                        <Link className={styles.footerNavLink} to="/access">
                             Rural and Urban NEAT+
                         </Link>
                     </div>
                     <div className={styles.footerNavItem}>
-                        <Link className={styles.footerNavLink} to="#">
+                        <Link className={styles.footerNavLink} to="/about">
                             History of the NEAT+
                         </Link>
                     </div>
@@ -45,12 +45,12 @@ const Footer = () => {
                 <div className={styles.footerNavList}>
                     <h4 className={styles.footerNavTitle}>ACCESS THE NEAT+</h4>
                     <div className={styles.footerNavItem}>
-                        <Link className={styles.footerNavLink} to="#">
+                        <Link className={styles.footerNavLink} to="/access">
                             Urban NEAT+
                         </Link>
                     </div>
                     <div className={styles.footerNavItem}>
-                        <Link className={styles.footerNavLink} to="#">
+                        <Link className={styles.footerNavLink} to="/access">
                             Rural NEAT+
                         </Link>
                     </div>
@@ -58,24 +58,24 @@ const Footer = () => {
                 <div className={styles.footerNavList}>
                     <h4 className={styles.footerNavTitle}>NEAT+ IN ACTION</h4>
                     <div className={styles.footerNavItem}>
-                        <a className={styles.footerNavLink} href="#">
+                        <Link className={styles.footerNavLink} to="/action">
                             Scoping Videos and Reports
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.footerNavList}>
                     <h4 className={styles.footerNavTitle}>RESOURCE AND SUPPORT</h4>
                     <div className={styles.footerNavItem}>
-                        <a className={styles.footerNavLink} href="#">
+                        <Link className={styles.footerNavLink} to="/resource">
                             Videos and Guidance
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
             <hr className={styles.seperator} />
             <div className={styles.footerCred}>
                 <div className={styles.rightInfo}>
-                    &copy; NEAT+,2021
+                    &copy; NEAT+,{new Date().getFullYear()}
                 </div>
                 <div className={styles.rightContent}>
                     <Link className={styles.policyLink} to="#">Privacy Policy</Link>

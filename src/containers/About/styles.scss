@@ -12,6 +12,10 @@
             grid-gap: 5em;
 
             .hero-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                
                 .hero-title {
                     font-family: var(--font-family-header);
                     font-size: var(--font-size-header-sm);
