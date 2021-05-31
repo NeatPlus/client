@@ -1,18 +1,24 @@
+import {useRef} from 'react';
 import CountryWorkCard from '../CountryWorkCard';
-import worldMap from 'assets/images/world-map2.webp';
+import WorldMap from '../Worldmap';
 import refugeeSettlement from 'assets/images/refugee-settlement.webp';
 
 import styles from './styles.scss';
 
 const CountrySection = () => {
+    const zambiaRef = useRef(null);
+    const ugandaRef = useRef(null);
+    const myanmarRef = useRef(null);
+    const colombiaRef = useRef(null);
     return (
         <div className={styles.container}>
             <div className={styles.worldMap}>
                 <div className={styles.worldMapCont}>
-                    <img
-                        className={styles.worldMapImage}
-                        src={worldMap}
-                        alt='world-map'
+                    <WorldMap
+                        zambiaRef={zambiaRef}
+                        ugandaRef={ugandaRef}
+                        myanmarRef={myanmarRef}
+                        colombiaRef={colombiaRef}
                     />
                 </div>
             </div>
@@ -26,6 +32,7 @@ const CountrySection = () => {
                     modalDescription={
                         'In December 2018, NEAT+ was pilot tested with the UN Refugee Agency (UNHCR) in the Mantapala refugee settlement, Zambia, on the border with the Democratic Republic of Congo. It identified and synthesized multiple risks facing the settlement – both overall environmental sensitivities and those relating to specific food security, shelter and WASH activities. The NEAT+ team then worked with UNHCR to build on this analysis and propose mitigation measures. \n \n The test concluded that NEAT+ is straightforward to use, provides accurate and nuanced results, condenses heavy environmental guidance documents efficiently and strengthens linkages to planning cycles. NEAT+ can also act as an awareness raising tool, enables remote assistance and prioritization of technical support. It can be the first step towards bringing in non-traditional humanitarian actors to work collectively to address the risks highlighted. \n \n In this particular case, the process of testing the NEAT+ highlighted that deforestation in the area might be exacerbated by livelihood activities, including making burnt bricks. A MapX story map about the NEAT+ piloting process unfolded in Zambia can be viewed here. The UN Environment news article on the testing can also be consulted here.'
                     }
+                    Ref={zambiaRef}
                 />
                 <CountryWorkCard
                     title='Uganda: Bidibidi Refugee Settlement'
@@ -34,6 +41,7 @@ const CountrySection = () => {
                     modalTitle='Uganda: Bidibidi Refugee Settlement'
                     modalImage='No Image'
                     modalDescription='No Description'
+                    Ref={ugandaRef}
                 />
                 <CountryWorkCard
                     title='Colombia: Maicao Transit Center'
@@ -42,6 +50,7 @@ const CountrySection = () => {
                     modalTitle='Colombia: Maicao Transit Center'
                     modalImage='No Image'
                     modalDescription='No Description'
+                    Ref={colombiaRef}
                 />
                 <CountryWorkCard
                     title='Myanmar: Hpa An Township '
@@ -50,6 +59,7 @@ const CountrySection = () => {
                     modalTitle='Myanmar: Hpa An Township '
                     modalImage='No Image'
                     modalDescription='No Description'
+                    Ref={myanmarRef}
                 />
             </div>
         </div>
