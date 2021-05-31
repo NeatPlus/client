@@ -4,10 +4,12 @@
     border-radius: 4px;
     border: solid 1px var(--color-white);
     background-color: var(--color-white);
+
     .header {
         margin-bottom: 1.25em;
         display: flex;
         justify-content: space-between;
+
         .title {
             max-width: 344px;
             font-family: var(--font-family-header);
@@ -25,12 +27,14 @@
 
     .organization {
         margin-bottom: 1.25em;
+
         .organization-title {
             font-size: 13px;
             font-weight: 500;
             line-height: 1.54;
             color: var(--color-grey);
         }
+
         .organization-name {
             font-size: var(--font-size-small);
             line-height: 1.43;
@@ -45,6 +49,7 @@
             line-height: 1.54;
             color: var(--color-grey);
         }
+
         .description-text {
             font-size: var(--font-size-small);
             line-height: 1.43;
@@ -54,7 +59,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-	.container {
-		max-width: 533px;
-	}
+    .container {
+        max-width: 533px;
+    }
 }

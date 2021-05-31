@@ -23,13 +23,16 @@
         align-items: unset;
         gap: 3em;
         padding: 7.5em;
+
         .world-map {
             position: relative;
             width: 50%;
+
             .world-map-cont {
                 position: sticky;
                 top: 7.5em;
                 left: 0;
+
                 .world-map-image {
                     max-width: 100%;
                 }

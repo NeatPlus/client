@@ -147,10 +147,13 @@ class Api {
     }
 
     async getProjects() {
+        dispatch(projectActions.setStatus('loading'));
         try {
             const data = await this.get('/project/');
             dispatch(projectActions.setProjects(data?.results || []));
+            dispatch(projectActions.setStatus('complete'));
         } catch(error) {
+            dispatch(projectActions.setStatus('failed'));
             console.log(error);
         }
     }

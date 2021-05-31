@@ -40,9 +40,12 @@ export default NoProject;
 
 export const withNoProject = WrappedComponent => {
     const WithNoProject = (props) => {
-        const {projects} = useSelector(state => state.project);
+        const {projects, status} = useSelector(state => state.project);
         if(projects.length) {
             return <WrappedComponent {...props} />;
+        }
+        if(status!=='complete') {
+            return null;
         }
 
         return <NoProject />;

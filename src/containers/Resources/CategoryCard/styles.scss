@@ -4,20 +4,23 @@
     background-color: var(--color-white);
     padding: 1.8em;
     border-radius: 8px;
+
     .title {
         font-size: var(--font-size-normal);
         font-weight: 600;
         line-height: 1.33;
     }
+
     .description {
         font-size: var(--font-size-small);
         line-height: 1.43;
         margin-top: 1.25em;
     }
+
     .button {
         height: 2.5em;
-		padding: 1.25em;
-		gap: 0.5em;
+        padding: 1.25em;
+        gap: 0.5em;
         background-color: transparent;
         color: var(--color-primary);
         margin-top: 1.8em;
