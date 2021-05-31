@@ -49,6 +49,12 @@ jobs:
         run: |
           yarn lint --fix
 
+      - name: Run linters
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          stylelint: true
+
       - name: Run Unit and Integration tests
         run: |
           yarn test --watchAll=false

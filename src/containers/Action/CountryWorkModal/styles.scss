@@ -2,6 +2,7 @@
     max-width: 769px;
     background-color: white;
     border-radius: 8px;
+
     .header {
         padding: 20px 25px;
         display: flex;
@@ -41,7 +42,7 @@
         padding: 38px 25px;
         margin-bottom: 25px;
         overflow-y: scroll;
-		-ms-overflow-style: none;
+        -ms-overflow-style: none;
         scrollbar-width: none;
 
         .image {
