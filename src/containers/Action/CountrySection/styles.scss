@@ -8,11 +8,8 @@
 
     .world-map {
         .world-map-cont {
-            .world-map-image {
-                width: 100%;
-                max-width: 524.6px;
-                object-fit: contain;
-            }
+            width: 32.8em;
+            max-width: 80vw;
         }
     }
 }
@@ -32,10 +29,7 @@
                 position: sticky;
                 top: 7.5em;
                 left: 0;
-
-                .world-map-image {
-                    max-width: 100%;
-                }
+                width: 100%;
             }
         }
 

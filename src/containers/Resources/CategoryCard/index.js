@@ -3,7 +3,7 @@ import {useCallback, useState} from 'react';
 import {AiOutlinePlayCircle} from 'react-icons/ai';
 import {BiDownload} from 'react-icons/bi';
 
-import VideoModal from '../VideoModal';
+import VideoModal from '../../../components/VideoModal';
 import Button from 'components/Button';
 
 import styles from './styles.scss';
@@ -27,7 +27,7 @@ const CategoryCard = ({title, description, embedId, pdf}) => {
                         onClick={() => window.open(`${pdf}`, '_blank')}
                     >
                         <BiDownload size={20} />
-                        Download PDF
+                        Download
                     </Button>
                 )}
                 {embedId && (

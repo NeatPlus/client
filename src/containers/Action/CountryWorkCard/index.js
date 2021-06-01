@@ -12,6 +12,7 @@ const CountryWorkCard = ({
     modalTitle,
     modalImage,
     modalDescription,
+    Ref,
 }) => {
     const [showCountryWorkModal, setShowCountryWorkModal] = useState(false);
 
@@ -25,7 +26,7 @@ const CountryWorkCard = ({
     );
     return (
         <>
-            <div className={styles.container}>
+            <div className={styles.container} ref={Ref}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{title}</h2>
                     <BsArrowRight
