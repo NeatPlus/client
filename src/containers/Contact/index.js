@@ -17,8 +17,8 @@ const Contact = () => {
                             Share your feedback with us
                         </h1>
                         <p className={styles.heroPara}>
-                            To continuously improve the NEAT+ and adapt it to user’s needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out  
-                            <a className={styles.innerLink} href="#">this NEAT+ user feedback form</a>. All responses are confidential and anonymous.
+                            To continuously improve the NEAT+ and adapt it to user’s needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out 
+                            <a className={styles.innerLink} target="_blank" rel="noreferrer" href="https://forms.gle/tAQshsUyCHxtweGQ8"> this NEAT+ user feedback form</a>. All responses are confidential and anonymous.
                         </p>
                         <p className={styles.heroPara}>
                             If you have any further questions, comment or feedback, please contact the JEU (
@@ -34,4 +34,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
