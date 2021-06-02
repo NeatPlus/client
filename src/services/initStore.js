@@ -21,6 +21,9 @@ export default async function initStore() {
 
     await Promise.all([
         Api.getOrganizations(),
+        Api.getUsers(),
+        Api.getQuestionGroups(),
+        Api.getQuestions(),
     ]);
 }
 
