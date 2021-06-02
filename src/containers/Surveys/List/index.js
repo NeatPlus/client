@@ -1,19 +1,20 @@
 import {useState, useCallback} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import OptionsDropdown from 'components/OptionsDropdown';
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
 
-import surveys from 'services/mockData/surveys.json';
+import {getFormattedSurveys} from 'store/selectors/survey';
 
 import styles from './styles.scss';
 
 const columns = [
     {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'title',
     }, 
     {
         Header: 'Location',
@@ -21,15 +22,15 @@ const columns = [
     },
     {
         Header: 'Surveyed by',
-        accessor: 'surveyed_by',
+        accessor: 'createdBy',
     },
     {
         Header: 'Created on',
-        accessor: 'created_on',
+        accessor: 'createdAt',
     },
     {
         Header: 'Modified on',
-        accessor: 'modified_on',
+        accessor: 'modifiedAt',
     },
     {
         Header: 'Options',
@@ -74,6 +75,13 @@ export const DataItem = ({item, column}) => {
     if(column.Header==='Name') {
         return <Link to={`${item.id}/`} className={styles.nameItem}>{item[column.accessor]}</Link>;
     }
+    if(column.Header==='Created on' || column.Header==='Modified on') {
+        const date = new Date(item[column.accessor]);
+        return date.toLocaleDateString();
+    }
+    if(column.Header==='Surveyed by') {
+        return item[column.accessor].firstName + ' ' + item[column.accessor].lastName;
+    }
     if(column.Header==='Options') {
         return (
             <OptionsDropdown className={styles.optionsItem} onEdit={handleEditClick} onDelete={handleDeleteClick} />
@@ -84,6 +92,11 @@ export const DataItem = ({item, column}) => {
 
 
 const SurveyList = () => {
+    const {projectId} = useParams();
+
+    const surveys = useSelector(state => getFormattedSurveys(state));
+    const surveyData = surveys.filter(el => el.project === +projectId);
+
     const [page, setPage] = useState(1);
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
 
@@ -94,7 +107,7 @@ const SurveyList = () => {
         <div class={styles.container}>
             <Table 
                 className={styles.table} 
-                data={surveys} 
+                data={surveyData} 
                 columns={columns} 
                 maxRows={maxRows.value}
                 page={page}
@@ -127,7 +140,7 @@ const SurveyList = () => {
                     pageItemClassName={styles.paginationItem}
                     activePageItemClassName={styles.paginationItemActive}
                     onChange={handlePageChange} 
-                    totalRecords={surveys.length}
+                    totalRecords={surveyData.length}
                     pageNeighbours={1}
                     pageLimit={maxRows.value} 
                     pageNum={page}

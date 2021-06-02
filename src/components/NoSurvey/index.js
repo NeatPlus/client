@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import {BsPlus} from 'react-icons/bs';
 import {BiChevronLeft} from 'react-icons/bi';
@@ -8,7 +9,6 @@ import Button from 'components/Button';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 
 import noSurveyImage from 'assets/images/no-survey.svg';
-import surveys from 'services/mockData/surveys.json';
 
 import styles from './styles.scss';
 
@@ -40,9 +40,16 @@ export default NoSurveys;
 
 export const withNoSurvey = WrappedComponent => {
     const WithNoSurvey = (props) => {
-        // TODO:- Use fetched surveys
-        if(surveys.length){
+        const {projectId} = useParams();
+
+        const {surveys, status} = useSelector(state => state.survey);
+        const surveyData = surveys.filter(el => el.project === +projectId);
+
+        if(surveyData.length){
             return <WrappedComponent {...props} />;
+        }
+        if(status!=='complete') {
+            return null;
         }
         return <NoSurveys />;
     };

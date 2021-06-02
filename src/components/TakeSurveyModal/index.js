@@ -1,26 +1,72 @@
-import {useCallback} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
+import {useCallback, useState} from 'react';
+import {useSelector} from 'react-redux';
+    
 import {MdClose} from 'react-icons/md';
 import {BsArrowLeft, BsArrowRight} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
+import List from '@ra/components/List';
+import Input from '@ra/components/Form/Input';
+
+import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
+const keyExtractor = item => item.id;
+
+const GroupContent = ({activeGroup, questions}) => {
+    const renderQuestion = useCallback(({item}) => {
+        return (
+            <div className={styles.contentBlock}>
+                <p className={cs(styles.contentBlockTitle, {
+                    [styles.descriptionTitle]: item.answerType==='description',
+                    [styles.inputTitle]: item.answerType!=='description',
+                })}>
+                    {item.title}
+                </p>
+                {item.answerType!=='description' ? (
+                    <Input 
+                        className={styles.input} 
+                        placeholder="Add Answer..." 
+                    />
+                ) : (
+                    <p className={styles.contentBlockText}>
+                        {item.description} 
+                    </p>
+                )}
+            </div>
+        );
+    }, []);
+
+    return (
+        <div className={styles.content}>
+            <div className={styles.languageSelect}>English</div>
+            <h3 className={styles.contentTitle}>{activeGroup.title}</h3>
+            <List
+                data={questions}
+                renderItem={renderQuestion}
+                keyExtractor={keyExtractor}
+            />
+        </div> 
+    );
+};
+
 const TakeSurveyModal = (props) => {
-    const history = useHistory();
-    const {projectId} = useParams();
+    const {isVisible, onClose} = props;
 
-    const {isVisible, onComplete, onClose} = props;
+    const {questionGroups, questions} = useSelector(state => state.survey);
 
-    const handleTakeSurvey = useCallback(()=>{
-        // TODO:- Take Survey and get survey id
-        const surveyId = 1;
-        onClose && onClose();
-        onComplete ? onComplete() : history.push(`/projects/${projectId}/surveys/${surveyId}/`);
-    }, [onClose, onComplete, history, projectId]);
+    const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+
+    const activeGroup = questionGroups[activeGroupIndex];
+    const activeQuestions = questions?.filter(ques => ques.group === activeGroup?.id) || [];
+
+    const handlePreviousClick = useCallback(() => setActiveGroupIndex(activeGroupIndex - 1), [activeGroupIndex]);
+    const handleNextClick = useCallback(() => setActiveGroupIndex(activeGroupIndex + 1), [activeGroupIndex]);
+    const handleFirstIndex = useCallback(() => setActiveGroupIndex(0), []);
+    const handleLastIndex = useCallback(() => setActiveGroupIndex(questionGroups.length - 1), [questionGroups]);
 
     if(!isVisible){
         return null;
@@ -34,46 +80,37 @@ const TakeSurveyModal = (props) => {
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
-            <div className={styles.content}>
-                <div className={styles.languageSelect}>English</div>
-                <h3 className={styles.contentTitle}>Welcome to the NEAT+</h3>
-                <div className={styles.contentBlock}>
-                    <p className={styles.contentBlockTitle}>
-                        Welcome to the activity modules of the NEAT+
-                    </p>
-                    <p className={styles.contentBlockText}>
-                        The activity modules assesses potential environmental risks of planned projects. This survey consists of three seperate modules: Shelter and Infrastructure, WASH, and Food Security. Within each of these modules, you can select the sub-module(s) most relevant to your planned activites.
-                    </p>
-                </div>
-                <div className={styles.contentBlock}>
-                    <p className={styles.contentBlockTitle}>Shelter sub-modules</p>
-                    <ul className={styles.contentBlockText}>
-                        <li>Shelter (Siting)</li>
-                        <li>Shelter (Design)</li>
-                        <li>Shelter (Materials)</li>
-                        <li>Shelter (Construction)</li>
-                        <li>Household Items</li>
-                        <li>Energy</li>
-                        <li>Roads and Access</li>
-                    </ul>
-                </div>
-                <div className={styles.buttons}>
-                    <Button secondary className={styles.button} onClick={onClose}>
+            <GroupContent 
+                activeGroup={activeGroup} 
+                questions={activeQuestions} 
+            />
+            <div className={styles.buttons}>
+                {activeGroupIndex!==0 && (
+                    <Button
+                        secondary 
+                        className={styles.button} 
+                        onClick={handlePreviousClick}
+                    >
                         <BsArrowLeft size={22} className={styles.buttonIconLeft} />
                         Previous
                     </Button>
-                    <Button className={styles.button} onClick={handleTakeSurvey}>
+                )}
+                {activeGroupIndex!==questionGroups.length-1 && (
+                    <Button 
+                        className={cs(styles.button, styles.buttonNext)} 
+                        onClick={handleNextClick}
+                    >
                         Next
                         <BsArrowRight size={22} className={styles.buttonIconRight} />
                     </Button>
-                </div>
+                )}
             </div>
             <div className={styles.footer}>
-                <div className={styles.footerLink}>
+                <div className={styles.footerLink} onClick={handleFirstIndex}>
                     <RiSkipBackLine size={20} className={styles.footerLinkIconLeft} />
                     Back to the beginning
                 </div>
-                <div className={styles.footerLink}>
+                <div className={styles.footerLink} onClick={handleLastIndex}>
                     Go to the end
                     <RiSkipForwardLine size={20} className={styles.footerLinkIconRight} />
                 </div>

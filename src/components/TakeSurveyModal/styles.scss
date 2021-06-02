@@ -37,7 +37,7 @@
 
     .content {
         flex: 1;
-        padding: 20px 25px;
+        padding: 20px 25px 10px 25px;
         background-color: var(--color-white);
         display: flex;
         flex-direction: column;
@@ -63,14 +63,22 @@
             padding: 10px 20px 15px 15px;
             border-radius: 4px;
             border: solid 1px #e2e2e2;
-            margin: 5px 0;
+            margin: 10px 0;
 
-            &__title {
+            .content-block-title {
                 font-size: var(--font-size-base);
                 line-height: 1.5em;
-                font-weight: 600;
                 color: var(--color-dark);
                 margin-bottom: 10px;
+            }
+
+            .description-title {
+                font-weight: 600;
+            }
+
+            .input-title {
+                font-size: var(--font-size-small);
+                font-weight: 500;
             }
 
             &__text {
@@ -79,24 +87,42 @@
                 line-height: 1.5em;
                 list-style-position: inside;
             }
+
+            .input {
+                font-size: var(--font-size-base);
+                width: 100%;
+                border: transparent;
+                outline: none;
+                padding: 0;
+
+                &::placeholder {
+                    color: var(--color-grey-light-alt);
+                }
+            }
         }
+    }
 
-        .buttons {
+    .buttons {
+        display: flex;
+        padding: 10px 25px 20px 25px;
+        background-color: var(--color-white);
+        justify-content: space-between;
+        margin-top: auto;
+
+        .button {
             display: flex;
-            justify-content: space-between;
-            margin-top: auto;
+            align-items: center;
 
-            .button {
-                display: flex;
-                align-items: center;
+            &__next {
+                margin-left: auto;
+            }
 
-                &-icon__left {
-                    margin-right: 10px;
-                }
+            &-icon__left {
+                margin-right: 10px;
+            }
 
-                &-icon__right {
-                    margin-left: 10px;
-                }
+            &-icon__right {
+                margin-left: 10px;
             }
         }
     }
@@ -107,7 +133,7 @@
         justify-content: center;
         padding: 15px 25px;
         background-color: var(--color-white);
-        border-top: solid 1px #bfbfbf;
+        border-top: solid 1px var(--color-grey-light-alt);
         border-radius: 0 0 8px 8px;
 
         .footer-link {
@@ -119,7 +145,7 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            
+
             &:hover {
                 filter: brightness(80%);
             }

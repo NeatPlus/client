@@ -1,23 +1,22 @@
 import {useCallback} from 'react';
 import {Link, useHistory} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
 import Button from 'components/Button';
 import OptionsDropdown from 'components/OptionsDropdown';
 import Table from '@ra/components/Table';
 
-import surveyData from 'services/mockData/surveys.json';
-
 import styles from './styles.scss';
 
 const surveyColumns = [
     {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'title',
     }, 
     {
         Header: 'Created on',
-        accessor: 'created_on',
+        accessor: 'createdAt',
     },
     {
         Header: 'Options',
@@ -44,6 +43,10 @@ export const DataItem = ({item, column}) => {
     if(column.Header==='Name') {
         return <Link to={`surveys/${item.id}`} className={styles.nameItem}>{item[column.accessor]}</Link>;
     }
+    if(column.Header==='Created on') {
+        const date = new Date(item[column.accessor]);
+        return date.toLocaleDateString();
+    }
     if(column.Header==='Options') {
         return (
             <OptionsDropdown onEdit={handleEditClick} onDelete={handleDeleteClick} />
@@ -54,6 +57,8 @@ export const DataItem = ({item, column}) => {
 
 const SurveyTable = ({onTakeSurveyClick}) => {
     const history = useHistory();
+
+    const {surveys: surveyData} = useSelector(state => state.survey);
 
     const handleSurveysClick = useCallback(() => history.push('surveys/'), [history]);
 

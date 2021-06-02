@@ -2,8 +2,10 @@ import RequestBuilder from '@ra/services/request';
 import store from 'store';
 
 import * as authActions from 'store/actions/auth';
+import * as userActions from 'store/actions/user';
 import * as organizationActions from 'store/actions/organization';
 import * as projectActions from 'store/actions/project';
+import * as surveyActions from 'store/actions/survey';
 
 const dispatch = store.dispatch;
 
@@ -137,6 +139,15 @@ class Api {
         return await this.get('/user/me/');
     }
 
+    async getUsers() {
+        try {
+            const data = await this.get('/user/');
+            dispatch(userActions.setUsers(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     async getOrganizations() {
         try {
             const data = await this.get('/organization/');
@@ -154,6 +165,36 @@ class Api {
             dispatch(projectActions.setStatus('complete'));
         } catch(error) {
             dispatch(projectActions.setStatus('failed'));
+            console.log(error);
+        }
+    }
+
+    async getSurveys() {
+        dispatch(surveyActions.setStatus('loading'));
+        try {
+            const data = await this.get('/survey/');
+            dispatch(surveyActions.setSurveys(data?.results || []));
+            dispatch(surveyActions.setStatus('complete'));
+        } catch(error) {
+            dispatch(surveyActions.setStatus('failed'));
+            console.log(error);
+        }
+    }
+
+    async getQuestionGroups() {
+        try {
+            const data = await this.get('/question-group/');
+            dispatch(surveyActions.setQuestionGroups(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    async getQuestions() {
+        try {
+            const data = await this.get('/question/');
+            dispatch(surveyActions.setQuestions(data?.results || []));
+        } catch(error) {
             console.log(error);
         }
     }
