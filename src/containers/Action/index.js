@@ -53,10 +53,10 @@ const Action = () => {
                 <Footer />
             </div>
             <VideoModal
-                embedId='2xepu2fQbUM'
+                videoUrl='https://www.youtube.com/embed/oOYMwEU-g24'
                 isVisible={showVideoModal}
                 onClose={handleHideVideoModal}
-                title="NEAT+ IN ACTION"
+                title='Applying the Nexus Environmental Assessment Tool (NEAT+) in humanitarian settings'
             />
         </>
     );

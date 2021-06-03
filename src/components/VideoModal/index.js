@@ -3,7 +3,7 @@ import {MdClose} from 'react-icons/md';
 import Modal from '@ra/components/Modal';
 import styles from './styles.scss';
 
-const VideoModal = ({isVisible, onClose, embedId, title}) => {
+const VideoModal = ({isVisible, onClose, videoUrl, title}) => {
     if (!isVisible) {
         return null;
     }
@@ -20,7 +20,7 @@ const VideoModal = ({isVisible, onClose, embedId, title}) => {
                 <iframe
                     width='100%'
                     height='100%'
-                    src={`https://www.youtube.com/embed/${embedId}`}
+                    src={videoUrl}
                     frameBorder='0'
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen

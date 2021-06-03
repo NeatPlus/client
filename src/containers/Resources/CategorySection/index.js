@@ -4,8 +4,7 @@ import {BiSearch} from 'react-icons/bi';
 import {FiFilter} from 'react-icons/fi';
 import {RiArrowDownSLine} from 'react-icons/ri';
 
-import resources from '../../../services/mockData/resources.json';
-
+import Api from 'services/api';
 import FilterTagButtons from '../FilterTagButtons';
 import SuggestedTagButtons from '../SuggestedTagButtons';
 import CategoryCard from '../CategoryCard';
@@ -21,12 +20,24 @@ const CategorySection = () => {
     const [allResourcesSlice, setAllResourcesSlice] = useState(6);
     const [requiredData, setRequiredData] = useState([]);
     const [requiredDataSlice, setRequiredDataSlice] = useState(6);
+    const [allTags, setAllTags] = useState([]);
     const [inputData, setInputData] = useState({
         searchInput: '',
     });
+    const [searchedData, setSearchedData] = useState([]);
+    const [tagsData, setTagsData] = useState([]);
 
     useEffect(() => {
-        setAllResources(resources);
+        async function fetchAllResources() {
+            const {results} = await Api.get('/resource/');
+            setAllResources([...results]);
+        }
+        async function fetchAllResourcesTag() {
+            const {results} = await Api.get('/resource-tag/');
+            setAllTags([...results]);
+        }
+        fetchAllResources();
+        fetchAllResourcesTag();
     }, []);
 
     const handleToggleFiltersClicked = useCallback(() => {
@@ -34,57 +45,33 @@ const CategorySection = () => {
     }, [filtersClicked]);
 
     const handleToggleClickedTag = useCallback(
-        (value) => {
+        (val) => {
+            const value = parseInt(val);
             const index = clickedTags.indexOf(value);
             if (index < 0) {
                 setClickedTags([...clickedTags, value]);
-                if (value === 'video') {
-                    if (!clickedTags.length) {
-                        const newVideoArr = allResources.filter(
-                            (obj) => obj.video_link !== ''
-                        );
-                        setRequiredData([...newVideoArr]);
-                    } else {
-                        const newVideoArr = allResources.filter((obj1) =>
-                            requiredData.every(
-                                (obj2) =>
-                                    obj1.id !== obj2.id &&
-                                    obj1.video_link !== ''
-                            )
-                        );
-                        setRequiredData([...newVideoArr, ...requiredData]);
-                    }
-                } else {
-                    if (clickedTags.includes('video')) {
-                        const newArr = allResources.filter((obj1) =>
-                            requiredData.every(
-                                (obj2) =>
-                                    obj1.id !== obj2.id && obj1.tag === value
-                            )
-                        );
-                        setRequiredData([...newArr, ...requiredData]);
-                    } else {
-                        const newArray = allResources.filter(
-                            (data) => data.tag === value
-                        );
-                        setRequiredData([...newArray, ...requiredData]);
-                    }
-                }
+                const filteredArr = allResources.filter(
+                    (obj1) =>
+                        tagsData.every((obj2) => obj1.id !== obj2.id) &&
+                        obj1.tags.includes(value)
+                );
+                const mergeData = [
+                    ...new Set([...filteredArr, ...tagsData, ...searchedData]),
+                ];
+                setRequiredData([...mergeData]);
+                setTagsData([...filteredArr, ...tagsData]);
             }
             if (index > -1) {
                 clickedTags.splice(index, 1);
                 setClickedTags([...clickedTags]);
-                if (value === 'video') {
-                    const newArr = requiredData.filter((obj1) =>
-                        clickedTags.includes(obj1.tag)
-                    );
-                    setRequiredData([...newArr]);
-                } else {
-                    const newArr = requiredData.filter(
-                        (data) => data.tag !== value
-                    );
-                    setRequiredData([...newArr]);
-                }
+                const filteredArr = tagsData.filter((data) =>
+                    clickedTags.some((tag) => data.tags.includes(tag))
+                );
+                const mergeData = [
+                    ...new Set([...filteredArr, ...searchedData]),
+                ];
+                setRequiredData([...mergeData]);
+                setTagsData([...filteredArr]);
 
                 if (requiredDataSlice > 6) {
                     setRequiredDataSlice(requiredDataSlice - 6);
@@ -92,7 +79,7 @@ const CategorySection = () => {
             }
             setAllResourcesSlice(6);
         },
-        [clickedTags, allResources, requiredData, requiredDataSlice]
+        [clickedTags, allResources, requiredDataSlice, tagsData, searchedData]
     );
 
     const handleClearAll = useCallback(() => {
@@ -118,12 +105,28 @@ const CategorySection = () => {
     }, [requiredDataSlice]);
 
     const handleChange = useCallback(
-        ({name, value}) =>
+        ({name, value}) => {
             setInputData({
                 ...inputData,
                 [name]: value,
-            }),
-        [inputData]
+            });
+            if (value === '') {
+                setSearchedData([]);
+                setRequiredData([...tagsData]);
+            }
+            if (value !== '') {
+                const filteredData = allResources.filter((data) =>
+                    Object.values(data)
+                        .join('')
+                        .toLowerCase()
+                        .includes(value.toLowerCase())
+                );
+                const mergeData = [...new Set([...filteredData, ...tagsData])];
+                setRequiredData([...mergeData]);
+                setSearchedData([...filteredData]);
+            }
+        },
+        [inputData, allResources, tagsData]
     );
 
     return (
@@ -149,7 +152,7 @@ const CategorySection = () => {
                 />
                 <div className={styles.allResources}>
                     <h2>
-                        {requiredData.length === 0
+                        {!inputData.searchInput && requiredData.length === 0
                             ? `All Resources (${allResources.length})`
                             : `Showing Results (${requiredData.length})`}
                     </h2>
@@ -172,37 +175,60 @@ const CategorySection = () => {
             <FilterTagButtons
                 clickedTags={clickedTags}
                 handleToggleClickedTag={handleToggleClickedTag}
-                handleClearAll={handleClearAll} filtersClicked={filtersClicked}
+                handleClearAll={handleClearAll}
+                filtersClicked={filtersClicked}
+                filterTags={allTags}
             />
             <div className={styles.cards}>
-                {!requiredData.length
-                    ? allResources
+                {!allResources.length ? (
+                    <p className={styles.fallbackText}>
+                        There are not any resources currently.
+                    </p>
+                ) : !requiredData.length ? (
+                    allResources
                         .slice(0, allResourcesSlice)
                         .map((data) => (
                             <CategoryCard
                                 key={data.id}
                                 title={data.title}
-                                description={data.summary}
-                                embedId={data.video_link}
-                                pdf={data.pdf_link}
+                                description={data.description}
+                                videoUrl={data.videoUrl}
+                                attachment={data.attachment}
                             />
                         ))
-                    : requiredData
+                ) : (
+                    requiredData
                         .slice(0, requiredDataSlice)
                         .map((data) => (
                             <CategoryCard
                                 key={data.id}
-                                title={data.title}
-                                description={data.summary}
-                                embedId={data.video_link}
-                                pdf={data.pdf_link}
+                                title={
+                                    clickedTags.includes(5) && data.titleFr
+                                        ? data.titleFr
+                                        : clickedTags.includes(6) &&
+                                          data.titleEs
+                                            ? data.titleEs
+                                            : data.title
+                                }
+                                description={
+                                    clickedTags.includes(5) &&
+                                    data.descriptionFr
+                                        ? data.descriptionFr
+                                        : clickedTags.includes(6) &&
+                                          data.descriptionEs
+                                            ? data.descriptionEs
+                                            : data.description
+                                }
+                                videoUrl={data.videoUrl}
+                                attachment={data.attachment}
                             />
-                        ))}
+                        ))
+                )}
             </div>
             <div className={styles.loadMore}>
                 <Button
                     className={`${
-                        allResources.length !== allResourcesSlice &&
+                        allResources.length >= allResourcesSlice &&
                         !requiredData.length
                             ? styles.loadMoreButton
                             : styles.loadMoreButtonHide
