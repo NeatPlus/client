@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react';
 import {BiCheck} from 'react-icons/bi';
 
 import styles from './styles.scss';
@@ -8,22 +7,8 @@ const FilterTagButtons = ({
     handleToggleClickedTag,
     handleClearAll,
     filtersClicked,
+    filterTags,
 }) => {
-    const [filterTags, setFilterTags] = useState([]);
-
-    useEffect(() => {
-        setFilterTags([
-            {tag: 'how_to', text: 'How-to'},
-            {tag: 'methodology', text: 'Methodology'},
-            {tag: 'r_neat', text: 'R-NEAT+'},
-            {tag: 'u_neat', text: 'U-NEAT+'},
-            {tag: 'french', text: 'French'},
-            {tag: 'spanish', text: 'Spanish'},
-            {tag: 'english', text: 'English'},
-            {tag: 'communication', text: 'Communication'},
-            {tag: 'video', text: 'Video'},
-        ]);
-    }, []);
     return (
         <div
             className={`${styles.container} ${
@@ -37,18 +22,16 @@ const FilterTagButtons = ({
             >
                 {filterTags.map((data) => (
                     <button
-                        key={data.tag}
+                        key={data.id}
                         className={`${styles.tagButton} ${
-                            clickedTags.includes(data.tag) &&
+                            clickedTags.includes(data.id) &&
                             styles.tagButtonClicked
                         }`}
-                        value={data.tag}
+                        value={data.id}
                         onClick={(e) => handleToggleClickedTag(e.target.value)}
                     >
-                        {clickedTags.includes(data.tag) && (
-                            <BiCheck size={20} />
-                        )}
-                        {data.text}
+                        {clickedTags.includes(data.id) && <BiCheck size={20} />}
+                        {data.title}
                     </button>
                 ))}
             </div>

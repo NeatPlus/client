@@ -6,11 +6,11 @@ const SuggestedTagButtons = ({handleSuggestedTags}) => {
 
     useEffect(() => {
         setSuggestedTags([
-            {tag: 'how_to', text: 'How-to'},
-            {tag: 'u_neat', text: 'U-NEAT'},
-            {tag: 'r_neat', text: 'R-NEAT'},
-            {tag: 'french', text: 'French'},
-            {tag: 'video', text: 'Video'},
+            {tag: 1, text: 'How-to'},
+            {tag: 4, text: 'U-NEAT'},
+            {tag: 3, text: 'R-NEAT'},
+            {tag: 5, text: 'French'},
+            {tag: 9, text: 'Video'},
         ]);
     }, []);
     return (

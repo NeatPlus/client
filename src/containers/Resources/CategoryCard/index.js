@@ -8,7 +8,7 @@ import Button from 'components/Button';
 
 import styles from './styles.scss';
 
-const CategoryCard = ({title, description, embedId, pdf}) => {
+const CategoryCard = ({title, description, videoUrl, attachment}) => {
     const [showVideoModal, setShowVideoModal] = useState(false);
 
     const handleShowVideoModal = useCallback(() => setShowVideoModal(true), []);
@@ -21,16 +21,16 @@ const CategoryCard = ({title, description, embedId, pdf}) => {
             <div className={styles.container}>
                 <h2 className={styles.title}>{title} </h2>
                 <p className={styles.description}>{description}</p>
-                {pdf && (
+                {attachment && (
                     <Button
                         className={styles.button}
-                        onClick={() => window.open(`${pdf}`, '_blank')}
+                        onClick={() => window.open(attachment, '_blank')}
                     >
                         <BiDownload size={20} />
                         Download
                     </Button>
                 )}
-                {embedId && (
+                {videoUrl && (
                     <Button
                         className={styles.button}
                         onClick={handleShowVideoModal}
@@ -41,7 +41,7 @@ const CategoryCard = ({title, description, embedId, pdf}) => {
                 )}
             </div>
             <VideoModal
-                embedId={embedId}
+                videoUrl={videoUrl}
                 isVisible={showVideoModal}
                 onClose={handleHideVideoModal}
                 title={title}
