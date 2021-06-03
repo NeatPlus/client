@@ -54,7 +54,6 @@ jobs:
         with:
           eslint: true
           stylelint: true
-        auto_fix: true
 
       - name: Run Unit and Integration tests
         run: |

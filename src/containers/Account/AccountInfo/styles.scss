@@ -1,0 +1,35 @@
+.account-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .update-button {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .user-info {
+        display: flex;
+        padding-right: 5em;
+        justify-content: space-between;
+        align-items: center;
+
+        .user-name {
+            padding-left: 0.75em;
+            font-size: var(--font-size-base);
+        }
+
+        .user-avatar {
+            min-width: 3em;
+            min-height: 3em;
+            border-radius: 3em;
+            font-size: var(--font-size-normal);
+            line-height: 1.5;
+            color: #c0d0de;
+            background-color: var(--color-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    }
+}

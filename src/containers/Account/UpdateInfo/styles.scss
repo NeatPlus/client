@@ -1,0 +1,37 @@
+.edit-form {
+    display: grid;
+    grid-template-rows: 1fr;
+    margin-top: 2em;
+
+    .input-label {
+        font-size: var(--font-size-small);
+        color: var(--color-grey);
+        line-height: 1.375em;
+        margin-bottom: 0.5em;
+    }
+
+    .input {
+        color: var(--color-dark);
+        font-size: var(--font-size-base);
+        line-height: 1.25em;
+        outline-color: var(--color-primary-alt);
+        caret-color: var(--color-primary);
+        background-color: var(--color-white);
+    }
+
+    .select-control {
+        height: 2.4em;
+        display: flex;
+        align-items: center;
+        background-color: var(--color-white);
+    }
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+ .errorMessage{
+        color:red;
+    }

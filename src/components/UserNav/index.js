@@ -27,7 +27,7 @@ const UserNav = props => {
     }, [dispatch, history]);
 
     const getInitial = useCallback(() => user?.firstName?.[0], [user]);
-
+    
     return (
         <nav className={styles.container}>
             <Link to="/">
@@ -51,10 +51,10 @@ const UserNav = props => {
                                 <p className={styles.email}>{user?.email}</p>
                             </div>
                         </div> 
-                        <div className={styles.userOption}>
-                            <IoSettingsOutline className={styles.userIcon} />
+                        <Link to="/account" className={styles.userOption}>
+                            <IoSettingsOutline  className={styles.userIcon} />
                             Account Settings
-                        </div>
+                        </Link>
                         <div className={styles.userOption}>
                             <MdLanguage className={styles.userIcon} />
                             Language
