@@ -6,9 +6,11 @@ import {BsArrowLeft, BsArrowRight} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 
 import Button from 'components/Button';
+import LocationInput from 'components/LocationInput';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import Input from '@ra/components/Form/Input';
+import DateInput from '@ra/components/Form/DateInput';
 
 import cs from '@ra/cs';
 
@@ -16,8 +18,25 @@ import styles from './styles.scss';
 
 const keyExtractor = item => item.id;
 
-const GroupContent = ({activeGroup, questions}) => {
+const GroupContent = props => {
+    const {
+        activeGroup,
+        questions,
+        onPreviousClick,
+        onNextClick,
+        showPrevious,
+        showNext,
+    } = props;
+
     const renderQuestion = useCallback(({item}) => {
+        let InputComponent = Input;
+        if(item.answerType==='date') {
+            InputComponent = DateInput;
+        }
+        if(item.answerType==='location') {
+            InputComponent = LocationInput;
+        }
+
         return (
             <div className={styles.contentBlock}>
                 <p className={cs(styles.contentBlockTitle, {
@@ -26,8 +45,11 @@ const GroupContent = ({activeGroup, questions}) => {
                 })}>
                     {item.title}
                 </p>
+                {!!item.hints && (
+                    <p className={styles.contentHint}>{item.hints}</p>
+                )}
                 {item.answerType!=='description' ? (
-                    <Input 
+                    <InputComponent
                         className={styles.input} 
                         placeholder="Add Answer..." 
                     />
@@ -43,12 +65,33 @@ const GroupContent = ({activeGroup, questions}) => {
     return (
         <div className={styles.content}>
             <div className={styles.languageSelect}>English</div>
-            <h3 className={styles.contentTitle}>{activeGroup.title}</h3>
+            <h3 className={styles.contentTitle}>{activeGroup?.title}</h3>
             <List
                 data={questions}
                 renderItem={renderQuestion}
                 keyExtractor={keyExtractor}
             />
+            <div className={styles.buttons}>
+                {showPrevious && (
+                    <Button
+                        secondary 
+                        className={styles.button} 
+                        onClick={onPreviousClick}
+                    >
+                        <BsArrowLeft size={22} className={styles.buttonIconLeft} />
+                        Previous
+                    </Button>
+                )}
+                {showNext && (
+                    <Button 
+                        className={cs(styles.button, styles.buttonNext)} 
+                        onClick={onNextClick}
+                    >
+                        Next
+                        <BsArrowRight size={22} className={styles.buttonIconRight} />
+                    </Button>
+                )}
+            </div>
         </div> 
     );
 };
@@ -82,29 +125,13 @@ const TakeSurveyModal = (props) => {
             </div>
             <GroupContent 
                 activeGroup={activeGroup} 
-                questions={activeQuestions} 
+                questions={activeQuestions}
+                onPreviousClick={handlePreviousClick}
+                onNextClick={handleNextClick}
+                showPrevious={activeGroupIndex!==0}
+                showNext={activeGroupIndex!==questionGroups.length - 1}
             />
-            <div className={styles.buttons}>
-                {activeGroupIndex!==0 && (
-                    <Button
-                        secondary 
-                        className={styles.button} 
-                        onClick={handlePreviousClick}
-                    >
-                        <BsArrowLeft size={22} className={styles.buttonIconLeft} />
-                        Previous
-                    </Button>
-                )}
-                {activeGroupIndex!==questionGroups.length-1 && (
-                    <Button 
-                        className={cs(styles.button, styles.buttonNext)} 
-                        onClick={handleNextClick}
-                    >
-                        Next
-                        <BsArrowRight size={22} className={styles.buttonIconRight} />
-                    </Button>
-                )}
-            </div>
+
             <div className={styles.footer}>
                 <div className={styles.footerLink} onClick={handleFirstIndex}>
                     <RiSkipBackLine size={20} className={styles.footerLinkIconLeft} />
