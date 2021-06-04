@@ -42,7 +42,11 @@ const useRequest = (url, options, body) => {
                     body: options.headers ? body : JSON.stringify(body), 
                 };
             }
-            const {error, data, response} = await request(`/api/${apiVersion}${url}`, requestOptions);
+            const {error, data, response} = await request(
+                url.startsWith('http')
+                    ? url 
+                    : `/api/${apiVersion}${url}`, requestOptions
+            );
             if(response.status === 500) {
                 throw new Error('500 Internal Server Error');
             }

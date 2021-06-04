@@ -76,7 +76,11 @@ const ProjectDashboard = withNoSurvey(() => {
                     <SurveyList />
                 </Tab>
             </Tabs>
-            <TakeSurveyModal isVisible={showTakeSurveyModal} onComplete={handleSurveyComplete} onClose={handleHideTakeSurveyModal} />
+            <TakeSurveyModal 
+                isVisible={showTakeSurveyModal} 
+                onComplete={handleSurveyComplete} 
+                onClose={handleHideTakeSurveyModal} 
+            />
         </div>
     );
 });

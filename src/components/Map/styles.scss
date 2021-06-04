@@ -7,3 +7,31 @@
     box-shadow: 3px 15px 30px 0 rgba(0, 0, 0, 0.16);
     background-color: var(--color-white);
 }
+
+.picker-control {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 3px 8px 12px 0 rgba(0, 0, 0, 0.12);
+
+    &:hover {
+        filter: brightness(95%);
+    }
+
+    &__active {
+        background-color: var(--color-light);
+        box-shadow: 3px 8px 12px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .picker-icon {
+        color: var(--color-black);
+    }
+}
