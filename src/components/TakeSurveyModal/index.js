@@ -6,17 +6,76 @@ import {BsArrowLeft, BsArrowRight} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 
 import Button from 'components/Button';
-import LocationInput from 'components/LocationInput';
+import LocationInput from 'components/Inputs/LocationInput';
+import SingleOptionInput from 'components/Inputs/SingleOptionInput';
+import MultiOptionInput from 'components/Inputs/MultiOptionInput';
+import BooleanInput from 'components/Inputs/BooleanInput';
+
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import Input from '@ra/components/Form/Input';
 import DateInput from '@ra/components/Form/DateInput';
+import NumberInput from '@ra/components/Form/NumberInput';
+import FileInput from '@ra/components/Form/FileInput';
 
 import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
 const keyExtractor = item => item.id;
+
+const getInputComponent = question => {
+    switch(question.answerType) {
+    case 'date':
+        return DateInput;
+    case 'boolean':
+        return BooleanInput;        
+    case 'location':
+        return LocationInput;
+    case 'single_option':
+        return SingleOptionInput;
+    case 'multiple_option':
+        return MultiOptionInput;
+    case 'number':
+        return NumberInput;
+    case 'image':
+        return FileInput;
+    default:
+        return Input;
+    }
+};
+
+const Question = ({item}) => {
+    const {options} = useSelector(state => state.survey);
+
+    const InputComponent = getInputComponent(item);
+
+    return (
+        <div className={styles.contentBlock}>
+            <p className={cs(styles.contentBlockTitle, {
+                [styles.descriptionTitle]: item.answerType==='description',
+                [styles.inputTitle]: item.answerType!=='description',
+            })}>
+                {item.title}
+            </p>
+            {!!item.hints && (
+                <p className={styles.contentHint}>{item.hints}</p>
+            )}
+            {item.answerType!=='description' ? (
+                <InputComponent
+                    className={styles.input} 
+                    placeholder="Add Answer..." 
+                    options={options?.filter(opt => opt.question === item.id)}
+                    accept="image/png, image/jpeg"
+                />
+            ) : (
+                <p className={styles.contentBlockText}>
+                    {item.description} 
+                </p>
+            )}
+        </div>
+    );
+}; 
 
 const GroupContent = props => {
     const {
@@ -28,47 +87,13 @@ const GroupContent = props => {
         showNext,
     } = props;
 
-    const renderQuestion = useCallback(({item}) => {
-        let InputComponent = Input;
-        if(item.answerType==='date') {
-            InputComponent = DateInput;
-        }
-        if(item.answerType==='location') {
-            InputComponent = LocationInput;
-        }
-
-        return (
-            <div className={styles.contentBlock}>
-                <p className={cs(styles.contentBlockTitle, {
-                    [styles.descriptionTitle]: item.answerType==='description',
-                    [styles.inputTitle]: item.answerType!=='description',
-                })}>
-                    {item.title}
-                </p>
-                {!!item.hints && (
-                    <p className={styles.contentHint}>{item.hints}</p>
-                )}
-                {item.answerType!=='description' ? (
-                    <InputComponent
-                        className={styles.input} 
-                        placeholder="Add Answer..." 
-                    />
-                ) : (
-                    <p className={styles.contentBlockText}>
-                        {item.description} 
-                    </p>
-                )}
-            </div>
-        );
-    }, []);
-
     return (
         <div className={styles.content}>
             <div className={styles.languageSelect}>English</div>
             <h3 className={styles.contentTitle}>{activeGroup?.title}</h3>
             <List
                 data={questions}
-                renderItem={renderQuestion}
+                renderItem={Question}
                 keyExtractor={keyExtractor}
             />
             <div className={styles.buttons}>
