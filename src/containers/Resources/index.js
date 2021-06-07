@@ -12,9 +12,6 @@ const Resources = () => {
                 <div className={styles.hero}>
                     <div className={styles.titles}>
                         <h1 className={styles.title}>Resources & Support</h1>
-                        <p className={styles.subTitle}>
-                            Browse the library of Resources and Support
-                        </p>
                     </div>
                 </div>
             </header>
