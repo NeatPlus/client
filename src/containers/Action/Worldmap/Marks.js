@@ -1,86 +1,55 @@
-import {geoMercator, geoPath} from 'd3';
 import {useCallback, useEffect, useState} from 'react';
-
-const countries = [
-    {
-        countryName: 'Zambia',
-        coordinates: [27.8493, -13.1339],
-        project: 'Zambia: Mantapala Refugee Settlement',
-    },
-    {
-        countryName: 'Uganda',
-        coordinates: [32.2903, 1.3733],
-        project: 'Uganda: Bidibidi Refugee Settlement',
-    },
-    {
-        countryName: 'Colombia',
-        coordinates: [-74.2973, 4.5709],
-        project: 'Colombia: Maicao Transit Center',
-    },
-    {
-        countryName: 'Myanmar',
-        coordinates: [95.956, 21.9162],
-        project: 'Myanmar: Hpa An Township',
-    },
-];
+import {geoMercator, geoPath} from 'd3';
 
 const Marks = ({
     data,
     width,
     color,
-    countryName,
-    zambiaRef,
-    ugandaRef,
-    myanmarRef,
-    colombiaRef,
+    refs,
+    allActions,
+    handleShowToolTip,
+    handleHideToolTip,
 }) => {
-    const [marker, setMarker] = useState('');
-    useEffect(() => {
-        const setMarkerFromScroll = () => {
-            if (zambiaRef.current.offsetTop - window.pageYOffset > -40) {
-                setMarker('Zambia');
-            } else if (ugandaRef.current.offsetTop - window.pageYOffset > -40) {
-                setMarker('Uganda');
-            } else if (
-                colombiaRef.current.offsetTop - window.pageYOffset >
-                -40
-            ) {
-                setMarker('Colombia');
-            } else if (
-                myanmarRef.current.offsetTop - window.pageYOffset >
-                -40
-            ) {
-                setMarker('Myanmar');
-            }
-        };
-        window.addEventListener('scroll', setMarkerFromScroll);
-
-        return () => {
-            window.removeEventListener('scroll', setMarkerFromScroll);
-        };
-    }, [zambiaRef, ugandaRef, colombiaRef, myanmarRef]);
+    const [marker, setMarker] = useState(1);
     const projection = geoMercator()
         .scale(width / 6.4)
         .translate([width / 2, width / 2]);
 
     const path = geoPath(projection);
-    const scrollToRef = useCallback(
-        (ref) => {
-            if (ref === myanmarRef) {
-                window.scrollTo(0, ref.current.offsetTop - 150);
-            } else {
-                window.scrollTo(0, ref.current.offsetTop - 120);
+
+    const setMarkerFromScroll = useCallback(() => {
+        for (let i = 0; i < refs.length; i++) {
+            if (refs[i].current.offsetTop - window.pageYOffset > -40) {
+                setMarker(refs[i].current.id);
+                break;
+            }
+        }
+    }, [refs]);
+
+    useEffect(() => {
+        setMarkerFromScroll();
+        window.addEventListener('scroll', setMarkerFromScroll);
+
+        return () => {
+            window.removeEventListener('scroll', setMarkerFromScroll);
+        };
+    }, [setMarkerFromScroll]);
+
+    const scrollToRef = useCallback((ref) => {
+        window.scrollTo(0, ref.current.offsetTop - 120);
+    }, []);
+
+    const handleClick = useCallback(
+        (id) => {
+            for (let i = 0; i < refs.length; i++) {
+                if (parseInt(refs[i].current.id) === parseInt(id)) {
+                    scrollToRef(refs[i]);
+                    break;
+                }
             }
         },
-        [myanmarRef]
+        [refs, scrollToRef]
     );
-
-    const handleClick = (name) => {
-        if (name === 'Zambia') scrollToRef(zambiaRef);
-        if (name === 'Uganda') scrollToRef(ugandaRef);
-        if (name === 'Myanmar') scrollToRef(myanmarRef);
-        if (name === 'Colombia') scrollToRef(colombiaRef);
-    };
 
     return (
         <>
@@ -96,21 +65,31 @@ const Marks = ({
                 })}
             </g>
             <g>
-                {countries.map((country, i) => (
+                {allActions.map((data) => (
                     <svg
-                        key={country.countryName}
-                        width='22'
+                        key={data.id}
+                        width={
+                            parseInt(data.id) === parseInt(marker) ? '24' : '20'
+                        }
                         height='24'
                         viewBox='0 0 24 24'
                         cursor='pointer'
-                        x={projection(country.coordinates)[0] - 11}
-                        y={projection(country.coordinates)[1] - 24}
-                        onMouseEnter={() => countryName(country.project)}
-                        onMouseOut={() => countryName(null)}
-                        fill={
-                            country.countryName === marker ? '#00a297' : 'gray'
+                        x={
+                            projection(data.point.coordinates)[0] -
+                            (parseInt(data.id) === parseInt(marker) ? 12 : 10)
                         }
-                        onClick={() => handleClick(country.countryName)}
+                        y={
+                            projection(data.point.coordinates)[1] -
+                            (parseInt(data.id) === parseInt(marker) ? 24 : 22)
+                        }
+                        onMouseEnter={(e) => handleShowToolTip(e, data.title)}
+                        onMouseOut={() => handleHideToolTip()}
+                        fill={
+                            parseInt(data.id) === parseInt(marker)
+                                ? '#00a297'
+                                : 'gray'
+                        }
+                        onClick={() => handleClick(data.id)}
                     >
                         <g transform='translate(0 -1028.4)'>
                             <path

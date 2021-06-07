@@ -1,28 +1,10 @@
 import {useCallback, useEffect, useState} from 'react';
 import Marks from './Marks';
 
-const Map = ({
-    width,
-    color,
-    backgroundColor,
-    zambiaRef,
-    ugandaRef,
-    myanmarRef,
-    colombiaRef,
-}) => {
-    const [name, setName] = useState('');
+const Map = ({width, color, backgroundColor, refs, allActions}) => {
+    const [text, setText] = useState('');
     const [data, setData] = useState('');
     const [position, setPosition] = useState({x: 0, y: 0});
-
-    useEffect(() => {
-        const setPositionFromEvent = (e) =>
-            setPosition({x: e.clientX, y: e.clientY});
-        window.addEventListener('mousemove', setPositionFromEvent);
-
-        return () => {
-            window.removeEventListener('mousemove', setPositionFromEvent);
-        };
-    }, []);
 
     useEffect(() => {
         fetch(
@@ -32,8 +14,14 @@ const Map = ({
             .then((data) => setData(data));
     }, []);
 
-    const countryName = useCallback((value) => {
-        setName(value);
+    const handleShowToolTip = useCallback((e, value) => {
+        setPosition({x: e.clientX, y: e.clientY});
+        setText(value);
+    }, []);
+
+    const handleHideToolTip = useCallback(() => {
+        setPosition({x: 0, y: 0});
+        setText('');
     }, []);
 
     if (!data) {
@@ -44,7 +32,7 @@ const Map = ({
         <>
             <div
                 style={{
-                    display: `${name ? 'flex' : 'none'}`,
+                    display: `${text ? 'flex' : 'none'}`,
                     zIndex: 1,
                     position: 'fixed',
                     top: position.y - 5,
@@ -54,7 +42,7 @@ const Map = ({
                     color: 'white',
                 }}
             >
-                {name && name}
+                {text && text}
             </div>
             <svg
                 width={width}
@@ -65,11 +53,10 @@ const Map = ({
                     data={data}
                     width={width}
                     color={color}
-                    countryName={countryName}
-                    zambiaRef={zambiaRef}
-                    ugandaRef={ugandaRef}
-                    myanmarRef={myanmarRef}
-                    colombiaRef={colombiaRef}
+                    refs={refs}
+                    allActions={allActions}
+                    handleShowToolTip={handleShowToolTip}
+                    handleHideToolTip={handleHideToolTip}
                 />
             </svg>
         </>

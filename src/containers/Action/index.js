@@ -1,12 +1,13 @@
-import CountrySection from './CountrySection';
+import { useCallback, useState } from 'react';
 
+import CountrySection from './CountrySection';
+import VideoModal from 'components/VideoModal';
 import header from 'assets/images/neat-in-action-header.webp';
 import Footer from 'components/Footer';
 import NavBar from 'components/NavBar';
 
 import styles from './styles.scss';
-import VideoModal from 'components/VideoModal';
-import { useCallback, useState } from 'react';
+
 
 const Action = () => {
     const [showVideoModal, setShowVideoModal] = useState(false);
@@ -18,7 +19,7 @@ const Action = () => {
     );
     return (
         <>
-            <div className={styles.containerAbout}>
+            <div className={styles.containerAction}>
                 <header className={styles.header}>
                     <NavBar />
                     <div className={styles.hero}>
