@@ -7,12 +7,10 @@ import styles from './styles.scss';
 
 const CountryWorkCard = ({
     title,
-    organizationName,
+    organization,
     description,
-    modalTitle,
     modalImage,
     modalDescription,
-    Ref,
 }) => {
     const [showCountryWorkModal, setShowCountryWorkModal] = useState(false);
 
@@ -26,7 +24,7 @@ const CountryWorkCard = ({
     );
     return (
         <>
-            <div className={styles.container} ref={Ref}>
+            <div className={styles.container}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{title}</h2>
                     <BsArrowRight
@@ -38,7 +36,7 @@ const CountryWorkCard = ({
                 <div className={styles.organization}>
                     <p className={styles.organizationTitle}>ORGANIZATION</p>
                     <p className={styles.organizationName}>
-                        {organizationName}
+                        {organization}
                     </p>
                 </div>
                 <div className={styles.description}>
@@ -49,7 +47,7 @@ const CountryWorkCard = ({
             <CountryWorkModal
                 isVisible={showCountryWorkModal}
                 onClose={handleHideCountryWorkModal}
-                title={modalTitle}
+                title={title}
                 image={modalImage}
                 description={modalDescription}
             />
