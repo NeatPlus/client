@@ -24,6 +24,7 @@ export default async function initStore() {
         Api.getUsers(),
         Api.getQuestionGroups(),
         Api.getQuestions(),
+        Api.getOptions(),
     ]);
 }
 

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {MdClose} from 'react-icons/md';
 import {MdKeyboardArrowLeft} from 'react-icons/md';
 
-import OTPInput from 'components/OtpInput';
+import OTPInput from 'components/Inputs/OtpInput';
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';

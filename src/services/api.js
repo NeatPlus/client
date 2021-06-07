@@ -192,8 +192,17 @@ class Api {
 
     async getQuestions() {
         try {
-            const data = await this.get('/question/');
+            const data = await this.get('/question/?limit=200');
             dispatch(surveyActions.setQuestions(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    async getOptions() {
+        try {
+            const data = await this.get('/option/');
+            dispatch(surveyActions.setOptions(data?.results || []));
         } catch(error) {
             console.log(error);
         }

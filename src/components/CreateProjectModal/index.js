@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {MdClose} from 'react-icons/md';
 
 import Button from 'components/Button';
-import RadioInput from 'components/RadioInput';
+import RadioInput from 'components/Inputs/RadioInput';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import TextInput from '@ra/components/Form/TextInput';

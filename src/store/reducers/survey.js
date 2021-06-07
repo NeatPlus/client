@@ -4,6 +4,7 @@ const initialState = {
     status: 'idle',
     surveys: [],
     questionGroups: [],
+    options: [],
 };
 
 const surveyReducer = (state=initialState, action) => {
@@ -16,6 +17,8 @@ const surveyReducer = (state=initialState, action) => {
         return {...state, questionGroups: action.questionGroups};
     case actions.SET_QUESTIONS:
         return {...state, questions: action.questions};
+    case actions.SET_OPTIONS:
+        return {...state, options: action.options};
     default:
         return state;
     }

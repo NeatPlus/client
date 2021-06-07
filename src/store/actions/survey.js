@@ -2,6 +2,7 @@ export const SET_STATUS = 'SET_STATUS';
 export const SET_SURVEYS = 'SET_SURVEYS';
 export const SET_QUESTION_GROUPS = 'SET_QUESTION_GROUPS';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const SET_OPTIONS = 'SET_OPTIONS';
 
 export function setStatus(status) {
     return {type: SET_STATUS, status};
@@ -17,5 +18,9 @@ export function setQuestionGroups(questionGroups) {
 
 export function setQuestions(questions) {
     return {type: SET_QUESTIONS, questions};
+}
+
+export function setOptions(options) {
+    return {type: SET_OPTIONS, options};
 }
 
