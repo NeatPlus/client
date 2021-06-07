@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import Map from './Map';
 
-function WorldMap({zambiaRef, ugandaRef, myanmarRef, colombiaRef}) {
+function WorldMap({refs, allActions}) {
     const [width, setWidth] = useState(0);
     const parentRef = useRef(null);
 
@@ -13,6 +13,7 @@ function WorldMap({zambiaRef, ugandaRef, myanmarRef, colombiaRef}) {
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
     return (
         <div
             ref={parentRef}
@@ -24,10 +25,8 @@ function WorldMap({zambiaRef, ugandaRef, myanmarRef, colombiaRef}) {
                 width={width}
                 backgroundColor='#d9d9d9'
                 color='white'
-                zambiaRef={zambiaRef}
-                ugandaRef={ugandaRef}
-                myanmarRef={myanmarRef}
-                colombiaRef={colombiaRef}
+                refs={refs}
+                allActions={allActions}
             />
         </div>
     );

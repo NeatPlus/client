@@ -2,6 +2,8 @@ import React from 'react';
 
 import {MdClose} from 'react-icons/md';
 
+import parse from 'html-react-parser';
+
 import Modal from '@ra/components/Modal';
 
 import styles from './styles.scss';
@@ -23,7 +25,9 @@ const CountryWorkModal = (props) => {
             </div>
             <div className={styles.content}>
                 <img src={image} alt={title} className={styles.image} />
-                <p className={styles.description}>{description}</p>
+                <p className={styles.description}>
+                    {parse(String(description || ''))}
+                </p>
             </div>
         </Modal>
     );
