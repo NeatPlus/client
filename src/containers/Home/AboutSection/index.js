@@ -22,7 +22,7 @@ const AboutSection = () => {
                             <img src={questionIcon} alt="question icon" />
                         </div>
                         <div>
-                            <h3 className={styles.reasonTitle}>Why NEAT+?</h3>
+                            <h3 className={styles.reasonTitle}>Why?</h3>
                             <ul className={styles.reasonList}>
                                 <li className={styles.reasonDesc}>A simple, user-friendly way for non-environmentalists to identify environmental concerns</li>
                                 <li className={styles.reasonDesc}>Flags key issues for subsequent mitigation and advocacy</li>
