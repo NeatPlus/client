@@ -1,4 +1,6 @@
 import {useCallback} from 'react';
+import {Link} from 'react-router-dom';
+
 import Tabs, {Tab} from '@ra/components/Tabs';
 import cs from '@ra/cs';
 
@@ -42,7 +44,8 @@ const WorkSection = () => {
                     <div className={styles.accessInfo}>
                         <span className={styles.accessStep}>STEP 1</span>
                         <h2 className={styles.accessTitle}>Access the NEAT+</h2>
-                        <p className={styles.accessDesc}>Decide whether you wish to use the Urban or Rural version of the NEAT+. You can decide using the “Access the NEAT+” page of this website. The analysis of the Rural NEAT+ is completely performed in Excel 2019, the files for which can be downloaded on this page. Kobo Toolbox can be optionally used to more easily collect data offline and to aggregate data at a project or organizational level. The Urban NEAT+ can be accessed directly from this site on the “Access the NEAT+” page. Currently, only the Environmental Sensitivity module is available for the U-NEAT+ users. </p>
+                        <p className={styles.accessDesc}>Decide whether you wish to use the Urban or Rural version of the NEAT+. You can decide using the “Access the NEAT+” page of this website. The analysis of the Rural NEAT+ is completely performed in Excel, the files for which can be downloaded on this page. Kobo Toolbox can be optionally used to more easily collect data offline and to aggregate data at a project or organizational level. The Urban NEAT+ can be accessed directly from this site on the
+                        “<Link className={styles.links} to="/access">Access the NEAT+</Link>” page. Currently, only the Environmental Sensitivity module is available for the U-NEAT+ users.</p>
                     </div>
                     <div className={styles.accessImageWrapper}>
                         <img src={step1} alt="step1" />

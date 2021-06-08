@@ -10,13 +10,17 @@
     }
 
     .title {
-        width: 65vw;
+        width: 55vw;
         font-family: var(--font-family-header);
-        font-size: var(--font-size-header-sm);
+        font-size: var(--font-size-large-alt);
         font-weight: 600;
         line-height: 1.3;
         text-align: center;
         color: var(--color-tertiary);
+
+        .joinLink {
+            color: var(--color-primary);
+        }
 
         @media screen and  (max-width: 767px) {
             width: 80vw;
