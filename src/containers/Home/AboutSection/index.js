@@ -24,8 +24,8 @@ const AboutSection = () => {
                         <div>
                             <h3 className={styles.reasonTitle}>Why NEAT+?</h3>
                             <ul className={styles.reasonList}>
-                                <li>A simple, user-friendly way for non-environmentalists to identify environmental concerns</li>
-                                <li>Flags key issues for subsequent mitigation and advocacy</li>
+                                <li className={styles.reasonDesc}>A simple, user-friendly way for non-environmentalists to identify environmental concerns</li>
+                                <li className={styles.reasonDesc}>Flags key issues for subsequent mitigation and advocacy</li>
                             </ul>
                         </div>
                     </div>
@@ -35,7 +35,7 @@ const AboutSection = () => {
                         </div>
                         <div>
                             <h3 className={styles.reasonTitle}>Who?</h3>
-                            <p className={styles.aboutDesc}>
+                            <p className={styles.reasonDesc}>
                                 Humanitarian actors, e.g. field staff, community members and team leaders working in camp, peri-urban or rural noncamp or informal camp settings
                             </p>
                         </div>
@@ -46,7 +46,7 @@ const AboutSection = () => {
                         </div>
                         <div>
                             <h3 className={styles.reasonTitle}>When?</h3>
-                            <p className={styles.aboutDesc}>
+                            <p className={styles.reasonDesc}>
                                 After life-saving needs have been met; immediately following
                                 a crisis and prior to project design, or during a change in
                                 humanitarian setting, such as an expansion of a camp or

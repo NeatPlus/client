@@ -23,7 +23,8 @@
         }
 
         .about-Desc {
-            font-size: var(--font-size-base);
+            font-weight: 500;
+            font-size: var(--font-size-normal);
             line-height: 1.5;
             color: #292929;
         }
@@ -46,6 +47,12 @@
                     font-size: var(--font-size-medium-sm);
                     line-height: 2.1;
                     color: #314f6a;
+                }
+
+                .reasonDesc {
+                    color: #292929;
+                    line-height: 1.5;
+                    font-size: var(--font-size-base);
                 }
 
                 .reasonList {

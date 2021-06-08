@@ -23,7 +23,11 @@ const partners = [
 const PartnerSection = () => {
     return (
         <section className={styles.container}>
-            <h1 className={styles.title}>NEAT+ was developed with the support of Joint Initiative* partners:</h1>
+            <h1 className={styles.title}>
+                NEAT+ was developed with the support of
+                <a className={styles.joinLink} href="https://eecentre.org/2017/01/01/the-joint-initiative/" target="_blank" rel="noreferrer"> Joint Initiative</a>
+                * partners:
+            </h1>
             <div className={styles.partnersWrapper}>
                 {partners.map(item =>
                     <div key={item.id} className={styles.partnerCard}>

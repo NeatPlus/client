@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {BsArrowRight} from 'react-icons/bs';
 
@@ -5,14 +6,13 @@ import NavBar from 'components/NavBar';
 import Footer from 'components/Footer';
 import FaqAccordion from 'components/FaqAccordion';
 import Button from 'components/Button';
+import useRequest from 'hooks/useRequest';
 
 import rural from 'assets/images/rural-neat.svg';
 import urban from 'assets/images/urban-neat.svg';
 import ruralFile from 'assets/images/rural-file.webp';
 import urbanFile from 'assets/images/urban-file.webp';
 import question from 'assets/images/question.svg';
-
-import faq from 'services/faq.json';
 
 import styles from './styles.scss';
 
@@ -31,6 +31,12 @@ const NeatCard = ({title, description, image, fileImage, buttonTitle}) => {
 };
 
 const Access = () => {
+    const [{data}, getData] = useRequest('/frequently-asked-question/');
+    
+    useEffect(() => {
+        getData();
+    }, [getData]);
+
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -61,7 +67,7 @@ const Access = () => {
             </header>
             <main className={styles.faqContent}>
                 <h1 className={styles.contentTitle}>FAQs</h1>
-                {faq.map(item =>
+                {data?.results.map(item =>
                     <FaqAccordion
                         question={item.question}
                         answer={item.answer}

@@ -1,20 +1,34 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useState, useEffect} from 'react';
 import {FiChevronRight} from 'react-icons/fi';
+import {MdClose} from 'react-icons/md';
+import parse from 'html-react-parser';
 
-import cs from '@ra/cs';
+import useRequest from 'hooks/useRequest';
+
+import Modal from '@ra/components/Modal';
 
 import styles from './styles.scss';
 
-const data = [
-    {'id': 1, 'title': 'NEAT+ pilot test with the UN Refugee Agency (UNHCR) and the JEU in the Mantapala refugee settlement, Zambia, conducted by the UN Environment Programme/OCHA Joint Environment Unit (JEU) and Norwegian Refugee Council (NRC). The purpose of the mission was to highlight key areas of environmental risk in the NRC West Nile programme while using, testing and promoting the NEAT+. Learn more about the key findings of the environmental scoping mission here or download the full mission report here.'},
-    {'id': 2, 'title': 'NEAT+ Environmental scoping mission in the Bidibidi refugee settlement, located in the West Nile Area of Uganda, conducted by the UN Environment Programme/OCHA Joint Environment Unit (JEU) and Norwegian Refugee Council (NRC). The purpose of the mission was to highlight key areas of environmental risk in the NRC West Nile programme while using, testing and promoting the NEAT+. Learn more about the key findings of the environmental scoping mission here or download the full mission report here.'},
-    {'id': 3, 'title': 'NEAT+ environmental scoping mission to Myanmar the key findings of the environmental scoping mission here or download the full mission report here West Nile Area of Uganda, conducted by the UN Environment Programme/OCHA Joint Environment Unit (JEU) and Norwegian.'},
-    {'id': 4, 'title': 'NEAT+ environmental scoping mission to the UNHCR reception center the latest update, the Rural NEAT+ will now be expanding into French- and Spanish-speaking operations in 2021'}
-];
-
-const ReadMore = ({ text, onClick, isOpen }) => {
+const ExampleModal = ({description, onClose}) => {
     return (
-        <div onClick={onClick} className={cs(styles.readText, isOpen && styles.readTextActive)}>
+        <Modal className={styles.modal}>
+            <div className={styles.header}>
+                <button className={styles.closeContainer} onClick={onClose}>
+                    <MdClose className={styles.closeIcon} />
+                </button>
+            </div>
+            <div className={styles.content}>
+                <p className={styles.description}>
+                    {parse(String(description || ''))}
+                </p>
+            </div>
+        </Modal>
+    );
+};
+
+const ReadMore = ({ text, onClick }) => {
+    return (
+        <div onClick={onClick} className={styles.readText}>
             <div className={styles.text}>{text}</div>
             <div className={styles.toggleIcon}>
                 <FiChevronRight className={styles.icon} />
@@ -24,20 +38,27 @@ const ReadMore = ({ text, onClick, isOpen }) => {
 };
 
 const ExampleSection = () => {
-    const [activeId, setActiveId] = useState(1);
-    const handleToggle = useCallback((id) => {
-        if(activeId === id) {
-            setActiveId(null);
-        } else {
-            setActiveId(id);
-        }
-    }, [activeId]);
+    const [{data}, getData] = useRequest('/action/');
+    
+    useEffect(() => {
+        getData();
+    }, [getData]);
+
+    const [showExampleModal, setShowExampleModal] = useState(false);
+    const [modalData, setModalData] = useState();
+
+    const handleToggle = useCallback((data) => {
+        setModalData(data);
+        setShowExampleModal(!showExampleModal);
+    }, [showExampleModal]);
+
     return (
         <section className={styles.container}>
             <h5 className={styles.mainTitle}>NEAT+ APPLICATION</h5>
-            <h1 className={styles.subTitle}>Examples of the NEAT+ in action by humanitarian organizations</h1>
             <div className={styles.infoWrapper}>
                 <div>
+                    <h1 className={styles.subTitle}>Examples of the NEAT+ in action by humanitarian organizations</h1>
+            
                     <p className={styles.infoDesc}>
                         The NEAT+ has been successfully used and applied by over fifteen humanitarian organizations in over 30 field operations worldwide. With the latest update, the Rural NEAT+ will now be expanding into French- and Spanish-speaking operations in 2021.
                     </p>
@@ -46,16 +67,21 @@ const ExampleSection = () => {
                     </p>
                 </div>
                 <div className={styles.content}>
-                    {data.map((item) =>
+                    {data?.results.slice(0, 4).map((item) =>
                         <ReadMore
-                            onClick={() => handleToggle(item.id)}
-                            isOpen={item.id === activeId}
-                            id={item.id}
-                            text={item.title}
+                            onClick={() => handleToggle(item)}
+                            key={item.id}
+                            text={item?.summary}
                         />
-                    )}                    
+                    )}
                 </div>
             </div>
+            {showExampleModal && (
+                <ExampleModal
+                    onClose={handleToggle}
+                    description={modalData?.description}
+                />
+            )}
         </section>
     );
 };
