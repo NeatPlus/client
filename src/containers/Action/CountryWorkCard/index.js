@@ -9,7 +9,7 @@ const CountryWorkCard = ({
     title,
     organization,
     description,
-    modalImage,
+    contextTitle,
     modalDescription,
 }) => {
     const [showCountryWorkModal, setShowCountryWorkModal] = useState(false);
@@ -26,7 +26,12 @@ const CountryWorkCard = ({
         <>
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h2 className={styles.title}>{title}</h2>
+                    <h2
+                        className={styles.title}
+                        onClick={handleShowCountryWorkModal}
+                    >
+                        {title}
+                    </h2>
                     <BsArrowRight
                         size={20}
                         className={styles.arrowIcon}
@@ -35,9 +40,11 @@ const CountryWorkCard = ({
                 </div>
                 <div className={styles.organization}>
                     <p className={styles.organizationTitle}>ORGANIZATION</p>
-                    <p className={styles.organizationName}>
-                        {organization}
-                    </p>
+                    <p className={styles.organizationName}>{organization}</p>
+                </div>
+                <div className={styles.organization}>
+                    <p className={styles.organizationTitle}>MODULES TESTED</p>
+                    <p className={styles.organizationName}>{contextTitle}</p>
                 </div>
                 <div className={styles.description}>
                     <p className={styles.descriptionTitle}>DESCRIPTION</p>
@@ -48,7 +55,6 @@ const CountryWorkCard = ({
                 isVisible={showCountryWorkModal}
                 onClose={handleHideCountryWorkModal}
                 title={title}
-                image={modalImage}
                 description={modalDescription}
             />
         </>

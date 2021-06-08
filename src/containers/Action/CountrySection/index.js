@@ -3,7 +3,6 @@ import {createRef, useEffect, useMemo, useState} from 'react';
 import Api from 'services/api';
 import CountryWorkCard from '../CountryWorkCard';
 import WorldMap from '../Worldmap';
-import refugeeSettlement from 'assets/images/refugee-settlement.webp';
 
 import styles from './styles.scss';
 
@@ -40,7 +39,7 @@ const CountrySection = () => {
                             title={data.title}
                             organization={data.organization}
                             description={data.summary}
-                            modalImage={refugeeSettlement}
+                            contextTitle={data.contextTitle}
                             modalDescription={data.description}
                         />
                     </div>

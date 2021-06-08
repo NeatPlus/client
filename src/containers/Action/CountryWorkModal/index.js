@@ -2,12 +2,14 @@ import React from 'react';
 
 import {MdClose} from 'react-icons/md';
 
+import parse from 'html-react-parser';
+
 import Modal from '@ra/components/Modal';
 
 import styles from './styles.scss';
 
 const CountryWorkModal = (props) => {
-    const {isVisible, onClose, title, image, description} = props;
+    const {isVisible, onClose, title, description} = props;
 
     if (!isVisible) {
         return null;
@@ -22,8 +24,9 @@ const CountryWorkModal = (props) => {
                 </button>
             </div>
             <div className={styles.content}>
-                <img src={image} alt={title} className={styles.image} />
-                <p className={styles.description}>{description}</p>
+                <p className={styles.description}>
+                    {parse(String(description || ''))}
+                </p>
             </div>
         </Modal>
     );
