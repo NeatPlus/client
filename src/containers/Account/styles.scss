@@ -1,7 +1,7 @@
 .container {
     background-color: var(--color-background);
+    max-width: 100vw;
     min-height: 100vh;
-    min-width: 100vw;
 
     .settings {
         padding-top: 2em;
@@ -30,6 +30,8 @@
             background-color: var(--color-white);
             border-radius: 8px;
             display: flex;
+            margin-bottom: 6.25em;
+            max-width: 90vw;
 
             .panels {
                 border-right: 2px solid var(--color-background);
@@ -70,7 +72,7 @@
         @media screen and (max-width: 786px) {
             .main-section {
                 flex-direction: column;
-       
+
                 .panels {
                     display: flex;
                     align-items: center;

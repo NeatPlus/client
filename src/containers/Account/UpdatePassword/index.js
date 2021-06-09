@@ -2,9 +2,8 @@ import {useCallback, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
-import Label from '@ra/components/Form/Label';
-import Form from '@ra/components/Form';
-import TextInput from '@ra/components/Form/TextInput';
+import Form, {InputField} from '@ra/components/Form';
+import {SecureTextInput} from '@ra/components/Form/inputs';
 
 import Toast from 'services/toast';
 import useRequest from 'hooks/useRequest';
@@ -16,72 +15,77 @@ import styles from './styles.scss';
 const UpdatePassword = () => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const [error, setError] = useState(null);
 
-    const [password, setPassword] = useState({
-        first: '',
-        confirm: '',
-        error: '',
-    });
-    const [oldPassword, setOldPassword] = useState('');
+    const [{loading}, updatePassword] = useRequest(
+        '/user/me/change_password/',
+        {method: 'POST'}
+    );
 
-    const handlePasswordChange = useCallback((target) => {
-        const { name, value } = target;
-        setPassword((prevState) => ({...prevState, [name]: value}));
-        if (name === 'confirm') {
-            if (value === password.first) {
-                setPassword((prevState) => ({ ...prevState, [name]: value, error: '' })); 
-            } else { 
-                setPassword((prevState) => ({ ...prevState, [name]: value, error: 'Password did not match' }));
-            }
-        }
-    }, [password.first]);
-    
-    const [updateState, updatePassword]= useRequest('/user/me/change_password/', {method: 'POST'});
-    
-    const handleSubmit = useCallback(async () => {
-        if (oldPassword.length > 0 && password.first.length > 0 && password.confirm.length > 0) {
-            if (password.first === password.confirm) {
-                try {
-                    const response = await updatePassword({ oldPassword: oldPassword, newPassword: password.first, reNewPassword: password.confirm });
-                    if (response) {
-                        Toast.show(response.detail, Toast.SUCCESS);
+    const handleSubmit = useCallback(
+        async (formData) => {
+            setError(null);
+            const {oldPassword, newPassword, reNewPassword} = formData;
+
+            try {
+                if (newPassword === reNewPassword) {
+                    const result = await updatePassword({
+                        oldPassword,
+                        newPassword,
+                        reNewPassword,
+                    });
+                    if (result) {
+                        Toast.show(result.detail, Toast.SUCCESS);
                         dispatch(logout());
                         history.push('/login');
                     }
-                } catch (err) {
-                    Toast.show('Incorrect old password !!', Toast.DANGER);
                 }
-            } else {
-                setPassword({ ...password, error: 'Password did not match' });
-            }
-        } else {
-            setPassword({...password, error: 'Invalid input !!'});
-        }
-    }, [dispatch, history, oldPassword, password, updatePassword]);
 
-    const onOldPasswordChange = useCallback((e) => {
-        setOldPassword(e.value);
-    }, []);
-       
+                if (newPassword !== reNewPassword) {
+                    Toast.show('Password Did Not Match !!', Toast.DANGER);
+                }
+            } catch (err) {
+                setError(err);
+                Toast.show('Incorrect old password !!', Toast.DANGER);
+            }
+        },
+        [dispatch, history, updatePassword]
+    );
+
     return (
-        <Form onSubmit={handleSubmit}>
-            <AccountPanel loading={updateState.loading} actionTitle="Update Password" action={handleSubmit} />
-            <div className={styles.editForm}>
-                <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>Current Password</Label>
-                    <TextInput value={oldPassword.first} className={styles.input} onChange={(e) => onOldPasswordChange(e)} type="password" required name="currentPassword" />
-                    <Link to="#" className={styles.forgotPasswordLink} >Forgot Password?</Link>
-                </div>
-                <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>New Password</Label>
-                    <TextInput name="first" value={password.first} onChange={handlePasswordChange} className={styles.input} type="password" required />
-                </div>
-                <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>Verify New Password</Label>
-                    <TextInput name="confirm" value={password.confirm} onChange={handlePasswordChange} className={styles.input} type="password" required />
-                    <center className={styles.errorLabel}>{password.error}</center>
-                </div>
-            </div>
+        <Form error={error} onSubmit={handleSubmit}>
+            <AccountPanel loading={loading} actionTitle='Update Password' />
+            <h1 className={styles.changePassword}>Change Password?</h1>
+            <InputField
+                name='oldPassword'
+                required
+                component={SecureTextInput}
+                className={styles.input}
+                label='Current Password'
+                labelClassName={styles.inputLabel}
+                containerClassName={styles.inputGroup}
+            />
+            <Link to='#' className={styles.forgotPasswordLink}>
+                Forgot Password?
+            </Link>
+            <InputField
+                name='newPassword'
+                required
+                component={SecureTextInput}
+                className={styles.input}
+                label='New Password'
+                labelClassName={styles.inputLabel}
+                containerClassName={styles.inputGroup}
+            />
+            <InputField
+                name='reNewPassword'
+                required
+                component={SecureTextInput}
+                className={styles.input}
+                label='Verify New Password'
+                labelClassName={styles.inputLabel}
+                containerClassName={styles.inputGroup}
+            />
         </Form>
     );
 };
