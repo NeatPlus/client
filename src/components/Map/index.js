@@ -63,7 +63,12 @@ const Map = ({
     });
 
     const goToActiveFeature = useCallback(() => {
-        const [longitude, latitude] = activeFeature.center;
+        if(!activeFeature) {
+            return;
+        }
+        const [longitude, latitude] = activeFeature[
+            activeFeature.type === 'Point' ? 'coordinates' : 'center'
+        ];
         const zoom = 10;
         setViewport({
             ...viewport,
@@ -121,7 +126,12 @@ const Map = ({
                     setActive={setPickerActive} 
                 />
             )}
-            {activeFeature?.center && (
+            {activeFeature?.type === 'Point' && (
+                <Marker latitude={activeFeature.coordinates[1]} longitude={activeFeature?.coordinates[0]}>
+                    <MarkerPin />
+                </Marker>
+            )}
+            {(activeFeature?.type !== 'Point' && activeFeature?.center) && (
                 <Marker 
                     latitude={activeFeature.center[1]} 
                     longitude={activeFeature.center[0]} 

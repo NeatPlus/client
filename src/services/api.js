@@ -6,6 +6,7 @@ import * as userActions from 'store/actions/user';
 import * as organizationActions from 'store/actions/organization';
 import * as projectActions from 'store/actions/project';
 import * as surveyActions from 'store/actions/survey';
+import * as questionActions from 'store/actions/question';
 
 const dispatch = store.dispatch;
 
@@ -184,26 +185,22 @@ class Api {
     async getQuestionGroups() {
         try {
             const data = await this.get('/question-group/');
-            dispatch(surveyActions.setQuestionGroups(data?.results || []));
+            dispatch(questionActions.setQuestionGroups(data?.results || []));
         } catch(error) {
             console.log(error);
         }
     }
 
     async getQuestions() {
+        dispatch(questionActions.setStatus('loading'));
         try {
-            const data = await this.get('/question/?limit=200');
-            dispatch(surveyActions.setQuestions(data?.results || []));
+            const data = await this.get('/question/?limit=-1');
+            dispatch(questionActions.setQuestions(data?.results || []));
+            const options = await this.get('/option/?limit=-1');
+            dispatch(questionActions.setOptions(options?.results || []));
+            dispatch(questionActions.setStatus('complete'));
         } catch(error) {
-            console.log(error);
-        }
-    }
-
-    async getOptions() {
-        try {
-            const data = await this.get('/option/');
-            dispatch(surveyActions.setOptions(data?.results || []));
-        } catch(error) {
+            dispatch(questionActions.setStatus('failed'));
             console.log(error);
         }
     }

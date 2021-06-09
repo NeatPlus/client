@@ -5,6 +5,7 @@ import userReducer from './user';
 import organizationReducer from './organization';
 import projectReducer from './project';
 import surveyReducer from './survey';
+import questionReducer from './question';
 import uiReducer from './ui';
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
     organization: organizationReducer,
     project: projectReducer,
     survey: surveyReducer,
+    question: questionReducer,
     ui: uiReducer,
 });
