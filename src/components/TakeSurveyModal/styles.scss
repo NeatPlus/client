@@ -39,6 +39,18 @@
         }
     }
 
+    .progress-container {
+        height: 5px;
+        background-color: #b9ddfd;
+        width: 100%;
+
+        .progress {
+            height: 5px;
+            background-color: #3a7db9;
+            transition: width 1s ease;
+        }
+    }
+
     .content {
         flex: 1;
         padding: 20px 25px 10px 25px;
@@ -55,6 +67,37 @@
             color: var(--color-dark-alt);
         }
 
+        .content-message {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .content-text-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                
+                .complete-image {
+                    margin-bottom: 30px;
+                }
+                
+                .complete-text {
+                    align-self: center;
+                    font-size: var(--font-size-base);
+                    color: var(--color-dark);
+                    font-weight: 500;
+                    width: 60%;
+                    text-align: center;
+
+                    &__warning {
+                        color: var(--color-warning);
+                    }
+                }
+            }
+        }
+
         .content-title {
             color: var(--color-primary);
             font-size: var(--font-size-medium-sm);
@@ -68,6 +111,11 @@
             border-radius: 4px;
             border: solid 1px #e2e2e2;
             margin: 10px 0;
+
+            &__required {
+                border: solid 1px var(--color-warning);
+                margin-bottom: 0;
+            }
 
             .content-block-title {
                 font-size: var(--font-size-base);
@@ -112,6 +160,13 @@
             }
         }
 
+        .error-message {
+            align-self: center;
+            width: 80%;
+            color: var(--color-danger);
+            text-align: center;
+        }
+
         .buttons {
             display: flex;
             padding: 20px 0;
@@ -136,6 +191,12 @@
                 }
             }
         }
+    }
+
+    .required-text {
+        font-size: var(--font-size-tiny);
+        color: var(--color-warning);
+        margin-bottom: 10px;
     }
 
     .footer {

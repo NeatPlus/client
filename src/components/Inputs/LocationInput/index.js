@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useMemo} from 'react';
 import {IoIosSearch} from 'react-icons/io';
 
 import Map from 'components/Map';
@@ -14,6 +14,10 @@ import {debounce} from '@ra/utils';
 
 import styles from './styles.scss';
 
+const getPointField = ({longitude, latitude}) => {
+    return `{"type": "Point", "coordinates": [${longitude || 0},${latitude || 0}]}`;
+};
+
 const SearchResultItem = ({item, onSelect}) => {
     const handleClick = useCallback(() => {
         onSelect && onSelect(item);
@@ -28,15 +32,33 @@ const SearchResultItem = ({item, onSelect}) => {
 };
 
 const LocationInput = props => {
-    const {placeholder} = props;
+    const {placeholder, onChange, answer} = props;
 
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeFeature, setActiveFeature] = useState(null);
     const [showResults, setShowResults] = useState(false);
-    const [location, setLocation] = useState({
-        longitude: '',
-        latitude: '',
-    });
+    const [isFocused, setFocused] = useState(false);
+
+    const handleFocus = useCallback(() => setFocused(true), []);
+    const handleBlur = useCallback(() => setFocused(false), []);
+
+    const activePoint = useMemo(() => {
+        if(!answer || isFocused) {
+            return null;
+        }
+        return JSON.parse(answer);
+    }, [answer, isFocused]);
+
+    const location = useMemo(() => {
+        if(!answer) {
+            return null;
+        }
+        const point = JSON.parse(answer);
+        const [lng, lat] = point?.coordinates;
+        return ({
+            longitude: lng,
+            latitude: lat,
+        });
+    }, [answer]);
 
     const [{loading, data: searchResults}, getLocations] = useRequest(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchQuery}.json?access_token=${process.env.REACT_APP_MAPBOX_API_TOKEN}`, 
@@ -55,46 +77,56 @@ const LocationInput = props => {
     const getLocationsGeojson = debounce(getLocations, 500);
 
     const handleSearchChange = useCallback(({value}) => {
-        if (activeFeature) {
-            setActiveFeature(null);
-        }
         setSearchQuery(value);
         if(value.length>3) {
             showResultsDialog();
             return getLocationsGeojson();
         }
         setShowResults(false);
-    }, [getLocationsGeojson, activeFeature, showResultsDialog]);
+    }, [getLocationsGeojson, showResultsDialog]);
 
-    const handleInputChange = useCallback(({name, value}) => {
-        setLocation({
-            ...location,
-            [name]: value,
+    const handleInputChange = useCallback(({name, value: inpValue}) => {
+        if(name==='longitude') {
+            const pointValue = getPointField({
+                longitude: inpValue,
+                latitude: location?.latitude || 0,
+            });
+            return onChange && onChange({value: pointValue});
+        }
+        if(inpValue <= -90 || inpValue >= 90) {
+            return;
+        }
+        const pointValue = getPointField({
+            longitude: location?.longitude || 0,
+            latitude: inpValue,
         });
-    }, [location]);
+        onChange && onChange({value: pointValue});
+    }, [location, onChange]);
 
     const handleClear = useCallback(() => {
-        setActiveFeature(null);
-        setLocation({longitude: '', latitude: ''});
+        onChange && onChange({value: ''});
         setSearchQuery('');
-    }, []);
+    }, [onChange]);
 
     const handleLocationPick = useCallback(lngLat => {
         const [lng, lat] = lngLat;
-        setLocation({longitude: lng.toFixed(5), latitude: lat.toFixed(5)});
-        setActiveFeature({
-            type: 'feature',
-            center: lngLat,
-            id: `pick-${lng}${lat}`
+        const pointValue = getPointField({
+            longitude: lng.toFixed(5),
+            latitude: lat.toFixed(5),
         });
-    }, []);
+        onChange && onChange({value: pointValue});
+    }, [onChange]);
 
     const handleLocationSelect = useCallback(feature => {
         const [lng, lat] = feature.geometry.coordinates;
-        setActiveFeature(feature);
-        setLocation({longitude: lng.toFixed(5), latitude: lat.toFixed(5)});
+        const pointValue = getPointField({
+            longitude: lng.toFixed(5),
+            latitude: lat.toFixed(5),
+        });
+        setSearchQuery(feature.place_name);
+        onChange && onChange({value: pointValue});
         setShowResults(false);
-    }, []);
+    }, [onChange]);
 
     const renderOptions = useCallback(listProps => {
         return (
@@ -112,20 +144,25 @@ const LocationInput = props => {
                     <Label className={styles.label}>Latitude (x.y °)</Label>
                     <NumberInput
                         name="latitude"
-                        value={location.latitude}
+                        value={location?.latitude || ''}
                         placeholder={placeholder} 
                         className={styles.input} 
                         onChange={handleInputChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        info="Value must be between -90 and 90"
                     />
                 </div>
                 <div className={styles.inputGroup}>
                     <Label className={styles.label}>Longitude (x.y °)</Label>
                     <NumberInput
                         name="longitude"
-                        value={location.longitude}
+                        value={location?.longitude || ''}
                         placeholder={placeholder} 
                         className={styles.input}
                         onChange={handleInputChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                     />
                 </div>
                 <div className={styles.clear} onClick={handleClear}>Clear All</div>
@@ -133,7 +170,7 @@ const LocationInput = props => {
             <div className={styles.mapContainer}>
                 <div className={styles.searchContainer}>
                     <TextInput 
-                        value={activeFeature?.place_name || searchQuery}
+                        value={searchQuery}
                         onChange={handleSearchChange}
                         placeholder="Search places" 
                         className={styles.searchInput} 
@@ -151,7 +188,7 @@ const LocationInput = props => {
                 </div>
                 <div className={styles.map}>
                     <Map 
-                        activeFeature={activeFeature}
+                        activeFeature={activePoint}
                         width={window.screen.width>=767 ? '30vw' : '75vw'} 
                         height="30vh" 
                         showPicker 

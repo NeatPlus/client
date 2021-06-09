@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
@@ -56,9 +56,12 @@ export const DataItem = ({item, column}) => {
 };
 
 const SurveyTable = ({onTakeSurveyClick}) => {
+    const {projectId} = useParams();
+
     const history = useHistory();
 
-    const {surveys: surveyData} = useSelector(state => state.survey);
+    const {surveys} = useSelector(state => state.survey);
+    const surveyData = surveys.filter(el => el.project === +projectId);
 
     const handleSurveysClick = useCallback(() => history.push('surveys/'), [history]);
 
