@@ -4,7 +4,7 @@ import {BsPlus} from 'react-icons/bs';
 
 import Button from 'components/Button';
 import {withNoProject} from 'components/NoProject';
-import CreateProjectModal from 'components/CreateProjectModal';
+import CreateEditProjectModal from 'components/CreateEditProjectModal';
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
@@ -118,7 +118,7 @@ const ProjectList = withNoProject(() => {
                     />
                 </div>
             </div>
-            <CreateProjectModal isVisible={showCreateModal} onClose={handleHideCreateModal} />
+            <CreateEditProjectModal isVisible={showCreateModal} onClose={handleHideCreateModal} mode='create'/>
         </div>
     );
 });
