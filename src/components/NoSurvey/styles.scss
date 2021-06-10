@@ -41,6 +41,10 @@
             border-radius: 6px;
             width: 30vw;
 
+            @media screen and (max-width: 567px) {
+                width: 90vw;
+            }
+
             .info-image {
                 margin-bottom: 42px;
             }
