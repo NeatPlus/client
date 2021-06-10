@@ -5,7 +5,7 @@ import ReactMapGL, {
     FlyToInterpolator,
     Marker,
 } from 'react-map-gl';
-import {FiFilter} from 'react-icons/fi';
+import {FaMapMarkerAlt} from 'react-icons/fa';
 
 import cs from '@ra/cs';
 
@@ -39,7 +39,7 @@ function Picker(props) {
                 [styles.pickerControlActive]: isActive,
             })}
         >
-            <FiFilter className={styles.pickerIcon} />
+            <FaMapMarkerAlt className={styles.pickerIcon} />
         </div>
     );
 }

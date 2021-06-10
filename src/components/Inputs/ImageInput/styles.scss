@@ -1,0 +1,46 @@
+.input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .images {
+        display: flex;
+        align-items: center;
+        max-height: 100px;
+        margin-left: 24px;
+        text-align: right;
+
+        .image {
+            max-height: 100px;
+            max-width: 200px;
+        }
+
+        .file-name {
+            display: flex;
+            align-items: center;
+
+            .answer-icon {
+                color: var(--color-success);
+                font-size: var(--font-size-medium-sm);
+                margin-right: 6px;
+            }
+
+            .answer-text {
+                font-size: var(--font-size-small);
+            }
+        }
+    }
+}
+
+.clear {
+    width: max-content;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--color-grey-dark-alt);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        color: var(--color-dark);
+    }
+}

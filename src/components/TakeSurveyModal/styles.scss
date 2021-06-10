@@ -124,6 +124,17 @@
                 margin-bottom: 10px;
             }
 
+            &__boolean {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .content-block-title {
+                    margin-bottom: 0;
+                    margin-right: 20px;
+                }
+            }
+
             .description-title {
                 font-weight: 600;
             }
