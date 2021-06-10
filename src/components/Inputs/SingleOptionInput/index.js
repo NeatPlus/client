@@ -8,8 +8,12 @@ const keyExtractor = item => item.id;
 
 const SingleOptionInput = ({checkedOptions, options, onChange}) => {
     const handleCheckedOption = useCallback(option => {
+        const optionIndex = checkedOptions?.findIndex(opt => opt === option.id);
+        if(checkedOptions && optionIndex!==-1) {
+            return onChange && onChange({value: []});
+        }
         onChange && onChange({value: [option.id]});
-    }, [onChange]);
+    }, [onChange, checkedOptions]);
 
     const renderOption = useCallback(listProps => {
         const {item: option, ...otherProps} = listProps;

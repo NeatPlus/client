@@ -11,13 +11,13 @@ import LocationInput from 'components/Inputs/LocationInput';
 import SingleOptionInput from 'components/Inputs/SingleOptionInput';
 import MultiOptionInput from 'components/Inputs/MultiOptionInput';
 import BooleanInput from 'components/Inputs/BooleanInput';
+import ImageInput from 'components/Inputs/ImageInput';
 
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import Input from '@ra/components/Form/Input';
 import DateInput from '@ra/components/Form/DateInput';
 import NumberInput from '@ra/components/Form/NumberInput';
-import FileInput from '@ra/components/Form/FileInput';
 
 import useRequest from 'hooks/useRequest';
 import CompletedTaskImage from 'assets/images/completed-task.svg';
@@ -49,7 +49,7 @@ const getInputComponent = question => {
     case 'number':
         return NumberInput;
     case 'image':
-        return FileInput;
+        return ImageInput;
     default:
         return Input;
     }
@@ -101,6 +101,7 @@ const Question = ({item, showRequired}) => {
         <>
             <div className={cs(styles.contentBlock, {
                 [styles.contentBlockRequired]: showRequiredMessage,
+                [styles.contentBlockBoolean]: item.answerType==='boolean',
             })}>
                 <p className={cs(styles.contentBlockTitle, {
                     [styles.descriptionTitle]: item.answerType==='description',

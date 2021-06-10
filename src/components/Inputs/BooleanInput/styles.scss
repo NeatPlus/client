@@ -1,10 +1,18 @@
-.radio-inputs {
+.input {
     display: flex;
     align-items: center;
 
-    .radio-input {
-        display: flex;
-        align-items: center;
-        margin-right: 50px;
+    .icon {
+        color: #9aa0ac;
+        font-size: var(--font-size-medium-lg);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--color-primary);
+        }
+
+        &__checked {
+            color: var(--color-primary);
+        }
     }
 }
