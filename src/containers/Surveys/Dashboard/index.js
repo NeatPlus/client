@@ -6,6 +6,9 @@ import {FiFilter} from 'react-icons/fi';
 import Tabs, {Tab} from 'components/Tabs';
 import Button from 'components/Button';
 
+import useInitActiveProject from 'hooks/useInitActiveProject';
+import useInitActiveSurvey from 'hooks/useInitActiveSurvey';
+
 import Overview from './Overview';
 import Module from './Module';
 
@@ -13,6 +16,9 @@ import styles from './styles.scss';
 
 const SurveyDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');
+
+    useInitActiveProject();
+    useInitActiveSurvey();
 
     const handleTabChange = useCallback(payload => setActiveTab(payload.activeTab), []);
 

@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react';
 import {Link, useLocation, useParams, useHistory} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {BiChevronLeft} from 'react-icons/bi';
 
 import {withNoSurvey} from 'components/NoSurvey';
@@ -10,20 +11,25 @@ import ConcernsTable from 'components/Concerns/Table';
 import ConcernsChart from 'components/Concerns/Chart';
 
 import SurveyList from 'containers/Surveys/List';
+
+import useInitActiveProject from 'hooks/useInitActiveProject';
+
 import SurveyTable from './SurveyTable';
-
-
 import styles from './styles.scss';
 
 const ProjectDashboard = withNoSurvey(() => {
     const history = useHistory();
     const location = useLocation();
     const {projectId} = useParams();
+    
+    useInitActiveProject(projectId);
+
+    const {activeProject} = useSelector(state => state.project);
 
     const [showTakeSurveyModal, setShowTakeSurveyModal] = useState(false);
     const handleShowTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(true), []);
     const handleHideTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(false), []);
-
+    
     const handleTabChange = useCallback(({activeTab}) => {
         if(activeTab === 'summary') {
             return history.push(`/projects/${projectId}/`);
@@ -65,7 +71,7 @@ const ProjectDashboard = withNoSurvey(() => {
                                 <div className={styles.location}>
                                     <h4 className={styles.locationTitle}>Number of issues of concern by location</h4>
                                     <div className={styles.map}>
-                                        <Map showPopup />
+                                        <Map project={activeProject} showPopup />
                                     </div>
                                 </div>
                             </div>

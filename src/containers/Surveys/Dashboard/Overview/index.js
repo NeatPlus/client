@@ -1,3 +1,5 @@
+import {useMemo} from 'react';
+import {useSelector} from 'react-redux';
 import {IoIosArrowRoundForward} from 'react-icons/io';
 
 import Button from 'components/Button';
@@ -6,6 +8,14 @@ import Map from 'components/Map';
 import cs from '@ra/cs';
 
 import styles from './styles.scss';
+
+const getLocaleDate = (dateStr) => {
+    const date = new Date(dateStr);
+    if(!dateStr || !date) {
+        return '';
+    }
+    return date.toLocaleDateString();
+};
 
 const InfoItem = ({title, value}) => {
     return (
@@ -31,6 +41,16 @@ const ConcernItem = ({value, type}) => {
 };
 
 const Overview = () => {
+    const {activeProject} = useSelector(state => state.project);
+    const {activeSurvey} = useSelector(state => state.survey);
+
+    const surveyedBy = useMemo(() => {
+        if(!activeSurvey) {
+            return '';
+        }
+        return `${activeSurvey.createdBy?.firstName} ${activeSurvey.createdBy?.lastName}`;
+    }, [activeSurvey]);
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>Overview</h2>
@@ -42,13 +62,28 @@ const Overview = () => {
                     <div className={styles.surveyInformation}>
                         <h4 className={styles.infoHeader}>Survey Information</h4>
                         <div className={styles.infoContent}>
-                            <InfoItem title="Name" value="Survey 1" />
+                            <InfoItem 
+                                title="Name" 
+                                value={activeSurvey?.title || ''} 
+                            />
                             <InfoItem title="Location" value="Wakanda" />
-                            <InfoItem title="Organization" value="Avengers" />
-                            <InfoItem title="Surveyed by" value="King T'Chala" />
+                            <InfoItem 
+                                title="Organization" 
+                                value={activeProject?.organization || ''} 
+                            />
+                            <InfoItem 
+                                title="Surveyed by" 
+                                value={surveyedBy}
+                            />
                             <InfoItem title="Programme Scale" value="Country" />
-                            <InfoItem title="Created on" value="15/04/2021" />
-                            <InfoItem title="Modified on" value="15/04/2021" />
+                            <InfoItem 
+                                title="Created on" 
+                                value={getLocaleDate(activeSurvey?.createdAt)} 
+                            />
+                            <InfoItem 
+                                title="Modified on" 
+                                value={getLocaleDate(activeSurvey?.modifiedAt)}
+                            />
                         </div>
                         <Button secondary outline className={styles.buttonBottom}>
                             <span className={styles.buttonText}>
