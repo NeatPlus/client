@@ -46,7 +46,8 @@ function Picker(props) {
 
 
 const Map = ({
-    showPopup, 
+    showPopup,
+    project,
     showPicker, 
     onLocationPick, 
     width, 
@@ -119,7 +120,7 @@ const Map = ({
             onClick={handleMapClick}
         >
             <NavigationControl style={navControlStyle} showCompass={false} />
-            {showPopup && <Popup className={styles.popup} />}
+            {showPopup && <Popup project={project} className={styles.popup} />}
             {showPicker && (
                 <Picker 
                     isActive={isPickerActive} 
