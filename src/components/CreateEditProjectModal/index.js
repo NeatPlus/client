@@ -24,12 +24,15 @@ const fieldValueExtractor = (val) => val.option;
 
 const CreateEditProjectModal = (props) => {
     const {isVisible, onClose, project, mode} = props;
-    const [error, setError] = useState(null);
-    const [visibility, setVisibility] = useState('');
-    const [orgObj, setOrgObj] = useState(0);
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('');
     const [title, setTitle] = useState('');
+    const [projectTitle, setProjectTitle] = useState('');
+    const [orgObj, setOrgObj] = useState({});
+    const [description, setDescription] = useState('');
+    const [visibility, setVisibility] = useState('');
+    const [buttonText, setButtonText] = useState('');
+    const [error, setError] = useState(null);
     const history = useHistory();
 
     const {organizations} = useSelector((state) => state.organization);
@@ -43,21 +46,23 @@ const CreateEditProjectModal = (props) => {
             setMethod('POST');
             setVisibility('private');
             setTitle('Create a project');
+            setButtonText('Create');
         }
-        if (mode === 'edit' && project) {
-            setUrl(`/project/${project?.id}/`);
+        if (project && mode === 'edit') {
+            const organization = organizations.filter(
+                (org) => org.title === project.organization
+            );
+            setOrgObj(organization[0]);
+            setUrl(`/project/${project.id}/`);
             setMethod('PATCH');
-            setVisibility(project?.visibility);
+            setProjectTitle(project.title);
+            setDescription(project.description);
+            setOrgObj(organization[0]);
+            setVisibility(project.visibility);
             setTitle('Edit project');
+            setButtonText('Edit');
         }
-    }, [mode, project, project?.id, project?.visibility]);
-
-    useEffect(() => {
-        const organization = organizations.filter(
-            (org) => org.title === project?.organization
-        );
-        setOrgObj(organization[0]);
-    }, [organizations, project?.organization]);
+    }, [mode, project, organizations]);
 
     const handleVisibilitySelect = useCallback(
         (value) => setVisibility(value),
@@ -125,7 +130,7 @@ const CreateEditProjectModal = (props) => {
                     label='Name'
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
-                    defaultValue={mode === 'edit' ? project.title : ''}
+                    defaultValue={projectTitle}
                 />
                 <InputField
                     name='organization'
@@ -141,7 +146,7 @@ const CreateEditProjectModal = (props) => {
                     keyExtractor={keyExtractor}
                     clearable={false}
                     controlClassName={styles.selectControl}
-                    defaultValue={mode === 'edit' ? orgObj : {}}
+                    defaultValue={orgObj}
                 />
                 <InputField
                     name='description'
@@ -153,7 +158,7 @@ const CreateEditProjectModal = (props) => {
                     label='Description'
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
-                    defaultValue={mode === 'edit' ? project.description : ''}
+                    defaultValue={description}
                 />
                 <div className={styles.inputGroup}>
                     {/* TODO: Info Icon */}
@@ -202,7 +207,7 @@ const CreateEditProjectModal = (props) => {
                         Cancel
                     </Button>
                     <Button loading={loading} className={styles.button}>
-                        {mode === 'edit' ? 'Edit' : 'Create'}
+                        {buttonText}
                     </Button>
                 </div>
             </Form>
