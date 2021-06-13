@@ -166,7 +166,7 @@ const Register = () => {
                             containerClassName={styles.inputGroup}
                         />
                         <div className={styles.termsInput}>
-                            <CheckboxInput id="termsCheckbox" onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
+                            <CheckboxInput id="termsCheckbox" size={18} onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
                             <label htmlFor="termsCheckbox" className={styles.termsInputLabel}>
                                 I accept Neat+ <Link to="#" className={styles.termsInputLabelLink}>Terms of Use</Link> and  <Link to="#" className={styles.termsInputLabelLink}>Privacy Policy</Link>
                             </label>
