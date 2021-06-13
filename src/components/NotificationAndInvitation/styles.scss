@@ -1,0 +1,13 @@
+.container {
+    position: relative;
+    z-index: 100;
+    .notification-invitation {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        width: 365px;
+        border-radius: 8px;
+        box-shadow: -2px 30px 50px 0 rgba(0, 0, 0, 0.06);
+        background-color: var(--color-white);
+    }
+}

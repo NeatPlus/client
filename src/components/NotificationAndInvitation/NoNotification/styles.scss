@@ -1,0 +1,29 @@
+.no-notification {
+    padding: 25px 20px;
+    .title {
+        font-size: var(--font-size-base);
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--color-dark);
+    }
+
+    .image-cont {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 35px 0;
+
+        .image {
+            width: 140px;
+            height: 142px;
+            object-fit: contain;
+        }
+
+        .text {
+            font-size: var(--font-size-small);
+            line-height: 1.43;
+            color: var(--color-dark);
+        }
+    }
+}

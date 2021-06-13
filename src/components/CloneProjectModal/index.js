@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
@@ -21,8 +21,14 @@ const CloneProjectModal = (props) => {
         method: 'POST',
     });
     const [inputData, setInputData] = useState({
-        title: `Copy of ${project.title}`,
+        title: '',
     });
+
+    useEffect(() => {
+        setInputData({
+            title: `Copy of ${project.title}`,
+        });
+    }, [project.title]);
 
     const handleChange = useCallback(
         ({name, value}) =>
@@ -36,9 +42,9 @@ const CloneProjectModal = (props) => {
     const closeThisModal = useCallback(() => {
         onClose();
         setInputData({
-            title: `Copy of ${project.title}`,
+            title: '',
         });
-    }, [onClose, project.title]);
+    }, [onClose]);
 
     const handleCloneProject = useCallback(async () => {
         const organization = organizations.filter(

@@ -17,7 +17,8 @@ export const HeaderItem = ({column}) => {
 };
 
 export const DataItem = ({item, column}) => {
-    const [showCreateEditProjectModal, setShowCreateEditProjectModal] = useState(false);
+    const [showCreateEditProjectModal, setShowCreateEditProjectModal] =
+        useState(false);
     const [showCloneProjectModal, setShowCloneProjectModal] = useState(false);
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
 
@@ -80,8 +81,8 @@ export const DataItem = ({item, column}) => {
                 <CreateEditProjectModal
                     isVisible={showCreateEditProjectModal}
                     onClose={handleHideCreateEditProjectModal}
-                    project={item}
                     mode='edit'
+                    project={item}
                 />
                 <CloneProjectModal
                     isVisible={showCloneProjectModal}
