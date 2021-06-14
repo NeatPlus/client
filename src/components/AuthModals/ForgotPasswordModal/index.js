@@ -7,13 +7,20 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import Input from '@ra/components/Form/Input';
+import withVisibleCheck from '@ra/components/WithVisibleCheck';
+
+import useRequest from 'hooks/useRequest';
+import Toast from 'services/toast';
 
 import styles from './styles.scss';
 
 const ForgotPasswordModal = (props) => {
-    const {isVisible, onClose} = props;
+    const {onClose, handleShowCode, setEmail} = props;
     const [inputData, setInputData] = useState({
         email: '',
+    });
+    const [{loading}, resetPassword] = useRequest('/user/password_reset/', {
+        method: 'POST',
     });
 
     const handleChange = useCallback(
@@ -25,22 +32,32 @@ const ForgotPasswordModal = (props) => {
         [inputData]
     );
 
-    const closeThisModal = useCallback(() => {
-        onClose();
-        setInputData({
-            email: '',
-        });
-    }, [onClose]);
-
-    if (!isVisible) {
-        return null;
-    }
+    const handleSumbitEmail = useCallback(async () => {
+        try {
+            const result = await resetPassword({
+                username: inputData.email,
+            });
+            if (result) {
+                setEmail(inputData.email);
+                onClose();
+                handleShowCode();
+            }
+        } catch (err) {
+            Toast.show(err?.error || 'Invalid Email !', Toast.DANGER);
+        }
+    }, [
+        onClose,
+        inputData.email,
+        resetPassword,
+        handleShowCode,
+        setEmail,
+    ]);
 
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <h2 className={styles.title}>Forgot Password?</h2>
-                <div className={styles.closeContainer} onClick={closeThisModal}>
+                <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
@@ -56,14 +73,16 @@ const ForgotPasswordModal = (props) => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <Link to='#' onClick={closeThisModal}>
+                    <Link to='#' onClick={onClose}>
                         Return to Log in
                     </Link>
-                    <Button onClick={closeThisModal}>Continue</Button>
+                    <Button loading={loading} onClick={handleSumbitEmail}>
+                        Continue
+                    </Button>
                 </div>
             </div>
         </Modal>
     );
 };
 
-export default ForgotPasswordModal;
+export default withVisibleCheck(ForgotPasswordModal);
