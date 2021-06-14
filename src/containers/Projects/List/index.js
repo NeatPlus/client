@@ -103,6 +103,7 @@ const ProjectList = withNoProject(() => {
                             defaultValue={maxRows}
                             clearable={false}
                             searchable={false}
+                            optionsDirection="up"
                         />
                         Rows
                     </div>
@@ -118,7 +119,11 @@ const ProjectList = withNoProject(() => {
                     />
                 </div>
             </div>
-            <CreateEditProjectModal isVisible={showCreateModal} onClose={handleHideCreateModal} mode='create'/>
+            <CreateEditProjectModal
+                isVisible={showCreateModal}
+                onClose={handleHideCreateModal}
+                mode='create'
+            />
         </div>
     );
 });

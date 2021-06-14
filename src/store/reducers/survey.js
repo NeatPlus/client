@@ -4,6 +4,7 @@ const initialState = {
     status: 'idle',
     surveys: [],
     activeSurvey: null,
+    surveyAnswers: [],
 };
 
 const surveyReducer = (state=initialState, action) => {
@@ -14,6 +15,8 @@ const surveyReducer = (state=initialState, action) => {
         return {...state, surveys: action.surveys};
     case actions.SET_ACTIVE_SURVEY:
         return {...state, activeSurvey: action.survey};
+    case actions.SET_SURVEY_ANSWERS:
+        return {...state, surveyAnswers: action.answers};
     default:
         return state;
     }

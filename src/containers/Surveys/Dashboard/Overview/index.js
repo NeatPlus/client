@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import {IoIosArrowRoundForward} from 'react-icons/io';
 
@@ -21,7 +21,7 @@ const InfoItem = ({title, value}) => {
     return (
         <>
             <p className={styles.infoTitle}>{title}</p>
-            <p className={styles.infoValue}>{value}</p>
+            <p className={styles.infoValue}>{value || '-'}</p>
         </>
     );
 };
@@ -41,14 +41,14 @@ const ConcernItem = ({value, type}) => {
 };
 
 const Overview = () => {
-    const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
 
-    const surveyedBy = useMemo(() => {
-        if(!activeSurvey) {
-            return '';
+    const getSurveyAnswerFromCode = useCallback(code => {
+        const answer = activeSurvey?.answers?.find(ans => ans.question.code === code)?.answer;
+        if(answer) {
+            return answer;
         }
-        return `${activeSurvey.createdBy?.firstName} ${activeSurvey.createdBy?.lastName}`;
+        return '';
     }, [activeSurvey]);
 
     return (
@@ -64,18 +64,24 @@ const Overview = () => {
                         <div className={styles.infoContent}>
                             <InfoItem 
                                 title="Name" 
-                                value={activeSurvey?.title || ''} 
+                                value={getSurveyAnswerFromCode('nickname')} 
                             />
-                            <InfoItem title="Location" value="Wakanda" />
+                            <InfoItem 
+                                title="Location" 
+                                value={getSurveyAnswerFromCode('place')} 
+                            />
                             <InfoItem 
                                 title="Organization" 
-                                value={activeProject?.organization || ''} 
+                                value={getSurveyAnswerFromCode('org')} 
                             />
                             <InfoItem 
                                 title="Surveyed by" 
-                                value={surveyedBy}
+                                value={getSurveyAnswerFromCode('usrname')}
                             />
-                            <InfoItem title="Programme Scale" value="Country" />
+                            <InfoItem 
+                                title="Programme Scale" 
+                                value={getSurveyAnswerFromCode('scale')} 
+                            />
                             <InfoItem 
                                 title="Created on" 
                                 value={getLocaleDate(activeSurvey?.createdAt)} 
@@ -101,7 +107,7 @@ const Overview = () => {
                     </div>
                     <h4 className={styles.statementTitle}>Location of Assessment</h4>
                     <div className={styles.map}>
-                        <Map />
+                        <Map surveyLocation={getSurveyAnswerFromCode('coords')} />
                     </div>
                 </div>
             </div>
