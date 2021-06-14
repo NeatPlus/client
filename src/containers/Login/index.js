@@ -12,6 +12,7 @@ import Form, {InputField} from '@ra/components/Form';
 import TextInput from '@ra/components/Form/TextInput';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
 
+import initStore from 'services/initStore';
 import useAuthModals from 'hooks/useAuthModals';
 
 import styles from './styles.scss';
@@ -38,6 +39,7 @@ const Login = () => {
                     const {access, refresh} = result;
                     await dispatchLogin(access, refresh);
                     history.push('/projects/');
+                    initStore();
                 }
             } catch (err) {
                 setError(err);

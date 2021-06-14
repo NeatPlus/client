@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useState, useMemo} from 'react';
 import {Link, useLocation, useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {BiChevronLeft} from 'react-icons/bi';
@@ -13,6 +13,7 @@ import ConcernsChart from 'components/Concerns/Chart';
 import SurveyList from 'containers/Surveys/List';
 
 import useInitActiveProject from 'hooks/useInitActiveProject';
+import {getFormattedSurveys} from 'store/selectors/survey';
 
 import SurveyTable from './SurveyTable';
 import styles from './styles.scss';
@@ -25,6 +26,15 @@ const ProjectDashboard = withNoSurvey(() => {
     useInitActiveProject(projectId);
 
     const {activeProject} = useSelector(state => state.project);
+    const surveys = useSelector(getFormattedSurveys);
+
+    const projectLocations = useMemo(() => {
+        const projectSurveys = surveys.filter(sur => sur.project === +projectId);
+        return projectSurveys.flatMap(sur => 
+            sur.answers.filter(el => el.question.code === 'coords')
+                .map(ans => ans.formattedAnswer)
+        );
+    }, [surveys, projectId]);
 
     const [showTakeSurveyModal, setShowTakeSurveyModal] = useState(false);
     const handleShowTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(true), []);
@@ -71,7 +81,13 @@ const ProjectDashboard = withNoSurvey(() => {
                                 <div className={styles.location}>
                                     <h4 className={styles.locationTitle}>Number of issues of concern by location</h4>
                                     <div className={styles.map}>
-                                        <Map project={activeProject} showPopup />
+                                        <Map 
+                                            project={activeProject} 
+                                            features={projectLocations} 
+                                            showPopup 
+                                            width={400}
+                                            height={500}
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -175,6 +175,8 @@ class Api {
         try {
             const data = await this.get('/survey/');
             dispatch(surveyActions.setSurveys(data?.results || []));
+            const answers = await this.get('/survey-answer/?limit=-1');
+            dispatch(surveyActions.setSurveyAnswers(answers?.results || []));
             dispatch(surveyActions.setStatus('complete'));
         } catch(error) {
             dispatch(surveyActions.setStatus('failed'));
@@ -184,7 +186,7 @@ class Api {
 
     async getQuestionGroups() {
         try {
-            const data = await this.get('/question-group/');
+            const data = await this.get('/question-group/?limit=-1');
             dispatch(questionActions.setQuestionGroups(data?.results || []));
         } catch(error) {
             console.log(error);

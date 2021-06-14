@@ -15,3 +15,6 @@ export function setActiveSurvey(survey) {
     return {type: SET_ACTIVE_SURVEY, survey};
 }
 
+export function setSurveyAnswers(answers) {
+    return {type: SET_SURVEY_ANSWERS, answers};
+}
