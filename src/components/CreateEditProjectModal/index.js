@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, useMemo} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {MdClose} from 'react-icons/md';
@@ -9,33 +9,55 @@ import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import TextInput from '@ra/components/Form/TextInput';
 import SelectInput from '@ra/components/Form/SelectInput';
+import MultiSelectInput from '@ra/components/Form/MultiSelectInput';
 import Form, {InputField} from '@ra/components/Form';
+import withVisibleCheck from '@ra/components/WithVisibleCheck';
 
 import cs from '@ra/cs';
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
 import Api from 'services/api';
 
+import UserOptionLabel, {UserIcon} from './UserOptionLabel';
+
 import styles from './styles.scss';
 
 const keyExtractor = (item) => item.id;
 const valueExtractor = (item) => item.title;
+const userValueExtractor = (item) => `${item.firstName} ${item.lastName}`;
 const fieldValueExtractor = (val) => val.option;
 
 const CreateEditProjectModal = (props) => {
-    const {isVisible, onClose, project, mode} = props;
+    const {onClose, project, mode} = props;
     const [error, setError] = useState(null);
     const [visibility, setVisibility] = useState('');
-    const [orgObj, setOrgObj] = useState(0);
+    const [orgObj, setOrgObj] = useState();
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('');
     const [title, setTitle] = useState('');
+
     const history = useHistory();
 
     const {organizations} = useSelector((state) => state.organization);
     const [{loading}, createOrEditProject] = useRequest(url, {
         method: method,
     });
+    const [{data: projectUsers}, getProjectUsers] = useRequest(
+        `/project/${project?.id}/users/`,
+    );
+    const [{loading: loadingUsers, data: users}, getUsers] = useRequest(
+        '/user/',
+    );
+
+    useEffect(() => {
+        getUsers();
+    }, [getUsers]);
+
+    useEffect(() => {
+        if(mode==='edit') {
+            getProjectUsers();
+        }
+    }, [mode, getProjectUsers]);
 
     useEffect(() => {
         if (mode === 'create') {
@@ -53,10 +75,10 @@ const CreateEditProjectModal = (props) => {
     }, [mode, project, project?.id, project?.visibility]);
 
     useEffect(() => {
-        const organization = organizations.filter(
-            (org) => org.title === project?.organization
+        const organization = organizations.find(
+            org => org.title === project?.organization
         );
-        setOrgObj(organization[0]);
+        setOrgObj(organization);
     }, [organizations, project?.organization]);
 
     const handleVisibilitySelect = useCallback(
@@ -64,9 +86,13 @@ const CreateEditProjectModal = (props) => {
         []
     );
 
+    const initialUsers = useMemo(() =>
+        projectUsers?.map(p => ({id: p.user.id, firstName: p.user.firstName, lastName: p.user.lastName, mode: p.permission})) || []
+    , [projectUsers]);
+
     const handleProjectSubmit = useCallback(
         async (formData) => {
-            const {title, organization, description} = formData;
+            const {title, organization, description, users} = formData;
             const body = {
                 title,
                 organization: organization.id,
@@ -74,12 +100,21 @@ const CreateEditProjectModal = (props) => {
                 visibility,
             };
 
+            const userIds = users.map(u => u.id);
+            const removedUsers = initialUsers?.filter(u => !userIds.includes(u.id));
+
             if (mode === 'create') {
                 body.context = 1; // FIXME: Use context from api
             }
 
             try {
+                if(removedUsers.length) {
+                    await Api.removeUsers(project?.id, removedUsers.map(u => ({user: parseInt(u.id)})));
+                }
                 const result = await createOrEditProject(body);
+                if(users.length) {
+                    await Api.upsertUsers(result?.id, users.map(u => ({user: parseInt(u.id), permission: u.mode})));
+                }
                 if (result && mode === 'create') {
                     Toast.show('Project successfully Created!', Toast.SUCCESS);
                     Api.getProjects();
@@ -96,12 +131,8 @@ const CreateEditProjectModal = (props) => {
                 console.log(err);
             }
         },
-        [visibility, createOrEditProject, onClose, history, mode]
+        [visibility, createOrEditProject, onClose, history, mode, initialUsers, project?.id]
     );
-
-    if (!isVisible) {
-        return null;
-    }
 
     return (
         <Modal className={styles.modal}>
@@ -136,7 +167,7 @@ const CreateEditProjectModal = (props) => {
                     containerClassName={styles.inputGroup}
                     fieldValueExtractor={fieldValueExtractor}
                     options={organizations}
-                    placeholder=''
+                    placeholder='Select An Organization'
                     valueExtractor={valueExtractor}
                     keyExtractor={keyExtractor}
                     clearable={false}
@@ -184,14 +215,22 @@ const CreateEditProjectModal = (props) => {
                         />
                     </div>
                 </div>
-                <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>Users</Label>
-                    {/* TODO: Multi-Select Input */}
-                    <SelectInput
-                        placeholder='Select Users'
-                        className={cs(styles.input, styles.inputSelect)}
-                    />
-                </div>
+                <InputField
+                    name="users"
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                    component={MultiSelectInput}
+                    controlClassName={styles.multiSelect}
+                    placeholder='Select Users'
+                    keyExtractor={keyExtractor}
+                    valueExtractor={userValueExtractor}
+                    defaultValue={initialUsers}
+                    loading={loadingUsers}
+                    label='Users'
+                    renderOptionLabel={UserOptionLabel}
+                    renderControlLabel={UserIcon}
+                    options={users?.results}
+                />
                 <div className={styles.buttons}>
                     <Button
                         type='button'
@@ -210,4 +249,4 @@ const CreateEditProjectModal = (props) => {
     );
 };
 
-export default CreateEditProjectModal;
+export default withVisibleCheck(CreateEditProjectModal);

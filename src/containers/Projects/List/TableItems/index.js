@@ -70,7 +70,7 @@ export const DataItem = ({item, column}) => {
         return date.toLocaleDateString();
     }
     if (column.Header === 'Options') {
-        return (
+        return item.isAdminOrOwner?(
             <>
                 <OptionsDropdown
                     onEdit={handleEditClick}
@@ -94,7 +94,7 @@ export const DataItem = ({item, column}) => {
                     projectId={item.id}
                 />
             </>
-        );
+        ):null;
     }
     if (column.Header === 'Visibility') {
         const value = item[column.accessor];

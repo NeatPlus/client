@@ -204,6 +204,14 @@ class Api {
             console.log(error);
         }
     }
+
+    async removeUsers(projectId, body) {
+        return this.post(`/project/${projectId}/remove_users/`, body);
+    }
+
+    async upsertUsers(projectId, body) {
+        return this.post(`/project/${projectId}/update_or_add_users/`, body);
+    }
 }
 
 const ApiService = new Api();

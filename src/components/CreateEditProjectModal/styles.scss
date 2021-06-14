@@ -123,3 +123,26 @@
         width: 95vw;
     }
 }
+
+.multi-select {
+    :global {
+        .select-value-editable {
+            max-width: 20em;
+
+            .values {
+                gap: 0.7em;
+            }
+        }
+
+        .select-value:not(.select-value-editable) {
+            .values {
+                gap: 0;
+
+                > div {
+                    margin-left: -3px;
+                    border: 1px solid;
+                }
+            }
+        }
+    }
+}
