@@ -9,7 +9,7 @@ import Modal from '@ra/components/Modal';
 import styles from './styles.scss';
 
 const CountryWorkModal = (props) => {
-    const {isVisible, onClose, title, description} = props;
+    const {isVisible, onClose, item} = props;
 
     if (!isVisible) {
         return null;
@@ -18,14 +18,14 @@ const CountryWorkModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>{title}</h2>
+                <h2 className={styles.title}>{item?.title}</h2>
                 <button className={styles.closeContainer} onClick={onClose}>
                     <MdClose className={styles.closeIcon} />
                 </button>
             </div>
             <div className={styles.content}>
                 <p className={styles.description}>
-                    {parse(String(description || ''))}
+                    {parse(String(item?.description || ''))}
                 </p>
             </div>
         </Modal>

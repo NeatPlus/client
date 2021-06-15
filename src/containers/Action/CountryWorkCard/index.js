@@ -1,63 +1,39 @@
-import {useCallback, useState} from 'react';
-
+import React, {useCallback} from 'react';
 import {BsArrowRight} from 'react-icons/bs';
-import CountryWorkModal from '../CountryWorkModal';
 
 import styles from './styles.scss';
 
-const CountryWorkCard = ({
-    title,
-    organization,
-    description,
-    contextTitle,
-    modalDescription,
-}) => {
-    const [showCountryWorkModal, setShowCountryWorkModal] = useState(false);
-
-    const handleShowCountryWorkModal = useCallback(
-        () => setShowCountryWorkModal(true),
-        []
-    );
-    const handleHideCountryWorkModal = useCallback(
-        () => setShowCountryWorkModal(false),
-        []
-    );
+const CountryWorkCard = ({item, toggleWorkModal}) => {
+    const onClick = useCallback(() => {
+        toggleWorkModal(item);
+    }, [toggleWorkModal, item]);
     return (
-        <>
-            <div className={styles.container}>
-                <div className={styles.header}>
-                    <h2
-                        className={styles.title}
-                        onClick={handleShowCountryWorkModal}
-                    >
-                        {title}
-                    </h2>
-                    <BsArrowRight
-                        size={20}
-                        className={styles.arrowIcon}
-                        onClick={handleShowCountryWorkModal}
-                    />
-                </div>
-                <div className={styles.organization}>
-                    <p className={styles.organizationTitle}>ORGANIZATION</p>
-                    <p className={styles.organizationName}>{organization}</p>
-                </div>
-                <div className={styles.organization}>
-                    <p className={styles.organizationTitle}>MODULES TESTED</p>
-                    <p className={styles.organizationName}>{contextTitle}</p>
-                </div>
-                <div className={styles.description}>
-                    <p className={styles.descriptionTitle}>DESCRIPTION</p>
-                    <p className={styles.descriptionText}>{description}</p>
-                </div>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h2
+                    className={styles.title}
+                    onClick={onClick}>
+                    {item?.title}
+                </h2>
+                <BsArrowRight
+                    size={20}
+                    className={styles.arrowIcon}
+                    onClick={toggleWorkModal}
+                />
             </div>
-            <CountryWorkModal
-                isVisible={showCountryWorkModal}
-                onClose={handleHideCountryWorkModal}
-                title={title}
-                description={modalDescription}
-            />
-        </>
+            <div className={styles.organization}>
+                <p className={styles.organizationTitle}>ORGANIZATION</p>
+                <p className={styles.organizationName}>{item?.organization}</p>
+            </div>
+            <div className={styles.organization}>
+                <p className={styles.organizationTitle}>MODULES TESTED</p>
+                <p className={styles.organizationName}>{item?.contextTitle}</p>
+            </div>
+            <div className={styles.description}>
+                <p className={styles.descriptionTitle}>DESCRIPTION</p>
+                <p className={styles.descriptionText}>{item?.summary}</p>
+            </div>
+        </div>
     );
 };
 

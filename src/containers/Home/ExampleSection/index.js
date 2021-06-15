@@ -6,8 +6,11 @@ import parse from 'html-react-parser';
 import useRequest from 'hooks/useRequest';
 
 import Modal from '@ra/components/Modal';
+import List from '@ra/components/List';
 
 import styles from './styles.scss';
+
+const keyExtractor = item => item.id;
 
 const ExampleModal = ({description, onClose}) => {
     return (
@@ -26,10 +29,13 @@ const ExampleModal = ({description, onClose}) => {
     );
 };
 
-const ReadMore = ({ text, onClick }) => {
+const ReadMore = ({ item, handleClick }) => {
+    const onClick = useCallback(() => {
+        handleClick(item);
+    }, [handleClick, item]);
     return (
         <div onClick={onClick} className={styles.readText}>
-            <div className={styles.text}>{text}</div>
+            <div className={styles.text}>{item?.summary}</div>
             <div className={styles.toggleIcon}>
                 <FiChevronRight className={styles.icon} />
             </div>
@@ -47,10 +53,20 @@ const ExampleSection = () => {
     const [showExampleModal, setShowExampleModal] = useState(false);
     const [modalData, setModalData] = useState();
 
-    const handleToggle = useCallback((data) => {
-        setModalData(data);
+
+    const handleToggleModal = useCallback((item) => {
+        setModalData(item);
         setShowExampleModal(!showExampleModal);
     }, [showExampleModal]);
+
+    const renderReadMore = useCallback(({item}) => {
+        return (
+            <ReadMore
+                handleClick={handleToggleModal}
+                item={item}
+            />
+        );
+    }, [handleToggleModal]);
 
     return (
         <section className={styles.container}>
@@ -67,18 +83,16 @@ const ExampleSection = () => {
                     </p>
                 </div>
                 <div className={styles.content}>
-                    {data?.results.slice(0, 4).map((item) =>
-                        <ReadMore
-                            onClick={() => handleToggle(item)}
-                            key={item.id}
-                            text={item?.summary}
-                        />
-                    )}
+                    <List
+                        data={data?.results.slice(0, 4)}
+                        renderItem={renderReadMore}
+                        keyExtractor={keyExtractor}
+                    />
                 </div>
             </div>
             {showExampleModal && (
                 <ExampleModal
-                    onClose={handleToggle}
+                    onClose={handleToggleModal}
                     description={modalData?.description}
                 />
             )}
