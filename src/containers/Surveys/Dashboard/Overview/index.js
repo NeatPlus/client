@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useState, useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {IoIosArrowRoundForward} from 'react-icons/io';
 
@@ -6,9 +6,11 @@ import Button from 'components/Button';
 import Map from 'components/Map';
 import SummaryModal from 'components/SummaryModal';
 import TakeSurveyModal from 'components/TakeSurveyModal';
+import List from '@ra/components/List';
 
 import cs from '@ra/cs';
 import * as questionActions from 'store/actions/question';
+import {getSeverityCounts} from 'utils/severity';
 
 import styles from './styles.scss';
 
@@ -29,22 +31,22 @@ const InfoItem = ({title, value}) => {
     );
 };
 
-const ConcernItem = ({value, type, onClick}) => {
+const ConcernItem = ({item, onClick}) => {
     const handleClick = useCallback(() => {
-        onClick && onClick(type);
-    }, [type, onClick]);
+        onClick && onClick(item.severity);
+    }, [item, onClick]);
 
     return (
         <div 
             className={cs(styles.concernsItem, {
-                [styles.concernsItemHigh]: type==='High',
-                [styles.concernsItemMedium]: type==='Medium',
-                [styles.concernsItemLow]: type==='Low',
+                [styles.concernsItemHigh]: item.severity==='High',
+                [styles.concernsItemMedium]: item.severity==='Medium',
+                [styles.concernsItemLow]: item.severity==='Low',
             })}
             onClick={handleClick}
         >
-            <p className={styles.concernNumber}>{value}</p>
-            <p className={styles.concernLabel}>{type} Concerns</p>
+            <p className={styles.concernNumber}>{item.count}</p>
+            <p className={styles.concernLabel}>{item.severity} Concerns</p>
             <IoIosArrowRoundForward size={24} className={styles.concernIcon} />
         </div>
     );
@@ -84,6 +86,12 @@ const Overview = () => {
         }
         return '';
     }, [activeSurvey]);
+
+    const severityCounts = useMemo(() => getSeverityCounts(activeSurvey?.results || []), [activeSurvey]);
+
+    const renderConcernItem = useCallback(listProps => (
+        <ConcernItem {...listProps} onClick={handleShowSummary} />
+    ), [handleShowSummary]);
 
     return (
         <div className={styles.container}>
@@ -140,23 +148,12 @@ const Overview = () => {
                 </div>
                 <div className={styles.statementSummary}>
                     <h4 className={styles.statementTitle}>Statement Severity Summary</h4>
-                    <div className={styles.concerns}>
-                        <ConcernItem 
-                            value={43} 
-                            type="High" 
-                            onClick={handleShowSummary}
-                        />
-                        <ConcernItem 
-                            value={32} 
-                            type="Medium" 
-                            onClick={handleShowSummary}
-                        />
-                        <ConcernItem
-                            value={13} 
-                            type="Low"
-                            onClick={handleShowSummary}
-                        />
-                    </div>
+                    <List 
+                        className={styles.concerns}
+                        data={severityCounts}
+                        keyExtractor={item => item.severity}
+                        renderItem={renderConcernItem}
+                    />
                     <h4 className={styles.statementTitle}>Location of Assessment</h4>
                     <div className={styles.map}>
                         <Map surveyLocation={getSurveyAnswerFromCode('coords')} />

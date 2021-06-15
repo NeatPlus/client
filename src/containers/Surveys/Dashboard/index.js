@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react';
 import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {BiChevronLeft, BiEditAlt} from 'react-icons/bi';
 import {FiFilter} from 'react-icons/fi';
 
@@ -21,6 +22,7 @@ const SurveyDashboard = () => {
     useInitActiveSurvey();
 
     const handleTabChange = useCallback(payload => setActiveTab(payload.activeTab), []);
+    const {activeProject} = useSelector(state => state.project);
 
     const renderHeaderControls = useCallback(tabHeaderProps => {
         if(activeTab === 'overview') {
@@ -49,10 +51,17 @@ const SurveyDashboard = () => {
 
     return (
         <div className={styles.container}>
-            {/* FIXME: Use active project id */}
-            <Link to="/projects/1/surveys/" className={styles.backLink}>
-                <BiChevronLeft size={22} className={styles.backIcon} /> Back to Surveys
-            </Link>
+            {activeProject && (
+                <Link 
+                    to={`/projects/${activeProject.id}/surveys/`} 
+                    className={styles.backLink}
+                >
+                    <BiChevronLeft 
+                        size={22} 
+                        className={styles.backIcon} 
+                    /> Back to Surveys
+                </Link>
+            )}
             <Tabs 
                 defaultActiveTab="overview"
                 secondary 

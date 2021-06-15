@@ -1,11 +1,15 @@
 import {useCallback} from 'react';
-import Tabs, {Tab} from '@ra/components/Tabs';
+import {useSelector} from 'react-redux';
 
+import Tabs, {Tab} from '@ra/components/Tabs';
 import cs from '@ra/cs';
 
+import StatementsContent from './Statements';
 import styles from './styles.scss';
 
 const Module = props => {
+    const {topics} = useSelector(state => state.statement);
+
     const renderTabsHeader = useCallback(tabHeaderProps => {
         const {title, active, ...rest} = tabHeaderProps;
         return (
@@ -17,35 +21,23 @@ const Module = props => {
         );
     }, []);
 
+    if(!topics?.length) {
+        return null;
+    }
+
     return (
         <Tabs
             className={styles.tabs}
             renderHeader={renderTabsHeader}
             headerClassName={styles.tabsHeader}
             contentContainerClassName={styles.contentContainer}
-            defaultActiveTab="community"
+            defaultActiveTab={topics?.[0]?.code}
         >
-            <Tab label="community" title="Community Size and Capacity" className={styles.tabContent}>
-                Community Size and Capacity 
-            </Tab>
-            <Tab label="social" title="Social Behavior and Cohesion" className={styles.tabContent}>
-                Social Behavior and Cohesion
-            </Tab>
-            <Tab label="biodiversity" title="Biodiversity Sensitivity" className={styles.tabContent}>
-                Biodiversity Sensitivity
-            </Tab>
-            <Tab label="air" title="Air Quality" className={styles.tabContent}>
-                Air Quality
-            </Tab>
-            <Tab label="water" title="Water Resources" className={styles.tabContent}>
-                Water Resources
-            </Tab>
-            <Tab label="environment" title="Environmental Sanitation" className={styles.tabContent}>
-                Environmental Sanitation
-            </Tab>
-            <Tab label="hazard" title="Hazards" className={styles.tabContent}>
-                Hazards
-            </Tab>
+            {topics.map(topic => (
+                <Tab key={topic.code} label={topic.code} title={topic.title} className={styles.tabContent}>
+                    <StatementsContent topic={topic} />
+                </Tab>
+            ))}
         </Tabs>
     );
 };
