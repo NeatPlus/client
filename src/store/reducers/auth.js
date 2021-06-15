@@ -9,6 +9,8 @@ let initialState = {
     },
     token: null,
     refreshToken: null,
+    adminOrganizations: [],
+    memberOrganization: [],
 };
 const loggedOutState = initialState;
 
@@ -40,6 +42,10 @@ const authReducer = (state = initialState, action) => {
     case actions.SET_REFRESH_TOKEN:
         localStorage.setItem('user', JSON.stringify({...state, refreshToken: action.refreshToken}));
         return {...state, refreshToken: action.refreshToken};
+    case actions.SET_ADMIN_ORGANIZATIONS:
+        return {...state, adminOrganizations: action.adminOrganizations };
+    case actions.SET_MEMBER_ORGANIZATIONS:
+        return {...state, memberOrganizations: action.memberOrganizations };
     default:
         return state;
     }

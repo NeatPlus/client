@@ -4,6 +4,8 @@ export const LOGIN_CRED='LOGIN_CRED';
 export const LOGOUT='LOGOUT';
 export const SET_TOKEN='SET_TOKEN';
 export const SET_REFRESH_TOKEN='SET_REFRESH_TOKEN';
+export const SET_ADMIN_ORGANIZATIONS='SET_ADMIN_ORGANIZATIONS';
+export const SET_MEMBER_ORGANIZATIONS='SET_MEMBER_ORGANIZATIONS';
 
 export function login() {
     return { type: LOGIN };
@@ -27,4 +29,12 @@ export function setLoginCred(cred) {
 
 export function logout() {
     return { type: LOGOUT };
+}
+
+export function setMemberOrganizations() {
+    return { type: SET_MEMBER_ORGANIZATIONS };
+}
+
+export function setAdminOrganizations(adminOrganizations) {
+    return { type: SET_ADMIN_ORGANIZATIONS, adminOrganizations };
 }

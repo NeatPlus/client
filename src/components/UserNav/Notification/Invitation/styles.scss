@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    padding: 2em 1.25em;
+    max-height: 20em;
+    overflow-y: scroll;
+
+    .invitation {
+        display: flex;
+        gap: 0.9em;
+
+        .icon-container {
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            padding: 0.6em;
+            background-color: var(--color-tertiary-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .person-icon {
+                color: var(--color-white);
+            }
+        }
+
+        .description-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6em;
+
+            .description {
+                font-size: var(--font-size-small);
+                line-height: 1.43;
+                color: var(--color-dark);
+            }
+
+            .buttons {
+                display: flex;
+                gap: 0.6em;
+
+                .button {
+                    width: 5.5em;
+                    height: 2.1em;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
