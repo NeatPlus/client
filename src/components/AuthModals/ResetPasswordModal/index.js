@@ -6,24 +6,25 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import Input from '@ra/components/Form/Input';
+import withVisibleCheck from '@ra/components/WithVisibleCheck';
+
+import useRequest from 'hooks/useRequest';
+import Toast from 'services/toast';
 
 import styles from './styles.scss';
 
-
 const ResetPasswordModal = (props) => {
-    const {isVisible, onClose} = props;
+    const {onClose, email, identifier} = props;
     const [inputData, setInputData] = useState({
         newPassword: '',
         verifyNewPassword: '',
     });
-
-    const closeThisModal = useCallback(() => {
-        onClose();
-        setInputData({
-            newPassword: '',
-            verifyPassword: '',
-        });
-    }, [onClose]);
+    const [{loading}, resetPassword] = useRequest(
+        '/user/password_reset/change/',
+        {
+            method: 'POST',
+        }
+    );
 
     const handleChange = useCallback(
         ({name, value}) =>
@@ -34,15 +35,38 @@ const ResetPasswordModal = (props) => {
         [inputData]
     );
 
-    if (!isVisible) {
-        return null;
-    }
+    const handlePasswordReset = useCallback(async () => {
+        try {
+            const result = await resetPassword({
+                username: email,
+                identifier,
+                password: inputData.newPassword,
+                rePassword: inputData.verifyNewPassword,
+            });
+            if (result) {
+                onClose();
+                Toast.show('Password Reset Successfull!', Toast.SUCCESS);
+            }
+        } catch (err) {
+            Toast.show(
+                err?.error || err?.errors?.[0] || 'Invalid Password',
+                Toast.DANGER
+            );
+        }
+    }, [
+        onClose,
+        email,
+        identifier,
+        resetPassword,
+        inputData.newPassword,
+        inputData.verifyNewPassword,
+    ]);
 
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <h2 className={styles.title}>Reset Password</h2>
-                <div className={styles.closeContainer} onClick={closeThisModal}>
+                <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
@@ -69,11 +93,13 @@ const ResetPasswordModal = (props) => {
                     />
                 </div>
                 <div className={styles.button}>
-                    <Button>Set Password</Button>
+                    <Button loading={loading} onClick={handlePasswordReset}>
+                        Set Password
+                    </Button>
                 </div>
             </div>
         </Modal>
     );
 };
 
-export default ResetPasswordModal;
+export default withVisibleCheck(ResetPasswordModal);

@@ -9,7 +9,7 @@ const AuthModals = ({
         showForgotPasswordModal,
         showResetPasswordModal,
         showVerifyEmailModal,
-    }, 
+    },
     handleShowCode,
     handleShowForgotPassword,
     handleShowResetPassword,
@@ -17,13 +17,39 @@ const AuthModals = ({
     hideModals,
     username,
     onRegisterComplete,
+    email,
+    setEmail,
+    identifier,
+    setIdentifier,
 }) => {
     return (
         <>
-            <EnterCodeModal isVisible={showCodeModal} onClose={hideModals} />
-            <ForgotPasswordModal isVisible={showForgotPasswordModal} onClose={hideModals} />
-            <ResetPasswordModal isVisible={showResetPasswordModal} onClose={hideModals} />
-            <VerifyEmailModal onComplete={onRegisterComplete} username={username} isVisible={showVerifyEmailModal} onClose={hideModals} />
+            <EnterCodeModal
+                isVisible={showCodeModal}
+                onClose={hideModals}
+                showForgotPasswordModal={handleShowForgotPassword}
+                showResetPasswordModal={handleShowResetPassword}
+                email={email}
+                setIdentifier={setIdentifier}
+            />
+            <ForgotPasswordModal
+                isVisible={showForgotPasswordModal}
+                onClose={hideModals}
+                handleShowCode={handleShowCode}
+                setEmail={setEmail}
+            />
+            <ResetPasswordModal
+                isVisible={showResetPasswordModal}
+                onClose={hideModals}
+                email={email}
+                identifier={identifier}
+            />
+            <VerifyEmailModal
+                onComplete={onRegisterComplete}
+                username={username}
+                isVisible={showVerifyEmailModal}
+                onClose={hideModals}
+            />
         </>
     );
 };
