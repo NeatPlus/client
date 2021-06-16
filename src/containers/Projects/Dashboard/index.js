@@ -27,14 +27,39 @@ const ProjectDashboard = withNoSurvey(() => {
 
     const {activeProject} = useSelector(state => state.project);
     const surveys = useSelector(getFormattedSurveys);
+    const {topics} = useSelector(state => state.statement);
+
+    const projectSurveys = useMemo(() => {
+        return surveys.filter(sur => sur.project === +projectId);
+    }, [surveys, projectId]);
 
     const projectLocations = useMemo(() => {
-        const projectSurveys = surveys.filter(sur => sur.project === +projectId);
         return projectSurveys.flatMap(sur => 
             sur.answers.filter(el => el.question.code === 'coords')
                 .map(ans => ans.formattedAnswer)
         );
-    }, [surveys, projectId]);
+    }, [projectSurveys]);
+
+    const projectResults = useMemo(() => {
+        return projectSurveys.flatMap(sur => sur.results);
+    }, [projectSurveys]);
+
+    const concernsData = useMemo(() => {
+        return topics.map(topic => {
+            const topicResults = projectResults.filter(res => res.topic === topic.id);
+            const totalCount = topicResults.length;
+            const highCount = topicResults.filter(res => res.score > 0.75).length;
+            const mediumCount = topicResults.filter(res => res.score < 0.75 && res.score > 0.25).length;
+
+            return {
+                topic: topic.title,
+                highCount,
+                mediumCount,
+                lowCount: totalCount - highCount - mediumCount,
+                totalCount: topicResults.length,
+            };
+        });
+    }, [topics, projectResults]);
 
     const [showTakeSurveyModal, setShowTakeSurveyModal] = useState(false);
     const handleShowTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(true), []);
@@ -72,10 +97,12 @@ const ProjectDashboard = withNoSurvey(() => {
                                 <div className={styles.concerns}>
                                     <h4 className={styles.concernsTitle}>Top concerns topics</h4>
                                     <div className={styles.concernsTable}>
-                                        <ConcernsTable />
+                                        <ConcernsTable 
+                                            concerns={concernsData?.slice(0, 4) || []} 
+                                        />
                                     </div>
                                     <div className={styles.concernsChart}>
-                                        <ConcernsChart />
+                                        <ConcernsChart concerns={concernsData} />
                                     </div>
                                 </div>
                                 <div className={styles.location}>

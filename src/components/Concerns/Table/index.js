@@ -1,5 +1,4 @@
 import Table from '@ra/components/Table';
-import concerns from 'services/mockData/concerns.json';
 import cs from '@ra/cs';
 
 import styles from './styles.scss';
@@ -11,19 +10,19 @@ const columns = [
     }, 
     {
         Header: 'High',
-        accessor: 'high',
+        accessor: 'highCount',
     },
     {
         Header: 'Medium',
-        accessor: 'medium',
+        accessor: 'mediumCount',
     },
     {
         Header: 'Low',
-        accessor: 'low',
+        accessor: 'lowCount',
     },
     {
         Header: 'Total',
-        accessor: 'total',
+        accessor: 'totalCount',
     },
 ];
 
@@ -47,7 +46,7 @@ export const DataItem = ({item, column}) => {
     return item[column.accessor];
 };
 
-const ConcernsTable = ({onTakeSurveyClick}) => {
+const ConcernsTable = ({onTakeSurveyClick, concerns}) => {
     return (
         <Table 
             className={styles.table} 

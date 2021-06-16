@@ -101,7 +101,7 @@ const SurveyList = () => {
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
-    const handleMaxRowsChange = useCallback((item) => setMaxRows(item), []);
+    const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
 
     return (
         <div class={styles.container}>
@@ -128,7 +128,7 @@ const SurveyList = () => {
                         keyExtractor={keyExtractor} 
                         valueExtractor={labelExtractor} 
                         onChange={handleMaxRowsChange}
-                        defaultValue={maxRows}
+                        defaultValue={maxRowsOptions[0]}
                         clearable={false}
                         searchable={false}
                         optionsDirection="up"
