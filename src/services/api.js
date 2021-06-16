@@ -7,6 +7,9 @@ import * as organizationActions from 'store/actions/organization';
 import * as projectActions from 'store/actions/project';
 import * as surveyActions from 'store/actions/survey';
 import * as questionActions from 'store/actions/question';
+import * as statementActions from 'store/actions/statement';
+
+import {getMockResults} from 'utils/mockResults';
 
 const dispatch = store.dispatch;
 
@@ -205,6 +208,26 @@ class Api {
             dispatch(questionActions.setStatus('failed'));
             console.log(error);
         }
+    }
+
+    async getStatements() {
+        dispatch(statementActions.setStatus('loading'));
+        try {
+            const data = await this.get('/statement/?limit=-1');
+            dispatch(statementActions.setStatements(data?.results || []));
+            const topics = await this.get('/statement-topic/?limit=-1');
+            dispatch(statementActions.setTopics(topics?.results || []));
+            dispatch(statementActions.setStatus('complete'));
+        } catch(error) {
+            dispatch(questionActions.setStatus('failed'));
+            console.log(error);
+        }
+    }
+
+    async getSurveyResults() {
+        // FIXME: Get actual results
+        const data = getMockResults();
+        dispatch(surveyActions.setSurveyResults(data)); 
     }
 
     async removeUsers(projectId, body) {

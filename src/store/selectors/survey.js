@@ -2,15 +2,17 @@ import {createSelector} from 'reselect';
 
 const getSurveys = state => state.survey.surveys;
 const getSurveyAnswers = state => state.survey.surveyAnswers;
+const getSurveyResults = state => state.survey.surveyResults;
 const getQuestions = state => state.question.questions;
 const getUsers = state => state.user.users;
 
 export const getFormattedSurveys = createSelector([
     getSurveys, 
-    getSurveyAnswers, 
+    getSurveyAnswers,
+    getSurveyResults,
     getUsers,
     getQuestions,
-], (surveys, surveyAnswers, users, questions) => {
+], (surveys, surveyAnswers, surveyResults, users, questions) => {
     if(users.length===0) {
         return [];
     }
@@ -29,5 +31,6 @@ export const getFormattedSurveys = createSelector([
                     },
                 };
             }),
+        results: surveyResults,
     })) || [];
 });

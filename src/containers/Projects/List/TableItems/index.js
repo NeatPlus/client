@@ -1,5 +1,6 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useState, useMemo} from 'react';
 import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import OptionsDropdown from 'components/OptionsDropdown';
 import {PublicIcon, OrganizationIcon, PrivateIcon} from 'components/Icons';
@@ -17,6 +18,9 @@ export const HeaderItem = ({column}) => {
 };
 
 export const DataItem = ({item, column}) => {
+    const {surveys} = useSelector(state => state.survey);
+    const submissions = useMemo(() => surveys.filter(sur => sur?.project === item.id).length || '-', [surveys, item]);
+
     const [showCreateEditProjectModal, setShowCreateEditProjectModal] = useState(false);
     const [showCloneProjectModal, setShowCloneProjectModal] = useState(false);
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
@@ -95,6 +99,9 @@ export const DataItem = ({item, column}) => {
                 />
             </>
         ):null;
+    }
+    if (column.Header === 'Submissions') {
+        return submissions;
     }
     if (column.Header === 'Visibility') {
         const value = item[column.accessor];

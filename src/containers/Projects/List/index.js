@@ -56,7 +56,7 @@ const keyExtractor = item => item.value;
 const labelExtractor = item => item.label;
 
 const ProjectList = withNoProject(() => {
-    const projects = useSelector(state => getFormattedProjects(state));
+    const projects = useSelector(getFormattedProjects);
 
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [page, setPage] = useState(1);
@@ -66,7 +66,7 @@ const ProjectList = withNoProject(() => {
     const handleHideCreateModal = useCallback(() => setShowCreateModal(false), []);
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
-    const handleMaxRowsChange = useCallback((item) => setMaxRows(item), []);
+    const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
 
     return (
         <div className={styles.container}>
@@ -100,7 +100,7 @@ const ProjectList = withNoProject(() => {
                             keyExtractor={keyExtractor} 
                             valueExtractor={labelExtractor} 
                             onChange={handleMaxRowsChange}
-                            defaultValue={maxRows}
+                            defaultValue={maxRowsOptions[0]}
                             clearable={false}
                             searchable={false}
                             optionsDirection="up"
