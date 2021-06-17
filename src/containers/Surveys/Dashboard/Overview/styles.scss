@@ -108,17 +108,17 @@
                     }
 
                     &__high {
-                        border: solid 2px #fe625e;
+                        border: solid 2px var(--color-severity-high);
                         background-color: rgba(254, 98, 94, 0.13);
                     }
 
                     &__medium {
-                        border: solid 2px #f8b535;
+                        border: solid 2px var(--color-severity-medium);
                         background-color: rgba(248, 181, 53, 0.14);
                     }
 
                     &__low {
-                        border: solid 2px #f8e9a1;
+                        border: solid 2px var(--color-severity-low);
                         background-color: rgba(248, 233, 161, 0.15);
                     }
 

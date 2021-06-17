@@ -47,19 +47,24 @@ const ProjectDashboard = withNoSurvey(() => {
     const concernsData = useMemo(() => {
         return topics.map(topic => {
             const topicResults = projectResults.filter(res => res.topic === topic.id);
-            const totalCount = topicResults.length;
             const highCount = topicResults.filter(res => res.score > 0.75).length;
-            const mediumCount = topicResults.filter(res => res.score < 0.75 && res.score > 0.25).length;
+            const mediumCount = topicResults.filter(res => res.score < 0.75 && res.score > 0.6).length;
+            const lowCount = topicResults.filter(res => res.score < 0.6 && res.score > 0.35).length; 
+            const totalCount = highCount + mediumCount + lowCount;
 
             return {
                 topic: topic.title,
                 highCount,
                 mediumCount,
-                lowCount: totalCount - highCount - mediumCount,
-                totalCount: topicResults.length,
+                lowCount,
+                totalCount,
             };
         });
     }, [topics, projectResults]);
+
+    const topConcerns = useMemo(() => 
+        concernsData?.sort((a, b) => b.highCount - a.highCount)?.slice(0, 4), 
+    [concernsData]);
 
     const [showTakeSurveyModal, setShowTakeSurveyModal] = useState(false);
     const handleShowTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(true), []);
@@ -71,10 +76,6 @@ const ProjectDashboard = withNoSurvey(() => {
         }
         return history.push(`/projects/${projectId}/surveys/`);
     }, [projectId, history]);
-
-    const handleSurveyComplete = useCallback(() => {
-        // TODO: Refresh table data
-    }, []);
 
     return (
         <div className={styles.container}>
@@ -98,7 +99,7 @@ const ProjectDashboard = withNoSurvey(() => {
                                     <h4 className={styles.concernsTitle}>Top concerns topics</h4>
                                     <div className={styles.concernsTable}>
                                         <ConcernsTable 
-                                            concerns={concernsData?.slice(0, 4) || []} 
+                                            concerns={topConcerns} 
                                         />
                                     </div>
                                     <div className={styles.concernsChart}>
@@ -127,7 +128,6 @@ const ProjectDashboard = withNoSurvey(() => {
             </Tabs>
             <TakeSurveyModal 
                 isVisible={showTakeSurveyModal} 
-                onComplete={handleSurveyComplete} 
                 onClose={handleHideTakeSurveyModal} 
             />
         </div>

@@ -75,6 +75,10 @@ export const DataItem = ({item, column}) => {
     if(column.Header==='Name') {
         return <Link to={`${item.id}/`} className={styles.nameItem}>{item[column.accessor]}</Link>;
     }
+    if(column.Header==='Location') {
+        const answer = item?.answers?.find(ans => ans.question.code === 'place')?.answer;
+        return answer || '';
+    }
     if(column.Header==='Created on' || column.Header==='Modified on') {
         const date = new Date(item[column.accessor]);
         return date.toLocaleDateString();
