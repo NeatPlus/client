@@ -1,13 +1,22 @@
-import {createRef, useEffect, useMemo, useState} from 'react';
+import {createRef, useEffect, useMemo, useState, useCallback} from 'react';
 
 import Api from 'services/api';
 import CountryWorkCard from '../CountryWorkCard';
+import CountryWorkModal from '../CountryWorkModal';
 import WorldMap from '../Worldmap';
 
 import styles from './styles.scss';
 
 const CountrySection = () => {
     const [allActions, setAllActions] = useState([]);
+    const [showWorkModal, setShowWorkModal] = useState(false);
+    const [workModalData, setWorkModalData] = useState();
+
+    const handleToggle = useCallback((data) => {
+        setWorkModalData(data);
+        setShowWorkModal(!showWorkModal);
+    }, [showWorkModal]);
+
 
     useEffect(() => {
         async function fetchAllAction() {
@@ -36,15 +45,17 @@ const CountrySection = () => {
                 {allActions.map((data, i) => (
                     <div ref={refs[i]} key={data.id} id={data.id}>
                         <CountryWorkCard
-                            title={data.title}
-                            organization={data.organization}
-                            description={data.summary}
-                            contextTitle={data.contextTitle}
-                            modalDescription={data.description}
+                            item={data}
+                            toggleWorkModal={handleToggle}
                         />
                     </div>
                 ))}
             </div>
+            <CountryWorkModal
+                isVisible={showWorkModal}
+                item={workModalData}
+                onClose={handleToggle}
+            />
         </div>
     );
 };
