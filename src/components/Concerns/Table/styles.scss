@@ -12,15 +12,15 @@
                 font-size: 13px;
 
                 &-high {
-                    border-bottom: 3px solid #fe625e;
+                    border-bottom: 3px solid var(--color-severity-high);
                 }
 
                 &-low {
-                    border-bottom: 3px solid #f8e9a1;
+                    border-bottom: 3px solid var(--color-severity-low);
                 }
 
                 &-medium {
-                    border-bottom: 3px solid #f8b535;
+                    border-bottom: 3px solid var(--color-severity-medium);
                 }
             }
 
@@ -56,8 +56,14 @@
             }
 
             .name-item {
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
                 font-size: var(--font-size-small);
                 font-weight: 500;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                color: var(--color-dark);
             }
 
             td {

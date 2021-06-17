@@ -1,4 +1,4 @@
-import {useCallback, useState, useMemo} from 'react';
+import {useCallback, useState, useMemo, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
     
@@ -55,7 +55,7 @@ const getInputComponent = question => {
     }
 };
 
-const Question = ({item, showRequired}) => {
+const Question = ({item, showRequired, editable}) => {
     const dispatch = useDispatch();
     const {options, answers} = useSelector(state => state.question);
 
@@ -72,6 +72,9 @@ const Question = ({item, showRequired}) => {
     );
 
     const handleChangeAnswer = useCallback(({value}) => {
+        if(!editable) {
+            return;
+        }
         const answer = {
             answerType: item.answerType,
             question: item.id,
@@ -82,7 +85,10 @@ const Question = ({item, showRequired}) => {
         } else {
             answer.answer = value;
         }
-        const answerIndex = answers.findIndex(ans => ans.question === item.id);
+        const answerIndex = answers.findIndex(ans => {
+            const questionId = ans.question?.id || ans.question;
+            return questionId === item.id;
+        });
         if(answerIndex!==-1) {
             const newAnswers = answers;
             if(!value || (value && value?.length===0)) {
@@ -93,9 +99,14 @@ const Question = ({item, showRequired}) => {
             return dispatch(questionActions.setAnswers([...newAnswers]));
         }
         dispatch(questionActions.setAnswers([...answers, answer]));
-    }, [item, answers, dispatch]);
+    }, [item, answers, dispatch, editable]);
 
-    const answerItem = answers.find(ans => ans.question === item.id);
+    const answerItem = useMemo(() => {
+        return answers.find(ans => {
+            const questionId = ans.question?.id || ans.question;
+            return questionId === item.id;
+        });
+    }, [answers, item]);
 
     return (
         <>
@@ -145,11 +156,16 @@ const GroupContent = props => {
         showPrevious,
         showNext,
         showRequired,
+        editable
     } = props;
 
     const renderQuestion = useCallback(listProps => (
-        <Question showRequired={showRequired} {...listProps} />
-    ), [showRequired]);
+        <Question 
+            editable={editable} 
+            showRequired={showRequired} 
+            {...listProps} 
+        />
+    ), [showRequired, editable]);
 
     return (
         <div className={styles.content}>
@@ -187,8 +203,9 @@ const GroupContent = props => {
 
 const TakeSurveyModal = (props) => {
     const dispatch = useDispatch();
+    const {activeSurvey} = useSelector(state => state.survey);
 
-    const {isVisible, onClose} = props;
+    const {isVisible, onClose, editable = true} = props;
     const {projectId} = useParams();
 
     const {questionGroups, questions, status, answers} = useSelector(state => state.question);
@@ -201,7 +218,9 @@ const TakeSurveyModal = (props) => {
     const [activeGroupIndex, setActiveGroupIndex] = useState(0);
     const [showRequired, setShowRequired] = useState(false);
 
-    const [surveyTitle, setSurveyTitle] = useState('');
+    const [surveyTitle, setSurveyTitle] = useState(
+        editable ? '' : activeSurvey?.title
+    );
     const [error, setError] = useState(null);
 
     const activeGroup = questionGroups[activeGroupIndex];
@@ -209,12 +228,18 @@ const TakeSurveyModal = (props) => {
         ques.group === activeGroup?.id
     ) || [], [questions, activeGroup]);
 
+    useEffect(() => {
+        if(!editable && activeSurvey?.title) {
+            setSurveyTitle(activeSurvey.title);
+        }
+    }, [editable, activeSurvey]);
+
     const handlePreviousClick = useCallback(() => 
         setActiveGroupIndex(activeGroupIndex - 1), 
     [activeGroupIndex]
     );
     const handleNextClick = useCallback(() => {
-        if(activeQuestions.some(ques => 
+        if(editable && activeQuestions.some(ques => 
             ques.isRequired && 
             answers && 
             !answers?.some(ans => ans.question === ques.id))
@@ -223,20 +248,30 @@ const TakeSurveyModal = (props) => {
         }
         setShowRequired(false);
         setActiveGroupIndex(activeGroupIndex + 1);
-    }, [activeGroupIndex, activeQuestions, answers]);
+    }, [activeGroupIndex, activeQuestions, answers, editable]);
 
     const isFormIncomplete = useMemo(() => {
+        if(!editable) {
+            return false;
+        }
         return questions?.some(ques =>
             ques.isRequired &&
             answers &&
             !answers?.some(ans => ans.question === ques.id));
-    }, [questions, answers]);
+    }, [questions, answers, editable]);
 
     const handleFirstIndex = useCallback(() => setActiveGroupIndex(0), []);
     const handleLastIndex = useCallback(() => 
         setActiveGroupIndex(questionGroups.length),
     [questionGroups]
     );
+
+    const handleClose = useCallback(() => {
+        if(editable) {
+            setSurveyTitle('');
+        }
+        onClose && onClose();
+    }, [onClose, editable]);
 
     const handleValidate = useCallback(async () => {
         setError(null);
@@ -248,30 +283,25 @@ const TakeSurveyModal = (props) => {
             });
             Toast.show(result?.detail || 'Survey complete!', Toast.SUCCESS);
             dispatch(questionActions.setAnswers([]));
-            onClose && onClose();
+            handleClose();
             Api.getSurveys();
         } catch(err) {
             setError(err);
             console.log(err);
         }
-    }, [answers, createSurvey, surveyTitle, projectId, onClose, dispatch]);
-
-    const handleClose = useCallback(() => {
-        setSurveyTitle('');
-        onClose();
-    }, [onClose]);
+    }, [answers, createSurvey, surveyTitle, projectId, handleClose, dispatch]);
 
     if(!isVisible){
         return null;
     }
 
-    if(!surveyTitle) {
+    if(!surveyTitle && editable) {
         return (
             <InitSurvey 
                 questionsStatus={status}
                 setSurveyTitle={setSurveyTitle} 
                 isVisible={!surveyTitle} 
-                onClose={handleClose} 
+                onClose={onClose} 
             />
         );
     }
@@ -331,20 +361,23 @@ const TakeSurveyModal = (props) => {
                             <BsArrowLeft size={22} className={styles.buttonIconLeft} />
                             Previous
                         </Button>
-                        <Button 
-                            disabled={isFormIncomplete}
-                            loading={loading}
-                            className={cs(styles.button, styles.buttonNext)} 
-                            onClick={handleValidate}
-                        >
-                            <BsCheck size={22} className={styles.buttonIconLeft} />
+                        {editable && (
+                            <Button 
+                                disabled={isFormIncomplete}
+                                loading={loading}
+                                className={cs(styles.button, styles.buttonNext)} 
+                                onClick={handleValidate}
+                            >
+                                <BsCheck size={22} className={styles.buttonIconLeft} />
 
-                            Validate
-                        </Button>
+                                Validate
+                            </Button>
+                        )}
                     </div>
                 </div>
             ) : (
                 <GroupContent 
+                    editable={editable}
                     activeGroup={activeGroup} 
                     questions={activeQuestions}
                     onPreviousClick={handlePreviousClick}

@@ -1,0 +1,102 @@
+.modal {
+    border-radius: 8px;
+    width: 60vw;
+    max-width: 900px;
+    height: 90vh;
+    background-color: var(--color-light-alt);
+    overflow: hidden;
+
+    @media screen and (max-width: 768px) {
+        width: 95vw;
+    }
+
+    .header {
+        padding: 20px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+            color: var(--color-tertiary);
+            font-size: var(--font-size-medium);
+            font-family: var(--font-family-header);
+            font-weight: 600;
+            line-height: 1.75em;
+        }
+
+        .close-container {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .close-icon {
+                color: var(--color-grey-dark-alt);
+            }
+        }
+    }
+
+    .content {
+        background-color: var(--color-white);
+        display: flex;
+        height: 100%;
+        padding: 25px;
+
+        .tabs {
+            flex: 1;
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+
+            .tabs-header {
+                align-self: center;
+                width: max-content;
+                margin: 0 auto;
+                padding: 4px;
+                border-radius: 6px;
+                box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.12);
+                
+                .header-item {
+                    border-radius: 4px;
+                    display: flex;
+                    justify-content: center;
+                    padding: 10px 0;
+                    width: 112px;
+                    font-weight: 500;
+                    color: var(--color-grey-dark);
+                    font-size: var(--font-size-small);
+                    cursor: pointer;
+                    transition: all 0.2s;
+
+                    &__inactive:hover {
+                        background-color: var(--color-light-alt);
+                    }
+
+                    &__high {
+                        background-color: var(--color-severity-high);
+                        color: var(--color-white);
+                    }
+
+                    &__medium {
+                        background-color: var(--color-severity-medium);
+                        color: var(--color-white);
+                    }
+
+                    &__low {
+                        background-color: var(--color-severity-low);
+                    }
+                }
+            }
+
+            .tab-content {
+                flex: 1;
+                padding: 25px 0;
+                overflow-y: auto;
+            }
+        }
+    }
+}
