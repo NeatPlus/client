@@ -125,6 +125,7 @@ const Question = ({item, showRequired, editable}) => {
                 )}
                 {item.answerType!=='description' ? (
                     <InputComponent
+                        disabled={!editable}
                         className={styles.input} 
                         placeholder="Add Answer..." 
                         onChange={handleChangeAnswer}

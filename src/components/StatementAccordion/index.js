@@ -40,9 +40,8 @@ const StatementAccordion = ({item, isExpanded}) => {
         <li className={styles.listItem}>{item.title}</li>,
     []);
 
-    // FIXME: Use actual data for mitigations and opportunities
-    const mitigations = useMemo(() => [], []);
-    const opportunities = useMemo(() => [], []);
+    const mitigations = useMemo(() => item.statement.mitigations, [item]);
+    const opportunities = useMemo(() => item.statement.opportunities, [item]);
 
     if(!item.severity) {
         return null;
@@ -97,7 +96,7 @@ const StatementAccordion = ({item, isExpanded}) => {
                             keyExtractor={keyExtractor}
                             renderItem={renderListData}
                         />
-                        <h3 className={styles.listTitle}>OPPORTUNITIES</h3>
+                        <h3 className={styles.listTitle}>OPPORTUNITY</h3>
                         <List
                             data={opportunities}
                             component="ul"

@@ -8,6 +8,8 @@ import StatementsContent from './Statements';
 import styles from './styles.scss';
 
 const Module = props => {
+    const {type} = props;
+
     const {topics} = useSelector(state => state.statement);
 
     const renderTabsHeader = useCallback(tabHeaderProps => {
@@ -21,7 +23,7 @@ const Module = props => {
         );
     }, []);
 
-    if(!topics?.length) {
+    if(!topics?.length || type!=='sensitivity') {
         return null;
     }
 
@@ -32,10 +34,11 @@ const Module = props => {
             headerClassName={styles.tabsHeader}
             contentContainerClassName={styles.contentContainer}
             defaultActiveTab={topics?.[0]?.code}
+            mode="scroll"
         >
-            {topics.map(topic => (
+            {topics.map((topic, idx) => (
                 <Tab key={topic.code} label={topic.code} title={topic.title} className={styles.tabContent}>
-                    <StatementsContent topic={topic} />
+                    <StatementsContent topic={topic} index={idx} />
                 </Tab>
             ))}
         </Tabs>
