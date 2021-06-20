@@ -8,6 +8,7 @@ import ConcernCounter from 'components/Concerns/Chart/counter';
 import List from '@ra/components/List';
 
 import {getSeverityCounts} from 'utils/severity';
+import {selectStatements} from 'store/selectors/statement';
 
 import styles from './styles.scss';
 
@@ -24,8 +25,8 @@ const ConcernItem = (props) => {
     );
 };
 
-const StatementsContent = ({topic}) => {
-    const {statements} = useSelector(state => state.statement);
+const StatementsContent = ({topic, index}) => {
+    const statements = useSelector(selectStatements);
     const {activeSurvey} = useSelector(state => state.survey);
 
     const [expanded, setExpanded] = useState(false);
@@ -59,10 +60,12 @@ const StatementsContent = ({topic}) => {
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
                 <h3 className={styles.title}>{topic.title}</h3>
-                <div className={styles.exports}>
-                    <FiUpload />
-                    <span className={styles.exportsTitle}>Export PDF</span>
-                </div>
+                {index === 0 && (
+                    <div className={styles.exports}>
+                        <FiUpload />
+                        <span className={styles.exportsTitle}>Export PDF</span>
+                    </div>
+                )}
             </div>
             <div className={styles.infoWrapper}>
                 <p className={styles.infoDesc}>
@@ -79,7 +82,7 @@ const StatementsContent = ({topic}) => {
                 <div className={styles.statementHeader}>
                     <h4 className={styles.statementTitle}>statements</h4>
                     <div onClick={toggleExpand} className={styles.expandWrapper}>
-                        <span>{expanded?'Collapse':'Expand'} All</span>
+                        <span>{expanded ? 'Collapse' : 'Expand'} All</span>
                         <FiChevronRight />
                     </div>
                 </div>

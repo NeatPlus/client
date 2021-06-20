@@ -25,6 +25,8 @@ export default async function initStore() {
         Api.getQuestionGroups(),
         Api.getQuestions(),
         Api.getStatements(),
+        Api.getMitigations(),
+        Api.getOpportunities(),
     ]);
 
     await Api.getSurveyResults();

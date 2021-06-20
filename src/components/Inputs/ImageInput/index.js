@@ -8,7 +8,7 @@ import useRequest from 'hooks/useRequest';
 
 import styles from './styles.scss';
 
-const ImageInput = ({answer, onChange}) => {
+const ImageInput = ({answer, onChange, disabled}) => {
     const formRef = useRef();
 
     const [imageUrl, setImageUrl] = useState(null);
@@ -63,6 +63,7 @@ const ImageInput = ({answer, onChange}) => {
         <>    
             <form ref={formRef} className={styles.input}>
                 <FileInput
+                    disabled={disabled}
                     accept="image/*"
                     onChange={handleChange}
                 />

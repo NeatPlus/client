@@ -68,7 +68,7 @@
                 flex: 1;
                 font-size: var(--font-size-small);
                 font-weight: 500;
-                color: var(--color-text-dark-alt);
+                color: var(--color-text-dark);
             }
 
             .active-title {
@@ -125,9 +125,7 @@
                 }
 
                 .list-item {
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: flex-start;
+                    list-style-position: inside;
                     margin-bottom: 0.3em;
                     font-size: var(--font-size-small);
                     line-height: 1.67;

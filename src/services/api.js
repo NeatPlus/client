@@ -224,6 +224,24 @@ class Api {
         }
     }
 
+    async getMitigations() {
+        try {
+            const data = await this.get('/mitigation/?limit=-1');
+            dispatch(statementActions.setMitigations(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    async getOpportunities() {
+        try {
+            const data = await this.get('/opportunity/?limit=-1');
+            dispatch(statementActions.setOpportunities(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     async getSurveyResults() {
         // FIXME: Get actual results
         const data = getMockResults();

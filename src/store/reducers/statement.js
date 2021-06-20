@@ -4,6 +4,8 @@ const initialState = {
     status: 'idle',
     statements: [],
     topics: [],
+    mitigations: [],
+    opportunities: [],
 };
 
 const statementReducer = (state = initialState, action) => {
@@ -14,6 +16,10 @@ const statementReducer = (state = initialState, action) => {
         return {...state, statements: action.statements};
     case actions.SET_TOPICS:
         return {...state, topics: action.topics};
+    case actions.SET_MITIGATIONS:
+        return {...state, mitigations: action.mitigations};
+    case actions.SET_OPPORTUNITIES:
+        return {...state, opportunities: action.opportunities};
     default:
         return state;
     }

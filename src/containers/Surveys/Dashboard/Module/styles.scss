@@ -1,16 +1,21 @@
 .tabs {
     background-color: var(--color-white);
     display: flex;
+    border-radius: 8px;
 
     .tabs-header {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
         display: flex;
+        height: 100vh;
+        overflow-y: auto;
         flex-direction: column;
         border-right: 1px solid var(--color-light);
         border-bottom: none;
         padding: 30px 0;
-        overflow-y: auto;
-        max-width: 290px;
-
+        width: 290px;
+                
         .header-item {
             padding: 14px 20px;
             font-size: var(--font-size-small);
@@ -34,7 +39,9 @@
         padding: 30px;
 
         .tab-content {
-            min-height: 500px;
+            scroll-margin-top: 3em;
+            min-height: max-content;
+            margin-bottom: 24px;
         }
     }
 }
