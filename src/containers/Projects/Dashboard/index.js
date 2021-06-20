@@ -47,9 +47,15 @@ const ProjectDashboard = withNoSurvey(() => {
     const concernsData = useMemo(() => {
         return topics.map(topic => {
             const topicResults = projectResults.filter(res => res.topic === topic.id);
-            const highCount = topicResults.filter(res => res.score > 0.75).length;
-            const mediumCount = topicResults.filter(res => res.score < 0.75 && res.score > 0.6).length;
-            const lowCount = topicResults.filter(res => res.score < 0.6 && res.score > 0.35).length; 
+            const highCount = topicResults.filter(res => 
+                res.severity==='High'
+            ).length;
+            const mediumCount = topicResults.filter(res => 
+                res.severity === 'Medium'
+            ).length;
+            const lowCount = topicResults.filter(res => 
+                res.severity === 'Low'
+            ).length; 
             const totalCount = highCount + mediumCount + lowCount;
 
             return {
