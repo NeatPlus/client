@@ -1,0 +1,41 @@
+.container {
+    border: 1px dotted var(--color-grey-light-alt);
+    padding: 0.5em;
+    border-radius: 4px;
+    position: relative;
+
+    .remove-icon {
+        visibility: hidden;
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        width: 16px;
+        height: 16px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        cursor: pointer;
+        vertical-align: center;
+        font-size: 20px;
+    }
+
+    &__active {
+        background-color: var(--color-light-alt);
+        filter: brightness(95%);
+
+        .remove-icon {
+            visibility: visible;
+        }
+    }
+
+    &:hover {
+        background-color: var(--color-light-alt);
+
+        > .remove-icon {
+            visibility: visible;
+        }
+    }
+}

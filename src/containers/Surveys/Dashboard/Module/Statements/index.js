@@ -7,6 +7,7 @@ import ConcernCounter from 'components/Concerns/Chart/counter';
 
 import List from '@ra/components/List';
 
+import useFilterRemovedItems from 'hooks/useFilterRemovedItems';
 import {getSeverityCounts} from 'utils/severity';
 import {selectStatements} from 'store/selectors/statement';
 
@@ -33,17 +34,19 @@ const StatementsContent = ({topic, index}) => {
 
     const toggleExpand = useCallback(() => setExpanded(!expanded), [expanded]);
 
+    const filteredStatements = useFilterRemovedItems(statements, 'statement');
+
     const statementData = useMemo(() => {
         const topicResults = activeSurvey?.results.filter(res => res.topic === topic.id);
-        return topicResults?.sort((a, b) => b.score - a.score)
-            .map(res => ({
-                ...res,
-                statement: statements.find(st => st.id === res.statement),
-            })) || [];
-    }, [activeSurvey, statements, topic]);
+        return topicResults?.map(res => ({
+            ...res,
+            statement: filteredStatements.find(st => st.id === res.statement),
+        })).sort((a, b) => b.score - a.score)
+            .filter(el => el.statement) || [];
+    }, [activeSurvey, filteredStatements, topic]);
 
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
-    
+
     const renderConcernItem = useCallback(listProps => {
         return (
             <ConcernItem {...listProps} total={statementData.length} />
@@ -52,7 +55,10 @@ const StatementsContent = ({topic, index}) => {
 
     const renderStatementAccordion = useCallback(listProps => {
         return (
-            <StatementAccordion {...listProps} isExpanded={expanded} />
+            <StatementAccordion 
+                {...listProps} 
+                isExpanded={expanded} 
+            />
         );
     }, [expanded]);
 

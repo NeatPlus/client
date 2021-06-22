@@ -15,6 +15,7 @@
         display: flex;
         align-items: center;
         transition: all 0.2s ease;
+        cursor: pointer;
 
         &:hover {
             filter: opacity(80%);
@@ -22,6 +23,21 @@
 
         .back-icon {
             margin-right: 12px;
+        }
+
+        .close-icon-container {
+            width: 22px;
+            height: 22px;
+            border-radius: 11px;
+            background-color: var(--color-white);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .close-icon {
+                color: var(--color-grey-dark-alt);
+            }
         }
     }
 
@@ -79,6 +95,10 @@
                     .control-icon {
                         margin-right: 6px;
                     }
+                }
+
+                .save-button {
+                    margin-left: 10px;
                 }
             }
         }
