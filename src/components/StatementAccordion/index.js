@@ -1,8 +1,10 @@
 import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react';
 import {FiChevronRight} from 'react-icons/fi';
 
-import cs from '@ra/cs';
+import Editable from 'components/Editable';
 import List from '@ra/components/List';
+
+import cs from '@ra/cs';
 
 // eslint-disable-next-line css-modules/no-unused-class
 import styles from './styles.scss';
@@ -12,7 +14,7 @@ const keyExtractor = item => item.id;
 const StatementAccordion = ({item, isExpanded}) => {
     const [open, setOpen] = useState(false);
     const [contentHeight, setContentHeight] = useState('0px');
-
+    
     const content = useRef(null);
   
     const toggleAccordion = useCallback((type, value) => {
@@ -49,63 +51,71 @@ const StatementAccordion = ({item, isExpanded}) => {
 
     return (
         <div className={styles.accordionContainer}>
-            <div
-                className={cs(
-                    styles.accordionSection, 
-                    open && styles.accordionSectionActive,
-                    styles[`accordionSection${item.severity}`]
-                )}>
-                {open && (
-                    <span
-                        className={cs(
-                            styles.concernSpan, 
-                            styles[`concernSpan${item.severity}`]
-                        )}>
-                        {item.severity} concern
-                    </span>
-                )}
-                <div className={styles.accordion} onClick={toggleAccordion}>
-                    <div className={cs(
-                        styles.accordionTitle, 
-                        open && styles.activeTitle
-                    )}>
-                        {item.statement.title}
-                    </div>
-                    <div className={styles.rightSection}>
-                        {!open &&
-                            <span className={styles.span}>Mitigations, Opportunities and more</span>
-                        }
-                        <FiChevronRight className={cs(styles.downIcon, open && styles.rotateUp)} />
-                    </div>
-                </div>
+            <Editable 
+                type="statement" 
+                accessor="id" 
+                identifier={item.statement.id}
+            >
                 <div
-                    ref={content}
-                    style={{ maxHeight: `${contentHeight}` }}
-                    className={styles.accordionContent}>
-                    <div className={styles.accordionText}>
-                        {item.statement?.hints && (
-                            <h3 className={styles.listTitle}>
-                                ADDITIONAL INFORMATION
-                            </h3>
-                        )}
-                        {item.statement?.hints || ''}
-                        <h3 className={styles.listTitle}>MITIGATION</h3>
-                        <List
-                            data={mitigations}
-                            component="ul"
-                            keyExtractor={keyExtractor}
-                            renderItem={renderListData}
-                        />
-                        <h3 className={styles.listTitle}>OPPORTUNITY</h3>
-                        <List
-                            data={opportunities}
-                            component="ul"
-                            keyExtractor={keyExtractor}
-                            renderItem={renderListData}
-                        />
+                    className={cs(
+                        styles.accordionSection, 
+                        open && styles.accordionSectionActive,
+                        styles[`accordionSection${item.severity}`]
+                    )}>
+                    {open && (
+                        <span
+                            className={cs(
+                                styles.concernSpan, 
+                                styles[`concernSpan${item.severity}`]
+                            )}>
+                            {item.severity} concern
+                        </span>
+                    )}
+                    <div className={styles.accordion} onClick={toggleAccordion}>
+                        <div className={cs(
+                            styles.accordionTitle, 
+                            open && styles.activeTitle
+                        )}>
+                            {item.statement.title}
+                        </div>
+                        <div className={styles.rightSection}>
+                            {!open && (
+                                <span className={styles.span}>
+                                    Mitigations, Opportunities and more
+                                </span>
+                            )}
+                            <FiChevronRight className={cs(styles.downIcon, open && styles.rotateUp)} />
+                        </div>
+                    </div>
+                    <div
+                        ref={content}
+                        style={{ maxHeight: `${contentHeight}` }}
+                        className={styles.accordionContent}>
+                        <div className={styles.accordionText}>
+                            {item.statement?.hints && (
+                                <h3 className={styles.listTitle}>
+                                    ADDITIONAL INFORMATION
+                                </h3>
+                            )}
+                            {item.statement?.hints || ''}
+                            <h3 className={styles.listTitle}>MITIGATION</h3>
+                            <List
+                                data={mitigations}
+                                component="ul"
+                                keyExtractor={keyExtractor}
+                                renderItem={renderListData}
+                            />
+                            <h3 className={styles.listTitle}>OPPORTUNITY</h3>
+                            <List
+                                data={opportunities}
+                                component="ul"
+                                keyExtractor={keyExtractor}
+                                renderItem={renderListData}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Editable>
         </div>
     );
 };

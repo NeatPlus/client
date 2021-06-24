@@ -7,6 +7,7 @@ import projectReducer from './project';
 import surveyReducer from './survey';
 import questionReducer from './question';
 import statementReducer from './statement';
+import dashboardReducer from './dashboard';
 import uiReducer from './ui';
 
 export default combineReducers({
@@ -18,4 +19,5 @@ export default combineReducers({
     question: questionReducer,
     statement: statementReducer,
     ui: uiReducer,
+    dashboard: dashboardReducer,
 });
