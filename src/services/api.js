@@ -8,8 +8,7 @@ import * as projectActions from 'store/actions/project';
 import * as surveyActions from 'store/actions/survey';
 import * as questionActions from 'store/actions/question';
 import * as statementActions from 'store/actions/statement';
-
-import {getMockResults} from 'utils/mockResults';
+import * as weightageActions from 'store/actions/weightage';
 
 const dispatch = store.dispatch;
 
@@ -178,8 +177,12 @@ class Api {
         try {
             const data = await this.get('/survey/');
             dispatch(surveyActions.setSurveys(data?.results || []));
-            const answers = await this.get('/survey-answer/?limit=-1');
-            dispatch(surveyActions.setSurveyAnswers(answers?.results || []));
+            const [surveyAnswers, surveyResults] = await Promise.all([
+                this.get('/survey-answer/?limit=-1'), 
+                this.get('/survey-result/?limit=-1')
+            ]);
+            dispatch(surveyActions.setSurveyAnswers(surveyAnswers?.results || []));
+            dispatch(surveyActions.setSurveyResults(surveyResults?.results || []));
             dispatch(surveyActions.setStatus('complete'));
         } catch(error) {
             dispatch(surveyActions.setStatus('failed'));
@@ -242,10 +245,20 @@ class Api {
         }
     }
 
-    async getSurveyResults() {
-        // FIXME: Get actual results
-        const data = getMockResults();
-        dispatch(surveyActions.setSurveyResults(data)); 
+    async getSurveyWeightages() {
+        dispatch(weightageActions.setStatus('loading'));
+        try {
+            const [questionStatements, optionStatements] = await Promise.all([
+                this.get('/question-statement/?limit=-1'), 
+                this.get('/option-statement/?limit=-1')
+            ]);
+            dispatch(weightageActions.setQuestionStatements(questionStatements?.results || []));
+            dispatch(weightageActions.setOptionStatements(optionStatements?.results || []));
+            dispatch(weightageActions.setStatus('complete'));
+        } catch(error) {
+            dispatch(weightageActions.setStatus('failed'));
+            console.log(error);
+        }
     }
 
     async removeUsers(projectId, body) {

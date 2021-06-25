@@ -14,7 +14,7 @@ const dashboardReducer = (state = initialState, action) => {
     case actions.SET_ITEMS_TO_REMOVE:
         return {...state, itemsToRemove: action.items};
     case actions.APPLY_REMOVE_ITEMS:
-        return {...state, removedItems: state.itemsToRemove, itemsToRemove: []};
+        return {...state, removedItems: [...state.removedItems, ...state.itemsToRemove], itemsToRemove: []};
     case actions.SET_ITEMS_TO_RESTORE:
         return {...state, itemsToRestore: action.items};
     case actions.APPLY_RESTORE_ITEMS:

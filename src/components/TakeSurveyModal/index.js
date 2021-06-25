@@ -12,6 +12,7 @@ import SingleOptionInput from 'components/Inputs/SingleOptionInput';
 import MultiOptionInput from 'components/Inputs/MultiOptionInput';
 import BooleanInput from 'components/Inputs/BooleanInput';
 import ImageInput from 'components/Inputs/ImageInput';
+import TextAreaInput from 'components/Inputs/TextAreaInput';
 
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
@@ -25,6 +26,8 @@ import NoSurveyImage from 'assets/images/no-survey.svg';
 
 import cs from '@ra/cs';
 import {getErrorMessage} from '@ra/utils/error';
+import {calculateSurveyResults} from 'utils/calculation';
+
 import Api from 'services/api';
 import Toast from 'services/toast';
 import * as questionActions from 'store/actions/question';
@@ -51,6 +54,9 @@ const getInputComponent = question => {
     case 'image':
         return ImageInput;
     default:
+        if(question.code==='overview') {
+            return TextAreaInput;
+        }
         return Input;
     }
 };
@@ -277,12 +283,14 @@ const TakeSurveyModal = (props) => {
     const handleValidate = useCallback(async () => {
         setError(null);
         try {
-            const result = await createSurvey({
+            const results = calculateSurveyResults(answers);
+            const response  = await createSurvey({
                 title: surveyTitle,
                 answers,
                 project: +projectId,
+                results,
             });
-            Toast.show(result?.detail || 'Survey complete!', Toast.SUCCESS);
+            Toast.show(response?.detail || 'Survey complete!', Toast.SUCCESS);
             dispatch(questionActions.setAnswers([]));
             handleClose();
             Api.getSurveys();
