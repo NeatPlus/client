@@ -108,7 +108,7 @@ const SurveyList = () => {
     const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
 
     return (
-        <div class={styles.container}>
+        <div className={styles.container}>
             <Table 
                 className={styles.table} 
                 data={surveyData} 

@@ -1,10 +1,13 @@
 import {createSelector} from 'reselect';
 
+import {getSeverityFromScore} from 'utils/severity';
+
 const getSurveys = state => state.survey.surveys;
 const getSurveyAnswers = state => state.survey.surveyAnswers;
 const getSurveyResults = state => state.survey.surveyResults;
 const getQuestions = state => state.question.questions;
 const getUsers = state => state.user.users;
+const getStatements = state => state.statement.statements;
 
 export const getFormattedSurveys = createSelector([
     getSurveys, 
@@ -12,8 +15,9 @@ export const getFormattedSurveys = createSelector([
     getSurveyResults,
     getUsers,
     getQuestions,
-], (surveys, surveyAnswers, surveyResults, users, questions) => {
-    if(users.length===0) {
+    getStatements,
+], (surveys, surveyAnswers, surveyResults, users, questions, statements) => {
+    if(!users.length || !statements.length) {
         return [];
     }
     return surveys?.map(survey => ({
@@ -31,6 +35,15 @@ export const getFormattedSurveys = createSelector([
                     },
                 };
             }),
-        results: surveyResults,
+        results: surveyResults
+            .filter(sur => survey && sur.survey === survey?.id)
+            .map(res => {
+                const statement = statements.find(st => st.id === res.statement);
+                return {
+                    ...res,
+                    topic: statement.topic,
+                    severity: getSeverityFromScore(res.score)
+                };
+            }),
     })) || [];
 });

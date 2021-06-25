@@ -2,7 +2,7 @@ export const SET_STATUS = 'SET_STATUS';
 export const SET_STATEMENTS = 'SET_STATEMENTS';
 export const SET_TOPICS = 'SET_TOPICS';
 export const SET_MITIGATIONS = 'SET_MITIGATIONS';
-export const SET_OPPORTUNITIES = 'SET_OPPOORTUNITIES';
+export const SET_OPPORTUNITIES = 'SET_OPPORTUNITIES';
 
 export function setStatus(status) {
     return {type: SET_STATUS, status};

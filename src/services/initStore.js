@@ -29,6 +29,6 @@ export default async function initStore() {
         Api.getOpportunities(),
     ]);
 
-    await Api.getSurveyResults();
+    await Api.getSurveyWeightages();
 }
 

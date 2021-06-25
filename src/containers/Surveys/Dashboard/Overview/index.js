@@ -99,7 +99,7 @@ const Overview = () => {
             <div className={styles.overview}>
                 <div className={styles.overviewContent}>
                     <p className={styles.description}>
-                        Communities have social norms and values that affect their behaviours towards each other, and their interactions with the environment, on multiple levels. These interactions have environmental, social and economic implications. Vulnerable segments of society and the community are often disproportionately dependent and affected by the environment, and have unequal capacity for adaptation.
+                        {getSurveyAnswerFromCode('overview')}
                     </p>
                     <div className={styles.surveyInformation}>
                         <h4 className={styles.infoHeader}>Survey Information</h4>
