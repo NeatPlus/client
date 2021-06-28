@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
@@ -40,8 +40,10 @@ export const DataItem = ({item, column}) => {
         // TODO: Delete Survey Functionality
     }, []);
 
+    const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
+
     if(column.Header==='Name') {
-        return <Link to={`surveys/${item.id}`} className={styles.nameItem}>{item[column.accessor]}</Link>;
+        return <div className={styles.nameItem}>{item[column.accessor]}</div>;
     }
     if(column.Header==='Created on') {
         const date = new Date(item[column.accessor]);
@@ -49,7 +51,12 @@ export const DataItem = ({item, column}) => {
     }
     if(column.Header==='Options') {
         return (
-            <OptionsDropdown onEdit={handleEditClick} onDelete={handleDeleteClick} />
+            <div onClick={stopEventBubbling}>
+                <OptionsDropdown 
+                    onEdit={handleEditClick} 
+                    onDelete={handleDeleteClick} 
+                />
+            </div>
         );
     }
     return item[column.accessor];
@@ -63,7 +70,10 @@ const SurveyTable = ({onTakeSurveyClick}) => {
     const {surveys} = useSelector(state => state.survey);
     const surveyData = surveys.filter(el => el.project === +projectId);
 
-    const handleSurveysClick = useCallback(() => history.push('surveys/'), [history]);
+    const handleMoreClick = useCallback(() => history.push('surveys/'), [history]);
+    const handleSurveyClick = useCallback(survey => {
+        history.push(`surveys/${survey.id}`);
+    }, [history]);
 
     return (
         <div className={styles.surveys}>
@@ -86,9 +96,10 @@ const SurveyTable = ({onTakeSurveyClick}) => {
                     headerRowClassName={styles.headerRow}
                     bodyClassName={styles.tableBody}
                     bodyRowClassName={styles.bodyRow}
+                    onRowClick={handleSurveyClick}
                 /> 
             </div>
-            <Button className={styles.buttonBottom} secondary outline onClick={handleSurveysClick}>
+            <Button className={styles.buttonBottom} secondary outline onClick={handleMoreClick}>
                 More Details <BsArrowRight size={20} className={styles.buttonBottomIcon} />
             </Button>
         </div> 

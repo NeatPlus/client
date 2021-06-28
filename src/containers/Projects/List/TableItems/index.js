@@ -1,5 +1,4 @@
 import {useCallback, useState, useMemo} from 'react';
-import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import OptionsDropdown from 'components/OptionsDropdown';
@@ -62,11 +61,13 @@ export const DataItem = ({item, column}) => {
         handleShowDeleteProjectModal();
     }, [handleShowDeleteProjectModal]);
 
+    const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
+
     if (column.Header === 'Name') {
         return (
-            <Link to={`/projects/${item.id}/`} className={styles.nameItem}>
+            <div className={styles.nameItem}>
                 {item[column.accessor]}
-            </Link>
+            </div>
         );
     }
     if (column.Header === 'Created on') {
@@ -75,7 +76,7 @@ export const DataItem = ({item, column}) => {
     }
     if (column.Header === 'Options') {
         return item.isAdminOrOwner?(
-            <>
+            <div onClick={stopEventBubbling}>
                 <OptionsDropdown
                     onEdit={handleEditClick}
                     onClone={handleCloneClick}
@@ -97,7 +98,7 @@ export const DataItem = ({item, column}) => {
                     onClose={handleHideDeleteProjectModal}
                     projectId={item.id}
                 />
-            </>
+            </div>
         ):null;
     }
     if (column.Header === 'Submissions') {

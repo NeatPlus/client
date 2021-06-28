@@ -5,6 +5,7 @@ const initialState = {
     removedItems: [],
     itemsToRemove: [],
     itemsToRestore: [],
+    filters: [],
 };
 
 const dashboardReducer = (state = initialState, action) => {
@@ -24,6 +25,8 @@ const dashboardReducer = (state = initialState, action) => {
                 return !state.itemsToRestore.some(el => el.type===item.type && el.identifier === item.identifier);
             }),
         };
+    case actions.SET_FILTERS:
+        return {...state, filters: action.filters};
     default:
         return state;
     }

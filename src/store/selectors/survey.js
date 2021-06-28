@@ -6,23 +6,20 @@ const getSurveys = state => state.survey.surveys;
 const getSurveyAnswers = state => state.survey.surveyAnswers;
 const getSurveyResults = state => state.survey.surveyResults;
 const getQuestions = state => state.question.questions;
-const getUsers = state => state.user.users;
 const getStatements = state => state.statement.statements;
 
 export const getFormattedSurveys = createSelector([
     getSurveys, 
     getSurveyAnswers,
     getSurveyResults,
-    getUsers,
     getQuestions,
     getStatements,
-], (surveys, surveyAnswers, surveyResults, users, questions, statements) => {
-    if(!users.length || !statements.length) {
+], (surveys, surveyAnswers, surveyResults, questions, statements) => {
+    if(!statements.length) {
         return [];
     }
     return surveys?.map(survey => ({
         ...survey, 
-        createdBy: users.find(usr => usr.id===survey.createdBy),
         answers: surveyAnswers
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {

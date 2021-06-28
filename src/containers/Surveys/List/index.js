@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import OptionsDropdown from 'components/OptionsDropdown';
@@ -72,8 +72,14 @@ export const DataItem = ({item, column}) => {
         // TODO: Delete Survey Functionality
     }, []);
 
+    const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
+
     if(column.Header==='Name') {
-        return <Link to={`${item.id}/`} className={styles.nameItem}>{item[column.accessor]}</Link>;
+        return (
+            <div className={styles.nameItem}>
+                {item[column.accessor]}
+            </div>
+        );
     }
     if(column.Header==='Location') {
         const answer = item?.answers?.find(ans => ans.question.code === 'place')?.answer;
@@ -84,11 +90,18 @@ export const DataItem = ({item, column}) => {
         return date.toLocaleDateString();
     }
     if(column.Header==='Surveyed by') {
-        return item[column.accessor].firstName + ' ' + item[column.accessor].lastName;
+        const answer = item?.answers?.find(ans => ans.question.code === 'usrname')?.answer;
+        return answer || '';
     }
     if(column.Header==='Options') {
         return (
-            <OptionsDropdown className={styles.optionsItem} onEdit={handleEditClick} onDelete={handleDeleteClick} />
+            <div onClick={stopEventBubbling}>
+                <OptionsDropdown 
+                    className={styles.optionsItem} 
+                    onEdit={handleEditClick} 
+                    onDelete={handleDeleteClick} 
+                />
+            </div>
         );
     }
     return item[column.accessor];
@@ -97,6 +110,7 @@ export const DataItem = ({item, column}) => {
 
 const SurveyList = () => {
     const {projectId} = useParams();
+    const history = useHistory();
 
     const surveys = useSelector(state => getFormattedSurveys(state));
     const surveyData = surveys.filter(el => el.project === +projectId);
@@ -106,6 +120,10 @@ const SurveyList = () => {
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
     const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
+
+    const handleRowClick = useCallback(survey => {
+        history.push(`${survey.id}/`);
+    }, [history]);
 
     return (
         <div className={styles.container}>
@@ -121,6 +139,7 @@ const SurveyList = () => {
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
                 bodyRowClassName={styles.bodyRow}
+                onRowClick={handleRowClick}
             />
             <div className={styles.contentFooter}>
                 <div className={styles.maxRowsSelect}>

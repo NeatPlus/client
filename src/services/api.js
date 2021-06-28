@@ -228,6 +228,17 @@ class Api {
         }
     }
 
+    async getStatementTags() {
+        try {
+            const data = await this.get('/statement-tag-group/?limit=-1');
+            dispatch(statementActions.setStatementTagGroups(data?.results || []));
+            const tags = await this.get('/statement-tag/?limit=-1');
+            dispatch(statementActions.setStatementTags(tags?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     async getMitigations() {
         try {
             const data = await this.get('/mitigation/?limit=-1');

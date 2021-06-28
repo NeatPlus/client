@@ -7,7 +7,7 @@ import ConcernCounter from 'components/Concerns/Chart/counter';
 
 import List from '@ra/components/List';
 
-import useFilterRemovedItems from 'hooks/useFilterRemovedItems';
+import useFilterItems from 'hooks/useFilterItems';
 import {getSeverityCounts} from 'utils/severity';
 import {selectStatements} from 'store/selectors/statement';
 
@@ -34,7 +34,7 @@ const StatementsContent = ({topic, index}) => {
 
     const toggleExpand = useCallback(() => setExpanded(!expanded), [expanded]);
 
-    const filteredStatements = useFilterRemovedItems(statements, 'statement');
+    const filteredStatements = useFilterItems(statements, 'statement');
 
     const statementData = useMemo(() => {
         const topicResults = activeSurvey?.results.filter(res => res.topic === topic.id);

@@ -1,4 +1,5 @@
 import {useState, useCallback} from 'react';
+import {useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {BsPlus} from 'react-icons/bs';
 
@@ -56,6 +57,8 @@ const keyExtractor = item => item.value;
 const labelExtractor = item => item.label;
 
 const ProjectList = withNoProject(() => {
+    const history = useHistory();
+
     const projects = useSelector(getFormattedProjects);
 
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -67,6 +70,10 @@ const ProjectList = withNoProject(() => {
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
     const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
+
+    const handleRowClick = useCallback(project => {
+        history.push(`/projects/${project.id}/`); 
+    }, [history]);
 
     return (
         <div className={styles.container}>
@@ -89,6 +96,7 @@ const ProjectList = withNoProject(() => {
                     headerRowClassName={styles.headerRow}
                     bodyClassName={styles.tableBody}
                     bodyRowClassName={styles.bodyRow}
+                    onRowClick={handleRowClick}
                 />
                 <div className={styles.contentFooter}>
                     <div className={styles.maxRowsSelect}>
