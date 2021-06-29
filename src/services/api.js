@@ -9,6 +9,7 @@ import * as surveyActions from 'store/actions/survey';
 import * as questionActions from 'store/actions/question';
 import * as statementActions from 'store/actions/statement';
 import * as weightageActions from 'store/actions/weightage';
+import * as notificationActions from 'store/actions/notification';
 
 const dispatch = store.dispatch;
 
@@ -261,12 +262,59 @@ class Api {
         }
     }
 
-    async removeUsers(projectId, body) {
+    getNotifications = async () => {
+        try {
+            const data = await this.get('/notification?limit=10');
+            dispatch(notificationActions.setNotifications(data.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    };
+
+    getProjectInvitations = async () => {
+        try {
+            const {
+                auth: {adminOrganizations=[]},
+            } = store.getState();
+
+            const orgs = adminOrganizations?.map(a => a.id).join(',');
+            if(!orgs) {
+                return [];
+            }
+            const data = await this.get(`/project/?admin=${orgs}&status=pending`);
+            dispatch(notificationActions.setInvitations(data.results || []));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    getMyOrganizations = async () => {
+        const {
+            auth: {user={}}
+        } = store.getState();
+
+        const data = await this.get(`/organization/?admins=${user.id}`);
+        dispatch(authActions.setAdminOrganizations(data?.results || []));
+    }
+
+    removeUsers = (projectId, body) => {
         return this.post(`/project/${projectId}/remove_users/`, body);
     }
 
-    async upsertUsers(projectId, body) {
+    upsertUsers = (projectId, body) => {
         return this.post(`/project/${projectId}/update_or_add_users/`, body);
+    }
+
+    approveProject = (projectId) => {
+        return this.post(`/project/${projectId}/accept/`);
+    }
+
+    rejectProject = (projectId) => {
+        return this.post(`/project/${projectId}/reject/`);
+    }
+
+    markAllAsRead = () => {
+        return this.post('/notification/mark_all_as_read/');
     }
 }
 

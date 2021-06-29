@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .image {
+        width: 8.75em;
+        height: 8.87em;
+        object-fit: contain;
+    }
+
+    .text {
+        font-size: var(--font-size-small);
+        line-height: 1.43;
+        color: var(--color-dark);
+    }
+}

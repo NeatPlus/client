@@ -10,6 +10,7 @@ import statementReducer from './statement';
 import dashboardReducer from './dashboard';
 import uiReducer from './ui';
 import weightageReducer from './weightage';
+import notificationReducer from './notification';
 
 export default combineReducers({
     auth: authReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
     ui: uiReducer,
     dashboard: dashboardReducer,
     weightage: weightageReducer,
+    notification: notificationReducer,
 });

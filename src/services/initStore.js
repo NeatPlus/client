@@ -1,7 +1,9 @@
-import Api from './api';
-import store from 'store';
+import {sleep} from '@ra/utils';
 
+import store from 'store';
 import * as authActions from 'store/actions/auth';
+import Api from './api';
+
 
 const dispatch = store.dispatch;
 
@@ -16,12 +18,12 @@ export default async function initStore() {
         } else {
             dispatch(authActions.logout());
         }
-        await Api.getUser();
+        const user = await Api.getUser();
+        loadUserData(user.id);
     }
 
     await Promise.all([
         Api.getOrganizations(),
-        Api.getUsers(),
         Api.getQuestionGroups(),
         Api.getQuestions(),
         Api.getStatements(),
@@ -31,4 +33,11 @@ export default async function initStore() {
 
     await Api.getSurveyWeightages();
 }
+
+export const loadUserData = async (userId) => {
+    //To wait for the user value to be reflected
+    //TODO: bit dirty use some hook/event
+    await sleep(500);
+    await Api.getMyOrganizations();
+};
 
