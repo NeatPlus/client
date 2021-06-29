@@ -11,7 +11,7 @@ const useFilterItems = (data, type) => {
         });
         if(type==='statement' && filters?.length) {
             return filteredEdits?.filter(st => st?.tags && !st.tags.some(tag => {
-                return tag && filters.some(el => el === tag);
+                return tag && !filters.some(el => el === tag);
             }));
         }
         return filteredEdits;
