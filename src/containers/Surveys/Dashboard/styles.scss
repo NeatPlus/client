@@ -195,6 +195,28 @@
                             }
                         }
                     }
+
+                    .issues-footer {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .button {
+                            font-size: var(--font-size-base);
+                            padding: 10px 24px;
+                        }
+
+                        .all-control {
+                            margin-left: 1em;
+                            color: var(--color-primary);
+                            font-size: var(--font-size-small);
+                            cursor: pointer;
+
+                            &:hover {
+                                filter: brightness(110%);
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -69,8 +69,15 @@ const IssuesBox = ({showIssues, onClose}) => {
     // TODO: Handle multiple tag groups
     const tagGroup = useMemo(() => statementTagGroups[0], [statementTagGroups]);
     const tags = useMemo(() => 
-        statementTags?.filter(el => tagGroup && el.group === tagGroup?.id), 
+        statementTags?.filter(el => tagGroup && el.group === tagGroup?.id) || [], 
     [statementTags, tagGroup]);
+
+    const handleToggleAll = useCallback(() => {
+        if(selectedIssues.length===tags.length) {
+            return setSelectedIssues([]);
+        }
+        setSelectedIssues(tags.map(el => el.id));
+    }, [tags, selectedIssues]);
 
     if(!showIssues) {
         return null;
@@ -90,7 +97,14 @@ const IssuesBox = ({showIssues, onClose}) => {
                 keyExtractor={keyExtractor}
                 renderItem={renderIssueItem}
             />
-            <Button onClick={handleApplyFilter}>Apply</Button>
+            <div className={styles.issuesFooter}>
+                <Button className={styles.button} onClick={handleApplyFilter}>
+                    Apply
+                </Button>
+                <div className={styles.allControl} onClick={handleToggleAll}>
+                    {selectedIssues.length===tags.length ? 'Clear' : 'Select All'}
+                </div>
+            </div>
         </div>
     );
 };
@@ -130,7 +144,7 @@ const SurveyDashboard = () => {
     [showIssues]);
 
     const handleSaveClick = useCallback(() => dispatch(applyRemoveItems()), [dispatch]);
-    
+
     const handleClearFilters = useCallback(() => dispatch(setFilters([])), [dispatch]);
 
 
