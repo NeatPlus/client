@@ -3,6 +3,7 @@ export const SET_ITEMS_TO_REMOVE = 'SET_ITEMS_TO_REMOVE';
 export const APPLY_REMOVE_ITEMS = 'APPLY_REMOVE_ITEMS';
 export const SET_ITEMS_TO_RESTORE = 'SET_ITEMS_TO_RESTORE';
 export const APPLY_RESTORE_ITEMS = 'APPLY_RESTORE_ITEMS';
+export const SET_FILTERS = 'SET_FILTERS';
 
 export function setEditMode(isEditMode) {
     return {type: SET_EDIT_MODE, isEditMode};
@@ -22,4 +23,8 @@ export function setItemsToRestore(items) {
 
 export function applyRestoreItems() {
     return {type: APPLY_RESTORE_ITEMS};
+}
+
+export function setFilters(filters) {
+    return {type: SET_FILTERS, filters};
 }

@@ -1,11 +1,12 @@
 import {useCallback} from 'react';
 import {useSelector} from 'react-redux';
+import SVG from 'react-inlinesvg';
 
 import Editable from 'components/Editable';
 import Tabs, {Tab} from '@ra/components/Tabs';
 
 import cs from '@ra/cs';
-import useFilterRemovedItems from 'hooks/useFilterRemovedItems';
+import useFilterItems from 'hooks/useFilterItems';
 
 import StatementsContent from './Statements';
 import styles from './styles.scss';
@@ -18,6 +19,9 @@ const Module = props => {
 
     const renderTabsHeader = useCallback(tabHeaderProps => {
         const {title, active, ...rest} = tabHeaderProps;
+
+        const iconSrc = tabHeaderProps.children?.props?.topic?.icon;
+
         return (
             <div className={cs(styles.headerItem, {
                 [styles.headerItemActive]: active && !isEditMode,
@@ -27,13 +31,23 @@ const Module = props => {
                     accessor="code" 
                     identifier={tabHeaderProps.label}
                 >
-                    {title}
+                    <div className={styles.headerTitle}>
+                        {!!iconSrc && (
+                            <SVG 
+                                className={styles.tabIcon}
+                                src={iconSrc}
+                                width={20} 
+                                title={title}
+                            />
+                        )}
+                        {title}
+                    </div>
                 </Editable>
             </div>
         );
     }, [isEditMode]);
 
-    const filteredTopics = useFilterRemovedItems(topics, 'topic');
+    const filteredTopics = useFilterItems(topics, 'topic');
 
     if(!topics?.length || type!=='sensitivity') {
         return null;
