@@ -1,11 +1,17 @@
-import {useCallback} from 'react';
+import {useCallback, useState, useMemo} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
 import Button from 'components/Button';
 import OptionsDropdown from 'components/OptionsDropdown';
+import TakeSurveyModal from 'components/TakeSurveyModal';
+import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import Table from '@ra/components/Table';
+
+import {checkEditAccess} from 'utils/permission';
+import * as questionActions from 'store/actions/question';
+import {getFormattedSurveys} from 'store/selectors/survey';
 
 import styles from './styles.scss';
 
@@ -31,16 +37,22 @@ const HeaderItem = ({column}) => {
     return column.Header;
 };
 
-export const DataItem = ({item, column}) => {
-    const handleEditClick = useCallback(() => {
-        //TODO: Edit Survey Functionality
-    }, []);
+export const DataItem = ({item, column, onClone, onDelete}) => {
+    const {activeProject} = useSelector(state => state.project);
+
+    const handleCloneClick = useCallback(() => {
+        onClone && onClone(item);
+    }, [item, onClone]);
 
     const handleDeleteClick = useCallback(() => {
-        // TODO: Delete Survey Functionality
-    }, []);
+        onDelete && onDelete(item);
+    }, [item, onDelete]);
 
     const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
+
+    const hasEditAccess = useMemo(() => 
+        checkEditAccess(activeProject?.accessLevel), 
+    [activeProject]);
 
     if(column.Header==='Name') {
         return <div className={styles.nameItem}>{item[column.accessor]}</div>;
@@ -50,10 +62,13 @@ export const DataItem = ({item, column}) => {
         return date.toLocaleDateString();
     }
     if(column.Header==='Options') {
+        if(!hasEditAccess) {
+            return null;
+        }
         return (
             <div onClick={stopEventBubbling}>
                 <OptionsDropdown 
-                    onEdit={handleEditClick} 
+                    onClone={handleCloneClick} 
                     onDelete={handleDeleteClick} 
                 />
             </div>
@@ -64,24 +79,68 @@ export const DataItem = ({item, column}) => {
 
 const SurveyTable = ({onTakeSurveyClick}) => {
     const {projectId} = useParams();
-
     const history = useHistory();
 
-    const {surveys} = useSelector(state => state.survey);
+    const dispatch = useDispatch();
+
+    const [showSurveyModal, setShowSurveyModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const [activeSurveyId, setActiveSurveyId] = useState(null);
+
+    const handleCloneSurvey = useCallback(survey => {
+        dispatch(questionActions.setAnswers(survey.answers.map(sur => (
+            {...sur, question: sur.question.id}
+        ))));
+        setShowSurveyModal(true);
+    }, [dispatch]);
+    
+    const hideSurveyModal = useCallback(() => {
+        dispatch(questionActions.setAnswers([]));
+        setShowSurveyModal(false);
+    }, [dispatch]);
+    const hideDeleteSurveyModal = useCallback(() => {
+        setShowDeleteModal(false);
+    }, []);
+
+    const {activeProject} = useSelector(state => state.project);
+    const surveys = useSelector(getFormattedSurveys);
     const surveyData = surveys.filter(el => el.project === +projectId);
+
+    const hasEditAccess = useMemo(() => 
+        checkEditAccess(activeProject?.accessLevel), 
+    [activeProject]);
 
     const handleMoreClick = useCallback(() => history.push('surveys/'), [history]);
     const handleSurveyClick = useCallback(survey => {
         history.push(`surveys/${survey.id}`);
     }, [history]);
+    const handleDeleteClick = useCallback((survey) => {
+        setActiveSurveyId(survey.id);
+        setShowDeleteModal(true);
+    }, []);
+
+    const renderDataItem = useCallback(tableProps => (
+        <DataItem 
+            onDelete={handleDeleteClick}
+            onClone={handleCloneSurvey} 
+            {...tableProps} 
+        />
+    ), [handleCloneSurvey, handleDeleteClick]);
 
     return (
         <div className={styles.surveys}>
             <div className={styles.surveyHeader}>
                 <h3 className={styles.surveyTitle}>Surveys</h3>
-                <Button outline onClick={onTakeSurveyClick} className={styles.button}>
-                    <BsPlus size={20} className={styles.buttonIcon} /> Take Survey
-                </Button>
+                {hasEditAccess && (
+                    <Button 
+                        outline 
+                        onClick={onTakeSurveyClick} 
+                        className={styles.button}
+                    >
+                        <BsPlus size={20} className={styles.buttonIcon} /> Take Survey
+                    </Button>
+                )}
             </div>
             <p className={styles.subTitle}>{surveyData.length} surveys</p>
             <div className={styles.surveyTable}>
@@ -91,7 +150,7 @@ const SurveyTable = ({onTakeSurveyClick}) => {
                     columns={surveyColumns} 
                     maxRows={10}
                     renderHeaderItem={HeaderItem}
-                    renderDataItem={DataItem}
+                    renderDataItem={renderDataItem}
                     headerClassName={styles.tableHeader}
                     headerRowClassName={styles.headerRow}
                     bodyClassName={styles.tableBody}
@@ -102,6 +161,16 @@ const SurveyTable = ({onTakeSurveyClick}) => {
             <Button className={styles.buttonBottom} secondary outline onClick={handleMoreClick}>
                 More Details <BsArrowRight size={20} className={styles.buttonBottomIcon} />
             </Button>
+            <TakeSurveyModal 
+                clone 
+                isVisible={showSurveyModal} 
+                onClose={hideSurveyModal} 
+            />
+            <DeleteSurveyModal
+                surveyId={activeSurveyId}
+                onClose={hideDeleteSurveyModal}
+                isVisible={showDeleteModal}
+            />
         </div> 
     );
 };

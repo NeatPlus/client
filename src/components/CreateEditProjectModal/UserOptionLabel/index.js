@@ -10,7 +10,7 @@ const valueExtractor = (item) => item.title;
 
 const options = [
     {
-        id: 'view_only',
+        id: 'read_only',
         title: 'View'
     },
     {

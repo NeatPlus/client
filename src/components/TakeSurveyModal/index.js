@@ -1,7 +1,8 @@
 import {useCallback, useState, useMemo, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-    
+import parse from 'html-react-parser'; 
+
 import {MdClose} from 'react-icons/md';
 import {BsArrowLeft, BsArrowRight, BsCheck} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
@@ -143,7 +144,7 @@ const Question = ({item, showRequired, editable}) => {
                     />
                 ) : (
                     <p className={styles.contentBlockText}>
-                        {item.description} 
+                        {parse(item.description || '')} 
                     </p>
                 )}
             </div>
@@ -212,10 +213,15 @@ const TakeSurveyModal = (props) => {
     const dispatch = useDispatch();
     const {activeSurvey} = useSelector(state => state.survey);
 
-    const {isVisible, onClose, editable = true} = props;
+    const {isVisible, onClose, editable = true, clone} = props;
     const {projectId} = useParams();
 
-    const {questionGroups, questions, status, answers} = useSelector(state => state.question);
+    const {
+        questionGroups, 
+        questions, 
+        status, 
+        answers
+    } = useSelector(state => state.question);
 
     const [{loading}, createSurvey] = useRequest(
         `/project/${projectId}/create_survey/`, 
@@ -307,6 +313,7 @@ const TakeSurveyModal = (props) => {
     if(!surveyTitle && editable) {
         return (
             <InitSurvey 
+                clone={clone}
                 questionsStatus={status}
                 setSurveyTitle={setSurveyTitle} 
                 isVisible={!surveyTitle} 
