@@ -1,12 +1,16 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useMemo} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import OptionsDropdown from 'components/OptionsDropdown';
+import TakeSurveyModal from 'components/TakeSurveyModal';
+import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
 
+import {checkEditAccess} from 'utils/permission';
+import * as questionActions from 'store/actions/question';
 import {getFormattedSurveys} from 'store/selectors/survey';
 
 import styles from './styles.scss';
@@ -63,16 +67,21 @@ const HeaderItem = ({column}) => {
     return column.Header;
 };
 
-export const DataItem = ({item, column}) => {
-    const handleEditClick = useCallback(() => {
-        // TODO: Edit Survey Functionality
-    }, []);
-
+export const DataItem = ({item, column, onClone, onDelete}) => {
+    const {activeProject} = useSelector(state => state.project);
+    
     const handleDeleteClick = useCallback(() => {
-        // TODO: Delete Survey Functionality
-    }, []);
+        onDelete && onDelete(item);
+    }, [item, onDelete]);
+    const handleCloneClick = useCallback(() => {
+        onClone && onClone(item);
+    }, [onClone, item]);
 
     const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
+    
+    const hasEditAccess = useMemo(() => 
+        checkEditAccess(activeProject?.accessLevel), 
+    [activeProject]);
 
     if(column.Header==='Name') {
         return (
@@ -94,11 +103,14 @@ export const DataItem = ({item, column}) => {
         return answer || '';
     }
     if(column.Header==='Options') {
+        if(!hasEditAccess) {
+            return null;
+        }
         return (
             <div onClick={stopEventBubbling}>
                 <OptionsDropdown 
                     className={styles.optionsItem} 
-                    onEdit={handleEditClick} 
+                    onClone={handleCloneClick} 
                     onDelete={handleDeleteClick} 
                 />
             </div>
@@ -112,11 +124,26 @@ const SurveyList = () => {
     const {projectId} = useParams();
     const history = useHistory();
 
+    const dispatch = useDispatch();
+
     const surveys = useSelector(state => getFormattedSurveys(state));
     const surveyData = surveys.filter(el => el.project === +projectId);
 
+    const [showSurveyModal, setShowSurveyModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
     const [page, setPage] = useState(1);
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
+
+    const [activeSurveyId, setActiveSurveyId] = useState(null);
+
+    const hideSurveyModal = useCallback(() => {
+        dispatch(questionActions.setAnswers([]));
+        setShowSurveyModal(false);
+    }, [dispatch]);
+    const hideDeleteSurveyModal = useCallback(() => {
+        setShowDeleteModal(false);
+    }, []);
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
     const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
@@ -124,6 +151,26 @@ const SurveyList = () => {
     const handleRowClick = useCallback(survey => {
         history.push(`${survey.id}/`);
     }, [history]);
+
+    const handleCloneClick = useCallback((survey) => {
+        dispatch(questionActions.setAnswers(survey.answers.map(sur => (
+            {...sur, question: sur.question.id}
+        ))));
+        setShowSurveyModal(true);
+    }, [dispatch]);
+
+    const handleDeleteClick = useCallback((survey) => {
+        setActiveSurveyId(survey.id);
+        setShowDeleteModal(true);
+    }, []);
+
+    const renderDataItem = useCallback(tableProps => (
+        <DataItem 
+            onClone={handleCloneClick} 
+            onDelete={handleDeleteClick} 
+            {...tableProps} 
+        />
+    ), [handleCloneClick, handleDeleteClick]);
 
     return (
         <div className={styles.container}>
@@ -134,7 +181,7 @@ const SurveyList = () => {
                 maxRows={maxRows.value}
                 page={page}
                 renderHeaderItem={HeaderItem} 
-                renderDataItem={DataItem}
+                renderDataItem={renderDataItem}
                 headerClassName={styles.tableHeader}
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
@@ -169,6 +216,16 @@ const SurveyList = () => {
                     pageNum={page}
                 />
             </div>
+            <TakeSurveyModal 
+                clone
+                isVisible={showSurveyModal} 
+                onClose={hideSurveyModal} 
+            />
+            <DeleteSurveyModal
+                surveyId={activeSurveyId}
+                onClose={hideDeleteSurveyModal}
+                isVisible={showDeleteModal}
+            />
         </div>
     );
 };

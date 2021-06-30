@@ -14,6 +14,7 @@ const InitSurvey = props => {
         isVisible,
         setSurveyTitle,
         onClose,
+        clone,
     } = props;
 
     const handleSetSurveyTitle = useCallback(({title}) => 
@@ -28,7 +29,9 @@ const InitSurvey = props => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Take a survey</h2>
+                <h2 className={styles.title}>
+                    {clone ? 'Name the new survey' : 'Take a survey'}
+                </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
