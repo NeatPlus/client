@@ -48,6 +48,11 @@ const Register = () => {
         const firstName = name[0];
         const lastName = fullName.substring(name[0].length).trim();
 
+        if(!lastName) {
+            setError({fullName: 'Lastname cannot be empty'});
+            return;
+        }
+
         try {
             const result = await registerUser({
                 firstName,
