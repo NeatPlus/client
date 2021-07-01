@@ -7,6 +7,7 @@ import {PrivateRoute} from '@ra/auth/PrivateRoute';
 import {AuthRoute} from '@ra/auth/AuthRoute';
 
 import Toast from 'components/Toast';
+import Notice from 'components/Notice';
 
 import Home from 'containers/Home';
 import Login from 'containers/Login';
@@ -29,6 +30,7 @@ const Routes = () => {
 
     return (
         <>
+            {isAuthenticated && <Notice />}
             <Switch>
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/login" component={Login} />
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/register" component={Register} />

@@ -16,15 +16,21 @@ import question from 'assets/images/question.svg';
 
 import styles from './styles.scss';
 
-const NeatCard = ({title, description, image, fileImage, buttonTitle}) => {
+const NeatCard = ({title, description, image, fileImage, buttonTitle, toDashboard}) => {
     return (
         <div className={styles.card}>
             <img src={image} className={styles.cardImage} alt="rural neat" />
             <h4 className={styles.cardTitle}>{title}</h4>
             <p className={styles.cardDesc}>{description}</p>
-            <Link to="/projects">
-                <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
-            </Link>
+            {toDashboard ? (
+                <Link to="/projects">
+                    <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
+                </Link>
+            ) : (
+                <a href="https://eecentre.org/resources/neat/" target="_blank" rel="noreferrer">
+                    <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
+                </a>
+            )} 
             <img className={styles.fileImage} src={fileImage} alt="file-icon" />
         </div>
     );
@@ -59,6 +65,7 @@ const Access = () => {
                             image={urban}
                             fileImage={urbanFile}
                             buttonTitle="Access it here"
+                            toDashboard
                         />
                     </div>
                     <p className={styles.heroDesc}>The NEAT+ has been designed as a simple, user-friendly method for non-environmentalists to identify environmental concerns in humanitarian operations. The language of the tool is geared towards humanitarian response and cluster coordination, including the Activity Modules: Shelter, WASH, Food Security & Livelihoods. The Environmental Sensitivity Module must be completed before the  Activity Modules. The ES module includes questions about the affected community, climate, and biodiversity. The UNEP/OCHA Joint Environment Unit has been supporting the development of the NEAT+ since its intial launch in 2018.</p>

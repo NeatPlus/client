@@ -11,6 +11,7 @@ import dashboardReducer from './dashboard';
 import uiReducer from './ui';
 import weightageReducer from './weightage';
 import notificationReducer from './notification';
+import noticeReducer from './notice';
 
 export default combineReducers({
     auth: authReducer,
@@ -24,4 +25,5 @@ export default combineReducers({
     dashboard: dashboardReducer,
     weightage: weightageReducer,
     notification: notificationReducer,
+    notice: noticeReducer
 });
