@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "d3": "^6.7.0",
+    "d3": "^7.0.0",
     "html-react-parser": "^1.2.7",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
