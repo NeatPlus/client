@@ -19,10 +19,13 @@ import Action from 'containers/Action';
 import Contact from 'containers/Contact';
 import Resources from 'containers/Resources';
 import Account from 'containers/Account';
+import usePageViews from 'hooks/usePageViews';
 
 const Routes = () => {
     const {pathname} = useLocation();
     const {isAuthenticated} = useSelector((state) => state.auth);
+
+    usePageViews();
 
     useEffect(() => {
         window.scrollTo({top: 0, behavior: 'smooth'});
