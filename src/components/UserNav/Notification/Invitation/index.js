@@ -64,7 +64,7 @@ const Invitations = ({invitations}) => {
             renderItem={Invitation}
             keyExtractor={keyExtractor}
             className={styles.container}
-            emptyComponent={EmptyComponent}
+            EmptyComponent={EmptyComponent}
         />
     );
 };

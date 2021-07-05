@@ -2,7 +2,7 @@ import {useEffect, useCallback} from 'react';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
-import useRequest from '@ra/services/useRequest';
+import usePromise from '@ra/hooks/usePromise';
 
 import Api from 'services/api';
 import {setActiveProject} from 'store/actions/project';
@@ -16,7 +16,7 @@ const useInitActiveProject = (projectId) => {
     const {status, activeProject} = useSelector(state => state.project);
     const projects = useSelector(getFormattedProjects);
 
-    const [{data}, requestAccessLevel] = useRequest(Api.getProjectAccessLevel);
+    const [{result: data}, requestAccessLevel] = usePromise(Api.getProjectAccessLevel);
 
     const getAccessLevel = useCallback(async projectId => {
         try {

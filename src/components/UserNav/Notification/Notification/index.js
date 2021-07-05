@@ -42,7 +42,7 @@ const Notification = ({notifications, handleMarkAllAsRead}) => {
                 renderItem={renderNotification}
                 keyExtractor={keyExtractor}
                 className={styles.container}
-                emptyComponent={EmptyComponent}
+                EmptyComponent={EmptyComponent}
             />
             <div className={styles.footer}>
                 <p className={styles.footerText} onClick={handleMarkAllAsRead}>

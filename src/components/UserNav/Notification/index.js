@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 
 import Tabs, {Tab} from '@ra/components/Tabs';
 import cs from '@ra/cs';
-import useRequest from '@ra/services/useRequest';
+import usePromise from '@ra/hooks/usePromise';
 
 import Api from 'services/api';
 import useInterval from 'hooks/useInterval';
@@ -15,9 +15,9 @@ import styles from './styles.scss';
 
 const NotificationCard = React.forwardRef(({openNotification}, ref) => {
     const [, getNotification] =
-        useRequest(Api.getNotifications);
+        usePromise(Api.getNotifications);
 
-    const [, getProjectInvitations] = useRequest(Api.getProjectInvitations);
+    const [, getProjectInvitations] = usePromise(Api.getProjectInvitations);
 
     useInterval(() => {
         getNotification();
