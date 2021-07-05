@@ -1,6 +1,8 @@
 import {compose, applyMiddleware, createStore} from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import reducer from './reducers';
+import rootReducer from './reducers';
 
 const middlewares = [];
  
@@ -9,7 +11,17 @@ if (process.env.NODE_ENV === 'development') {
  
     middlewares.push(logger);
 }
- 
-const store = compose(applyMiddleware(...middlewares))(createStore)(reducer);
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['draft'],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = compose(applyMiddleware(...middlewares))(createStore)(persistedReducer);
+const persistor = persistStore(store);
+
+export {persistor};
 
 export default store;

@@ -63,9 +63,9 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         grid-gap: 3em;
-    
+
         .sub-title {
-            width: 45vw;
+            max-width: 45vw;
             font-family: var(--font-family-header);
             font-size: var(--font-size-large-alt);
             font-weight: 600;
@@ -74,7 +74,7 @@
             margin-bottom: 0.5em;
     
             @media screen and  (max-width: 767px) {
-                width: 80vw;
+                max-width: 90vw;
             }
         }
 

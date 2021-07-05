@@ -1,4 +1,5 @@
 import {useCallback} from 'react';
+import {useSelector} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
 
@@ -6,32 +7,20 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import trash from 'assets/images/trash.png';
 
-import useRequest from 'hooks/useRequest';
-import Api from 'services/api';
-import Toast from 'services/toast';
+import {initDraftAnswers} from 'utils/dispatch';
 
 import styles from './styles.scss';
 
 const DeleteSurveyModal = (props) => {
-    const {isVisible, onClose, surveyId} = props;
-    const [{loading}, deleteSurvey] = useRequest(`/survey/${surveyId}/`, {
-        method: 'DELETE',
-    });
+    const {isVisible, onClose, onDelete} = props;
 
-    const handleDeleteProject = useCallback(async () => {
-        try {
-            const result = await deleteSurvey();
-            if (result) {
-                Api.getSurveys();
-                onClose();
-                Toast.show('Survey successfully deleted!', Toast.SUCCESS);
-            }
-        } catch (error) {
-            console.log(error);
-            onClose();
-            Toast.show(error?.detail || 'Something Went Wrong!', Toast.DANGER);
-        }
-    }, [deleteSurvey, onClose]);
+    const {title} = useSelector(state => state.draft);
+
+    const handleDeleteDraft = useCallback(async () => {
+        initDraftAnswers();
+        onClose && onClose();
+        onDelete && onDelete();
+    }, [onClose, onDelete]);
 
     if (!isVisible) {
         return null;
@@ -40,7 +29,7 @@ const DeleteSurveyModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Delete Survey</h2>
+                <h2 className={styles.title}>Delete Draft</h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
@@ -53,14 +42,14 @@ const DeleteSurveyModal = (props) => {
                         alt='trash bin'
                     />
                     <p className={styles.deleteText}>
-                        Are you sure you want to delete the survey?
+                        This will delete your draft of the survey - {title}
                     </p>
                 </div>
                 <div className={styles.buttons}>
                     <Button onClick={onClose} type='button' secondary>
                         Cancel
                     </Button>
-                    <Button loading={loading} onClick={handleDeleteProject}>
+                    <Button onClick={handleDeleteDraft}>
                         Delete
                     </Button>
                 </div>

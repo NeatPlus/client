@@ -1,0 +1,67 @@
+.action-button {
+    position: fixed;
+    bottom: 1em;
+    right: 1.5em;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 1.75em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    box-shadow: 0 10px 25px 0 #b3baba;
+    cursor: pointer;
+    z-index: 99;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-0.3em);
+    }
+
+    .icon {
+        width: 1.6em;
+        height: 1.6em;
+        color: #d88b23;
+    }
+}
+
+.draft-action {
+    visibility: hidden;
+    background-color: var(--color-white);
+    max-width: 310px;
+    position: fixed;
+    bottom: 1.3em;
+    right: 3em;
+    opacity: 0;
+    border-radius: 0.5em;
+    box-shadow: -2px 5px 50px 0 rgba(0, 0, 0, 0.16);
+    padding: 1.5em 1.25em;
+    transition: all 0.3s;
+    z-index: 99;
+
+    .draft-desc {
+        font-size: var(--font-size-small);
+
+        .survey-title {
+            font-weight: 500;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1em;
+
+        .button {
+            font-size: var(--font-size-small);
+            padding: 0.5em 1.25em;
+            margin-left: 0.55em;
+        }
+    }
+
+    &__visible {
+        visibility: visible;
+        transform: translateX(-3em);
+        opacity: 1;
+    }
+}

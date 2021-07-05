@@ -83,11 +83,13 @@ const ExampleSection = () => {
                     </p>
                 </div>
                 <div className={styles.content}>
-                    <List
-                        data={data?.results.slice(0, 4)}
-                        renderItem={renderReadMore}
-                        keyExtractor={keyExtractor}
-                    />
+                    {data?.results?.length > 0 && (
+                        <List
+                            data={data?.results.slice(0, 4)}
+                            renderItem={renderReadMore}
+                            keyExtractor={keyExtractor}
+                        />
+                    )}
                 </div>
             </div>
             {showExampleModal && (
