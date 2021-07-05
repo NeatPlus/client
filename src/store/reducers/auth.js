@@ -28,7 +28,6 @@ const authReducer = (state = initialState, action) => {
         return {...state, isAuthenticated: true};
     case actions.LOGOUT:
         localStorage.removeItem('user');
-        localStorage.removeItem('activeCourseId');
         return {...loggedOutState};
     case actions.LOGIN_CRED:
         localStorage.setItem('user', JSON.stringify({...state, login: action.cred}));

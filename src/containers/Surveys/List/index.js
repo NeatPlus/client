@@ -5,10 +5,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import OptionsDropdown from 'components/OptionsDropdown';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
+import DeleteDraftModal from 'components/DeleteDraftModal';
+
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
 
+import {initDraftAnswers} from 'utils/dispatch';
 import {checkEditAccess} from 'utils/permission';
 import * as questionActions from 'store/actions/question';
 import {getFormattedSurveys} from 'store/selectors/survey';
@@ -68,20 +71,55 @@ const HeaderItem = ({column}) => {
 };
 
 export const DataItem = ({item, column, onClone, onDelete}) => {
+    const {projectId} = useParams();
+
+    const dispatch = useDispatch();
+
     const {activeProject} = useSelector(state => state.project);
+    const {projectId: draftId, title} = useSelector(state => state.draft);
     
-    const handleDeleteClick = useCallback(() => {
-        onDelete && onDelete(item);
-    }, [item, onDelete]);
-    const handleCloneClick = useCallback(() => {
-        onClone && onClone(item);
-    }, [onClone, item]);
+    const doesDraftExist = useMemo(() => draftId && title, [draftId, title]);
+    const itemAnswers = useMemo(() => item.answers.map(sur => (
+        {...sur, question: sur.question.id}
+    )), [item]);
 
     const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
-    
+
     const hasEditAccess = useMemo(() => 
         checkEditAccess(activeProject?.accessLevel), 
     [activeProject]);
+
+    const [showSurveyModal, setShowSurveyModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDeleteDraftModal, setShowDeleteDraftModal] = useState(false);
+
+    const handleShowDeleteSurveyModal= useCallback((survey) => {
+        setShowDeleteModal(true);
+    }, []);
+    const hideDeleteSurveyModal = useCallback(() => {
+        setShowDeleteModal(false);
+    }, []);
+
+
+    const handleShowSurveyModal = useCallback(() => {
+        dispatch(questionActions.setAnswers(itemAnswers));
+        initDraftAnswers(+projectId);
+        setShowSurveyModal(true);
+    }, [dispatch, projectId, itemAnswers]);
+    const hideSurveyModal = useCallback(() => {
+        dispatch(questionActions.setAnswers([]));
+        setShowSurveyModal(false);
+    }, [dispatch]);
+
+    const handleShowDeleteDraftModal = useCallback((survey) => {
+        if(doesDraftExist) {
+            return setShowDeleteDraftModal(true);
+        }
+        handleShowSurveyModal();
+    }, [handleShowSurveyModal, doesDraftExist]);
+    const handleHideDeleteDraftModal = useCallback(() => {
+        setShowDeleteDraftModal(false);
+    }, []);
 
     if(column.Header==='Name') {
         return (
@@ -110,8 +148,23 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
             <div onClick={stopEventBubbling}>
                 <OptionsDropdown 
                     className={styles.optionsItem} 
-                    onClone={handleCloneClick} 
-                    onDelete={handleDeleteClick} 
+                    onClone={handleShowDeleteDraftModal} 
+                    onDelete={handleShowDeleteSurveyModal} 
+                />
+                <TakeSurveyModal 
+                    clone
+                    isVisible={showSurveyModal} 
+                    onClose={hideSurveyModal} 
+                />
+                <DeleteSurveyModal
+                    surveyId={item.id}
+                    onClose={hideDeleteSurveyModal}
+                    isVisible={showDeleteModal}
+                />
+                <DeleteDraftModal
+                    isVisible={showDeleteDraftModal}
+                    onClose={handleHideDeleteDraftModal}
+                    onDelete={handleShowSurveyModal}
                 />
             </div>
         );
@@ -124,26 +177,11 @@ const SurveyList = () => {
     const {projectId} = useParams();
     const history = useHistory();
 
-    const dispatch = useDispatch();
-
     const surveys = useSelector(state => getFormattedSurveys(state));
     const surveyData = surveys.filter(el => el.project === +projectId);
 
-    const [showSurveyModal, setShowSurveyModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-
     const [page, setPage] = useState(1);
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
-
-    const [activeSurveyId, setActiveSurveyId] = useState(null);
-
-    const hideSurveyModal = useCallback(() => {
-        dispatch(questionActions.setAnswers([]));
-        setShowSurveyModal(false);
-    }, [dispatch]);
-    const hideDeleteSurveyModal = useCallback(() => {
-        setShowDeleteModal(false);
-    }, []);
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
     const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
@@ -151,26 +189,6 @@ const SurveyList = () => {
     const handleRowClick = useCallback(survey => {
         history.push(`${survey.id}/`);
     }, [history]);
-
-    const handleCloneClick = useCallback((survey) => {
-        dispatch(questionActions.setAnswers(survey.answers.map(sur => (
-            {...sur, question: sur.question.id}
-        ))));
-        setShowSurveyModal(true);
-    }, [dispatch]);
-
-    const handleDeleteClick = useCallback((survey) => {
-        setActiveSurveyId(survey.id);
-        setShowDeleteModal(true);
-    }, []);
-
-    const renderDataItem = useCallback(tableProps => (
-        <DataItem 
-            onClone={handleCloneClick} 
-            onDelete={handleDeleteClick} 
-            {...tableProps} 
-        />
-    ), [handleCloneClick, handleDeleteClick]);
 
     return (
         <div className={styles.container}>
@@ -181,7 +199,7 @@ const SurveyList = () => {
                 maxRows={maxRows.value}
                 page={page}
                 renderHeaderItem={HeaderItem} 
-                renderDataItem={renderDataItem}
+                renderDataItem={DataItem}
                 headerClassName={styles.tableHeader}
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
@@ -216,16 +234,7 @@ const SurveyList = () => {
                     pageNum={page}
                 />
             </div>
-            <TakeSurveyModal 
-                clone
-                isVisible={showSurveyModal} 
-                onClose={hideSurveyModal} 
-            />
-            <DeleteSurveyModal
-                surveyId={activeSurveyId}
-                onClose={hideDeleteSurveyModal}
-                isVisible={showDeleteModal}
-            />
+
         </div>
     );
 };

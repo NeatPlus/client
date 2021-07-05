@@ -223,7 +223,7 @@ class Api {
             dispatch(statementActions.setTopics(topics?.results || []));
             dispatch(statementActions.setStatus('complete'));
         } catch(error) {
-            dispatch(questionActions.setStatus('failed'));
+            dispatch(statementActions.setStatus('failed'));
             console.log(error);
         }
     }

@@ -1,6 +1,9 @@
 import {useEffect} from 'react';
 import {Route, Switch} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {AiOutlineFileText} from 'react-icons/ai';
 
+import FloatingAction from 'components/FloatingAction';
 import UserNav from 'components/UserNav';
 import SurveyDashboard from 'containers/Surveys/Dashboard';
 
@@ -17,6 +20,8 @@ const Projects = () => {
         Api.getSurveys();
     }, []);
 
+    const {projectId, title} = useSelector(state => state.draft);
+
     return (
         <div className={styles.container}>
             <UserNav />
@@ -28,6 +33,9 @@ const Projects = () => {
                     <Route path='/projects/:projectId' component={Dashboard} />
                 </Switch>
             </div>
+            {projectId && !!title && (
+                <FloatingAction surveyTitle={title} icon={AiOutlineFileText} />
+            )}
         </div>
     );
 };

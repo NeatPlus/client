@@ -1,10 +1,13 @@
 import {useCallback} from 'react';
 import {MdClose} from 'react-icons/md';
+import {useDispatch} from 'react-redux';
 
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import TextInput from '@ra/components/Form/TextInput';
 import Form, {InputField} from '@ra/components/Form';
+
+import * as draftActions from 'store/actions/draft';
 
 import styles from './styles.scss';
 
@@ -12,14 +15,15 @@ const InitSurvey = props => {
     const {
         questionsStatus,
         isVisible,
-        setSurveyTitle,
         onClose,
         clone,
     } = props;
 
+    const dispatch = useDispatch();
+
     const handleSetSurveyTitle = useCallback(({title}) => 
-        setSurveyTitle(title), 
-    [setSurveyTitle]
+        dispatch(draftActions.setTitle(title)), 
+    [dispatch]
     );
 
     if(!isVisible) {

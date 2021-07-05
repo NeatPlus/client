@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {FaTimes} from 'react-icons/fa';
+import {IoClose} from 'react-icons/io5';
 import {MdClose} from 'react-icons/md';
 
 import Modal from '@ra/components/Modal';
@@ -20,32 +20,39 @@ const Notice = () => {
         setShowNoticeModal(!showNoticeModal);
     }, [showNoticeModal]);
 
-    if (notice) {
-        return (
-            <>
-                {showNotice && (
-                    <div className={styles.topBar}>
-                        <span>{notice.title}</span>
-                        <div onClick={handleToggleModal} className={styles.moreLink}>Click here</div>
-                        <FaTimes onClick={handleCloseClick} className={styles.closeIcon} />
+    if(!notice) {
+        return null;
+    }
+
+    return (
+        <>
+            {showNotice && (
+                <div className={styles.topBar}>
+                    <span>{notice.title}</span>
+                    <div onClick={handleToggleModal} className={styles.moreLink}>Click here</div>
+                    <div className={styles.closeIconContainer}>
+                        <IoClose 
+                            onClick={handleCloseClick} 
+                            className={styles.closeIcon} 
+                        />
                     </div>
-                )}
-                {showNoticeModal && (
-                    <Modal className={styles.modal}>
-                        <div className={styles.header}>
-                            <h2 className={styles.title}>{notice.title}</h2>
-                            <button className={styles.closeContainer} onClick={handleToggleModal}>
-                                <MdClose className={styles.modalCloseIcon} />
-                            </button>
-                        </div>
-                        <div className={styles.content}>
-                            <p className={styles.description}>{notice.description}</p>
-                        </div>
-                    </Modal>
-                )}
-            </>
-        );
-    } return null;
+                </div>
+            )}
+            {showNoticeModal && (
+                <Modal className={styles.modal}>
+                    <div className={styles.header}>
+                        <h2 className={styles.title}>{notice.title}</h2>
+                        <button className={styles.closeContainer} onClick={handleToggleModal}>
+                            <MdClose className={styles.modalCloseIcon} />
+                        </button>
+                    </div>
+                    <div className={styles.content}>
+                        <p className={styles.description}>{notice.description}</p>
+                    </div>
+                </Modal>
+            )}
+        </>
+    );
 };
 
 export default Notice;
