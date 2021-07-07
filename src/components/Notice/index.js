@@ -29,7 +29,9 @@ const Notice = () => {
             {showNotice && (
                 <div className={styles.topBar}>
                     <span>{notice.title}</span>
-                    <div onClick={handleToggleModal} className={styles.moreLink}>Click here</div>
+                    <div onClick={handleToggleModal} className={styles.moreLink}>
+                        View here
+                    </div>
                     <div className={styles.closeIconContainer}>
                         <IoClose 
                             onClick={handleCloseClick} 

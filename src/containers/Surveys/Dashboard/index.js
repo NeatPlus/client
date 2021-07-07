@@ -13,8 +13,14 @@ import List from '@ra/components/List';
 import CheckboxInput from '@ra/components/Form/CheckboxInput';
 
 import cs from '@ra/cs';
+import usePromise from '@ra/hooks/usePromise';
+import {getErrorMessage} from '@ra/utils/error';
+
 import useInitActiveProject from 'hooks/useInitActiveProject';
 import useInitActiveSurvey from 'hooks/useInitActiveSurvey';
+
+import Api from 'services/api';
+import Toast from 'services/toast';
 import {setEditMode, applyRemoveItems, setFilters} from 'store/actions/dashboard';
 
 import Overview from './Overview';
@@ -118,11 +124,14 @@ const SurveyDashboard = () => {
     const {
         isEditMode, 
         itemsToRemove,
+        removedItems,
         filters,
     } = useSelector(state => state.dashboard);
 
     const activateEditMode = useCallback(() => dispatch(setEditMode(true)), [dispatch]);
     const deactivateEditMode = useCallback(() => dispatch(setEditMode(false)), [dispatch]);
+
+    const [{loading}, saveSurveyConfig] = usePromise(Api.patchSurvey);
 
     const [activeTab, setActiveTab] = useState('overview');
     const [showRestoreModal, setShowRestoreModal] = useState(false);
@@ -134,6 +143,7 @@ const SurveyDashboard = () => {
     }, [deactivateEditMode]);
 
     const {activeProject} = useSelector(state => state.project);
+    const {activeSurvey} = useSelector(state => state.survey);
 
     const toggleRestoreModal = useCallback(() => 
         setShowRestoreModal(!showRestoreModal), 
@@ -143,10 +153,21 @@ const SurveyDashboard = () => {
         setShowIssues(!showIssues),
     [showIssues]);
 
-    const handleSaveClick = useCallback(() => dispatch(applyRemoveItems()), [dispatch]);
+    const handleSaveClick = useCallback(async () => {
+        try {
+            const newRemovedItems = [...removedItems, ...itemsToRemove];
+            await saveSurveyConfig(activeSurvey.id, {
+                config: JSON.stringify({removedItems: newRemovedItems}),
+            });
+            dispatch(applyRemoveItems(newRemovedItems));
+
+        } catch (error) {
+            Toast.show(getErrorMessage(error), Toast.DANGER);
+            console.log(error);
+        }
+    }, [dispatch, removedItems, itemsToRemove, saveSurveyConfig, activeSurvey]);
 
     const handleClearFilters = useCallback(() => dispatch(setFilters([])), [dispatch]);
-
 
     const renderHeaderControls = useCallback(tabHeaderProps => {
         if(activeTab === 'overview') {
@@ -164,6 +185,7 @@ const SurveyDashboard = () => {
                         Restore
                     </Button>
                     <Button
+                        loading={loading}
                         disabled={!itemsToRemove.length}
                         onClick={handleSaveClick}
                         className={styles.saveButton}
@@ -213,7 +235,8 @@ const SurveyDashboard = () => {
         showIssues,
         toggleIssues,
         filters,
-        handleClearFilters
+        handleClearFilters,
+        loading,
     ]);
 
     const renderSpacer = useCallback(() => {

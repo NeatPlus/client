@@ -20,6 +20,7 @@ export const getFormattedSurveys = createSelector([
     }
     return surveys?.map(survey => ({
         ...survey, 
+        config: typeof survey.config === 'string' ? JSON.parse(survey.config) : survey.config,
         answers: surveyAnswers
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {

@@ -1,0 +1,93 @@
+.card {
+    width: calc((100% - 60px) / 4);
+    min-height: min-content;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: 1025px) {
+        width: calc((100% - 40px) / 3);
+    }
+
+    @media screen and (max-width: 768px) {
+        width: calc((100% - 20px) / 2);
+    }
+
+    @media screen and (max-width: 480px) {
+        width: 100%;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        padding: 1.25em 1.25em 0 1.25em;
+
+        .logo {
+            width: 1.75em;
+            height: 1.75em;
+            margin-right: 0.9em;
+        }
+
+        .title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            line-height: 1.5em;
+        }
+    }
+
+    .card-body {
+        margin: 1.25em;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: var(--font-size-small);
+        line-height: 1.7em;
+    }
+
+    .card-footer {
+        border-top: 1px solid #cbcbcb;
+        padding: 0.625em 1.25em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .role-container {
+            background-color: #dce5ed;
+            border-radius: 12px;
+            font-size: 11px;
+            padding: 6px 15px;
+            text-transform: uppercase;
+            color: var(--color-grey-dark-alt);
+            font-weight: 500;
+        }
+
+        .action-icons {
+            display: flex;
+            align-items: center;
+
+            .action-icon {
+                margin-left: 0.5em;
+                width: 2em;
+                height: 2em;
+                border-radius: 1em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--color-light-alt);
+                }
+
+                .icon {
+                    font-size: var(--font-size-medium-lg);
+                    color: var(--color-grey-light);
+                }
+            }
+        }
+    }
+}

@@ -273,10 +273,19 @@ class Api {
         }
     }
 
+    async getOrganizationMemberRequests() {
+        try {
+            const data = await this.get('/organization-member-request/');
+            dispatch(organizationActions.setMemberRequests(data?.results || []));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     getNotifications = async () => {
         try {
             const data = await this.get('/notification?limit=10');
-            dispatch(notificationActions.setNotifications(data.results || []));
+            dispatch(notificationActions.setNotifications(data?.results || []));
         } catch(error) {
             console.log(error);
         }
@@ -330,6 +339,22 @@ class Api {
 
     getProjectAccessLevel = (projectId) => {
         return this.get(`/project/${projectId}/access_level/`);
+    }
+
+    createOrganization = body => {
+        return this.post('/organization/', body);
+    }
+
+    editOrganization = (body, organizationId) => {
+        return this.patch(`/organization/${organizationId}/`, body);
+    }
+
+    requestOrganizationMember = organizationId => {
+        return this.post(`/organization/${organizationId}/member_request/`);
+    }
+
+    patchSurvey = (surveyId, body) => {
+        return this.patch(`/survey/${surveyId}/`, body);
     }
 }
 

@@ -33,6 +33,7 @@ export default async function initStore() {
 
     await Api.getStatementTags();
     await Api.getSurveyWeightages();
+    await Api.getOrganizationMemberRequests();
 }
 
 export const loadUserData = async (userId) => {

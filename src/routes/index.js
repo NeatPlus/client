@@ -19,6 +19,8 @@ import Action from 'containers/Action';
 import Contact from 'containers/Contact';
 import Resources from 'containers/Resources';
 import Account from 'containers/Account';
+import Organizations from 'containers/Organizations';
+
 import usePageViews from 'hooks/usePageViews';
 
 const Routes = () => {
@@ -39,6 +41,7 @@ const Routes = () => {
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/register" component={Register} />
                 <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated} />
                 <PrivateRoute path="/account" component={Account} isAuthenticated={isAuthenticated} />
+                <PrivateRoute path="/organizations" component={Organizations} isAuthenticated={isAuthenticated} />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/about" component={About} />
                 <Route exact path='/contact' component={Contact} />
