@@ -1,0 +1,49 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 25px 0 25px;
+
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .create-box {
+            background-color: var(--color-white);
+            margin-top: 2em;
+            padding: 3em;
+            border-radius: 6px;
+            width: 35vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .info-image {
+                margin-bottom: 42px;
+            }
+
+            .info-text {
+                text-align: center;
+                font-size: var(--font-size-base);
+                color: var(--color-dark);
+                line-height: 1.5em;
+                font-weight: 500;
+            }
+
+            .button {
+                margin-top: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: var(--font-size-base);
+
+                &-icon {
+                    margin-right: 0.3em;
+                }
+            }
+        }
+    }
+}

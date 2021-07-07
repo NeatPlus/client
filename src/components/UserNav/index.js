@@ -10,6 +10,7 @@ import {BiHelpCircle} from 'react-icons/bi';
 import Dropdown from '@ra/components/Dropdown';
 import Notification from './Notification';
 
+import OrganizationIcon from 'assets/icons/organization.svg';
 import logo from 'assets/images/logo-dark.svg';
 import {logout} from 'store/actions/auth';
 
@@ -82,6 +83,14 @@ const UserNav = (props) => {
                                 <p className={styles.email}>{user?.email}</p>
                             </div>
                         </div>
+                        <Link to='/organizations' className={styles.userOption}>
+                            <img 
+                                src={OrganizationIcon} 
+                                className={styles.userIcon} 
+                                alt="organization"
+                            />
+                            Organizations
+                        </Link>
                         <Link to='/account' className={styles.userOption}>
                             <IoSettingsOutline className={styles.userIcon} />
                             Account Settings

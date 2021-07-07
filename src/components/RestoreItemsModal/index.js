@@ -9,6 +9,11 @@ import List from '@ra/components/List';
 import CheckboxInput from '@ra/components/Form/CheckboxInput';
 
 import cs from '@ra/cs';
+import usePromise from '@ra/hooks/usePromise';
+import {getErrorMessage} from '@ra/utils/error';
+
+import Api from 'services/api';
+import Toast from 'services/toast';
 import * as dashboardActions from 'store/actions/dashboard';
 
 import styles from './styles.scss';
@@ -121,18 +126,43 @@ const RestoreType = ({item, onInputChange}) => {
 
 const RestoreItemsModal = props => {
     const dispatch = useDispatch();
+
+    const {removedItems, itemsToRestore} = useSelector(state => state.dashboard);
+    const {activeSurvey} = useSelector(state => state.survey);
         
     const {isVisible, onClose} = props;
+
+    const [{loading}, saveSurveyConfig] = usePromise(Api.patchSurvey);
 
     const handleClose = useCallback(() => {
         dispatch(dashboardActions.setItemsToRestore([]));
         onClose && onClose();
     }, [onClose, dispatch]);
 
-    const handleRestoreClick = useCallback(() => {
-        dispatch(dashboardActions.applyRestoreItems());
-        handleClose();
-    }, [dispatch, handleClose]);
+    const handleRestoreClick = useCallback(async () => {
+        const newRemovedItems = removedItems.filter(item => {
+            return !itemsToRestore.some(
+                el => el.type===item.type && el.identifier === item.identifier
+            );
+        });
+        try {
+            await saveSurveyConfig(activeSurvey.id, {
+                config: JSON.stringify({removedItems: newRemovedItems}),
+            });
+            dispatch(dashboardActions.applyRestoreItems(newRemovedItems));
+            handleClose();
+        } catch(error) {
+            Toast.show(getErrorMessage(error), Toast.DANGER);
+            console.log(error);
+        }
+    }, [
+        dispatch, 
+        handleClose, 
+        removedItems, 
+        itemsToRestore, 
+        saveSurveyConfig, 
+        activeSurvey
+    ]);
 
     if(!isVisible) {
         return null;
@@ -163,7 +193,11 @@ const RestoreItemsModal = props => {
                 >
                     Cancel
                 </Button>
-                <Button onClick={handleRestoreClick} className={styles.button}>
+                <Button 
+                    loading={loading} 
+                    onClick={handleRestoreClick} 
+                    className={styles.button}
+                >
                     Restore
                 </Button>
             </div>
