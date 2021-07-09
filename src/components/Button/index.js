@@ -30,7 +30,7 @@ const _Button = props => {
             {children}
             {loading && (
                 <div className={styles.loader}>
-                    <Loader />
+                    <Loader color={outline ? '#00a297' : '#fff'} />
                 </div>
             )}
         </Button>
