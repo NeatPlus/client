@@ -2,17 +2,26 @@ import {useState, useCallback} from 'react';
 import {BiEditAlt, BiCog} from 'react-icons/bi';
 
 import AddEditOrganizationModal from 'components/OrganizationModals/AddEditOrganization';
+import ManageMembersModal from 'components/OrganizationModals/ManageMembers';
 
 import styles from './styles.scss';
 
 const OrganizationCard = ({item: organization}) => {
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showManageModal, setShowManageModal] = useState(false);
 
     const handleShowEditModal = useCallback(() => {
         setShowEditModal(true);
     }, []);
     const hideEditModal = useCallback(() => {
         setShowEditModal(false);
+    }, []);
+
+    const handleShowManageModal = useCallback(() => {
+        setShowManageModal(true);
+    }, []);
+    const hideManageModal = useCallback(() => {
+        setShowManageModal(false);
     }, []);
 
     return (
@@ -48,6 +57,7 @@ const OrganizationCard = ({item: organization}) => {
                         <div 
                             title="Manage Roles" 
                             className={styles.actionIcon}
+                            onClick={handleShowManageModal}
                         >
                             <BiCog className={styles.icon} />
                         </div>
@@ -58,6 +68,11 @@ const OrganizationCard = ({item: organization}) => {
                 editMode
                 isVisible={showEditModal}
                 onClose={hideEditModal}
+                organization={organization}
+            />
+            <ManageMembersModal
+                isVisible={showManageModal}
+                onClose={hideManageModal}
                 organization={organization}
             />
         </div>

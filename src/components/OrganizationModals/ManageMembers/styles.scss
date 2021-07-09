@@ -1,0 +1,252 @@
+.modal {
+    border-radius: 8px;
+    width: 40vw;
+    background-color: var(--color-light-alt);
+    min-height: 80vh;
+
+    .header {
+        padding: 20px 25px;
+        display: flex;
+        align-items: center;
+
+        .back-icon {
+            margin-right: 0.5em;
+            cursor: pointer;
+        }
+
+        .title {
+            color: var(--color-tertiary);
+            font-size: var(--font-size-medium);
+            font-family: var(--font-family-header);
+            font-weight: 600;
+            line-height: 1.75em;
+        }
+
+        .close-container {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: auto;
+
+            .close-icon {
+                color: var(--color-grey-dark-alt);
+            }
+        }
+    }
+
+    .content {
+        padding: 30px 25px;
+        background-color: var(--color-white);
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 0 8px 8px;
+        min-height: 80vh;
+
+        .requests {
+            flex: 1;
+            overflow-y: auto;
+
+            .request-item {
+                display: flex;
+                align-items: flex-start;
+                margin: 1.5em 0;
+
+                .request-avatar {
+                    width: 3em;
+                    height: 3em;
+                    border-radius: 1.5em;
+                    font-size: var(--font-size-small);
+                }
+
+                .request-details {
+                    margin-left: 1.25em;
+                    font-size: var(--font-size-base);
+                    color: var(--color-dark);
+
+                    .request-name {
+                        font-weight: 600;
+                    }
+
+                    .buttons {
+                        margin-top: 1em;
+                        display: flex;
+                        gap: 0.6em;
+
+                        .button {
+                            padding: 0.6em 1.5em;
+                            font-size: var(--font-size-small);
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+
+        .request-info {
+            margin-bottom: 2em;
+
+            .request-text {
+                font-size: var(--font-size-base);
+                font-weight: 600;
+                line-height: 1.5em;
+                color: var(--color-dark);
+
+                .request-number {
+                    font-weight: 400;
+                }
+            }
+
+            .respond-link {
+                display: flex;
+                align-items: center;
+                font-size: var(--font-size-small);
+                font-weight: 500;
+                line-height: 1.7em;
+                color: var(--color-primary);
+                margin: 0.5em 0;
+                cursor: pointer;
+
+                &:hover {
+                    filter: brightness(110%);
+                }
+
+                .right-arrow-icon {
+                    margin-left: 0.6em;
+                }
+            }
+        }
+
+        .section-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            line-height: 1.5em;
+            color: var(--color-dark);
+        }
+
+        .edit-form {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5em;
+
+            .input-container {
+                flex: 1;
+            }
+
+            .save-button {
+                margin-left: 0.5em;
+                font-size: var(--font-size-small);
+                font-weight: 500;
+            }
+        }
+
+        .list-container {
+            height: 70%;
+            flex: 1;
+            padding-bottom: 5em;
+            overflow-y: auto;
+
+            .section-title {
+                font-size: var(--font-size-base);
+                font-weight: 600;
+                line-height: 1.5em;
+                color: var(--color-dark);
+            }
+
+            .user-list {
+                .user-item {
+                    margin: 0.625em 0;
+                    padding: 0.625em;
+                    display: flex;
+                    align-items: center;
+                    border: solid 1px #cbcbcb;
+                    border-radius: 4px;
+
+                    .user-avatar {
+                        width: 2.5em;
+                        height: 2.5em;
+                        border-radius: 1.25em;
+                        margin-right: 0.9em;
+                        font-size: var(--font-size-small);
+                    }
+
+                    .user-name {
+                        font-size: var(--font-size-small);
+                        font-weight: 500;
+                        line-height: 1.43em;
+                        color: var(--color-dark);
+                        width: 80%;
+                    }
+
+                    .edit-button {
+                        margin-left: auto;
+                        padding: 0.5em 1em;
+                        display: flex;
+                        align-items: center;
+                        font-size: var(--font-size-small);
+                        font-weight: 500;
+                    }
+
+                    .user-options {
+                        background-color: var(--color-white);
+                        padding: 0.5em 0;
+                        border-radius: 4px;
+                        box-shadow: 3px 10px 30px 0 rgba(0, 0, 0, 0.16);
+
+                        .option-item {
+                            padding: 1em 1.25em;
+                            display: flex;
+                            align-items: center;
+                            cursor: pointer;
+                            color: var(--color-dark-alt);
+                            font-size: var(--font-size-small);
+
+                            &:hover {
+                                background-color: var(--color-light-alt);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        width: 60vw;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 75vw;
+    }
+
+    @media screen and (max-width: 480px) {
+        width: 95vw;
+    }
+}
+
+.multi-select {
+    :global {
+        .select-value-editable {
+            max-width: 20em;
+
+            .values {
+                gap: 0.7em;
+            }
+        }
+
+        .select-value:not(.select-value-editable) {
+            .values {
+                gap: 0;
+
+                > div {
+                    margin-left: -3px;
+                    border: 1px solid;
+                }
+            }
+        }
+    }
+}

@@ -2,37 +2,70 @@
     position: fixed;
     bottom: 3em;
     right: 3em;
-    background-color: var(--color-background);
+    box-shadow: 0 5px 60px 0 rgba(0, 0, 0, 0.16);
+    background-color: var(--color-white);
     border-radius: 8px;
     overflow: hidden;
     z-index: 9999;
 
     :global {
         .success {
-            background-color: var(--color-success);
-            color: var(--color-success-text);
+            svg {
+                color: var(--color-success);
+            }
         }
 
         .danger {
-            background-color: var(--color-danger);
-            color: var(--color-danger-text);
+            svg {
+                color: var(--color-danger);
+            }
         }
 
         .warning {
-            background-color: var(--color-warning);
-            color: var(--color-warning-text);
+            svg {
+                color: var(--color-warning);
+            }
         }
     }
 
     .content {
-        position: relative;
-        padding: 1.5em 1.5em;
+        padding: 1.25em 1.25em;
+        font-size: var(--font-size-base);
+        font-weight: 600;
+        line-height: 1.5;
+        color: var(--color-dark);
+        display: flex;
+        align-items: flex-start;
+        width: 400px;
 
-        .close {
-            position: absolute;
-            top: 0.2em;
-            right: 0.2em;
+        .icon {
+            width: 1.5em;
+            height: 1.5em;
+            margin-right: 0.75em;
+            margin-top: 0.125em;
+        }
+
+        .message {
+            align-self: center;
+            flex: 0 0 75%;
+        }
+
+        .close-container {
             cursor: pointer;
+            margin-left: auto;
+            background-color: #ebebeb;
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .close {
+                width: 1em;
+                height: 1em;
+                color: var(--color-grey);
+            }
         }
     }
 }

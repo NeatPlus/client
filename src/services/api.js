@@ -2,7 +2,6 @@ import RequestBuilder from '@ra/services/request';
 import store from 'store';
 
 import * as authActions from 'store/actions/auth';
-import * as userActions from 'store/actions/user';
 import * as organizationActions from 'store/actions/organization';
 import * as projectActions from 'store/actions/project';
 import * as surveyActions from 'store/actions/survey';
@@ -143,15 +142,6 @@ class Api {
         return await this.get('/user/me/');
     }
 
-    async getUsers() {
-        try {
-            const data = await this.get('/user/');
-            dispatch(userActions.setUsers(data?.results || []));
-        } catch(error) {
-            console.log(error);
-        }
-    }
-
     async getOrganizations() {
         try {
             const data = await this.get('/organization/');
@@ -282,6 +272,10 @@ class Api {
         }
     }
 
+    getUsers = async () => {
+        return this.get('/user/');
+    }
+
     getNotifications = async () => {
         try {
             const data = await this.get('/notification?limit=10');
@@ -351,6 +345,14 @@ class Api {
 
     requestOrganizationMember = organizationId => {
         return this.post(`/organization/${organizationId}/member_request/`);
+    }
+
+    approveOrganizationMember = memberRequestId => {
+        return this.post(`/organization-member-request/${memberRequestId}/accept/`);
+    }
+
+    rejectOrganizationMember = memberRequestId => {
+        return this.post(`/organization-member-request/${memberRequestId}/reject`);
     }
 
     patchSurvey = (surveyId, body) => {

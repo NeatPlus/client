@@ -3,6 +3,8 @@ import SelectInput from '@ra/components/Form/SelectInput';
 
 import {IoMdCloseCircle} from 'react-icons/io';
 
+import cs from '@ra/cs';
+
 import styles from './styles.scss';
 
 const keyExtractor = (item) => item.id;
@@ -33,6 +35,7 @@ export const UserIcon = ({
     item,
     editable,
     onRemove,
+    className,
 }) => {
     const initials = `${item.firstName?.[0] || ''}${item.lastName?.[0] || ''}`.toUpperCase();
 
@@ -45,7 +48,7 @@ export const UserIcon = ({
 
     return (
         <div
-            className={styles.userIcon}
+            className={cs(styles.userIcon, className)}
             style={{backgroundColor}}
             title={item.value}
         >
@@ -59,12 +62,14 @@ export const UserIcon = ({
     );
 };
 
-const UserOptionLabel = ({item, selected, onStateChange}) => {
+const UserOptionLabel = ({item, selected, onStateChange, userOptions}) => {
     const handleChange = useCallback(({option}) => {
         onStateChange({item: {...item, mode: option.id}}); 
     }, [item, onStateChange]);
 
-    const value = options.find(o => o.id === item.mode) || options[0];
+    const valueOptions = userOptions ?? options;
+
+    const value = valueOptions.find(o => o.id === item.mode) || valueOptions[0];
 
     return (
         <div className={styles.optionLabel}>
@@ -72,19 +77,19 @@ const UserOptionLabel = ({item, selected, onStateChange}) => {
                 <UserIcon item={item} />
                 <div className={styles.name}>{item.firstName} {item.lastName}</div>
             </div>
-            {selected &&
-                    <SelectInput
-                        className={styles.select}
-                        controlClassName={styles.selectControl}
-                        searchable={false}
-                        clearable={false}
-                        defaultValue={value}
-                        keyExtractor={keyExtractor}
-                        valueExtractor={valueExtractor}
-                        onChange={handleChange}
-                        options={options}
-                    />
-            }
+            {selected && (
+                <SelectInput
+                    className={styles.select}
+                    controlClassName={styles.selectControl}
+                    searchable={false}
+                    clearable={false}
+                    defaultValue={value}
+                    keyExtractor={keyExtractor}
+                    valueExtractor={valueExtractor}
+                    onChange={handleChange}
+                    options={valueOptions}
+                />
+            )}
         </div>
     );
 };

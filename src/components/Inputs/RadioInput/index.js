@@ -9,6 +9,7 @@ import styles from './styles.scss';
 const RadioInput = props => {
     const {
         value,
+        size=18,
         checked, 
         onCheck, 
         label, 
@@ -25,8 +26,8 @@ const RadioInput = props => {
     return (
         <div className={cs(className, styles.container)} onClick={handleClick}>
             {checked 
-                ? <IoMdRadioButtonOn size={18} className={cs(radioCheckedClassName, styles.radioChecked)} />
-                : <IoMdRadioButtonOff size={18} className={cs(radioClassName, styles.radio)} />
+                ? <IoMdRadioButtonOn size={size} className={cs(radioCheckedClassName, styles.radioChecked)} />
+                : <IoMdRadioButtonOff size={size} className={cs(radioClassName, styles.radio)} />
             }
             {!!label && <Label className={cs(labelClassName, styles.label)}>{label}</Label>}
         </div>

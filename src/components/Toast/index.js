@@ -1,6 +1,9 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useMemo} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
+import {BiCheckCircle, BiInfoCircle} from 'react-icons/bi';
+import {FiAlertTriangle} from 'react-icons/fi';
+
 import * as uiActions from 'store/actions/ui';
 
 import cs from '@ra/cs';
@@ -23,6 +26,17 @@ const Toast = ({show, message}) => {
 
     }, [onClose, toast.duration]);
 
+    const Icon = useMemo(() => {
+        switch(toast.status) {
+        case 'success':
+            return BiCheckCircle;
+        case 'danger':
+            return FiAlertTriangle;
+        default:
+            return BiInfoCircle;
+        }
+    }, [toast]);
+
     if(!toast.visible) {
         return null;
     }
@@ -30,8 +44,13 @@ const Toast = ({show, message}) => {
     return (
         <div className={styles.container}>
             <div className={cs(styles.content, toast.status)}>
-                <IoMdClose className={styles.close} onClick={onClose} />
-                {toast.message}
+                <Icon className={styles.icon} />
+                <p className={styles.message}>
+                    {toast.message} 
+                </p>
+                <div className={styles.closeContainer} onClick={onClose}>
+                    <IoMdClose className={styles.close} />
+                </div>
             </div>
         </div>
     );

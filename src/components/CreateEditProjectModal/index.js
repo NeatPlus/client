@@ -5,6 +5,8 @@ import {MdClose} from 'react-icons/md';
 
 import Button from 'components/Button';
 import RadioInput from 'components/Inputs/RadioInput';
+import UserOptionLabel, {UserIcon} from 'components/UserOptionLabel';
+
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import TextInput from '@ra/components/Form/TextInput';
@@ -17,8 +19,6 @@ import cs from '@ra/cs';
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
 import Api from 'services/api';
-
-import UserOptionLabel, {UserIcon} from './UserOptionLabel';
 
 import styles from './styles.scss';
 
