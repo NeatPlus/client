@@ -358,6 +358,10 @@ class Api {
     patchSurvey = (surveyId, body) => {
         return this.patch(`/survey/${surveyId}/`, body);
     }
+
+    getNotice = () => {
+        return this.get('/notice/');
+    }
 }
 
 const ApiService = new Api();
