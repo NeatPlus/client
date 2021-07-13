@@ -38,7 +38,7 @@
         font-size: var(--font-size-small);
 
         &:hover {
-            filter: contrast(115%);
+            filter: brightness(115%);
         }
 
         &__active {

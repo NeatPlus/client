@@ -4,12 +4,11 @@
     flex-direction: column;
     padding: 25px 25px 0 25px;
 
-    .header {
+    .header-container {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 12px;
 
         .title {
             font-family: var(--font-family-header);
@@ -22,10 +21,20 @@
             align-items: center;
             justify-content: center;
             font-size: var(--font-size-base);
-            width: 160px;
+            padding: 0.625em 1.625em;
 
             &-icon {
                 margin-right: 6px;
+            }
+        }
+
+        .tabs-header {
+            align-items: center;
+            margin-bottom: 0;
+
+            .header-item {
+                padding: 0.625em 2.5em;
+                min-width: 120px;
             }
         }
     }
@@ -38,7 +47,7 @@
             border-collapse: collapse;
             background-color: var(--color-white);
             width: 100%;
-            margin: 12px 0;
+            margin: 1em 0;
 
             .table-header {
                 background-color: var(--color-background);

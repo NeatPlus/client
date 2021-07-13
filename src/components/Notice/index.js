@@ -1,16 +1,23 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {IoClose} from 'react-icons/io5';
 import {MdClose} from 'react-icons/md';
 
 import Modal from '@ra/components/Modal';
 
+import Api from 'services/api';
+import usePromise from '@ra/hooks/usePromise';
+
 import styles from './styles.scss';
 
 const Notice = () => {
-    const notice = {
-        title: 'Please wait until next week (5 July 2021) to conduct project surveys.',
-        description: ' Please refrain from conducting project surveys until next week (5 July 2021) as the NEAT+ team is finalizing some important back-end components. Another notification will be sent when pilot testing can resume. Thank you for your understanding.'
-    };
+    const [{result}, getNotice] = usePromise(Api.getNotice);
+
+    useEffect(() => {
+        getNotice();
+    }, [getNotice]);
+
+    const notice = useMemo(() => result?.results?.find(el => el.isActive), [result]);
+
     const [showNotice, setShowNotice] = useState(true);
     const [showNoticeModal, setShowNoticeModal] = useState(false);
 
@@ -29,8 +36,11 @@ const Notice = () => {
             {showNotice && (
                 <div className={styles.topBar}>
                     <span>{notice.title}</span>
-                    <div onClick={handleToggleModal} className={styles.moreLink}>
-                        View here
+                    <div 
+                        onClick={handleToggleModal} 
+                        className={styles.moreLink}
+                    >
+                        Learn more
                     </div>
                     <div className={styles.closeIconContainer}>
                         <IoClose 

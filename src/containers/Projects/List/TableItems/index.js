@@ -18,7 +18,7 @@ export const HeaderItem = ({column}) => {
 
 export const DataItem = ({item, column}) => {
     const {surveys} = useSelector(state => state.survey);
-    const submissions = useMemo(() => surveys.filter(sur => sur?.project === item.id).length || '-', [surveys, item]);
+    const surveyCount = useMemo(() => surveys.filter(sur => sur?.project === item.id).length || '-', [surveys, item]);
 
     const [showCreateEditProjectModal, setShowCreateEditProjectModal] = useState(false);
     const [showCloneProjectModal, setShowCloneProjectModal] = useState(false);
@@ -101,8 +101,8 @@ export const DataItem = ({item, column}) => {
             </div>
         ):null;
     }
-    if (column.Header === 'Submissions') {
-        return submissions;
+    if (column.Header === 'Surveys') {
+        return surveyCount;
     }
     if (column.Header === 'Visibility') {
         const value = item[column.accessor];

@@ -35,7 +35,7 @@ const Routes = () => {
 
     return (
         <>
-            {isAuthenticated && <Notice />}
+            <Notice />
             <Switch>
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/login" component={Login} />
                 <AuthRoute isAuthenticated={isAuthenticated} exact path="/register" component={Register} />
