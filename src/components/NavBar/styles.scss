@@ -83,6 +83,10 @@ $navbar-height: 90px;
                 cursor: pointer;
                 font-weight: 500;
 
+                &-dark {
+                    color: var(--color-dark);
+                }
+
                 &Active {
                     border-bottom: 2px solid var(--color-primary);
                 }
@@ -124,6 +128,18 @@ $navbar-height: 90px;
                     line-height: 1.6;
                     color: var(--color-primary);
                     transition: 0.4s;
+                }
+
+                &-dark {
+                    background-color: var(--color-primary);
+
+                    &:hover {
+                        box-shadow: 0 5px 15px 0 rgba(14, 163, 155, 0.38);
+                    }
+
+                    .access-item {
+                        color: var(--color-white);
+                    }
                 }
 
                 &:hover {
