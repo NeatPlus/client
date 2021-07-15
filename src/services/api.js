@@ -3,7 +3,6 @@ import store from 'store';
 
 import * as authActions from 'store/actions/auth';
 import * as organizationActions from 'store/actions/organization';
-import * as projectActions from 'store/actions/project';
 import * as surveyActions from 'store/actions/survey';
 import * as questionActions from 'store/actions/question';
 import * as statementActions from 'store/actions/statement';
@@ -151,18 +150,6 @@ class Api {
         }
     }
 
-    async getProjects() {
-        dispatch(projectActions.setStatus('loading'));
-        try {
-            const data = await this.get('/project/');
-            dispatch(projectActions.setProjects(data?.results || []));
-            dispatch(projectActions.setStatus('complete'));
-        } catch(error) {
-            dispatch(projectActions.setStatus('failed'));
-            console.log(error);
-        }
-    }
-
     async getSurveys() {
         dispatch(surveyActions.setStatus('loading'));
         try {
@@ -272,6 +259,10 @@ class Api {
         }
     }
 
+    getProjects = async query => {
+        return this.get('/project/', {query});
+    }
+
     getUsers = async () => {
         return this.get('/user/');
     }
@@ -360,7 +351,7 @@ class Api {
     }
 
     getNotice = () => {
-        return this.get('/notice/');
+        return this.get('/notice/?ordering=-created_at');
     }
 }
 

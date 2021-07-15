@@ -26,7 +26,6 @@ const NoProject = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Projects</h1>
             <main className={styles.content}>
                 <div className={styles.createBox}>
                     <img
@@ -60,12 +59,12 @@ export default NoProject;
 
 export const withNoProject = (WrappedComponent) => {
     const WithNoProject = (props) => {
-        const {projects, status} = useSelector((state) => state.project);
-        if (projects.length) {
+        const {loading, projects} = props;
+        if (projects?.length) {
             return <WrappedComponent {...props} />;
         }
-        if (status !== 'complete') {
-            return null;
+        if (loading) {
+            return null; // TODO: Add Loader
         }
 
         return <NoProject />;
