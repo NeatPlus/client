@@ -67,14 +67,18 @@
                         }
 
                         &:nth-child(2) {
-                            width: 28%;
+                            width: 20%;
                         }
 
                         &:nth-child(3) {
-                            width: 10%;
+                            width: 20%;
                         }
 
                         &:nth-child(4) {
+                            width: 10%;
+                        }
+
+                        &:nth-child(5) {
                             width: 20%;
                         }
                     }
@@ -88,7 +92,7 @@
                     cursor: pointer;
 
                     &:hover {
-                        background-color: #ebf5fd;
+                        background-color: var(--color-table-active-row);
                     }
 
                     td {

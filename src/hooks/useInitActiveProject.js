@@ -6,15 +6,13 @@ import usePromise from '@ra/hooks/usePromise';
 
 import Api from 'services/api';
 import {setActiveProject} from 'store/actions/project';
-import {getFormattedProjects} from 'store/selectors/project';
 
 const useInitActiveProject = (projectId) => {
     const {projectId: fallbackId} = useParams();
 
     const dispatch = useDispatch();
 
-    const {status, activeProject} = useSelector(state => state.project);
-    const projects = useSelector(getFormattedProjects);
+    const {status, activeProject, projects} = useSelector(state => state.project);
 
     const [{result: data}, requestAccessLevel] = usePromise(Api.getProjectAccessLevel);
 

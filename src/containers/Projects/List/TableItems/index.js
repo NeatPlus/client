@@ -70,6 +70,10 @@ export const DataItem = ({item, column}) => {
             </div>
         );
     }
+    if (column.Header === 'Created by') {
+        const {firstName, lastName} = item[column.accessor];
+        return `${firstName} ${lastName}`;
+    }
     if (column.Header === 'Created on') {
         const date = new Date(item[column.accessor]);
         return date.toLocaleDateString();

@@ -85,7 +85,7 @@
                     cursor: pointer;
 
                     &:hover {
-                        background-color: #ebf5fd;
+                        background-color: var(--color-table-active-row);
                     }
 
                     .name-item {

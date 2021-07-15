@@ -1,6 +1,5 @@
-import {useState, useCallback, useMemo} from 'react';
+import {useState, useCallback, useMemo, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 import {BsPlus} from 'react-icons/bs';
 
 import Button from 'components/Button';
@@ -12,7 +11,8 @@ import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
 
-import {getFormattedProjects} from 'store/selectors/project';
+import Api from 'services/api';
+import usePromise from '@ra/hooks/usePromise';
 
 import {HeaderItem, DataItem} from './TableItems';
 
@@ -24,7 +24,10 @@ const columns = [
         accessor: 'title',
     }, {
         Header: 'Organization',
-        accessor: 'organization',
+        accessor: 'organizationTitle',
+    },  {
+        Header: 'Created by',
+        accessor: 'createdBy',
     }, {
         Header: 'Created on',
         accessor: 'createdAt',
@@ -55,17 +58,43 @@ const maxRowsOptions = [
     },
 ];
 
+const tabs = [
+    {
+        label: 'my_project',
+        title: 'My Projects',
+    },
+    {
+        label: 'organization',
+        title: 'My Organizations',
+    },
+    {
+        label: 'public',
+        title: 'Public',
+    },
+];
+
 const keyExtractor = item => item.value;
 const labelExtractor = item => item.label;
 
-const Projects = ({data: projects}) => {
+const ProjectTable = withNoProject(props => {
+    const {
+        loading,
+        projects, 
+        page, 
+        maxRows, 
+        setPage, 
+        setMaxRows,
+        totalProjects,
+    } = props;
+
     const history = useHistory();
 
-    const [page, setPage] = useState(1);
-    const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
-
-    const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
-    const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
+    const handlePageChange = useCallback(({currentPage}) => {
+        setPage(currentPage);
+    }, [setPage]);
+    const handleMaxRowsChange = useCallback(({option}) => {
+        setMaxRows(option);
+    }, [setMaxRows]);
 
     const handleRowClick = useCallback(project => {
         history.push(`/projects/${project.id}/`); 
@@ -74,6 +103,8 @@ const Projects = ({data: projects}) => {
     return (
         <div className={styles.content}>
             <Table 
+                controlled
+                loading={loading}
                 className={styles.table} 
                 data={projects} 
                 columns={columns} 
@@ -97,6 +128,7 @@ const Projects = ({data: projects}) => {
                         keyExtractor={keyExtractor} 
                         valueExtractor={labelExtractor} 
                         onChange={handleMaxRowsChange}
+                        value={maxRows}
                         defaultValue={maxRowsOptions[0]}
                         clearable={false}
                         searchable={false}
@@ -109,7 +141,7 @@ const Projects = ({data: projects}) => {
                     pageItemClassName={styles.paginationItem}
                     activePageItemClassName={styles.paginationItemActive}
                     onChange={handlePageChange} 
-                    totalRecords={projects.length}
+                    totalRecords={totalProjects}
                     pageNeighbours={1}
                     pageLimit={maxRows.value} 
                     pageNum={page}
@@ -117,10 +149,29 @@ const Projects = ({data: projects}) => {
             </div>
         </div>
     );
-};
+});
 
-const ProjectList = withNoProject(() => {
-    const projects = useSelector(getFormattedProjects);
+const ProjectList = () => {
+    const [{loading, result}, getProjects] = usePromise(Api.getProjects);
+
+    const totalProjects = useMemo(() => result?.count || 0, [result]);
+    const projects = useMemo(() => result?.results || [], [result]);
+
+    const [tab, setTab] = useState(tabs[0].label);
+    const [page, setPage] = useState(1);
+    const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
+
+    useEffect(() => {
+        getProjects({
+            tab,
+            limit: maxRows.value, 
+            offset: (page - 1) * maxRows.value,
+        });
+    }, [getProjects, page, maxRows, tab]);
+
+    const handleTabChange = useCallback(({activeTab}) => {
+        setTab(activeTab);
+    }, []);
 
     const [showCreateModal, setShowCreateModal] = useState(false);
     const handleShowCreateModal = useCallback(() => setShowCreateModal(true), []);
@@ -142,32 +193,35 @@ const ProjectList = withNoProject(() => {
         </Button>
     ), [handleShowCreateModal]);
 
-    const publicProjects = useMemo(() => projects.filter(prj => {
-        return prj.visibility === 'public';
-    }), [projects]);
-    const organizationProjects = useMemo(() => projects.filter(prj => {
-        return prj.isAdminOrOwner;
-    }), [projects]);
-
     return (
         <div className={styles.container}>
             <Tabs 
+                activeTab={tab}
                 secondary
                 renderPreHeaderComponent={renderTitle}
                 renderPostHeaderComponent={renderCreateButton}
                 headerContainerClassName={styles.headerContainer}
                 headerClassName={styles.tabsHeader}
                 tabItemClassName={styles.headerItem}
+                onChange={handleTabChange}
             >
-                <Tab label="my_projects" title="My Projects">
-                    <Projects data={projects} />
-                </Tab>
-                <Tab label="my_organizations" title="My Organizations">
-                    <Projects data={organizationProjects} />
-                </Tab>
-                <Tab label="public" title="Public">
-                    <Projects data={publicProjects} />
-                </Tab>
+                {tabs.map(tabItem => (
+                    <Tab 
+                        key={tabItem.label} 
+                        label={tabItem.label} 
+                        title={tabItem.title}
+                    >
+                        <ProjectTable 
+                            loading={loading}
+                            page={page} 
+                            maxRows={maxRows} 
+                            projects={projects} 
+                            setPage={setPage}
+                            setMaxRows={setMaxRows}
+                            totalProjects={totalProjects}
+                        />
+                    </Tab>
+                ))}
             </Tabs>
             <CreateEditProjectModal
                 isVisible={showCreateModal}
@@ -176,6 +230,6 @@ const ProjectList = withNoProject(() => {
             />
         </div>
     );
-});
+};
 
 export default ProjectList;
