@@ -12,9 +12,9 @@ const useInitActiveProject = (projectId) => {
 
     const dispatch = useDispatch();
 
-    const {status, activeProject, projects} = useSelector(state => state.project);
+    const {activeProject} = useSelector(state => state.project);
 
-    const [{result: data}, requestAccessLevel] = usePromise(Api.getProjectAccessLevel);
+    const [{result: accessData}, requestAccessLevel] = usePromise(Api.getProjectAccessLevel);
 
     const getAccessLevel = useCallback(async projectId => {
         try {
@@ -25,42 +25,31 @@ const useInitActiveProject = (projectId) => {
     }, [requestAccessLevel]);
 
     useEffect(() => {
-        if(status==='complete') {
-            getAccessLevel(projectId ?? fallbackId);
-        }
-    }, [getAccessLevel, projectId, status, fallbackId]);
+        getAccessLevel(projectId ?? fallbackId);
+    }, [getAccessLevel, projectId, fallbackId]);
 
     useEffect(() => {
-        if(data && activeProject && activeProject?.accessLevel !== data?.accessLevel) {
+        if(accessData && activeProject && activeProject?.accessLevel !== accessData?.accessLevel) {
             const newActiveProject = {
                 ...activeProject, 
-                accessLevel: data.accessLevel
+                accessLevel: accessData.accessLevel
             };
             dispatch(setActiveProject(newActiveProject));
         }
-    }, [activeProject, data, dispatch]);
+    }, [activeProject, accessData, dispatch]);
+
+    const addActiveProject = useCallback(async id => {
+        try {
+            const project = await Api.getProject(id);
+            dispatch(setActiveProject(project));
+        } catch(error) {
+            console.log(error);
+        }
+    }, [dispatch]);
 
     useEffect(() => {
-        if(status === 'complete') {
-            const project = projects?.find(prj => {
-                if(projectId) {
-                    return prj.id === +projectId;
-                }
-                return prj.id === +fallbackId;
-            });
-            if(project && project?.id !== activeProject?.id) {
-                dispatch(setActiveProject(project));
-            }
-        }
-    }, [
-        projectId, 
-        status, 
-        dispatch, 
-        projects, 
-        fallbackId,
-        data,
-        activeProject,
-    ]);
+        addActiveProject(projectId ?? fallbackId);
+    }, [projectId, fallbackId, addActiveProject]);
 };
 
 export default useInitActiveProject;

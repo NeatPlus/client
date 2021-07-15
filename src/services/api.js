@@ -322,6 +322,10 @@ class Api {
         return this.post('/notification/mark_all_as_read/');
     }
 
+    getProject = projectId => {
+        return this.get(`/project/${projectId}/`);
+    }
+
     getProjectAccessLevel = (projectId) => {
         return this.get(`/project/${projectId}/access_level/`);
     }
