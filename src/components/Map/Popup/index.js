@@ -17,7 +17,7 @@ const Popup = ({className, project}) => {
     return(
         <div className={cs(styles.popup, className)}>
             <DataItem label="Project Name" value={project?.title} />
-            <DataItem label="Organization" value={project?.organization} />
+            <DataItem label="Organization" value={project?.organizationTitle} />
             {project?.createdAt && (
                 <DataItem 
                     label="Submission Date" 

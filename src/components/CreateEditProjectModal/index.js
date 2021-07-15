@@ -38,7 +38,7 @@ const CreateEditProjectModal = (props) => {
 
     const history = useHistory();
 
-    const {organizations} = useSelector((state) => state.organization);
+    const {organizations} = useSelector(state => state.organization);
     const [{loading}, createOrEditProject] = useRequest(url, {
         method: method,
     });
@@ -75,8 +75,8 @@ const CreateEditProjectModal = (props) => {
     }, [mode, project, project?.id, project?.visibility]);
 
     useEffect(() => {
-        const organization = organizations.find(
-            org => org.title === project?.organization
+        const organization = organizations?.find(
+            org => org.id === project?.organization
         );
         setOrgObj(organization);
     }, [organizations, project?.organization]);
