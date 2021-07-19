@@ -62,7 +62,7 @@
         display: grid;
 
         .hero {
-            padding: 25vh 7.5vw 15vh 7.5vw;
+            padding: 25vh 0 15vh 0;
 
             @media screen and  (max-width: 767px) {
                 padding: 15vh 7.5vw 10vh 7.5vw;
@@ -116,14 +116,14 @@
     }
 
     .faqContent {
-        padding: 15vh 15vw;
+        padding: 0 7.5vw;
 
         @media screen and  (max-width: 767px) {
             padding: 5vh 7.5vw;
         }
 
         .contentTitle {
-            margin-bottom: 5vh;
+            margin-bottom: 1.3em;
             font-family: var(--font-family-header);
             font-size: var(--font-size-large-alt);
             font-weight: 600;

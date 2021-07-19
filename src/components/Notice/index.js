@@ -2,6 +2,8 @@ import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {IoClose} from 'react-icons/io5';
 import {MdClose} from 'react-icons/md';
 
+import Container from 'components/Container';
+
 import Modal from '@ra/components/Modal';
 
 import Api from 'services/api';
@@ -32,24 +34,26 @@ const Notice = () => {
     }
 
     return (
-        <>
-            {showNotice && (
-                <div className={styles.topBar}>
-                    <span>{notice.title}</span>
-                    <div 
-                        onClick={handleToggleModal} 
-                        className={styles.moreLink}
-                    >
-                        Learn more
+        <section className={styles.noticeContainer}>
+            <Container primary>
+                {showNotice && (
+                    <div className={styles.topBar}>
+                        <span>{notice.title}</span>
+                        <div 
+                            onClick={handleToggleModal} 
+                            className={styles.moreLink}
+                        >
+                            Learn more
+                        </div>
+                        <div className={styles.closeIconContainer}>
+                            <IoClose 
+                                onClick={handleCloseClick} 
+                                className={styles.closeIcon} 
+                            />
+                        </div>
                     </div>
-                    <div className={styles.closeIconContainer}>
-                        <IoClose 
-                            onClick={handleCloseClick} 
-                            className={styles.closeIcon} 
-                        />
-                    </div>
-                </div>
-            )}
+                )}
+            </Container>
             {showNoticeModal && (
                 <Modal className={styles.modal}>
                     <div className={styles.header}>
@@ -63,7 +67,7 @@ const Notice = () => {
                     </div>
                 </Modal>
             )}
-        </>
+        </section>
     );
 };
 

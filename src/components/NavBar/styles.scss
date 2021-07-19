@@ -6,8 +6,9 @@ $navbar-height: 90px;
     position: relative;
     display: flex;
     align-items: center;
-    padding: 1.3em 7vw;
+    padding: 1.3em 0;
     height: $navbar-height;
+    z-index: 100;
 
     .nav-brand {
         display: flex;
@@ -24,7 +25,7 @@ $navbar-height: 90px;
     }
 
     .menu-toggle {
-        margin: 0 7.5vw 0 auto;
+        margin-left: auto;
         padding: 20px 10px;
         border-radius: 6px;
         display: none;
@@ -157,10 +158,6 @@ $navbar-height: 90px;
 @media only screen and (max-width: 992px) {
     .navbar {
         padding: 20px 0;
-
-        .nav-brand {
-            margin-left: 7.5vw;
-        }
 
         .menu-toggle {
             display: flex;

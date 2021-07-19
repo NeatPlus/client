@@ -5,11 +5,11 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         grid-gap: 5em;
-        padding: 20vh 0 5vw 7.5vw;
+        padding: 20vh 0 5vh 0;
         align-items: center;
 
-        @media screen and (max-width: 789px) {
-            padding: 20vh 7.5vw 15vh 7.5vw;
+        @media screen and (max-width: 768px) {
+            padding: 20vh 0 15vh 0;
         }
 
         .visual {
