@@ -2,6 +2,7 @@ import RequestBuilder from '@ra/services/request';
 import store from 'store';
 
 import * as authActions from 'store/actions/auth';
+import * as contextActions from 'store/actions/context';
 import * as organizationActions from 'store/actions/organization';
 import * as surveyActions from 'store/actions/survey';
 import * as questionActions from 'store/actions/question';
@@ -150,6 +151,19 @@ class Api {
         }
     }
 
+    async getContextsModules() {
+        try {
+            const [contexts, modules] = await Promise.all([
+                this.get('/context/'),
+                this.get('/module/'),
+            ]);
+            dispatch(contextActions.setContexts(contexts?.results || []));
+            dispatch(contextActions.setModules(modules?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     async getSurveys() {
         dispatch(surveyActions.setStatus('loading'));
         try {
@@ -177,13 +191,23 @@ class Api {
         }
     }
 
-    async getQuestions() {
+    async getQuestions(code) {
         dispatch(questionActions.setStatus('loading'));
         try {
-            const data = await this.get('/question/?limit=-1');
-            dispatch(questionActions.setQuestions(data?.results || []));
-            const options = await this.get('/option/?limit=-1');
-            dispatch(questionActions.setOptions(options?.results || []));
+            const {
+                context: {modules},
+                question: {options},
+            } = store.getState();
+            const query = {
+                limit: -1, 
+                module: modules.find(mod => mod.code === code)?.id,
+            };
+            const data = await this.get('/question/', {query});
+            dispatch(questionActions.setQuestions(code, data?.results || []));
+            if(!options.length) {
+                const optionsData = await this.get('/option/', {query: {limit: -1}});
+                dispatch(questionActions.setOptions(optionsData?.results || []));
+            }
             dispatch(questionActions.setStatus('complete'));
         } catch(error) {
             dispatch(questionActions.setStatus('failed'));

@@ -24,7 +24,8 @@ export const getFormattedSurveys = createSelector([
         answers: surveyAnswers
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {
-                const que = questions.find(q => q.id === srv.question);
+                // FIXME: Add support for other modules
+                const que = questions['sens'].find(q => q.id === srv.question);
                 return {
                     ...srv,
                     question: {

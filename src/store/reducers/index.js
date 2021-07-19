@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 
 import authReducer from './auth';
 import organizationReducer from './organization';
+import contextReducer from './context';
 import projectReducer from './project';
 import surveyReducer from './survey';
 import questionReducer from './question';
@@ -15,6 +16,7 @@ import draftReducer from './draft';
 
 export default combineReducers({
     auth: authReducer,
+    context: contextReducer,
     organization: organizationReducer,
     project: projectReducer,
     survey: surveyReducer,
