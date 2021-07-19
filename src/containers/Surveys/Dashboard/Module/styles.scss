@@ -1,3 +1,38 @@
+.container {
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4em;
+    min-height: 70vh;
+
+    .fill-image {
+        margin-bottom: 0.75em;
+    }
+
+    .fill-text {
+        width: 25%;
+        text-align: center;
+        margin: 2.25em 0;
+        font-size: var(--font-size-base);
+        line-height: 1.5em;
+        color: var(--color-dark);
+    }
+
+    .button {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+
+        &__icon {
+            font-size: var(--font-size-medium);
+            margin-right: 0.25em;
+        }
+    }
+}
+
 .tabs {
     background-color: var(--color-white);
     display: flex;

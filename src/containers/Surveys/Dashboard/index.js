@@ -282,16 +282,16 @@ const SurveyDashboard = () => {
                     <Overview />
                 </Tab>
                 <Tab label="sensitivity" title="Sensitivity">
-                    <Module type="sensitivity" />
+                    <Module code="sens" />
                 </Tab>
                 <Tab label="shelter" title="Shelter">
-                    <Module type="shelter" />
+                    <Module code="shelter" />
                 </Tab>
                 <Tab label="wash" title="WASH">
-                    <Module type="wash" />
+                    <Module code="wash" />
                 </Tab>
                 <Tab label="fs" title="FS">
-                    <Module type="fs" />
+                    <Module code="fs" />
                 </Tab>
             </Tabs>
             <RestoreItemsModal 

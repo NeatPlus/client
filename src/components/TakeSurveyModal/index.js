@@ -114,7 +114,13 @@ const TakeSurveyModal = (props) => {
         projectId: draftProjectId,
     } = useSelector(state => state.draft);
 
-    const {isVisible, onClose, editable = true, clone} = props;
+    const {
+        isVisible, 
+        onClose, 
+        editable = true, 
+        clone,
+        moduleCode = 'sens',
+    } = props;
 
     const {
         questionGroups, 
@@ -134,9 +140,9 @@ const TakeSurveyModal = (props) => {
     const [error, setError] = useState(null);
 
     const activeGroup = questionGroups[activeGroupIndex];
-    const activeQuestions = useMemo(() => questions?.filter(ques => 
+    const activeQuestions = useMemo(() => questions[moduleCode]?.filter(ques => 
         ques.group === activeGroup?.id
-    ) || [], [questions, activeGroup]);
+    ) || [], [questions, activeGroup, moduleCode]);
 
     const handlePreviousClick = useCallback(() => 
         setActiveGroupIndex(activeGroupIndex - 1), 
@@ -172,11 +178,11 @@ const TakeSurveyModal = (props) => {
         if(!editable) {
             return false;
         }
-        return questions?.some(ques =>
+        return questions[moduleCode]?.some(ques =>
             ques.isRequired &&
             answers &&
             !answers?.some(ans => ans.question === ques.id));
-    }, [questions, answers, editable]);
+    }, [questions, answers, editable, moduleCode]);
 
     const handleFirstIndex = useCallback(() => setActiveGroupIndex(0), []);
     const handleLastIndex = useCallback(() => 
