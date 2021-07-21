@@ -1,4 +1,4 @@
-import {useCallback, useState, useMemo,  useRef} from 'react';
+import {useCallback, useState, useMemo, useRef, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
@@ -112,6 +112,7 @@ const TakeSurveyModal = (props) => {
     const {
         title: surveyTitle, 
         projectId: draftProjectId,
+        moduleCode,
     } = useSelector(state => state.draft);
 
     const {
@@ -119,20 +120,37 @@ const TakeSurveyModal = (props) => {
         onClose, 
         editable = true, 
         clone,
-        moduleCode = 'sens',
     } = props;
 
     const {
-        questionGroups, 
+        questionGroups: allQuestionGroups, 
         questions, 
         status, 
         answers
     } = useSelector(state => state.question);
 
+    useEffect(() => {
+        if(!questions[moduleCode].length) {
+            Api.getQuestions(moduleCode);
+        }
+    }, [moduleCode, questions]);
+
+    useEffect(() => {
+        if(!surveyTitle && moduleCode!=='sens') {
+            dispatch(draftActions.setTitle(activeSurvey?.title));
+        }
+    }, [activeSurvey, dispatch, moduleCode, isVisible, surveyTitle]);
+
     const [{loading}, createSurvey] = useRequest(
         `/project/${draftProjectId}/create_survey/`, 
         {method: 'POST'}
     );
+
+    const questionGroups = useMemo(() => {
+        return allQuestionGroups.filter(group => {
+            return questions[moduleCode]?.some(que => que.group === group.id);
+        });
+    }, [moduleCode, allQuestionGroups, questions]);
 
     const [activeGroupIndex, setActiveGroupIndex] = useState(0);
     const [showRequired, setShowRequired] = useState(false);
@@ -231,7 +249,7 @@ const TakeSurveyModal = (props) => {
         return null;
     }
 
-    if(!surveyTitle && editable) {
+    if(!surveyTitle && editable && moduleCode==='sens') {
         return (
             <InitSurvey 
                 clone={clone}
@@ -302,7 +320,8 @@ const TakeSurveyModal = (props) => {
                             </Button>
                             {editable && (
                                 <Button 
-                                    disabled={isFormIncomplete}
+                                    // TODO: Submit for modules other than sensitivity
+                                    disabled={isFormIncomplete || moduleCode!=='sens'}
                                     loading={loading}
                                     className={cs(styles.button, styles.buttonNext)} 
                                     onClick={handleValidate}

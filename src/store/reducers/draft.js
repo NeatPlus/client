@@ -4,6 +4,7 @@ const initialState = {
     projectId: null,
     title: '',
     draftAnswers: [],
+    moduleCode: 'sens',
 };
 
 const draftReducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const draftReducer = (state = initialState, action) => {
         return {...state, title: action.title};
     case actions.SET_DRAFT_ANSWERS:
         return {...state, draftAnswers: action.answers};
+    case actions.SET_DRAFT_MODULE:
+        return {...state, moduleCode: action.code};
     default:
         return state;
     }

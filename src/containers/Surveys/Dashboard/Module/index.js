@@ -1,15 +1,16 @@
-import {useCallback, useState} from 'react';
+import {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
 
 import Button from 'components/Button';
 import Editable from 'components/Editable';
-import TakeSurveyModal from 'components/TakeSurveyModal';
+import SurveyModals from 'components/SurveyModals';
 import Tabs, {Tab} from '@ra/components/Tabs';
 
 import cs from '@ra/cs';
 import useFilterItems from 'hooks/useFilterItems';
+import useSurveyModals from 'hooks/useSurveyModals';
 
 import fillImage from 'assets/images/fill-questionnaire.svg';
 
@@ -17,15 +18,8 @@ import StatementsContent from './Statements';
 import styles from './styles.scss';
 
 const ShelterStatements = props => {
-    const [showSurveyModal, setShowSurveyModal] = useState(false);
+    const surveyModalsConfig = useSurveyModals('shelter');
 
-    const handleShowSurveyModal = useCallback(() => {
-        setShowSurveyModal(true);
-    }, []);
-    const hideSurveyModal = useCallback(() => {
-        setShowSurveyModal(false);
-    }, []);
-    
     return (
         <div className={styles.container}>
             <img className={styles.fillImage} src={fillImage} alt="Fill Questionnaire" />
@@ -34,18 +28,13 @@ const ShelterStatements = props => {
             </p>
             <Button 
                 outline 
-                disabled // TODO: Show survey modal for shelter module
-                onClick={handleShowSurveyModal} 
+                onClick={surveyModalsConfig.handleShowDeleteDraft} 
                 className={styles.button}
             >
                 <BsPlus className={styles.buttonIcon} />
                 Take Survey
             </Button>
-            <TakeSurveyModal 
-                isVisible={showSurveyModal} 
-                onClose={hideSurveyModal} 
-                moduleCode="shelter" 
-            />
+            <SurveyModals {...surveyModalsConfig} />
         </div>
     );
 };

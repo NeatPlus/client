@@ -1,4 +1,4 @@
-import {useState, useCallback, useMemo} from 'react';
+import {useMemo} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
@@ -7,46 +7,23 @@ import {BsPlus} from 'react-icons/bs';
 import {BiChevronLeft} from 'react-icons/bi';
 
 import Button from 'components/Button';
-import TakeSurveyModal from 'components/TakeSurveyModal';
-import DeleteDraftModal from 'components/DeleteDraftModal';
+import SurveyModals from 'components/SurveyModals';
 
 import useInitActiveProject from 'hooks/useInitActiveProject';
+import useSurveyModals from 'hooks/useSurveyModals';
 import {checkEditAccess} from 'utils/permission';
-import {initDraftAnswers} from 'utils/dispatch';
     
 import noSurveyImage from 'assets/images/no-survey.svg';
 
 import styles from './styles.scss';
 
 const NoSurveys = () => {
-    const {projectId} = useParams();
     useInitActiveProject();
-
-    const [showTakeSurveyModal, setShowTakeSurveyModal] = useState(false);
-    const [showDeleteDraftModal, setShowDeleteDraftModal] = useState(false);
+    const surveyModalsConfig = useSurveyModals('sens');
 
     const {activeProject} = useSelector(state => state.project);
-    const {projectId: draftId, title} = useSelector(state => state.draft);
 
     const hasEditAccess = useMemo(() => checkEditAccess(activeProject?.accessLevel), [activeProject]);
-
-    const handleShowTakeSurveyModal = useCallback(() => {
-        initDraftAnswers(+projectId);
-        setShowTakeSurveyModal(true);
-    }, [projectId]);
-
-    const handleHideTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(false), []);
-
-    const handleShowDeleteDraftModal = useCallback(() => {
-        if(draftId && title) {
-            return setShowDeleteDraftModal(true);
-        }
-        handleShowTakeSurveyModal();
-    }, [draftId, title, handleShowTakeSurveyModal]);
-
-    const handleHideDeleteDraftModal = useCallback(() => {
-        setShowDeleteDraftModal(false);
-    }, []);
 
     return (
         <div className={styles.container}>
@@ -60,22 +37,14 @@ const NoSurveys = () => {
                     {hasEditAccess && (
                         <Button 
                             className={styles.button} 
-                            onClick={handleShowDeleteDraftModal}
+                            onClick={surveyModalsConfig.handleShowDeleteDraft}
                         >
                             <BsPlus size={24} className={styles.buttonIcon} />Take Survey
                         </Button>
                     )}
                 </div>
             </main>
-            <TakeSurveyModal 
-                isVisible={showTakeSurveyModal} 
-                onClose={handleHideTakeSurveyModal} 
-            />
-            <DeleteDraftModal
-                isVisible={showDeleteDraftModal}
-                onClose={handleHideDeleteDraftModal}
-                onDelete={handleShowTakeSurveyModal}
-            />
+            <SurveyModals {...surveyModalsConfig} />
         </div>
     );
 };
