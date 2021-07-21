@@ -164,6 +164,7 @@ const Overview = () => {
                 isVisible={showQuestionnaire} 
                 editable={false}
                 onClose={handleCloseQuestionnaire}
+                code="sens" // TODO: Show other modules
             />
             <SummaryModal 
                 isVisible={showSummaryModal} 
