@@ -2,11 +2,11 @@ import {useCallback, useEffect, useState, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux'; 
 
 import Button from 'components/Button';
-import DeleteDraftModal from 'components/DeleteDraftModal';
-import TakeSurveyModal from 'components/TakeSurveyModal';
+import SurveyModals from 'components/SurveyModals';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';
+import useSurveyModals from 'hooks/useSurveyModals';
 import {initDraftAnswers} from 'utils/dispatch';
 import * as questionActions from 'store/actions/question';
 
@@ -16,11 +16,11 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
     const actionRef = useRef();
     const dispatch = useDispatch();
 
-    const {draftAnswers} = useSelector(state => state.draft);
+    const {draftAnswers, moduleCode} = useSelector(state => state.draft);
+
+    const surveyModalsConfig = useSurveyModals(moduleCode);
 
     const [actionVisible, setActionVisible] = useState(false);
-    const [surveyModalVisible, setSurveyModalVisible] = useState(false);
-    const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
     const hideAction = useCallback((event) => {
         if(!event?.target || !actionRef.current.contains(event.target)) {
@@ -39,26 +39,15 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
         }, 50);
     }, [hideAction, actionVisible]);
 
-    const hideConfirmModal = useCallback(() => {
-        setConfirmModalVisible(false);
-    }, []);
-    const showConfirmModal = useCallback(() => {
-        setConfirmModalVisible(true);
-    }, []);
-
     const showSurveyModal = useCallback(() => {
         hideAction();
         dispatch(questionActions.setAnswers(draftAnswers));
-        setSurveyModalVisible(true);
-    }, [hideAction, draftAnswers, dispatch]);
-
-    const hideSurveyModal = useCallback(() => {
-        setSurveyModalVisible(false);
-    }, []);
+        surveyModalsConfig.handleShowTakeSurvey(false);
+    }, [hideAction, draftAnswers, dispatch, surveyModalsConfig]);
 
     const handleDelete = useCallback(() => {
         initDraftAnswers();
-        Toast.show(`${surveyTitle} has been deleted`, Toast.SUCCESS);
+        Toast.show(`Draft of ${surveyTitle} has been deleted`, Toast.SUCCESS);
     }, [surveyTitle]);
     useEffect(() => () => hideAction(), [hideAction]);
 
@@ -83,21 +72,13 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
                         type='button'
                         secondary
                         className={styles.button}
-                        onClick={showConfirmModal}
+                        onClick={surveyModalsConfig.handleShowDeleteDraft}
                     >
                         Delete
                     </Button>
                 </div>
             </div>
-            <TakeSurveyModal 
-                isVisible={surveyModalVisible} 
-                onClose={hideSurveyModal} 
-            />
-            <DeleteDraftModal
-                isVisible={confirmModalVisible}
-                onClose={hideConfirmModal}
-                onDelete={handleDelete}
-            />
+            <SurveyModals {...surveyModalsConfig} onDelete={handleDelete} />
         </>
     );
 };

@@ -1,11 +1,10 @@
-import {useCallback, useState, useMemo} from 'react';
+import {useCallback, useMemo} from 'react';
 import {Link, useLocation, useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {BiChevronLeft} from 'react-icons/bi';
 
+import SurveyModals from 'components/SurveyModals';
 import {withNoSurvey} from 'components/NoSurvey';
-import DeleteDraftModal from 'components/DeleteDraftModal';
-import TakeSurveyModal from 'components/TakeSurveyModal';
 import Tabs, {Tab} from 'components/Tabs';
 import Map from 'components/Map';
 import ConcernsTable from 'components/Concerns/Table';
@@ -13,9 +12,9 @@ import ConcernsChart from 'components/Concerns/Chart';
 
 import SurveyList from 'containers/Surveys/List';
 
+import useSurveyModals from 'hooks/useSurveyModals';
 import useInitActiveProject from 'hooks/useInitActiveProject';
 import {getFormattedSurveys} from 'store/selectors/survey';
-import {initDraftAnswers} from 'utils/dispatch';
 
 import SurveyTable from './SurveyTable';
 import styles from './styles.scss';
@@ -27,12 +26,11 @@ const ProjectDashboard = withNoSurvey(() => {
 
     useInitActiveProject(projectId);
 
+    const surveyModalsConfig = useSurveyModals('sens');
+
     const {activeProject} = useSelector(state => state.project);
     const surveys = useSelector(getFormattedSurveys);
     const {topics} = useSelector(state => state.statement);
-    const {projectId: draftId, title} = useSelector(state => state.draft);
-
-    const doesDraftExist = useMemo(() => draftId && title, [draftId, title]);
 
     const projectSurveys = useMemo(() => {
         return surveys.filter(sur => sur.project === +projectId);
@@ -77,25 +75,6 @@ const ProjectDashboard = withNoSurvey(() => {
         concernsData?.sort((a, b) => b.highCount - a.highCount)?.slice(0, 4), 
     [concernsData]);
 
-    const [showTakeSurveyModal, setShowTakeSurveyModal] = useState(false);
-    const [showDeleteDraftModal, setShowDeleteDraftModal] = useState(false);
-    
-    const handleShowTakeSurveyModal = useCallback(() => {
-        initDraftAnswers(+projectId);
-        setShowTakeSurveyModal(true);
-    }, [projectId]);
-    const handleHideTakeSurveyModal = useCallback(() => setShowTakeSurveyModal(false), []);
-
-    const handleShowDeleteDraftModal = useCallback(() => {
-        if(doesDraftExist) {
-            return setShowDeleteDraftModal(true);
-        }
-        handleShowTakeSurveyModal();
-    }, [handleShowTakeSurveyModal, doesDraftExist]);
-    const handleHideDeleteDraftModal = useCallback(() => {
-        setShowDeleteDraftModal(false);
-    }, []);
-    
     const handleTabChange = useCallback(({activeTab}) => {
         if(activeTab === 'summary') {
             return history.push(`/projects/${projectId}/`);
@@ -117,7 +96,7 @@ const ProjectDashboard = withNoSurvey(() => {
             >
                 <Tab label="summary" title="Summary">
                     <div className={styles.summaryContainer}>
-                        <SurveyTable onTakeSurveyClick={handleShowDeleteDraftModal} />
+                        <SurveyTable onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft} />
                         <div className={styles.overview}>
                             <h3 className={styles.overviewTitle}>Overview</h3>
                             <div className={styles.overviewContent}>
@@ -152,15 +131,7 @@ const ProjectDashboard = withNoSurvey(() => {
                     <SurveyList />
                 </Tab>
             </Tabs>
-            <TakeSurveyModal 
-                isVisible={showTakeSurveyModal} 
-                onClose={handleHideTakeSurveyModal} 
-            />
-            <DeleteDraftModal
-                isVisible={showDeleteDraftModal}
-                onClose={handleHideDeleteDraftModal}
-                onDelete={handleShowTakeSurveyModal}
-            />
+            <SurveyModals {...surveyModalsConfig} />
         </div>
     );
 });
