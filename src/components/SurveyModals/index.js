@@ -7,7 +7,6 @@ const SurveyModals = ({
         showDeleteDraftModal,
     },
     handleShowTakeSurvey,
-    handleShowDeleteDraft,
     hideModals,
     onDelete,
 }) => {

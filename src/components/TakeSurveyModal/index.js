@@ -112,7 +112,7 @@ const TakeSurveyModal = (props) => {
     const {
         title: surveyTitle, 
         projectId: draftProjectId,
-        moduleCode,
+        moduleCode: draftCode,
     } = useSelector(state => state.draft);
 
     const {
@@ -120,6 +120,7 @@ const TakeSurveyModal = (props) => {
         onClose, 
         editable = true, 
         clone,
+        code,
     } = props;
 
     const {
@@ -129,11 +130,7 @@ const TakeSurveyModal = (props) => {
         answers
     } = useSelector(state => state.question);
 
-    useEffect(() => {
-        if(!questions[moduleCode]?.length) {
-            Api.getQuestions(moduleCode);
-        }
-    }, [moduleCode, questions]);
+    const moduleCode = useMemo(() => draftCode ?? code, [draftCode, code]);
 
     useEffect(() => {
         if(!surveyTitle && moduleCode!=='sens') {
@@ -287,7 +284,7 @@ const TakeSurveyModal = (props) => {
                                     src={isFormIncomplete ? NoSurveyImage : CompletedTaskImage} 
                                     alt={isFormIncomplete ? 'Task Incomplete'  : 'Task Complete'}
                                     className={styles.completeImage} 
-                                />     
+                                />
                                 <p className={styles.completeText}>
                                     {isFormIncomplete 
                                         ? 'You have not filled in all the required fields in the form.' 
@@ -321,7 +318,7 @@ const TakeSurveyModal = (props) => {
                             {editable && (
                                 <Button 
                                     // TODO: Submit for modules other than sensitivity
-                                    disabled={isFormIncomplete || moduleCode!=='sens'}
+                                    disabled={isFormIncomplete || !questionGroups?.length || moduleCode!=='sens'}
                                     loading={loading}
                                     className={cs(styles.button, styles.buttonNext)} 
                                     onClick={handleValidate}
