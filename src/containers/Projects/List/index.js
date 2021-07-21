@@ -198,8 +198,8 @@ const ProjectList = () => {
             <Tabs 
                 activeTab={tab}
                 secondary
-                renderPreHeaderComponent={renderTitle}
-                renderPostHeaderComponent={renderCreateButton}
+                PreHeaderComponent={renderTitle}
+                PostHeaderComponent={renderCreateButton}
                 headerContainerClassName={styles.headerContainer}
                 headerClassName={styles.tabsHeader}
                 tabItemClassName={styles.headerItem}
