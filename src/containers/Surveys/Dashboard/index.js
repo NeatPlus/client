@@ -270,8 +270,8 @@ const SurveyDashboard = () => {
                 defaultActiveTab="overview"
                 secondary 
                 className={styles.tabs}
-                renderPreHeaderComponent={renderSpacer}
-                renderPostHeaderComponent={renderHeaderControls}
+                PreHeaderComponent={renderSpacer}
+                PostHeaderComponent={renderHeaderControls}
                 headerContainerClassName={styles.headerContainer}
                 headerClassName={styles.tabsHeader}
                 tabItemClassName={styles.headerItem}

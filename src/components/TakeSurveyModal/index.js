@@ -130,7 +130,7 @@ const TakeSurveyModal = (props) => {
     } = useSelector(state => state.question);
 
     useEffect(() => {
-        if(!questions[moduleCode].length) {
+        if(!questions[moduleCode]?.length) {
             Api.getQuestions(moduleCode);
         }
     }, [moduleCode, questions]);
