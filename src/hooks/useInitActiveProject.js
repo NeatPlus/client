@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react';
+import {useEffect, useCallback, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -7,12 +7,15 @@ import usePromise from '@ra/hooks/usePromise';
 import Api from 'services/api';
 import {setActiveProject} from 'store/actions/project';
 
-const useInitActiveProject = (projectId) => {
+const useInitActiveProject = (id) => {
     const {projectId: fallbackId} = useParams();
+
+    const projectId = useMemo(() => id ?? +fallbackId, [id, fallbackId]);
 
     const dispatch = useDispatch();
 
     const {activeProject} = useSelector(state => state.project);
+    const {surveys, surveyResults} = useSelector(state => state.survey);
 
     const [{result: accessData}, requestAccessLevel] = usePromise(Api.getProjectAccessLevel);
 
@@ -25,8 +28,8 @@ const useInitActiveProject = (projectId) => {
     }, [requestAccessLevel]);
 
     useEffect(() => {
-        getAccessLevel(projectId ?? fallbackId);
-    }, [getAccessLevel, projectId, fallbackId]);
+        getAccessLevel(projectId);
+    }, [getAccessLevel, projectId]);
 
     useEffect(() => {
         if(accessData && activeProject && activeProject?.accessLevel !== accessData?.accessLevel) {
@@ -48,8 +51,20 @@ const useInitActiveProject = (projectId) => {
     }, [dispatch]);
 
     useEffect(() => {
-        addActiveProject(projectId ?? fallbackId);
-    }, [projectId, fallbackId, addActiveProject]);
+        addActiveProject(projectId);
+    }, [projectId, addActiveProject]);
+
+    const hasSurveys = useMemo(() => surveys.some(el => el.project === +projectId), [surveys, projectId]); 
+    const hasResults = useMemo(() => surveyResults.some(ans => {
+        const sur = surveys.find(el => el.id === ans.survey);
+        return sur.project === +projectId; 
+    }), [surveyResults, surveys, projectId]);
+
+    useEffect(() => {
+        if(hasSurveys && !hasResults) {
+            Api.getSurveyDetails(projectId);
+        }
+    }, [hasSurveys, hasResults, projectId]);
 };
 
 export default useInitActiveProject;

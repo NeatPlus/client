@@ -169,15 +169,26 @@ class Api {
         try {
             const data = await this.get('/survey/');
             dispatch(surveyActions.setSurveys(data?.results || []));
-            const [surveyAnswers, surveyResults] = await Promise.all([
-                this.get('/survey-answer/?limit=-1'), 
-                this.get('/survey-result/?limit=-1')
-            ]);
-            dispatch(surveyActions.setSurveyAnswers(surveyAnswers?.results || []));
-            dispatch(surveyActions.setSurveyResults(surveyResults?.results || []));
             dispatch(surveyActions.setStatus('complete'));
         } catch(error) {
             dispatch(surveyActions.setStatus('failed'));
+            console.log(error);
+        }
+    }
+
+    async getSurveyDetails(projectId) {
+        try {
+            const query = {
+                limit: -1,
+                survey__project: projectId,
+            };
+            const [surveyAnswers, surveyResults] = await Promise.all([
+                this.get('/survey-answer/', {query}), 
+                this.get('/survey-result/', {query}),
+            ]);
+            dispatch(surveyActions.setSurveyAnswers(surveyAnswers?.results || []));
+            dispatch(surveyActions.setSurveyResults(surveyResults?.results || []));
+        } catch(error) {
             console.log(error);
         }
     }

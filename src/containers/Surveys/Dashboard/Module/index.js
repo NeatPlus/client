@@ -13,17 +13,18 @@ import useFilterItems from 'hooks/useFilterItems';
 import useSurveyModals from 'hooks/useSurveyModals';
 
 import fillImage from 'assets/images/fill-questionnaire.svg';
+import devImage from 'assets/images/under-development.svg';
 
 import StatementsContent from './Statements';
 import styles from './styles.scss';
 
-const ShelterStatements = props => {
+const FillQuestionnaire = props => {
     const surveyModalsConfig = useSurveyModals('shelter');
 
     return (
         <div className={styles.container}>
-            <img className={styles.fillImage} src={fillImage} alt="Fill Questionnaire" />
-            <p className={styles.fillText}>
+            <img className={styles.infoImage} src={fillImage} alt="Fill Questionnaire" />
+            <p className={styles.infoText}>
                 Please fill up the Shelter questionnaire to view this analysis.
             </p>
             <Button 
@@ -35,6 +36,17 @@ const ShelterStatements = props => {
                 Take Survey
             </Button>
             <SurveyModals {...surveyModalsConfig} />
+        </div>
+    );
+};
+
+const UnderDevelopment = props => {
+    return (
+        <div className={styles.container}>
+            <img className={styles.infoImage} src={devImage} alt="Under Development" />
+            <p className={styles.infoText}>
+                This module is under development. Please check back later.
+            </p>
         </div>
     );
 };
@@ -78,11 +90,11 @@ const Module = props => {
     const filteredTopics = useFilterItems(topics, 'topic');
 
     if(code==='shelter') {
-        return <ShelterStatements />;
+        return <FillQuestionnaire />;
     }
 
     if(!topics?.length || code!=='sens') {
-        return null;
+        return <UnderDevelopment />;
     }
 
     return (
