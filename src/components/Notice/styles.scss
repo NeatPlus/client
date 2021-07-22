@@ -56,58 +56,60 @@
     }
 }
 
-
-.top-bar {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.notice-container {
     background-color: var(--color-primary);
-    color: var(--color-white);
-    padding: 1em 0;
-    gap: 10px;
-    font-weight: 600;
-    z-index: 9;
 
-    span {
-        font-size: var(--font-size-small);
-        opacity: 1;
-        line-height: 1.5em;
-    }
-
-    .more-link {
-        font-size: var(--font-size-small);
-        cursor: pointer;
-        text-decoration: underline;
-    }
-
-    .close-icon-container {
-        position: absolute;
-        right: 2em;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
-        border-radius: 12px;
-        background-color: #007d75;
+    .top-bar {
+        position: sticky;
+        top: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        cursor: pointer;
-
-        .close-icon {
-            font-size: var(--font-size-base);
-            color: var(--color-white);
-        }
-    }
-
-    @media screen and (max-width: 767px) {
-        flex-direction: column;
-        padding: 20px 35px;
+        align-items: center;
+        color: var(--color-white);
+        padding: 1em 0;
+        gap: 10px;
+        font-weight: 600;
+        z-index: 9;
 
         span {
-            text-align: center;
+            font-size: var(--font-size-small);
+            opacity: 1;
+            line-height: 1.5em;
+        }
+
+        .more-link {
+            font-size: var(--font-size-small);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .close-icon-container {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            background-color: #007d75;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .close-icon {
+                font-size: var(--font-size-base);
+                color: var(--color-white);
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            flex-direction: column;
+            padding: 20px 35px;
+
+            span {
+                text-align: center;
+            }
         }
     }
 }

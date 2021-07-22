@@ -43,87 +43,84 @@
     }
 }
 
-.container {
-    padding: 15vh 7.5vw;
+.application-container {
     background-color: #1f405d;
 
-    @media screen and  (max-width: 767px) {
-        padding: 7vh 7.5vw;
-    }
-
-    .main-title {
-        font-family: var(--font-family-header);
-        font-size: var(--font-size-normal);
-        font-weight: 500;
-        line-height: 2.89;
-        color: var(--color-primary);
-    }
-
-    .info-wrapper {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        grid-gap: 3em;
-
-        .sub-title {
-            max-width: 45vw;
+    .application {
+        .main-title {
             font-family: var(--font-family-header);
-            font-size: var(--font-size-large-alt);
-            font-weight: 600;
-            line-height: 1.3;
-            color: var(--color-white);
-            margin-bottom: 0.5em;
-    
-            @media screen and  (max-width: 767px) {
-                max-width: 90vw;
-            }
-        }
-
-        .info-desc {
-            margin-top: 1em;
             font-size: var(--font-size-normal);
             font-weight: 500;
-            line-height: 1.44;
-            color: var(--color-white);
+            line-height: 2.89;
+            color: var(--color-primary);
         }
 
-        .content {
-            margin-top: 0.65em;
+        .info-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 3em;
 
-            .read-text {
-                cursor: pointer;
-                padding: 1em 1.25em;
-                border-radius: 0.25em;
-                background-color: var(--color-white);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+            .sub-title {
+                max-width: 45vw;
+                font-family: var(--font-family-header);
+                font-size: var(--font-size-large-alt);
+                font-weight: 600;
+                line-height: 1.3;
+                color: var(--color-white);
                 margin-bottom: 0.5em;
-                color: var(--color-primary);
-                -webkit-transition: color 0.6s;
-                transition: color 0.6s;
-                font-weight: 500;
-
-                .text {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    font-size: var(--font-size-base);
-                    line-height: 1.5;
-                    max-height: 3em;
-                    transition: max-height 0.6s;
+        
+                @media screen and  (max-width: 767px) {
+                    max-width: 90vw;
                 }
+            }
 
-                .toggle-icon {
-                    height: 1.5em;
-                    min-width: 1.5em;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 1em;
+            .info-desc {
+                margin-top: 1em;
+                font-size: var(--font-size-normal);
+                font-weight: 500;
+                line-height: 1.44;
+                color: var(--color-white);
+            }
+
+            .content {
+                margin-top: 0.65em;
+
+                .read-text {
                     cursor: pointer;
-                    background-color: var(--color-background);
+                    padding: 1em 1.25em;
+                    border-radius: 0.25em;
+                    background-color: var(--color-white);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 0.5em;
+                    color: var(--color-primary);
+                    -webkit-transition: color 0.6s;
+                    transition: color 0.6s;
+                    font-weight: 500;
 
-                    .icon {
-                        transition: transform 0.6s;
+                    .text {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        font-size: var(--font-size-base);
+                        line-height: 1.5;
+                        max-height: 3em;
+                        transition: max-height 0.6s;
+                    }
+
+                    .toggle-icon {
+                        height: 1.5em;
+                        min-width: 1.5em;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 1em;
+                        cursor: pointer;
+                        background-color: var(--color-background);
+
+                        .icon {
+                            transition: transform 0.6s;
+                        }
                     }
                 }
             }

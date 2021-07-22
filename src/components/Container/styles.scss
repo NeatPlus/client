@@ -1,0 +1,19 @@
+.container {
+    margin-left: 7.5vw;
+    margin-right: 7.5vw;
+
+    &__jumbotron {
+        padding-top: 7.5em;
+        padding-bottom: 7.5em;
+        
+        @media screen and  (max-width: 920px) {
+            padding-top: 5em;
+            padding-bottom: 5em;
+        }
+    }
+
+    @media screen and  (min-width: 1500px) {
+        margin-left: 14vw;
+        margin-right: 14vw;
+    }
+}

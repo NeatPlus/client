@@ -1,48 +1,60 @@
-.container {
+.feedback-container {
     background-color: #0b312d;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 2em;
 
-    .text-section {
-        padding: 10vh 0 10vh 7.5vw;
+    .feedback {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 2em;
+        padding-left: 7.5vw;
+        overflow: hidden;
 
-        @media screen and  (max-width: 920px) {
-            padding: 10vh 7.5vw;
-        }
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-        @media screen and  (max-width: 767px) {
-            padding: 7vh 7.5vw;
-        }
+            .title {
+                max-width: 12em;
+                font-family: var(--font-family-header);
+                font-size: var(--font-size-large-alt);
+                font-weight: 600;
+                line-height: 1.3;
+                color: var(--color-white);
+            }
 
-        .title {
-            font-family: var(--font-family-header);
-            font-size: var(--font-size-large-alt);
-            font-weight: 600;
-            line-height: 1.3;
-            color: var(--color-white);
-        }
+            .desc {
+                margin-top: 2em;
+                font-size: var(--font-size-normal);
+                font-weight: 500;
+                line-height: 1.67;
+                color: #f2f2f2;
 
-        .desc {
-            margin-top: 2em;
-            font-size: var(--font-size-normal);
-            font-weight: 500;
-            line-height: 1.67;
-            color: #f2f2f2;
-
-            &-link {
-                color: var(--color-input-outline);
-                text-decoration: underline;
+                &-link {
+                    color: var(--color-input-outline);
+                    text-decoration: underline;
+                }
             }
         }
-    }
-
-    img {
-        width: 100%;
-        object-fit: contain;
 
         @media screen and  (max-width: 920px) {
-            display: none;
+            padding-right: 7.5vw;
+
+            .text-section {
+                padding: 5em 0;
+            }
+        }
+    
+        @media screen and  (min-width: 1500px) {
+            padding-left: 14vw;
+            gap: 7.5em;
+        }
+
+        .img {
+            margin-bottom: -0.2em;
+
+            @media screen and  (max-width: 920px) {
+                display: none;
+            }
         }
     }
 }

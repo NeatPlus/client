@@ -1,6 +1,9 @@
 import {createRef, useEffect, useMemo, useState, useCallback} from 'react';
 
+import Container from 'components/Container';
+
 import Api from 'services/api';
+
 import CountryWorkCard from '../CountryWorkCard';
 import CountryWorkModal from '../CountryWorkModal';
 import WorldMap from '../Worldmap';
@@ -35,27 +38,31 @@ const CountrySection = () => {
     );
 
     return (
-        <div className={styles.container}>
-            <div className={styles.worldMap}>
-                <div className={styles.worldMapCont}>
-                    <WorldMap allActions={allActions} refs={refs} />
-                </div>
-            </div>
-            <div className={styles.cards}>
-                {allActions.map((data, i) => (
-                    <div ref={refs[i]} key={data.id} id={data.id}>
-                        <CountryWorkCard
-                            item={data}
-                            toggleWorkModal={handleToggle}
-                        />
+        <div className={styles.countryContainer}>
+            <Container jumbotron>
+                <div className={styles.countrySection}>
+                    <div className={styles.worldMap}>
+                        <div className={styles.worldMapCont}>
+                            <WorldMap allActions={allActions} refs={refs} />
+                        </div>
                     </div>
-                ))}
-            </div>
-            <CountryWorkModal
-                isVisible={showWorkModal}
-                item={workModalData}
-                onClose={handleToggle}
-            />
+                    <div className={styles.cards}>
+                        {allActions.map((data, i) => (
+                            <div ref={refs[i]} key={data.id} id={data.id}>
+                                <CountryWorkCard
+                                    item={data}
+                                    toggleWorkModal={handleToggle}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <CountryWorkModal
+                        isVisible={showWorkModal}
+                        item={workModalData}
+                        onClose={handleToggle}
+                    />
+                </div>
+            </Container>
         </div>
     );
 };

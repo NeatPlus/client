@@ -3,6 +3,8 @@ import {FiChevronRight} from 'react-icons/fi';
 import {MdClose} from 'react-icons/md';
 import parse from 'html-react-parser';
 
+import Container from 'components/Container';
+
 import useRequest from 'hooks/useRequest';
 
 import Modal from '@ra/components/Modal';
@@ -69,36 +71,40 @@ const ExampleSection = () => {
     }, [handleToggleModal]);
 
     return (
-        <section className={styles.container}>
-            <h5 className={styles.mainTitle}>NEAT+ APPLICATION</h5>
-            <div className={styles.infoWrapper}>
-                <div>
-                    <h1 className={styles.subTitle}>Examples of the NEAT+ in action by humanitarian organizations</h1>
+        <div className={styles.applicationContainer}>
+            <Container jumbotron>
+                <section className={styles.application}>
+                    <h5 className={styles.mainTitle}>NEAT+ APPLICATION</h5>
+                    <div className={styles.infoWrapper}>
+                        <div>
+                            <h1 className={styles.subTitle}>Examples of the NEAT+ in action by humanitarian organizations</h1>
             
-                    <p className={styles.infoDesc}>
+                            <p className={styles.infoDesc}>
                         The NEAT+ has been successfully used and applied by over fifteen humanitarian organizations in over 30 field operations worldwide. With the latest update, the Rural NEAT+ will now be expanding into French- and Spanish-speaking operations in 2021.
-                    </p>
-                    <p className={styles.infoDesc}>
+                            </p>
+                            <p className={styles.infoDesc}>
                         See examples and findings of previous NEAT+ pilots and environmental scoping missions. If you have a report to submit, please contact the UNEP/OCHA Joint Environment Unit (JEU) (ochaunep@un.org). 
-                    </p>
-                </div>
-                <div className={styles.content}>
-                    {data?.results?.length > 0 && (
-                        <List
-                            data={data?.results.slice(0, 4)}
-                            renderItem={renderReadMore}
-                            keyExtractor={keyExtractor}
+                            </p>
+                        </div>
+                        <div className={styles.content}>
+                            {data?.results?.length > 0 && (
+                                <List
+                                    data={data?.results.slice(0, 4)}
+                                    renderItem={renderReadMore}
+                                    keyExtractor={keyExtractor}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    {showExampleModal && (
+                        <ExampleModal
+                            onClose={handleToggleModal}
+                            description={modalData?.description}
                         />
                     )}
-                </div>
-            </div>
-            {showExampleModal && (
-                <ExampleModal
-                    onClose={handleToggleModal}
-                    description={modalData?.description}
-                />
-            )}
-        </section>
+                </section>
+            </Container>
+        </div>
     );
 };
 

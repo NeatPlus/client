@@ -1,25 +1,38 @@
 .container-home {
-    background-color: var(--color-background);
+    background-color: var(--color-white);
+
+    .header-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
 
     .header {
-        background-image: url("/assets/images/home-bg.svg"), linear-gradient(350deg, var(--color-white) 30%, #0d2d41 30.1%);
-        background-size: 100% 100%;
-        padding-bottom: 10vh;
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
+        background-color: #0d2d41;
+        background-image: url("/assets/images/home-bg.svg");
+        background-repeat: no-repeat;
 
         @media screen and  (max-width: 767px) {
-            padding-bottom: 40vh;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
         }
-
+        
         .hero {
-            padding: 20vh 0 20vh 7.5vw;
+            padding: 10em 0 10em 7.5vw;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             align-content: center;
             grid-gap: 2em;
             overflow: hidden;
+            position: relative;
+            width: 65vw;
 
             @media screen and  (max-width: 767px) {
-                padding: 20vh 7.5vw 0;
+                width: 100%;
+                padding: 10em 7.5vw 7em 7.5vw;
+            }
+
+            @media screen and  (min-width: 1500px) {
+                padding: 15em 14vw 7em;
             }
 
             .hero-info {
@@ -28,6 +41,7 @@
                 justify-content: center;
 
                 .hero-title {
+                    max-width: 13em;
                     font-family: var(--font-family-header);
                     font-size: var(--font-size-header-sm);
                     font-weight: 600;
@@ -36,23 +50,37 @@
                 }
 
                 .hero-desc {
+                    max-width: 34em;
                     margin: 1.57em 0;
                     font-size: var(--font-size-base);
                     line-height: 1.5;
                     color: var(--color-white);
                 }
-            }
 
-            .hero-image {
-                width: 100%;
-                max-height: 80vh;
-                object-fit: contain;
-                margin-left: 4em;
-
-                @media screen and  (max-width: 767px) {
-                    display: none;
+                .access-link {
+                    width: fit-content;
                 }
             }
+        }
+    }
+
+    .hero-image {
+        top: 12em;
+        right: -10vw;
+        position: absolute;
+        z-index: 100;
+        object-fit: contain;
+        max-width: 50vw;
+
+        @media screen and  (max-width: 767px) {
+            display: none;
+        }
+
+        @media screen and  (min-width: 1500px) {
+            max-width: 38vw;
+            margin-left: 0;
+            right: 14vw;
+            background-color: unset;
         }
     }
 }

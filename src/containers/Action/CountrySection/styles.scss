@@ -1,40 +1,40 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3.75em;
-    gap: 1.25em;
+.country-container {
     background-color: var(--color-light);
 
-    .world-map {
-        .world-map-cont {
-            width: 32.8em;
-            max-width: 80vw;
-        }
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .container {
-        flex-direction: row;
-        align-items: unset;
-        gap: 3em;
-        padding: 7.5em;
+    .country-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25em;
 
         .world-map {
-            position: relative;
-            width: 50%;
-
             .world-map-cont {
-                position: sticky;
-                top: 7.5em;
-                left: 0;
-                width: 100%;
+                width: 32.8em;
+                max-width: 80vw;
             }
         }
 
-        .cards {
-            width: 50%;
+        @media screen and (min-width: 1024px) {
+            flex-direction: row;
+            align-items: unset;
+            gap: 3em;
+    
+            .world-map {
+                position: relative;
+                width: 50%;
+    
+                .world-map-cont {
+                    position: sticky;
+                    top: 7.5em;
+                    left: 0;
+                    width: 100%;
+                }
+            }
+    
+            .cards {
+                width: 50%;
+            }
         }
+        
     }
 }
