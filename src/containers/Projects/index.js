@@ -16,7 +16,6 @@ import styles from './styles.scss';
 
 const Projects = () => {
     useEffect(() => {
-        Api.getProjects();
         Api.getSurveys();
     }, []);
 

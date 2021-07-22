@@ -2,19 +2,23 @@ import {useCallback, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
+import AuthModals from 'components/AuthModals';
 import Form, {InputField} from '@ra/components/Form';
 import {SecureTextInput} from '@ra/components/Form/inputs';
 
 import Toast from 'services/toast';
 import useRequest from 'hooks/useRequest';
+import useAuthModals from 'hooks/useAuthModals';
 import {logout} from 'store/actions/auth';
 
 import AccountPanel from '../AccountInfo';
 import styles from './styles.scss';
 
 const UpdatePassword = () => {
+    const authModalsConfig = useAuthModals();
     const history = useHistory();
     const dispatch = useDispatch();
+
     const [error, setError] = useState(null);
 
     const [{loading}, updatePassword] = useRequest(
@@ -53,40 +57,47 @@ const UpdatePassword = () => {
     );
 
     return (
-        <Form error={error} onSubmit={handleSubmit}>
-            <AccountPanel loading={loading} actionTitle='Update Password' />
-            <h1 className={styles.changePassword}>Change Password?</h1>
-            <InputField
-                name='oldPassword'
-                required
-                component={SecureTextInput}
-                className={styles.input}
-                label='Current Password'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-            />
-            <Link to='#' className={styles.forgotPasswordLink}>
-                Forgot Password?
-            </Link>
-            <InputField
-                name='newPassword'
-                required
-                component={SecureTextInput}
-                className={styles.input}
-                label='New Password'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-            />
-            <InputField
-                name='reNewPassword'
-                required
-                component={SecureTextInput}
-                className={styles.input}
-                label='Verify New Password'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-            />
-        </Form>
+        <>
+            <Form error={error} onSubmit={handleSubmit}>
+                <AccountPanel loading={loading} actionTitle='Update Password' />
+                <h1 className={styles.changePassword}>Change Password?</h1>
+                <InputField
+                    name='oldPassword'
+                    required
+                    component={SecureTextInput}
+                    className={styles.input}
+                    label='Current Password'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                />
+                <Link 
+                    to='#' 
+                    className={styles.forgotPasswordLink}
+                    onClick={authModalsConfig.handleShowForgotPassword}
+                >
+                    Forgot Password?
+                </Link>
+                <InputField
+                    name='newPassword'
+                    required
+                    component={SecureTextInput}
+                    className={styles.input}
+                    label='New Password'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                />
+                <InputField
+                    name='reNewPassword'
+                    required
+                    component={SecureTextInput}
+                    className={styles.input}
+                    label='Verify New Password'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                />
+            </Form>
+            <AuthModals {...authModalsConfig} />
+        </>
     );
 };
 
