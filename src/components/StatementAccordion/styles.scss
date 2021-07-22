@@ -8,6 +8,10 @@
         border-radius: 0.25em;
         border: solid 1px #cbcbcb;
 
+        @media screen and (max-width: 767px) {
+            padding: 0.75em 0.5em;
+        }
+
         &__high {
             border-left: solid 4px var(--color-severity-high);
         }
@@ -70,6 +74,10 @@
                 font-size: var(--font-size-small);
                 font-weight: 500;
                 color: var(--color-text-dark);
+
+                @media screen and (max-width: 767px) {
+                    padding-right: 0;
+                }
             }
 
             .active-title {
@@ -80,6 +88,12 @@
                 margin-left: 0.5em;
                 max-width: max-content;
                 display: flex;
+
+                @media screen and (max-width: 767px) {
+                    max-width: 5.5em;
+                    align-items: center;
+                    margin-left: 0.5em;
+                }
 
                 .span {
                     font-size: 0.75em;

@@ -44,11 +44,13 @@ const Notification = ({notifications, handleMarkAllAsRead}) => {
                 className={styles.container}
                 EmptyComponent={EmptyComponent}
             />
-            <div className={styles.footer}>
-                <p className={styles.footerText} onClick={handleMarkAllAsRead}>
+            {notifications.length > 1 && (
+                <div className={styles.footer}>
+                    <p className={styles.footerText} onClick={handleMarkAllAsRead}>
                     Mark all as read
-                </p>
-            </div>
+                    </p>
+                </div>
+            )}
         </>
     );
 };

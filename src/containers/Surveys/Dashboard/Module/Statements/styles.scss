@@ -21,6 +21,12 @@
             color: var(--color-primary);
             cursor: pointer;
 
+            @media screen and (max-width: 767px) {
+                background-color: rgba(#f2f2f2, 0.51);
+                min-width: 9.5em;
+                padding: 0.75em;
+            }
+
             .exports-title {
                 margin-left: 0.4em;
             }
@@ -29,6 +35,10 @@
 
     .infoWrapper {
         display: flex;
+
+        @media screen and (max-width: 767px) {
+            flex-direction: column-reverse;
+        }
 
         .infoDesc {
             color: #262626;
@@ -45,6 +55,15 @@
             border-radius: 0.5em;
             border: solid 1px #e5e5e5;
 
+            @media screen and (max-width: 767px) {
+                padding: unset;
+                border-radius: unset;
+                border: unset;
+                margin-bottom: 2em;
+                margin-left: unset;
+                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            }
+
             .concerns-item {
                 width: 11em;
                 display: flex;
@@ -52,17 +71,41 @@
                 transition: all 0.2s ease-out;
                 align-items: center;
 
-                .concern-number {
-                    margin-left: 0.5em;
-                    font-size: var(--font-size-base);
-                    font-weight: 600;
-                    margin-right: 0.25em;
+                @media screen and (max-width: 767px) {
+                    width: unset;
+                    flex-direction: column;
+                    padding: 1em 0.75em;
+                    border-radius: 0.5em;
+                    border: solid 1px #e5e5e5;
+                    align-items: center;
                 }
 
-                .concern-label {
-                    font-size: 0.75em;
-                    line-height: 1.75em;
-                    text-transform: capitalize;
+                .concern-info {
+                    display: flex;
+
+                    @media screen and (max-width: 767px) {
+                        flex-direction: column;
+                        margin-top: 1em;
+                        gap: 0.25em;
+                        text-align: center;
+                    }
+
+                    .concern-number {
+                        margin-left: 0.5em;
+                        font-size: var(--font-size-base);
+                        font-weight: 600;
+                        margin-right: 0.25em;
+                    }
+
+                    .concern-label {
+                        font-size: 0.75em;
+                        line-height: 1.75em;
+                        text-transform: capitalize;
+
+                        @media screen and (max-width: 767px) {
+                            line-height: 1.33;
+                        }
+                    }
                 }
             }
         }

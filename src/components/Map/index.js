@@ -184,6 +184,7 @@ const Map = ({
     return (
         <ReactMapGL
             {...viewport}
+            width='100%'
             onViewportChange={setViewport}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_TOKEN}
             mapOptions={{

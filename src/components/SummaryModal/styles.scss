@@ -87,6 +87,10 @@
                     &__low {
                         background-color: var(--color-severity-low);
                     }
+
+                    @media screen and (max-width: 767px) {
+                        width: 80px;
+                    }
                 }
             }
 

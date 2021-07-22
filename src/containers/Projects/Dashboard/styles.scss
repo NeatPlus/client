@@ -29,6 +29,10 @@
         flex: 1;
         align-self: stretch;
 
+        @media screen and (max-width: 767px) {
+            margin: 1.5em 0;
+        }
+
         &-header {
             width: max-content;
             margin: 0 auto;
@@ -42,6 +46,11 @@
     display: flex;
     padding: 15px 0;
     min-height: 60vh;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        gap: 2.5em;
+    }
 
     .overview {
         flex: 2.5;
@@ -60,6 +69,11 @@
         .overview-content {
             display: flex;
 
+            @media screen and (max-width: 767px) {
+                flex-direction: column;
+                gap: 2.5em;
+            }
+
             .concerns {
                 min-width: 420px;
                 flex: 6;
@@ -67,6 +81,12 @@
                 flex-direction: column;
                 margin-right: 48px;
                 justify-content: space-between;
+
+                @media screen and (max-width: 767px) {
+                    min-width: unset;
+                    width: 100%;
+                    margin-right: unset;
+                }
 
                 &-title {
                     font-size: var(--font-size-base);
@@ -80,7 +100,6 @@
                 }
 
                 &-chart {
-                    width: 100%;
                     flex: 1;
                 }
             }
@@ -100,8 +119,12 @@
 
                 .map {
                     flex: 1;
-                    min-width: 366px;
                     min-height: 500px;
+
+                    @media screen and (max-width: 767px) {
+                        min-width: unset;
+                        min-height: 300px;
+                    }
                 }
             }
         }

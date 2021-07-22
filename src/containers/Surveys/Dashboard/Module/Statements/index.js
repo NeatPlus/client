@@ -20,8 +20,10 @@ const ConcernItem = (props) => {
     return (
         <div className={styles.concernsItem}>
             <ConcernCounter dataItem={item} totalCount={total} />
-            <p className={styles.concernNumber}>{item.count}</p>
-            <p className={styles.concernLabel}>{item.severity} Concerns</p>
+            <div className={styles.concernInfo}>
+                <p className={styles.concernNumber}>{item.count}</p>
+                <p className={styles.concernLabel}>{item.severity} Concerns</p>
+            </div>
         </div>
     );
 };

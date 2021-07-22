@@ -17,6 +17,11 @@
     .overview {
         display: flex;
 
+        @media screen and (max-width: 767px) {
+            flex-direction: column;
+            gap: 2.5em;
+        }
+
         .overview-content {
             flex: 0 0 40%;
             padding: 0 13px;
@@ -55,6 +60,7 @@
                         color: var(--color-dark);
                         line-height: 1.5em;
                         font-weight: 500;
+                        max-width: 14.5em;
                     }
                 }
 
@@ -93,6 +99,11 @@
                 flex-direction: row;
                 margin-bottom: 35px;
 
+                @media screen and (max-width: 480px) {
+                    flex-direction: column;
+                    gap: 1.5em;
+                }
+
                 .concerns-item {
                     border-radius: 8px;
                     margin-right: 15px;
@@ -101,6 +112,16 @@
                     position: relative;
                     cursor: pointer;
                     transition: all 0.2s ease-out;
+
+                    @media screen and (max-width: 767px) {
+                        padding: 13px 10px 4px 10px;
+                        width: 33%;
+                    }
+
+                    @media screen and (max-width: 480px) {
+                        padding: 23px 20px 14px 20px;
+                        width: 100%;
+                    }
 
                     &:hover {
                         filter: brightness(85%);
@@ -123,19 +144,37 @@
                     }
 
                     .concern-number {
-                        font-size: 35px;
+                        font-size: 2.18em;
                     }
 
                     .concern-label {
                         font-size: var(--font-size-small);
                         line-height: 1.75em;
                         text-transform: capitalize;
+
+                        @media screen and (max-width: 767px) {
+                            line-height: 1.33;
+                            max-width: 3em;
+                        }
+
+                        @media screen and (max-width: 480px) {
+                            max-width: unset;
+                            line-height: 2.5;
+                        }
                     }
 
                     .concern-icon {
                         position: absolute;
                         bottom: 14px;
                         right: 10px;
+
+                        @media screen and (max-width: 767px) {
+                            bottom: 4px;
+                        }
+
+                        @media screen and (max-width: 480px) {
+                            bottom: 14px;
+                        }
                     }
                 }
             }
@@ -143,7 +182,6 @@
             .map {
                 flex: 1;
                 width: 100%;
-                min-height: 280px;
                 border-radius: 4px;
                 overflow: hidden;
             }

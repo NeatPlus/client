@@ -31,8 +31,8 @@
         align-items: center;
 
         .legend-box {
-            width: 14px;
-            height: 14px;
+            min-width: 14px;
+            min-height: 14px;
             border-radius: 7px;
             margin-right: 10px;
         }
