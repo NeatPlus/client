@@ -55,10 +55,10 @@ const useInitActiveProject = (id) => {
     }, [projectId, addActiveProject]);
 
     const hasSurveys = useMemo(() => surveys.some(el => el.project === +projectId), [surveys, projectId]); 
-    const hasResults = useMemo(() => surveyResults.some(ans => {
-        const sur = surveys.find(el => el.id === ans.survey);
-        return sur.project === +projectId; 
-    }), [surveyResults, surveys, projectId]);
+
+    const hasResults = useMemo(() => surveyResults?.length && !surveys.some(sur => {
+        return surveyResults.some(res => res.survey !== sur.id);
+    }), [surveyResults, surveys]);
 
     useEffect(() => {
         if(hasSurveys && !hasResults) {

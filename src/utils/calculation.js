@@ -22,7 +22,7 @@ export const calculateSurveyResults = (surveyAnswers) => {
                         optSt.option === opt
                     )?.weightage;
                 }) || [];
-                if(optionScores.length === 1) {
+                if(optionScores.length <= 1) {
                     const questionValue = optionScores[0] * cur.weightage;
                     return (
                         acc.sum = acc.sum + cur.weightage, 
@@ -35,7 +35,7 @@ export const calculateSurveyResults = (surveyAnswers) => {
                 const maxSelected = Math.max(...optionScores);
                 const sumSelected = optionScores.reduce(
                     (selectedScoreAcc, curSelectedScore) => 
-                        selectedScoreAcc + curSelectedScore
+                        selectedScoreAcc + curSelectedScore, 0
                 );
                 const totalWeight = options
                     .filter(opt => opt.question === cur.question)

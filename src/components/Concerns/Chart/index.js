@@ -83,7 +83,7 @@ const ConcernsChart = ({concerns}) => {
             <PieChart>
                 <Pie
                     data={data}
-                    cx="80%"
+                    cx={360}
                     cy="50%"
                     innerRadius="55%"
                     outerRadius="70%"
