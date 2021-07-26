@@ -1,5 +1,4 @@
 import {useCallback, useState} from 'react';
-import {useSelector} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
 
@@ -9,14 +8,12 @@ import Label from '@ra/components/Form/Label';
 import TextInput from '@ra/components/Form/TextInput';
 
 import useRequest from 'hooks/useRequest';
-import Api from 'services/api';
 import Toast from 'services/toast';
 
 import styles from './styles.scss';
 
 const CloneProjectModal = (props) => {
-    const {isVisible, onClose, project} = props;
-    const {organizations} = useSelector((state) => state.organization);
+    const {isVisible, onClose, project, onClone} = props;
     const [{loading}, cloneProject] = useRequest('/project/', {
         method: 'POST',
     });
@@ -41,19 +38,16 @@ const CloneProjectModal = (props) => {
     }, [onClose, project.title]);
 
     const handleCloneProject = useCallback(async () => {
-        const organization = organizations.filter(
-            (org) => org.title === project.organization
-        );
         try {
             const result = await cloneProject({
                 context: project.context,
                 title: inputData.title,
-                organization: organization[0].id,
+                organization: project.organization,
                 description: project.description,
                 visibility: project.visibility,
             });
             if (result) {
-                Api.getProjects();
+                onClone && onClone();
                 closeThisModal();
                 Toast.show('Project successfully Cloned!', Toast.SUCCESS);
             }
@@ -63,13 +57,13 @@ const CloneProjectModal = (props) => {
             Toast.show('Something Went Wrong!', Toast.DANGER);
         }
     }, [
+        onClone,
         cloneProject,
         project.context,
         project.description,
         project.visibility,
         project.organization,
         inputData.title,
-        organizations,
         closeThisModal,
     ]);
 
