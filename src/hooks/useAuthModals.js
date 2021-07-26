@@ -1,5 +1,4 @@
 import {useState, useCallback} from 'react';
-import {useSelector} from 'react-redux';
 
 const useAuthModals = () => {
     const [modals, setModals] = useState({
@@ -11,8 +10,6 @@ const useAuthModals = () => {
 
     const [email, setEmail] = useState('');
     const [identifier, setIdentifier] = useState('');
-
-    const {isAuthenticated} = useSelector((state) => state.auth);
 
     const handleShowCode = useCallback(() => {
         setModals({
@@ -26,11 +23,11 @@ const useAuthModals = () => {
     const handleShowForgotPassword = useCallback(() => {
         setModals({
             showCodeModal: false,
-            showForgotPasswordModal: !isAuthenticated && true,
+            showForgotPasswordModal: true,
             showResetPasswordModal: false,
             showVerifyEmailModal: false,
         });
-    }, [isAuthenticated]);
+    }, []);
 
     const handleShowResetPassword = useCallback(() => {
         setModals({

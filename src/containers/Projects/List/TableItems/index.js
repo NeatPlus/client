@@ -16,7 +16,7 @@ export const HeaderItem = ({column}) => {
     return column.Header;
 };
 
-export const DataItem = ({item, column}) => {
+export const DataItem = ({item, column, onAction}) => {
     const {surveys} = useSelector(state => state.survey);
     const surveyCount = useMemo(() => surveys.filter(sur => sur?.project === item.id).length || '-', [surveys, item]);
 
@@ -70,6 +70,9 @@ export const DataItem = ({item, column}) => {
             </div>
         );
     }
+    if (column.Header === 'Organization') {
+        return item[column.accessor] || '-';
+    }
     if (column.Header === 'Created by') {
         const {firstName, lastName} = item[column.accessor];
         return `${firstName} ${lastName}`;
@@ -94,11 +97,13 @@ export const DataItem = ({item, column}) => {
                 />
                 <CloneProjectModal
                     isVisible={showCloneProjectModal}
+                    onClone={onAction}
                     onClose={handleHideCloneProjectModal}
                     project={item}
                 />
                 <DeleteProjectModal
                     isVisible={showDeleteProjectModal}
+                    onDelete={onAction}
                     onClose={handleHideDeleteProjectModal}
                     projectId={item.id}
                 />

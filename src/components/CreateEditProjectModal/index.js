@@ -39,6 +39,8 @@ const CreateEditProjectModal = (props) => {
     const history = useHistory();
 
     const {organizations} = useSelector(state => state.organization);
+    const {contexts} = useSelector(state => state.context);
+
     const [{loading}, createOrEditProject] = useRequest(url, {
         method: method,
     });
@@ -104,7 +106,8 @@ const CreateEditProjectModal = (props) => {
             const removedUsers = initialUsers?.filter(u => !userIds.includes(u.id));
 
             if (mode === 'create') {
-                body.context = 1; // FIXME: Use context from api
+                const ctx = contexts.find(el => el.code === 'urban');
+                body.context = ctx.id;
             }
 
             try {
@@ -131,7 +134,16 @@ const CreateEditProjectModal = (props) => {
                 console.log(err);
             }
         },
-        [visibility, createOrEditProject, onClose, history, mode, initialUsers, project?.id]
+        [
+            visibility, 
+            createOrEditProject, 
+            onClose, 
+            history, 
+            mode, 
+            initialUsers, 
+            project?.id,
+            contexts,
+        ]
     );
 
     return (

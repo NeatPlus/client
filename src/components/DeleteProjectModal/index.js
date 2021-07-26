@@ -13,7 +13,7 @@ import Toast from 'services/toast';
 import styles from './styles.scss';
 
 const DeleteProjectModal = (props) => {
-    const {isVisible, onClose, projectId} = props;
+    const {isVisible, onClose, onDelete, projectId} = props;
     const [{loading}, deleteProject] = useRequest(`/project/${projectId}/`, {
         method: 'DELETE',
     });
@@ -22,7 +22,7 @@ const DeleteProjectModal = (props) => {
         try {
             const result = await deleteProject();
             if (result) {
-                Api.getProjects();
+                onDelete && onDelete();
                 Api.getSurveys();
                 onClose();
                 Toast.show('Project successfully Deleted!', Toast.SUCCESS);
@@ -32,7 +32,7 @@ const DeleteProjectModal = (props) => {
             onClose();
             Toast.show('Something Went Wrong!', Toast.DANGER);
         }
-    }, [deleteProject, onClose]);
+    }, [onDelete, deleteProject, onClose]);
 
     if (!isVisible) {
         return null;

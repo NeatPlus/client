@@ -85,6 +85,7 @@ const ProjectTable = withNoProject(props => {
         setPage, 
         setMaxRows,
         totalProjects,
+        onAction,
     } = props;
 
     const history = useHistory();
@@ -100,6 +101,10 @@ const ProjectTable = withNoProject(props => {
         history.push(`/projects/${project.id}/`); 
     }, [history]);
 
+    const renderDataItem = useCallback(otherProps => (
+        <DataItem {...otherProps} onAction={onAction} />
+    ), [onAction]);
+
     return (
         <div className={styles.content}>
             <Table 
@@ -111,7 +116,7 @@ const ProjectTable = withNoProject(props => {
                 maxRows={maxRows.value}
                 page={page}
                 renderHeaderItem={HeaderItem} 
-                renderDataItem={DataItem}
+                renderDataItem={renderDataItem}
                 headerClassName={styles.tableHeader}
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
@@ -161,13 +166,17 @@ const ProjectList = () => {
     const [page, setPage] = useState(1);
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
 
-    useEffect(() => {
+    const fetchProjects = useCallback(() => {
         getProjects({
             tab,
             limit: maxRows.value, 
             offset: (page - 1) * maxRows.value,
         });
-    }, [getProjects, page, maxRows, tab]);
+    }, [getProjects, page, maxRows, tab]); 
+
+    useEffect(() => {
+        fetchProjects();
+    }, [fetchProjects]);
 
     const handleTabChange = useCallback(({activeTab}) => {
         setTab(activeTab);
@@ -219,6 +228,7 @@ const ProjectList = () => {
                             setPage={setPage}
                             setMaxRows={setMaxRows}
                             totalProjects={totalProjects}
+                            onAction={fetchProjects}
                         />
                     </Tab>
                 ))}
