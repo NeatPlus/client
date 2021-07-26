@@ -1,4 +1,5 @@
 import {useCallback, useState, useMemo, useRef, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
@@ -123,6 +124,8 @@ const TakeSurveyModal = (props) => {
         code,
     } = props;
 
+    const params = useParams();
+
     const {
         questionGroups: allQuestionGroups, 
         questions, 
@@ -229,6 +232,9 @@ const TakeSurveyModal = (props) => {
             initDraftAnswers(null);
             handleClose();
             Api.getSurveys();
+            if(+params.projectId === draftProjectId) {
+                Api.getSurveyDetails(draftProjectId);
+            }
         } catch(err) {
             setError(err);
             console.log(err);
@@ -240,6 +246,7 @@ const TakeSurveyModal = (props) => {
         dispatch,
         draftProjectId,
         surveyTitle,
+        params,
     ]);
 
     if(!isVisible) {

@@ -20,11 +20,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     list-style: none;
 
     .legend-item {
-        flex: 1;
+        margin-right: 3em;
         font-size: var(--font-size-tiny);
         color: var(--color-grey-dark-alt);
         display: flex;
