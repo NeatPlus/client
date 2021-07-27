@@ -130,7 +130,11 @@ const Login = () => {
                         </div>
                     </main>
                 </div>
-                <AuthModals username={email} {...authModalsConfig} />
+                <AuthModals 
+                    username={email} 
+                    onRegisterComplete={authModalsConfig.hideModals} 
+                    {...authModalsConfig} 
+                />
             </Container>
         </div>
     );
