@@ -30,14 +30,14 @@ const Invitation = ({item}) => {
                 />
             </div>
             <div className={styles.descriptionContainer}>
-                <p className={styles.description}>Project '{item.title}' wants to join organization '{item.organization}'</p>
+                <p className={styles.description}>Project '{item.title}' wants to join organization '{item.organizationTitle}'</p>
                 <div className={styles.buttons}>
                     <Button
                         className={styles.button}
                         type='button'
                         onClick={handleAccept}
                     >
-                                Accept
+                        Accept
                     </Button>
                     <Button
                         className={styles.button}
@@ -45,7 +45,7 @@ const Invitation = ({item}) => {
                         secondary
                         onClick={handleDecline}
                     >
-                                Decline
+                        Decline
                     </Button>
                 </div>
             </div>
