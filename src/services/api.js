@@ -9,6 +9,7 @@ import * as questionActions from 'store/actions/question';
 import * as statementActions from 'store/actions/statement';
 import * as weightageActions from 'store/actions/weightage';
 import * as notificationActions from 'store/actions/notification';
+import * as legislationActions from 'store/actions/legislation';
 
 const dispatch = store.dispatch;
 
@@ -394,6 +395,15 @@ class Api {
 
     getNotice = () => {
         return this.get('/notice/?ordering=-created_at');
+    }
+
+    async getLegislations() {
+        try {
+            const data = await this.get('/legal-document');
+            dispatch(legislationActions.setLegislations(data?.results || []));
+        } catch(error) {
+            console.log(error);
+        }
     }
 }
 

@@ -163,6 +163,7 @@ $navbar-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: var(--color-background-dark);
 
             .menu-toggle-icon {
                 display: inline-block;
@@ -195,6 +196,10 @@ $navbar-height: 90px;
             box-shadow: 10px 10px 20px #00000029;
             padding-bottom: 3em;
             z-index: 2;
+
+            &-dark {
+                background-color: var(--color-white);
+            }
 
             .nav-items {
                 flex-direction: column;

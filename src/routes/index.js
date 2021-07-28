@@ -21,6 +21,7 @@ import Resources from 'containers/Resources';
 import Account from 'containers/Account';
 import Organizations from 'containers/Organizations';
 import Error404 from 'containers/Error404';
+import LegalDocument from 'containers/LegalDocument';
 
 import usePageViews from 'hooks/usePageViews';
 
@@ -49,6 +50,7 @@ const Routes = () => {
                 <Route exact path="/access" component={Access} />
                 <Route exact path='/action' component={Action} />
                 <Route exact path='/resource' component={Resources} />
+                <Route exact path='/legal-document' component={LegalDocument} />
                 <Route component={Error404} />
             </Switch>
             <Toast />

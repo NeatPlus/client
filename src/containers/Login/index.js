@@ -114,17 +114,29 @@ const Login = () => {
                                 )}
                             </div>
                             <p className={styles.text}>
-                            Don't have an account?{' '}
+                                Don't have an account?{' '}
                                 <Link className={styles.link} to='/register'>
                                 Register Now
                                 </Link>
                             </p>
                         </div>
                         <div className={styles.bottomLinks}>
-                            <Link to='#' className={styles.link}>
+                            <Link
+                                className={styles.link}
+                                to={{
+                                    pathname: '/legal-document', 
+                                    title: 'privacy-policy'
+                                }}
+                            >
                             Privacy Policy
                             </Link>
-                            <Link to='#' className={styles.link}>
+                            <Link
+                                className={styles.link}
+                                to={{
+                                    pathname: '/legal-document', 
+                                    title: 'terms-and-conditions'
+                                }}
+                            >
                             Terms of Use
                             </Link>
                         </div>

@@ -22,6 +22,8 @@ export default async function initStore() {
         loadUserData(user.id);
     }
 
+    await Api.getLegislations();
+
     await Promise.all([
         Api.getOrganizations(),
         Api.getContextsModules(),
