@@ -3,6 +3,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import {useSelector} from 'react-redux';
 import {BsPlus} from 'react-icons/bs';
 
+import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import JoinOrganizationModal from 'components/OrganizationModals/JoinOrganization';
 
@@ -56,9 +57,13 @@ export default NoOrganization;
 
 export const withNoOrganization = (WrappedComponent) => {
     const WithNoOrganization = (props) => {
+        const {status} = useSelector(state => state.organization);
         const myOrganizations = useSelector(selectMyOrganizations);
         if (myOrganizations.length) {
             return <WrappedComponent {...props} />;
+        }
+        if (status!=='complete') {
+            return <NeatLoader />;
         }
         return <NoOrganization />;
     };
