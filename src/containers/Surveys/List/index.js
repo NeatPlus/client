@@ -2,6 +2,7 @@ import {useState, useCallback, useMemo} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
+import {NeatLoader} from 'components/Loader';
 import OptionsDropdown from 'components/OptionsDropdown';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
@@ -197,6 +198,8 @@ const SurveyList = () => {
                 data={surveyData} 
                 columns={columns} 
                 maxRows={maxRows.value}
+                loading={!surveyData?.length}
+                LoadingComponent={<NeatLoader medium />}
                 page={page}
                 renderHeaderItem={HeaderItem} 
                 renderDataItem={DataItem}

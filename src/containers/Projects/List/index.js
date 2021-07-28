@@ -2,6 +2,7 @@ import {useState, useCallback, useMemo, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {BsPlus} from 'react-icons/bs';
 
+import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import {withNoProject} from 'components/NoProject';
 import CreateEditProjectModal from 'components/CreateEditProjectModal';
@@ -110,6 +111,7 @@ const ProjectTable = withNoProject(props => {
             <Table 
                 controlled
                 loading={loading}
+                LoadingComponent={<NeatLoader medium />}
                 className={styles.table} 
                 data={projects} 
                 columns={columns} 

@@ -3,6 +3,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import {useSelector} from 'react-redux';
 import {BsPlus} from 'react-icons/bs';
 
+import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import CreateEditProjectModal from 'components/CreateEditProjectModal';
 
@@ -64,7 +65,7 @@ export const withNoProject = (WrappedComponent) => {
             return <WrappedComponent {...props} />;
         }
         if (loading) {
-            return null; // TODO: Add Loader
+            return <NeatLoader />;
         }
 
         return <NoProject />;

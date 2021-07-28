@@ -6,6 +6,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import {BsPlus} from 'react-icons/bs';
 import {BiChevronLeft} from 'react-icons/bi';
 
+import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import SurveyModals from 'components/SurveyModals';
 
@@ -62,7 +63,7 @@ export const withNoSurvey = WrappedComponent => {
             return <WrappedComponent {...props} />;
         }
         if(status!=='complete') {
-            return null;
+            return <NeatLoader containerClassName={styles.loaderContainer} />;
         }
         return <NoSurveys />;
     };

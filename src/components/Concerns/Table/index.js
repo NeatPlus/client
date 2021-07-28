@@ -1,3 +1,5 @@
+import {NeatLoader} from 'components/Loader';
+
 import Table from '@ra/components/Table';
 import cs from '@ra/cs';
 
@@ -49,6 +51,8 @@ export const DataItem = ({item, column}) => {
 const ConcernsTable = ({onTakeSurveyClick, concerns}) => {
     return (
         <Table 
+            loading={!concerns?.length}
+            LoadingComponent={<NeatLoader medium />}
             className={styles.table} 
             data={concerns} 
             columns={columns} 

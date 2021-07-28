@@ -143,10 +143,13 @@ class Api {
     }
 
     async getOrganizations() {
+        dispatch(organizationActions.setStatus('loading'));
         try {
             const data = await this.get('/organization/');
             dispatch(organizationActions.setOrganizations(data?.results || []));
+            dispatch(organizationActions.setStatus('complete'));
         } catch(error) {
+            dispatch(organizationActions.setStatus('failed'));
             console.log(error);
         }
     }

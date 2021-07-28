@@ -3,6 +3,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
+import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import OptionsDropdown from 'components/OptionsDropdown';
 import TakeSurveyModal from 'components/TakeSurveyModal';
@@ -131,6 +132,8 @@ const SurveyTable = ({onTakeSurveyClick}) => {
     const history = useHistory();
 
     const {activeProject} = useSelector(state => state.project);
+    const {status} = useSelector(state => state.survey);
+
     const surveys = useSelector(getFormattedSurveys);
     const surveyData = surveys.filter(el => el.project === +projectId);
 
@@ -160,6 +163,8 @@ const SurveyTable = ({onTakeSurveyClick}) => {
             <p className={styles.subTitle}>{surveyData.length} surveys</p>
             <div className={styles.surveyTable}>
                 <Table 
+                    loading={status==='loading'}
+                    LoadingComponent={<NeatLoader medium />}
                     className={styles.table} 
                     data={surveyData} 
                     columns={surveyColumns} 
