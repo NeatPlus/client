@@ -1,10 +1,10 @@
 import store from 'store';
 
-export const calculateSurveyResults = (surveyAnswers) => {
+export const calculateSurveyResults = (surveyAnswers, moduleCode = 'sens') => {
     const {
         statement: {statements},
         weightage: {questionStatements, optionStatements},
-        question: {options},
+        question: {options, questions},
     } = store.getState();
 
     const results = statements.map((st, idx) => {
@@ -17,18 +17,23 @@ export const calculateSurveyResults = (surveyAnswers) => {
                 const curQuestionAnswer = surveyAnswers.find(ans => {
                     return ans.question === cur.question;
                 });
+                const allOptionWeights = options
+                    .filter(opt => opt.question === cur.question)
+                    .map(opt => optionStatements.find(optSt => {
+                        return optSt.option === opt.id && optSt.statement === st.id;
+                    })?.weightage || 0);
+                const maxOptionWeight = Math.max(...allOptionWeights);
                 const optionScores = curQuestionAnswer?.options.map(opt => {
                     return optionStatements.find(optSt => 
-                        optSt.option === opt
+                        optSt.option === opt && optSt.statement === st.id
                     )?.weightage;
                 }) || [];
-                if(optionScores.length <= 1) {
-                    const questionValue = optionScores[0] * cur.weightage;
+                const currentQuestion = questions[moduleCode].find(que => que.id === cur.question);
+                if(currentQuestion.answerType === 'single_option') {    
+                    const questionValue = (optionScores[0] * cur.weightage) / maxOptionWeight;
                     return (
                         acc.sum = acc.sum + cur.weightage, 
-                        acc.score = acc.score + (
-                            isNaN(questionValue) ? 0 : questionValue
-                        ),
+                        acc.score = isNaN(questionValue) ? acc.score : acc.score + questionValue,
                         acc
                     );
                 }
@@ -46,12 +51,12 @@ export const calculateSurveyResults = (surveyAnswers) => {
                         return curOptionStatement?.weightage || 0 + optionAcc;
                     }, 0);
                 let den = (totalWeight - maxSelected) * (1 - maxSelected) || 1;
-                const questionValue = maxSelected + (
+                const questionValue = (maxSelected + (
                     (sumSelected - maxSelected) / den
-                );
+                )) * cur.weightage;
                 return (
                     acc.sum = acc.sum + cur.weightage,
-                    acc.score = acc.score + questionValue,
+                    acc.score = isNaN(questionValue) ? acc.score : acc.score + questionValue,
                     acc
                 );
             }, {sum: 0, score: 0});
