@@ -54,7 +54,7 @@ const OrganizationItem = ({item}) => {
 
     return (
         <div className={styles.organizationItem}>
-            {item.logo && <img source={item.logo} alt="Logo" className={styles.logo} />}
+            {item.logo && <img src={item.logo} alt="Logo" className={styles.logo} />}
             <p className={styles.organizationTitle}>{item.title}</p>
             <Button 
                 outline={!hasRequested}
@@ -97,7 +97,7 @@ const JoinOrganizationModal = (props) => {
     }, []);
 
     const filteredOrganizations = useMemo(() => organizations.filter(org => {
-        return !myOrganizations.some(el => el.id === org.id) && org.title.includes(query);
+        return !myOrganizations.some(el => el.id === org.id) && org.title.toLowerCase().includes(query.toLowerCase());
     })?.slice(0, 10), [myOrganizations, organizations, query]);
 
     if (showAddModal) {
