@@ -27,3 +27,7 @@
   for = "*.woff"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+[[plugins]]
+package = "netlify-plugin-contextual-env"
+  [plugins.inputs]
+  mode = 'prefix'
