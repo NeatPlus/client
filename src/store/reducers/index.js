@@ -13,6 +13,7 @@ import weightageReducer from './weightage';
 import notificationReducer from './notification';
 import noticeReducer from './notice';
 import draftReducer from './draft';
+import legislationReducer from './legislation';
 
 export default combineReducers({
     auth: authReducer,
@@ -28,4 +29,5 @@ export default combineReducers({
     notification: notificationReducer,
     notice: noticeReducer,
     draft: draftReducer,
+    legislation: legislationReducer
 });

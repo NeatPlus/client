@@ -44,7 +44,9 @@ export const NavBar = ({dark}) => {
                 <label htmlFor='nav-menu-toggle' className={styles.menuToggle}>
                     <span className={styles.menuToggleIcon}></span>
                 </label>
-                <div className={styles.navMenu}>
+                <div className={cs(styles.navMenu, {
+                    [styles.navMenuDark]: dark
+                })}>
                     <ul className={styles.navItems}>
                         <LinkItem isDark={dark} to='/about' title="About" />
                         <LinkItem isDark={dark} to='/action' title="NEAT+ in Action" />
