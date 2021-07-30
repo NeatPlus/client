@@ -1,12 +1,11 @@
 import {useState, useCallback, useMemo} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {BiChevronLeft, BiEditAlt} from 'react-icons/bi';
 import {BsArrowCounterclockwise} from 'react-icons/bs';
 import {FiFilter} from 'react-icons/fi';
 import {MdClose} from 'react-icons/md';
 
-import Tabs, {Tab} from 'components/Tabs';
 import Button from 'components/Button';
 import RestoreItemsModal from 'components/RestoreItemsModal';
 import List from '@ra/components/List';
@@ -23,8 +22,7 @@ import Api from 'services/api';
 import Toast from 'services/toast';
 import {setEditMode, applyRemoveItems, setFilters} from 'store/actions/dashboard';
 
-import Overview from './Overview';
-import Module from './Module';
+import SurveyTabs from './SurveyTabs';
 
 import styles from './styles.scss';
 
@@ -117,6 +115,7 @@ const IssuesBox = ({showIssues, onClose}) => {
 
 const SurveyDashboard = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useInitActiveProject();
     useInitActiveSurvey();
@@ -133,17 +132,24 @@ const SurveyDashboard = () => {
 
     const [{loading}, saveSurveyConfig] = usePromise(Api.patchSurvey);
 
-    const [activeTab, setActiveTab] = useState('overview');
     const [showRestoreModal, setShowRestoreModal] = useState(false);
     const [showIssues, setShowIssues] = useState(false);
 
     const handleTabChange = useCallback(payload => {
-        setActiveTab(payload.activeTab);
+        history.push(`#${payload.activeTab}`);
         deactivateEditMode();
-    }, [deactivateEditMode]);
+    }, [deactivateEditMode, history]);
 
     const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
+
+    const activeTab = useMemo(() => {
+        if(!window.location.hash) {
+            return 'overview';
+        }
+        return window.location.hash.replace('#', '');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [window.location.hash]);
 
     const toggleRestoreModal = useCallback(() => 
         setShowRestoreModal(!showRestoreModal), 
@@ -239,13 +245,6 @@ const SurveyDashboard = () => {
         loading,
     ]);
 
-    const renderSpacer = useCallback(() => {
-        if (activeTab==='overview') {
-            return null;
-        }
-        return <div className={styles.spacer} />;
-    }, [activeTab]);
-
     return (
         <div className={styles.container}>
             {isEditMode ? (
@@ -266,34 +265,11 @@ const SurveyDashboard = () => {
                     /> Back to Surveys
                 </Link>
             ) : null}
-            <Tabs 
-                defaultActiveTab="overview"
-                secondary 
-                className={styles.tabs}
-                PreHeaderComponent={renderSpacer}
-                PostHeaderComponent={renderHeaderControls}
-                headerContainerClassName={styles.headerContainer}
-                headerClassName={styles.tabsHeader}
-                tabItemClassName={styles.headerItem}
-                contentContainerClassName={styles.tabContent}
-                onChange={handleTabChange}
-            >
-                <Tab label="overview" title="Overview">
-                    <Overview />
-                </Tab>
-                <Tab label="sensitivity" title="Sensitivity">
-                    <Module code="sens" />
-                </Tab>
-                <Tab label="shelter" title="Shelter">
-                    <Module code="shelter" />
-                </Tab>
-                <Tab label="wash" title="WASH">
-                    <Module code="wash" />
-                </Tab>
-                <Tab label="fs" title="FS">
-                    <Module code="fs" />
-                </Tab>
-            </Tabs>
+            <SurveyTabs 
+                activeTab={activeTab} 
+                onTabChange={handleTabChange} 
+                renderHeaderControls={renderHeaderControls}
+            />
             <RestoreItemsModal 
                 isVisible={showRestoreModal} 
                 onClose={toggleRestoreModal} 

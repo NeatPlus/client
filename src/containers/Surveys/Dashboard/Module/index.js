@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
 
+import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import Editable from 'components/Editable';
 import SurveyModals from 'components/SurveyModals';
@@ -89,11 +90,13 @@ const Module = props => {
 
     const filteredTopics = useFilterItems(topics, 'topic');
 
+    if(!topics?.length) {
+        return <NeatLoader />;
+    }
     if(code==='shelter') {
         return <FillQuestionnaire />;
     }
-
-    if(!topics?.length || code!=='sens') {
+    if(code!=='sens') {
         return <UnderDevelopment />;
     }
 

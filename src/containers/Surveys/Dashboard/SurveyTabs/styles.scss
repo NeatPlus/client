@@ -1,0 +1,35 @@
+.tabs {
+    flex: 1;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .tabs-header {
+            flex: 0 0 50%;
+            width: max-content;
+            display: flex;
+            min-width: 50vw;
+            box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
+            margin-bottom: 0;
+            padding: 4px;
+
+            .header-item {
+                flex: 1;
+            }
+        }
+
+        .spacer {
+            flex: 1;
+        }
+    }
+
+    .tab-content {
+        margin: 16px 0;
+        flex: 1;
+    }
+}
