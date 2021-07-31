@@ -41,84 +41,143 @@
         }
     }
 
-    .tabs {
+    .header-controls {
         flex: 1;
-        align-self: stretch;
         display: flex;
-        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        align-items: center;
 
-        .header-container {
+        .control-button {
+            margin-left: 10px;
+            background-color: transparent;
+            border: solid 1px #d1cdcd;
+            color: var(--color-grey-dark);
+            font-size: var(--font-size-small);
+            font-weight: 500;
             display: flex;
             align-items: center;
-            justify-content: center;
+            padding: 10px 16px;
 
-            .tabs-header {
-                flex: 0 0 50%;
-                width: max-content;
-                display: flex;
-                min-width: 50vw;
+            &:hover,
+            &:active {
+                border: solid 1px #d1cdcd;
+                filter: contrast(60%);
                 box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
-                margin-bottom: 0;
-                padding: 4px;
-
-                .header-item {
-                    flex: 1;
-                }
             }
 
-            .spacer {
-                flex: 1;
+            .control-icon {
+                margin-right: 6px;
             }
 
-            .header-controls {
-                flex: 1;
+            .filter-count {
+                width: 22px;
+                height: 22px;
+                border-radius: 11px;
                 display: flex;
-                justify-content: flex-end;
-                position: relative;
+                justify-content: center;
                 align-items: center;
-            
-                .control-button {
-                    margin-left: 10px;
-                    background-color: transparent;
-                    border: solid 1px #d1cdcd;
-                    color: var(--color-grey-dark);
-                    font-size: var(--font-size-small);
-                    font-weight: 500;
+                background-color: var(--color-primary);
+                font-weight: 600;
+                font-size: var(--font-size-tiny);
+                color: var(--color-white);
+                margin-right: 6px;
+            }
+        }
+
+        .control-button__active {
+            background-color: var(--color-light);
+        }
+
+        .clear-text {
+            margin-left: 1em;
+            color: var(--color-primary);
+            font-size: var(--font-size-small);
+            cursor: pointer;
+
+            &:hover {
+                filter: brightness(110%);
+            }
+        }
+
+        .save-button {
+            padding: 10px 24px;
+            margin-left: 10px;
+        }
+
+        .issues-container {
+            position: absolute;
+            top: calc(100% + 6px);
+            padding: 25px;
+            width: max-content;
+            border-radius: 8px;
+            background-color: var(--color-white);
+            box-shadow: -2px 30px 50px 0 rgba(0, 0, 0, 0.14);
+            z-index: 99;
+
+            .issues-header {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+
+                .title {
+                    flex: 0 0 80%;
+                    font-size: var(--font-size-base);
+                    font-weight: 600;
+                    text-transform: capitalize;
+                }
+
+                .close-container {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 15px;
+                    background-color: #ebebeb;
                     display: flex;
                     align-items: center;
-                    padding: 10px 16px;
+                    justify-content: center;
+                    cursor: pointer;
 
-                    &:hover,
-                    &:active {
-                        border: solid 1px #d1cdcd;
-                        filter: contrast(60%);
-                        box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
-                    }
-
-                    .control-icon {
-                        margin-right: 6px;
-                    }
-
-                    .filter-count {
-                        width: 22px;
-                        height: 22px;
-                        border-radius: 11px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        background-color: var(--color-primary);
-                        font-weight: 600;
-                        font-size: var(--font-size-tiny);
-                        color: var(--color-white);
-                        margin-right: 6px;
+                    .close-icon {
+                        color: var(--color-grey-dark-alt);
                     }
                 }
+            }
 
-                .control-button__active {
-                    background-color: var(--color-light);
+            .issues {
+                overflow-y: auto;
+                max-height: 50vh;
+                margin: 10px 0;
+
+                .checkbox {
+                    margin-right: 1em;
                 }
 
-                .clear-text {
+                .issue-item {
+                    display: flex;
+                    align-items: center;
+                    margin: 20px 0;
+                    font-size: var(--font-size-small);
+                    color: var(--color-dark-alt);
+                    font-weight: 500;
+
+                    label {
+                        cursor: pointer;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+
+            .issues-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .button {
+                    font-size: var(--font-size-base);
+                    padding: 10px 24px;
+                }
+
+                .all-control {
                     margin-left: 1em;
                     color: var(--color-primary);
                     font-size: var(--font-size-small);
@@ -128,102 +187,7 @@
                         filter: brightness(110%);
                     }
                 }
-
-                .save-button {
-                    padding: 10px 24px;
-                    margin-left: 10px;
-                }
-
-                .issues-container {
-                    position: absolute;
-                    top: calc(100% + 6px);
-                    padding: 25px;
-                    width: max-content;
-                    border-radius: 8px;
-                    background-color: var(--color-white);
-                    box-shadow: -2px 30px 50px 0 rgba(0, 0, 0, 0.14);
-                    z-index: 99;
-
-                    .issues-header {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: space-between;
-
-                        .title {
-                            flex: 0 0 80%;
-                            font-size: var(--font-size-base);
-                            font-weight: 600;
-                            text-transform: capitalize;
-                        }
-
-                        .close-container {
-                            width: 30px;
-                            height: 30px;
-                            border-radius: 15px;
-                            background-color: #ebebeb;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            cursor: pointer;
-
-                            .close-icon {
-                                color: var(--color-grey-dark-alt);
-                            }
-                        }
-                    }
-
-                    .issues {
-                        overflow-y: auto;
-                        max-height: 50vh;
-                        margin: 10px 0;
-
-                        .checkbox {
-                            margin-right: 1em;
-                        }
-
-                        .issue-item {
-                            display: flex;
-                            align-items: center;
-                            margin: 20px 0;
-                            font-size: var(--font-size-small);
-                            color: var(--color-dark-alt);
-                            font-weight: 500;
-
-                            label {
-                                cursor: pointer;
-                                text-transform: capitalize;
-                            }
-                        }
-                    }
-
-                    .issues-footer {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-
-                        .button {
-                            font-size: var(--font-size-base);
-                            padding: 10px 24px;
-                        }
-
-                        .all-control {
-                            margin-left: 1em;
-                            color: var(--color-primary);
-                            font-size: var(--font-size-small);
-                            cursor: pointer;
-
-                            &:hover {
-                                filter: brightness(110%);
-                            }
-                        }
-                    }
-                }
             }
-        }
-
-        .tab-content {
-            margin: 16px 0;
-            flex: 1;
         }
     }
 }

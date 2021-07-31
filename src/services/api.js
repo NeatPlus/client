@@ -405,6 +405,22 @@ class Api {
             console.log(error);
         }
     }
+
+    shareSurveyLink = surveyId => {
+        return this.post(`/survey/${surveyId}/share_link/`);
+    }
+
+    unshareSurveyLink = surveyId => {
+        return this.post(`/survey/${surveyId}/unshare_link/`);
+    }
+
+    updateSurveyLink = surveyId => {
+        return this.post(`/survey/${surveyId}/update_link/`);
+    }
+
+    getPublicSurvey = identifier => {
+        return this.get(`/survey/identifier/${identifier}/`);
+    }
 }
 
 const ApiService = new Api();

@@ -1,29 +1,42 @@
-import {useCallback, useRef, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useCallback, useRef, useState, useMemo} from 'react';
+import {Link, useHistory, useRouteMatch} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {IoNotificationsOutline, IoSettingsOutline} from 'react-icons/io5';
+import {
+    IoNotificationsOutline, 
+    IoSettingsOutline, 
+} from 'react-icons/io5';
 import {IoMdLogOut} from 'react-icons/io';
 import {MdLanguage} from 'react-icons/md';
-import {BiHelpCircle} from 'react-icons/bi';
+import {BiHelpCircle, BiShareAlt} from 'react-icons/bi';
 
+import ShareSurvey from 'components/ShareSurvey';
 import Dropdown from '@ra/components/Dropdown';
-import Notification from './Notification';
 
 import OrganizationIcon from 'assets/icons/organization.svg';
 import logo from 'assets/images/logo-dark.svg';
+
+import cs from '@ra/cs';
 import {logout} from 'store/actions/auth';
+
+import Notification from './Notification';
 
 import styles from './styles.scss';
 
 const UserNav = (props) => {
-    const {renderCenterContent: CenterContent} = props;
     const [openNotification, setOpenNotification] = useState(false);
     const notificationsRef = useRef(null);
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const {user} = useSelector((state) => state.auth);
+
+    const {user} = useSelector(state => state.auth);
+    const {activeSurvey} = useSelector(state => state.survey);
+
+    const match = useRouteMatch({
+        path: '/projects/:projectId/surveys/:surveyId/',
+    });
+    const isSurveyPath = useMemo(() => match?.isExact && activeSurvey, [activeSurvey, match]);
 
     const hideNotification = useCallback((event) => {
         if (notificationsRef.current && !notificationsRef.current.contains(event?.target)) {
@@ -50,20 +63,46 @@ const UserNav = (props) => {
 
     const getInitial = useCallback(() => user?.firstName?.[0], [user]);
 
+    const renderShareLabel = useCallback(() => {
+        return (
+            <>
+                <BiShareAlt
+                    size={21}
+                    className={styles.actionIcon}
+                />
+                {activeSurvey?.isSharedPublicly && (
+                    <div className={styles.publicText}>
+                        PUBLIC
+                    </div>
+                )}
+            </>
+        );
+    }, [activeSurvey]);
+
     return (
         <nav className={styles.container}>
             <Link to='/'>
                 <img className={styles.logo} src={logo} alt='Neat+ Logo' />
             </Link>
-            {CenterContent && <CenterContent />}
+            {isSurveyPath && <h1 className={styles.title}>{activeSurvey?.title}</h1>}
             <div className={styles.rightContent}>
+                {isSurveyPath && (
+                    <Dropdown 
+                        className={styles.shareDropdown}
+                        labelContainerClassName={styles.shareIconContainer} 
+                        align="right" 
+                        renderLabel={renderShareLabel}
+                    >
+                        <ShareSurvey />
+                    </Dropdown>
+                )}
                 <Notification
                     openNotification={openNotification}
                     ref={notificationsRef}
                 />
                 <IoNotificationsOutline
-                    size='20px'
-                    className={styles.notificationIcon}
+                    size={20}
+                    className={cs(styles.actionIcon, styles.notificationIcon)}
                     onClick={onClick}
                 />
                 <Dropdown
