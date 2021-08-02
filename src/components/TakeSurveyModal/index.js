@@ -133,7 +133,7 @@ const TakeSurveyModal = (props) => {
         answers
     } = useSelector(state => state.question);
 
-    const moduleCode = useMemo(() => draftCode ?? code, [draftCode, code]);
+    const moduleCode = useMemo(() => !editable ? code : draftCode ?? code, [editable, draftCode, code]);
 
     useEffect(() => {
         if(!surveyTitle && moduleCode!=='sens') {
