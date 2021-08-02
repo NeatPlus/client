@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams, useHistory, Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
-import NavBar from 'components/NavBar';
+import Button from 'components/Button';
 import {NeatLoader} from 'components/Loader';
 import SurveyTabs from 'containers/Surveys/Dashboard/SurveyTabs';
 
@@ -12,6 +12,7 @@ import {setActiveSurvey} from 'store/actions/survey';
 import {setRemovedItems} from 'store/actions/dashboard';
 
 import {getSeverityFromScore} from 'utils/severity';
+import logo from 'assets/images/logo-dark.svg';
 
 import styles from './styles.scss';
 
@@ -22,8 +23,11 @@ const PublicSurvey = () => {
     const dispatch = useDispatch();
 
     const [{loading}, getPublicSurvey] = usePromise(Api.getPublicSurvey);
+
+    const {isAuthenticated} = useSelector(state => state.auth);
     const {questions} = useSelector(state => state.question); 
     const {statements} = useSelector(state => state.statement);
+    const {activeSurvey} = useSelector(state => state.survey);
 
     const isDataReady = useMemo(() => questions['sens'].length && statements.length, [questions, statements]);
 
@@ -78,9 +82,21 @@ const PublicSurvey = () => {
         getSurvey();
     }, [getSurvey]);
 
+    const handleNavButtonClick = useCallback(() => {
+        history.push(isAuthenticated ? '/projects/' : '/login/');
+    }, [history, isAuthenticated]);
+
     return (
         <div className={styles.container}>
-            <NavBar dark />
+            <nav className={styles.navbar}>
+                <Link to='/'>
+                    <img className={styles.logo} src={logo} alt='Neat+ Logo' />
+                </Link> 
+                <h1 className={styles.title}>{activeSurvey?.title}</h1>
+                <Button outline className={styles.button} onClick={handleNavButtonClick}>
+                    {isAuthenticated ? 'Go to Projects' : 'Login'} 
+                </Button>
+            </nav>
             {(loading || !isDataReady) ? (
                 <NeatLoader containerClassName={styles.container} />
             ) : (

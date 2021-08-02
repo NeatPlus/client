@@ -2,7 +2,32 @@
     background-color: var(--color-background);
     min-height: 100vh;
 
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 17px 25px;
+        border-bottom: 1px solid var(--color-light);
+
+        .logo {
+            height: 1.68em;
+        }
+
+        .title {
+            font-family: var(--font-family-header);
+            font-size: var(--font-size-medium-sm);
+            font-weight: 600;
+            color: var(--color-tertiary);
+        }
+
+        .button {
+            padding: 0.625em 1.5em;
+            font-size: 0.925em;
+            font-weight: 500;
+        }
+    }
+
     .tabs-container {
-        padding: 125px 25px 25px;
+        padding: 25px;
     }
 }
