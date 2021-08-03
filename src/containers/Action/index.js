@@ -33,8 +33,7 @@ const Action = () => {
                                 To date, the NEAT+ has been successfully tested
                                 and applied by over ten humanitarian
                                 organization in around 20 field operations
-                                worldwide.See examples and links to the findings
-                                of previous worldwide. See examples and links to
+                                worldwide. See examples and links to
                                 the findings of previous NEAT+ environment
                                 scoping missions on this page. If you would like
                                 to submit a case study for inclusion on this
