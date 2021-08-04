@@ -96,9 +96,9 @@ const CreateEditProjectModal = (props) => {
         async (formData) => {
             setError(null);
             const {title, organization, description, users} = formData;
-            if(!organization && visibility==='public_within_organization') {
+            if(!organization?.id && visibility==='public_within_organization') {
                 return setError(
-                    new Error('Visibility cannot be \'Public within Organization\' with no Organization selected')
+                    new Error('Visibility cannot be \'Public within organization\' with no organization selected')
                 );
             } 
             const body = {

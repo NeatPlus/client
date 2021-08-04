@@ -56,6 +56,7 @@ const Overview = () => {
     const dispatch = useDispatch();
 
     const {activeSurvey} = useSelector(state => state.survey);
+    const {activeProject} = useSelector(state => state.project);
 
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
     const [showSummaryModal, setShowSummaryModal] = useState(false);
@@ -114,7 +115,7 @@ const Overview = () => {
                             />
                             <InfoItem 
                                 title="Organization" 
-                                value={getSurveyAnswerFromCode('org')} 
+                                value={activeProject?.organizationTitle} 
                             />
                             <InfoItem 
                                 title="Surveyed by" 

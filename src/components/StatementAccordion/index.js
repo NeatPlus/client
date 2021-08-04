@@ -12,8 +12,8 @@ import styles from './styles.scss';
 const keyExtractor = item => item.id;
 
 const StatementAccordion = ({item, isExpanded}) => {
-    const [open, setOpen] = useState(false);
-    const [contentHeight, setContentHeight] = useState('0px');
+    const [open, setOpen] = useState(isExpanded);
+    const [contentHeight, setContentHeight] = useState(isExpanded?'none':'0px');
     
     const content = useRef(null);
   
@@ -89,7 +89,7 @@ const StatementAccordion = ({item, isExpanded}) => {
                     </div>
                     <div
                         ref={content}
-                        style={{ maxHeight: `${contentHeight}` }}
+                        style={{maxHeight: `${contentHeight}`}}
                         className={styles.accordionContent}>
                         <div className={styles.accordionText}>
                             {item.statement?.hints && (
