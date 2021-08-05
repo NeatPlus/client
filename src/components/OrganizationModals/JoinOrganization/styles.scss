@@ -119,7 +119,26 @@
                         font-weight: 500;
 
                         &__requested {
-                            pointer-events: none;
+                            min-width: 7.5em;
+                            justify-content: center;
+
+                            &::after {
+                                content: 'Requested';
+                            }
+
+                            &:hover {
+                                background-color: var(--color-danger);
+                                border-color: var(--color-danger);
+                                filter: saturate(120%);
+
+                                &:active {
+                                    color: var(--color-white);
+                                }
+                                
+                                &::after {
+                                    content: 'Revoke';
+                                }
+                            }
                         }
 
                         .button-icon {

@@ -295,7 +295,7 @@ const TakeSurveyModal = (props) => {
                                 <p className={styles.completeText}>
                                     {isFormIncomplete 
                                         ? 'You have not filled in all the required fields in the form.' 
-                                        : 'You have now completed all modules and sub-modules that you previously selected in the NEAT+ activity KoBo form.'
+                                        : 'You have now completed all modules and sub-modules that you previously selected in the initial NEAT+ survey page.'
                                     } 
                                 </p>
                                 <p className={cs(styles.completeText, {
@@ -332,7 +332,7 @@ const TakeSurveyModal = (props) => {
                                 >
                                     <BsCheck size={22} className={styles.buttonIconLeft} />
 
-                                    Validate
+                                    Calculate
                                 </Button>
                             )}
                         </div>

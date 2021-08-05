@@ -30,42 +30,42 @@ const OrganizationItem = ({item}) => {
     const {memberRequests} = useSelector(state => state.organization);
 
     const [{loading}, requestToJoin] = usePromise(Api.requestOrganizationMember);
+    const [{loading: revoking}, revokeRequest] = usePromise(Api.revokeMemberRequest);
 
-    const hasRequested = useMemo(() => {
-        return memberRequests.some(
+    const memberRequest = useMemo(() => {
+        return memberRequests.find(
             req => req.user === user.id && req.organization===item.id
         );
     }, [memberRequests, user, item]);
 
     const handleJoinClick = useCallback(async () => {
-        if(hasRequested) {
-            return;
-        }
         try {
-            const res = await requestToJoin(item.id);
-            if(res) {
-                Api.getOrganizationMemberRequests();
+            if(memberRequest) {
+                await revokeRequest(memberRequest.id);
+            } else {
+                await requestToJoin(item.id);
             }
+            Api.getOrganizationMemberRequests();
         } catch (err) {
             Toast.show(getErrorMessage(err), Toast.DANGER);
             console.log(err);
         }
-    }, [item, requestToJoin, hasRequested]);
+    }, [item, requestToJoin, memberRequest, revokeRequest]);
 
     return (
         <div className={styles.organizationItem}>
             {item.logo && <img src={item.logo} alt="Logo" className={styles.logo} />}
             <p className={styles.organizationTitle}>{item.title}</p>
             <Button 
-                outline={!hasRequested}
-                loading={loading} 
+                outline={!memberRequest}
+                loading={loading || revoking} 
                 onClick={handleJoinClick} 
                 className={cs(styles.button, {
-                    [styles.buttonRequested]: hasRequested
+                    [styles.buttonRequested]: memberRequest
                 })}
             >
-                {!hasRequested && <BsPlus size={20} className={styles.buttonIcon} />}
-                {hasRequested ? 'Requested' : 'Join'}
+                {!memberRequest && <BsPlus size={20} className={styles.buttonIcon} />}
+                {memberRequest ? '' : 'Join'}
             </Button>
         </div>
     );

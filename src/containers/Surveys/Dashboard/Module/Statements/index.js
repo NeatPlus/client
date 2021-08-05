@@ -48,10 +48,11 @@ const StatementsContent = ({topic, index}) => {
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
 
     const renderConcernItem = useCallback(listProps => {
+        const total = severityCounts.reduce((acc, cur) => acc + cur.count, 0);
         return (
-            <ConcernItem {...listProps} total={statementData.length} />
+            <ConcernItem {...listProps} total={total} />
         );
-    }, [statementData]);
+    }, [severityCounts]);
 
     const renderStatementAccordion = useCallback(listProps => {
         return (

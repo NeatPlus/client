@@ -389,6 +389,10 @@ class Api {
         return this.post(`/organization-member-request/${memberRequestId}/reject`);
     }
 
+    revokeMemberRequest = memberRequestId => {
+        return this.delete(`/organization-member-request/${memberRequestId}/`);
+    }
+
     patchSurvey = (surveyId, body) => {
         return this.patch(`/survey/${surveyId}/`, body);
     }
