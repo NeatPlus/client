@@ -6,6 +6,7 @@ const useAuthModals = () => {
         showForgotPasswordModal: false,
         showResetPasswordModal: false,
         showVerifyEmailModal: false,
+        showConfirmPasswordModal: false,
     });
 
     const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const useAuthModals = () => {
             showForgotPasswordModal: false,
             showResetPasswordModal: false,
             showVerifyEmailModal: false,
+            showConfirmPasswordModal: false,
         });
     }, []);
 
@@ -26,6 +28,7 @@ const useAuthModals = () => {
             showForgotPasswordModal: true,
             showResetPasswordModal: false,
             showVerifyEmailModal: false,
+            showConfirmPasswordModal: false,
         });
     }, []);
 
@@ -35,6 +38,7 @@ const useAuthModals = () => {
             showForgotPasswordModal: false,
             showResetPasswordModal: true,
             showVerifyEmailModal: false,
+            showConfirmPasswordModal: false,
         });
     }, []);
 
@@ -44,6 +48,17 @@ const useAuthModals = () => {
             showForgotPasswordModal: false,
             showResetPasswordModal: false,
             showVerifyEmailModal: true,
+            showConfirmPasswordModal: false,
+        });
+    }, []);
+
+    const handleShowConfirmPassword = useCallback(() => {
+        setModals({
+            showCodeModal: false,
+            showForgotPasswordModal: false,
+            showResetPasswordModal: false,
+            showVerifyEmailModal: false,
+            showConfirmPasswordModal: true,
         });
     }, []);
 
@@ -53,6 +68,7 @@ const useAuthModals = () => {
             showForgotPasswordModal: false,
             showResetPasswordModal: false,
             showVerifyEmailModal: false,
+            showConfirmPasswordModal: false,
         });
     }, []);
 
@@ -62,6 +78,7 @@ const useAuthModals = () => {
         handleShowForgotPassword,
         handleShowResetPassword,
         handleShowVerifyEmail,
+        handleShowConfirmPassword,
         hideModals,
         email,
         setEmail,

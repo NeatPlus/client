@@ -8,12 +8,21 @@ import OTPInput from 'components/Inputs/OtpInput';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 
-import useRequest from 'hooks/useRequest';
+import Api from 'services/api';
+import usePromise from '@ra/hooks/usePromise';
 
 import styles from './styles.scss';
 
 const VerifyEmailModal = (props) => {
-    const {isVisible, onClose, onComplete, username} = props;
+    const {
+        isVisible, 
+        onClose, 
+        onComplete, 
+        username, 
+        email,
+        password,
+        mode='confirm',
+    } = props;
     
     const history = useHistory();
 
@@ -21,8 +30,12 @@ const VerifyEmailModal = (props) => {
     const [info, setInfo] = useState(null);
     const [error, setError] = useState(null);
 
-    const [{loading: loadingCode}, resendCode] = useRequest('/user/email_confirm/', {method: 'POST'});
-    const [{loading: loadingEmail}, verifyEmail] = useRequest('/user/email_confirm/verify/', {method: 'POST'});
+    const [{loading: loadingCode}, resendCode] = usePromise(
+        mode==='change' ? Api.requestEmailChange : Api.resendConfirmEmail
+    );
+    const [{loading: loadingEmail}, verifyEmail] = usePromise(
+        mode==='change' ? Api.verifyEmailChange : Api.verifyEmail
+    );
 
     const handleOtpChange = useCallback(
         (otp) =>
@@ -37,26 +50,32 @@ const VerifyEmailModal = (props) => {
         setInfo(null);
         setError(null);
         try {
-            await resendCode({username});
+            await resendCode(mode==='change' ? {newEmail: email, password} : {username});
+            setError(null);
             setInfo('Successfully resent confirmation mail!');
         } catch(err) {
             setError(err?.error || 'An error occured while sending email. Please try again!');
             console.log(err);    
         }
-    }, [resendCode, username]);
+    }, [resendCode, email, mode, username, password]);
 
     const handleSubmitCode = useCallback(async () => {
         setInfo(null);
         setError(null);
         try {
-            await verifyEmail({username, pin: otpData.otpCode});
+            const params = {username, pin: otpData.otpCode};
+            if(mode==='change') {
+                delete params.username;
+            }
+            await verifyEmail(params);
             await onComplete();
+            setError(null);
             history.push('/projects/');
         } catch(err) {
             setError(err?.error || 'Could not verify email!');
             console.log(err);
         }
-    }, [verifyEmail, otpData, username, history, onComplete]);
+    }, [verifyEmail, otpData, username, history, onComplete, mode]);
 
     const closeThisModal = useCallback(() => {
         setOtpData({

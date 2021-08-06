@@ -15,7 +15,9 @@ const AccountInfo = (props) => {
                     {`${user?.firstName} ${user?.lastName}`}
                 </span>
             </div>
-            <Button loading={props.loading}>{props.actionTitle}</Button>
+            <Button className={styles.button} loading={props.loading}>
+                {props.actionTitle}
+            </Button>
         </div>
     );
 };

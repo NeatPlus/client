@@ -1,15 +1,17 @@
-import {useCallback, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useCallback} from 'react';
+import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
 import AuthModals from 'components/AuthModals';
 import Form, {InputField} from '@ra/components/Form';
 import {SecureTextInput} from '@ra/components/Form/inputs';
 
+import cs from '@ra/cs';
 import Toast from 'services/toast';
 import useRequest from 'hooks/useRequest';
 import useAuthModals from 'hooks/useAuthModals';
 import {logout} from 'store/actions/auth';
+import {getErrorMessage} from '@ra/utils/error';
 
 import AccountPanel from '../AccountInfo';
 import styles from './styles.scss';
@@ -19,8 +21,6 @@ const UpdatePassword = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [error, setError] = useState(null);
-
     const [{loading}, updatePassword] = useRequest(
         '/user/me/change_password/',
         {method: 'POST'}
@@ -28,9 +28,16 @@ const UpdatePassword = () => {
 
     const handleSubmit = useCallback(
         async (formData) => {
-            setError(null);
             const {oldPassword, newPassword, reNewPassword} = formData;
-
+            if (newPassword !== reNewPassword) {
+                return Toast.show('Password Did Not Match !!', Toast.DANGER);
+            }
+            if (oldPassword === newPassword) {
+                return Toast.show(
+                    'New password cannot be same as old password!', 
+                    Toast.DANGER
+                );
+            }
             try {
                 if (newPassword === reNewPassword) {
                     const result = await updatePassword({
@@ -44,13 +51,13 @@ const UpdatePassword = () => {
                         history.push('/login');
                     }
                 }
-
-                if (newPassword !== reNewPassword) {
-                    Toast.show('Password Did Not Match !!', Toast.DANGER);
-                }
             } catch (err) {
-                setError(err);
-                Toast.show('Incorrect old password !!', Toast.DANGER);
+                let errorMessage = getErrorMessage(err);
+                if(err?.code === 'user_inactive') {
+                    errorMessage = 'Please make sure the current password is correct!';
+                }
+                Toast.show(errorMessage, Toast.DANGER);
+                console.log(err);
             }
         },
         [dispatch, history, updatePassword]
@@ -58,7 +65,7 @@ const UpdatePassword = () => {
 
     return (
         <>
-            <Form error={error} onSubmit={handleSubmit}>
+            <Form className={styles.container} onSubmit={handleSubmit}>
                 <AccountPanel loading={loading} actionTitle='Update Password' />
                 <h1 className={styles.changePassword}>Change Password?</h1>
                 <InputField
@@ -68,15 +75,14 @@ const UpdatePassword = () => {
                     className={styles.input}
                     label='Current Password'
                     labelClassName={styles.inputLabel}
-                    containerClassName={styles.inputGroup}
+                    containerClassName={cs(styles.inputGroup, styles.inputGroupInfo)}
                 />
-                <Link 
-                    to='#' 
+                <div
                     className={styles.forgotPasswordLink}
                     onClick={authModalsConfig.handleShowForgotPassword}
                 >
                     Forgot Password?
-                </Link>
+                </div>
                 <InputField
                     name='newPassword'
                     required

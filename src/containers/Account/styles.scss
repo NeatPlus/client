@@ -11,18 +11,30 @@
         .text-section {
             padding-bottom: 2em;
 
-            .backLink {
+            .back-link {
+                max-width: max-content;
                 display: flex;
                 align-items: center;
                 color: var(--color-dark);
-                font-size: var(--font-size-base);
+                font-size: var(--font-size-small);
                 line-height: 1.5em;
                 margin-bottom: 1em;
                 font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                    filter: opacity(60%);
+                }
+
+                .back-icon {
+                    margin-right: 0.85em;
+                }
             }
 
             .title {
                 color: var(--color-tertiary);
+                font-family: var(--font-family-header);
+                font-size: var(--font-size-large);
             }
         }
 
@@ -31,11 +43,12 @@
             border-radius: 8px;
             display: flex;
             margin-bottom: 6.25em;
-            max-width: 90vw;
+            width: 60vw;
 
             .panels {
                 border-right: 2px solid var(--color-background);
                 padding-top: 2em;
+                min-width: 11em;
 
                 .panel-item {
                     padding: 1em 2em 1em 1.5em;
@@ -43,8 +56,9 @@
                     display: flex;
                     align-items: center;
                     border-right: 3px solid var(--color-white);
-                    text-decoration: none;
-                    color: #292929;
+                    font-weight: 500;
+                    font-size: var(--font-size-small);
+                    color: var(--color-dark);
                     cursor: pointer;
 
                     .panel-icon {
@@ -56,6 +70,7 @@
                         background-color: #e6f4f3;
                         border-right: 3px solid var(--color-primary);
                         color: var(--color-primary);
+                        font-weight: 600;
 
                         .panel-icon {
                             color: var(--color-primary);
@@ -65,13 +80,21 @@
             }
 
             .edit-section {
+                width: 100%;
                 padding: 2em;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .main-section {
+                width: 80vw;
             }
         }
 
         @media screen and (max-width: 786px) {
             .main-section {
                 flex-direction: column;
+                width: 95vw;
 
                 .panels {
                     display: flex;

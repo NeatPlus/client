@@ -2,6 +2,11 @@
     border-radius: 8px;
     width: 29vw;
     background-color: var(--color-light-alt);
+    min-width: 480px;
+
+    @media screen and (max-width: 480px) {
+        min-width: 95vw;
+    }
 
     .header {
         padding: 20px 25px;

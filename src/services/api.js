@@ -143,6 +143,26 @@ class Api {
         return await this.get('/user/me/');
     }
 
+    patchUser = body => {
+        return this.patch('/user/me/', body);
+    }
+
+    resendConfirmEmail = body => {
+        return this.post('/user/email_confirm/', body);
+    }
+
+    verifyEmail = body => {
+        return this.post('/user/email_confirm/verify/', body);
+    }
+
+    requestEmailChange = body => {
+        return this.post('/user/email_change/', body);
+    }
+
+    verifyEmailChange = body => {
+        return this.post('/user/email_change/verify/', body);
+    }
+
     async getOrganizations() {
         dispatch(organizationActions.setStatus('loading'));
         try {

@@ -1,105 +1,136 @@
 import {useCallback, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-import Form from '@ra/components/Form';
+import AuthModals from 'components/AuthModals';
+import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
-import {TextInput} from '@ra/components/Form/inputs';
-import {InputField} from '@ra/components/Form';
-import AccountPanel from '../AccountInfo';
+import TextInput from '@ra/components/Form/TextInput';
 
-import store from 'store';
-import * as authActions from 'store/actions/auth';
 import Api from 'services/api';
 import Toast from 'services/toast';
-import useRequest from 'hooks/useRequest';
+import useAuthModals from 'hooks/useAuthModals';
+import usePromise from '@ra/hooks/usePromise';
+import {setUser} from 'store/actions/auth';
 
+import AccountPanel from '../AccountInfo';
 import styles from './styles.scss';
 
 const UpdateInfo = () => {
     const {user} = useSelector((state) => state.auth);
-    const {dispatch} = store;
+    const authModalsConfig = useAuthModals();
 
-    const [error, setError] = useState(null);
-    const [{loading}, updateInfo] = useRequest('/user/me/', {method: 'PATCH'});
+    const dispatch = useDispatch();
 
-    const handleSubmit = useCallback(
-        async (formData) => {
-            setError(null);
-            const {fullName, email, organization, role} = formData;
+    const [{loading}, changeProfile] = usePromise(Api.patchUser);
+    const [{loading: emailLoading}, requestEmailChange] = usePromise(Api.requestEmailChange);
 
-            const name = fullName.split(' ');
-            const firstName = name[0];
-            const lastName = fullName.substring(name[0].length).trim();
+    const [formData, setFormData] = useState({});
+    const [password, setPassword] = useState(null);
 
-            try {
-                const result = await updateInfo({
-                    firstName,
-                    lastName,
-                    email,
-                    organization,
-                    role,
-                });
-                if (result) {
-                    const updatedUser = await Api.getUser();
-                    dispatch(authActions.setUser(updatedUser));
-                    Toast.show(
-                        'Profile has been successfully updated !!',
-                        Toast.SUCCESS
-                    );
-                }
-            } catch (err) {
-                setError(err);
-                console.log(err);
-            }
-        },
-        [dispatch, updateInfo]
-    );
+    const handleUpdateComplete = useCallback(async () => {
+        Toast.show('Profile has been successfully updated!', Toast.SUCCESS);
+        try {
+            const res = await Api.getUser();
+            dispatch(setUser(res));
+        } catch(error) {
+            console.log(error);
+        }
+    }, [dispatch]);
+
+    const handleSubmitData = useCallback(async pass => {
+        if(formData.email !== user.email) {
+            setPassword(pass);
+            await requestEmailChange({newEmail: formData.email, password: pass});
+            Toast.show('An email has been sent to the new address', Toast.SUCCESS);
+            return authModalsConfig.handleShowVerifyEmail();
+        }
+        const submitParams = {...formData, password: pass};
+        await changeProfile(submitParams);
+        handleUpdateComplete();
+        authModalsConfig.hideModals();
+    }, [
+        formData, 
+        user, 
+        changeProfile, 
+        handleUpdateComplete, 
+        requestEmailChange,
+        authModalsConfig,
+    ]);
+
+    const handleChangeProfile = useCallback(formData => {
+        const {fullName, organization, role, email} = formData;
+
+        const name = fullName.split(' ');
+        const firstName = name[0];
+        const lastName = fullName.substring(name[0].length).trim();
+
+        setFormData({
+            firstName,
+            lastName,
+            organization,
+            email,
+            role,
+        });
+        authModalsConfig.handleShowConfirmPassword();
+    }, [authModalsConfig]);
 
     return (
-        <Form error={error} onSubmit={handleSubmit}>
-            <AccountPanel loading={loading} actionTitle='Save Changes' />
-            <InputField
-                name='fullName'
-                required
-                component={TextInput}
-                className={styles.input}
-                label='Full Name'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-                defaultValue={`${user.firstName} ${user.lastName}`}
+        <>
+            <Form onSubmit={handleChangeProfile}>
+                <AccountPanel actionTitle='Save Changes' />
+                <InputField
+                    name='fullName'
+                    required
+                    component={TextInput}
+                    className={styles.input}
+                    label='Full Name'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                    defaultValue={`${user.firstName} ${user.lastName}`}
+                />
+                <InputField
+                    name='email'
+                    info="If you change this, we will send you an email at your new address to confirm it. The new address will not become active until confirmed."
+                    required
+                    type='email'
+                    component={Input}
+                    className={styles.input}
+                    label='Email'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                    defaultValue={user.email}
+                />
+                <InputField
+                    name='organization'
+                    required
+                    component={TextInput}
+                    className={styles.input}
+                    label='Organization'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                    defaultValue={user.organization}
+                />
+                <InputField
+                    name='role'
+                    required
+                    component={TextInput}
+                    className={styles.input}
+                    label='Role in Organization'
+                    labelClassName={styles.inputLabel}
+                    containerClassName={styles.inputGroup}
+                    defaultValue={user.role}
+                />
+            </Form>
+            <AuthModals 
+                {...authModalsConfig} 
+                verifyMode="change"
+                password={password}
+                email={formData.email}
+                onSubmit={handleSubmitData}
+                loading={loading || emailLoading}
+                onRegisterComplete={handleUpdateComplete}
             />
-            <InputField
-                name='email'
-                required
-                type='email'
-                component={Input}
-                className={styles.input}
-                label='Email'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-                defaultValue={user.email}
-            />
-            <InputField
-                name='organization'
-                required
-                component={TextInput}
-                className={styles.input}
-                label='Organization'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-                defaultValue={user.organization}
-            />
-            <InputField
-                name='role'
-                required
-                component={TextInput}
-                className={styles.input}
-                label='Role in Organization'
-                labelClassName={styles.inputLabel}
-                containerClassName={styles.inputGroup}
-                defaultValue={user.role}
-            />
-        </Form>
+        </>
     );
 };
 
