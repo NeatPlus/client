@@ -15,6 +15,7 @@ import useSurveyModals from 'hooks/useSurveyModals';
 
 import fillImage from 'assets/images/fill-questionnaire.svg';
 import devImage from 'assets/images/under-development.svg';
+import tabPlaceholder from 'assets/icons/tab-placeholder.svg';
 
 import StatementsContent from './Statements';
 import styles from './styles.scss';
@@ -73,14 +74,12 @@ const Module = props => {
                     identifier={tabHeaderProps.label}
                 >
                     <div className={styles.headerTitle}>
-                        {!!iconSrc && (
-                            <SVG 
-                                className={styles.tabIcon}
-                                src={iconSrc}
-                                width={20} 
-                                title={title}
-                            />
-                        )}
+                        <SVG 
+                            className={styles.tabIcon}
+                            src={iconSrc || tabPlaceholder}
+                            width={20} 
+                            title={title}
+                        />
                         {title}
                     </div>
                 </Editable>
