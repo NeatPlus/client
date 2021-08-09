@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {
     ResponsiveContainer, 
     PieChart, 
@@ -78,12 +78,23 @@ const ConcernsChart = ({concerns}) => {
         return null;
     };
 
+    const [chartWidth, setChartWidth] = useState('100%');
+
+    const updateWidth = useCallback(() => {
+        setChartWidth('99%');
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener('resize', updateWidth);
+        return () => window.addEventListener('resize', updateWidth);
+    }, [updateWidth]);
+
     return (
-        <ResponsiveContainer width="100%" height={270}>
+        <ResponsiveContainer width={chartWidth} height={270}>
             <PieChart>
                 <Pie
                     data={data}
-                    cx={360}
+                    cx="70%"
                     cy="50%"
                     innerRadius="55%"
                     outerRadius="70%"

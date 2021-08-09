@@ -80,7 +80,7 @@ const Module = props => {
                             width={20} 
                             title={title}
                         />
-                        {title}
+                        <span className={styles.tabLabel}>{title}</span>
                     </div>
                 </Editable>
             </div>

@@ -157,7 +157,10 @@ const Overview = () => {
                     />
                     <h4 className={styles.statementTitle}>Location of Assessment</h4>
                     <div className={styles.map}>
-                        <Map surveyLocation={getSurveyAnswerFromCode('coords')} />
+                        <Map
+                            surveyLocation={getSurveyAnswerFromCode('coords')}
+                            height={275}
+                        />
                     </div>
                 </div>
             </div>
