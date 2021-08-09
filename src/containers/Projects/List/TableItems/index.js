@@ -74,8 +74,11 @@ export const DataItem = ({item, column, onAction}) => {
         return item[column.accessor] || '-';
     }
     if (column.Header === 'Created by') {
-        const {firstName, lastName} = item[column.accessor];
-        return `${firstName} ${lastName}`;
+        if(item[column.accessor]) {
+            const {firstName, lastName} = item[column.accessor];
+            return `${firstName} ${lastName}`;
+        }
+        return '-';
     }
     if (column.Header === 'Created on') {
         const date = new Date(item[column.accessor]);

@@ -1,6 +1,5 @@
 .modal {
     border-radius: 8px;
-    width: 29vw;
     background-color: var(--color-light-alt);
     min-width: 480px;
 
@@ -39,21 +38,16 @@
     }
 
     .content {
-        padding: 30px 25px;
+        padding: 20px 25px;
         background-color: var(--color-white);
         display: flex;
         flex-direction: column;
-        gap: 30px;
         border-radius: 0 0 8px 8px;
-        overflow-y: auto;
-
-        p {
-            font-size: 15px;
-        }
 
         .input-group {
             display: flex;
             flex-direction: column;
+            margin-bottom: 20px;
 
             .input-label {
                 font-size: var(--font-size-small);
@@ -72,15 +66,14 @@
         }
 
         .buttons {
+            margin-top: 20px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
 
-            a {
-                text-decoration: none;
-                color: var(--color-primary);
-                font-size: var(--font-size-small);
+            .button {
+                margin-left: 15px;
             }
         }
     }
 }
+

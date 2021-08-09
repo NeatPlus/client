@@ -2,6 +2,7 @@ import EnterCodeModal from './EnterCodeModal';
 import ForgotPasswordModal from './ForgotPasswordModal';
 import ResetPasswordModal from './ResetPasswordModal';
 import VerifyEmailModal from './VerifyEmailModal';
+import ConfirmPasswordModal from './ConfirmPasswordModal';
 
 const AuthModals = ({
     modals: {
@@ -9,6 +10,7 @@ const AuthModals = ({
         showForgotPasswordModal,
         showResetPasswordModal,
         showVerifyEmailModal,
+        showConfirmPasswordModal,
     },
     handleShowCode,
     handleShowForgotPassword,
@@ -17,10 +19,14 @@ const AuthModals = ({
     hideModals,
     username,
     onRegisterComplete,
+    password,
     email,
     setEmail,
     identifier,
     setIdentifier,
+    onSubmit,
+    loading,
+    verifyMode,
 }) => {
     return (
         <>
@@ -45,10 +51,19 @@ const AuthModals = ({
                 identifier={identifier}
             />
             <VerifyEmailModal
+                mode={verifyMode}
+                email={email}
+                password={password}
                 onComplete={onRegisterComplete}
                 username={username}
                 isVisible={showVerifyEmailModal}
                 onClose={hideModals}
+            />
+            <ConfirmPasswordModal
+                isVisible={showConfirmPasswordModal}
+                onClose={hideModals}
+                onSubmit={onSubmit}
+                loading={loading}
             />
         </>
     );

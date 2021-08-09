@@ -1,7 +1,8 @@
 .account-info {
     display: flex;
+    align-items: center;
     margin-bottom: 1.87em;
-    gap: 5em;
+    justify-content: space-between;
 
     .user-info {
         display: flex;
@@ -11,12 +12,14 @@
         .user-name {
             padding-left: 0.75em;
             font-size: var(--font-size-base);
+            font-family: var(--font-family-header);
+            font-weight: 600;
         }
 
         .user-avatar {
-            min-width: 3em;
-            min-height: 3em;
-            border-radius: 3em;
+            min-width: 2.5em;
+            min-height: 2.5em;
+            border-radius: 1.25em;
             font-size: var(--font-size-normal);
             line-height: 1.5;
             color: #c0d0de;
@@ -24,8 +27,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
         }
+    }
+
+    .button {
+        padding: 0.75em 1.5em;
+        min-width: 190px;
+        font-size: var(--font-size-base);
+        font-weight: 500;
     }
 }
 
