@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.049" height="21.523" viewBox="0 0 22.049 21.523">
+  <g id="Group_1024" data-name="Group 1024" transform="translate(0.766 0.317)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="4.41" height="21.523" transform="translate(8.054 -0.317)" fill="#006fc6"/>
+    <rect id="Rectangle_98" data-name="Rectangle 98" width="4.41" height="8.609" transform="translate(8.054 -0.317)" fill="#00a297"/>
+    <rect id="Rectangle_2" data-name="Rectangle 2" width="4.305" height="22.049" transform="translate(-0.766 12.597) rotate(-90)" fill="#00a297"/>
+    <rect id="Rectangle_97" data-name="Rectangle 97" width="4.305" height="8.819" transform="translate(12.464 12.597) rotate(-90)" fill="#006fc6"/>
+    <path id="Intersection_1" data-name="Intersection 1" d="M0,4.3V0H4.41V4.3Z" transform="translate(8.054 8.293)" fill="#61438c"/>
+  </g>
+</svg>
