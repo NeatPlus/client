@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react';
 import {Link, useHistory} from 'react-router-dom';
+import {GoogleReCaptchaProvider, GoogleReCaptcha} from 'react-google-recaptcha-v3';
 
 import Container from 'components/Container';
 import AuthModals from 'components/AuthModals';
@@ -25,6 +26,7 @@ const Register = () => {
         username: '',
         password: '',
     });
+    const [recaptchaToken, setRecaptchaToken] = useState(null);
     
     const [{loading}, registerUser] = useRequest('/user/register/', {method: 'POST'});
     const [, loginUser] = useRequest('/jwt/create/', {method: 'POST'});
@@ -40,7 +42,7 @@ const Register = () => {
             email, 
             password, 
             organization, 
-            role
+            role,
         } = formData;
 
         setLoginData({username, password});
@@ -64,15 +66,19 @@ const Register = () => {
                 rePassword: password,
                 organization,
                 role,
+                recaptcha: recaptchaToken,
             });
             if(result) {
                 authModalsConfig.handleShowVerifyEmail();
             }
         } catch(err) {
-            setError(err);
             console.log(err);
+            if(err?.recaptcha){
+                return setError(new Error('Our system has identified you as bot. Please contact us if otherwise.'));
+            }
+            setError(err);
         }
-    }, [registerUser, authModalsConfig]);
+    }, [registerUser, authModalsConfig, recaptchaToken]);
 
     const handleRegisterComplete = useCallback(async () => {
         const {username, password} = loginData;
@@ -212,6 +218,9 @@ const Register = () => {
                                         </Link>
                                     </label>
                                 </div>
+                                <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}>
+                                    <GoogleReCaptcha onVerify={setRecaptchaToken} />
+                                </GoogleReCaptchaProvider>
                                 <Button loading={loading} disabled={!acceptTerms}>Create Account</Button>
                             </Form>
                         </main>

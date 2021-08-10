@@ -1,5 +1,4 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {useSelector} from 'react-redux';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
 
 import StatementAccordion from 'components/StatementAccordion';
@@ -7,9 +6,7 @@ import ConcernCounter from 'components/Concerns/Chart/counter';
 
 import List from '@ra/components/List';
 
-import useFilterItems from 'hooks/useFilterItems';
 import {getSeverityCounts} from 'utils/severity';
-import {selectStatements} from 'store/selectors/statement';
 
 import styles from './styles.scss';
 
@@ -28,24 +25,10 @@ const ConcernItem = (props) => {
     );
 };
 
-const StatementsContent = ({topic, index}) => {
-    const statements = useSelector(selectStatements);
-    const {activeSurvey} = useSelector(state => state.survey);
-
+const StatementsContent = ({statementData, index, topic}) => {
     const [expanded, setExpanded] = useState(false);
 
     const toggleExpand = useCallback(() => setExpanded(!expanded), [expanded]);
-
-    const filteredStatements = useFilterItems(statements, 'statement');
-
-    const statementData = useMemo(() => {
-        const topicResults = activeSurvey?.results.filter(res => res.topic === topic.id);
-        return topicResults?.map(res => ({
-            ...res,
-            statement: filteredStatements.find(st => st.id === res.statement),
-        })).sort((a, b) => b.score - a.score)
-            .filter(el => el.statement) || [];
-    }, [activeSurvey, filteredStatements, topic]);
 
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
 

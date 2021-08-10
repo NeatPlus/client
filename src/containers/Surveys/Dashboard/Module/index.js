@@ -12,6 +12,7 @@ import Tabs, {Tab} from '@ra/components/Tabs';
 import cs from '@ra/cs';
 import useFilterItems from 'hooks/useFilterItems';
 import useSurveyModals from 'hooks/useSurveyModals';
+import {selectStatements} from 'store/selectors/statement';
 
 import fillImage from 'assets/images/fill-questionnaire.svg';
 import devImage from 'assets/images/under-development.svg';
@@ -55,9 +56,11 @@ const UnderDevelopment = props => {
 
 const Module = props => {
     const {code} = props;
-
+    
+    const statements = useSelector(selectStatements);
     const {topics} = useSelector(state => state.statement);
     const {isEditMode} = useSelector(state => state.dashboard);
+    const {activeSurvey} = useSelector(state => state.survey);
 
     const renderTabsHeader = useCallback(tabHeaderProps => {
         const {title, active, ...rest} = tabHeaderProps;
@@ -88,6 +91,30 @@ const Module = props => {
     }, [isEditMode]);
 
     const filteredTopics = useFilterItems(topics, 'topic');
+    const filteredStatements = useFilterItems(statements, 'statement');
+
+    const getStatementData = useCallback(topic => {
+        const topicResults = activeSurvey?.results.filter(res => res.topic === topic.id);
+        return topicResults?.map(res => ({
+            ...res,
+            statement: filteredStatements.find(st => st.id === res.statement),
+        })).sort((a, b) => b.score - a.score)
+            .filter(el => el.statement) || [];
+    }, [activeSurvey, filteredStatements]);
+
+    const renderTab = useCallback((topic, idx) => {
+        const statementData = getStatementData(topic);
+
+        if(!statementData.length) {
+            return null;
+        }
+
+        return (
+            <Tab key={topic.code} label={topic.code} title={topic.title} className={styles.tabContent}>
+                <StatementsContent statementData={statementData} topic={topic} index={idx} />
+            </Tab>
+        );
+    }, [getStatementData]);
 
     if(!topics?.length) {
         return <NeatLoader />;
@@ -108,11 +135,7 @@ const Module = props => {
             defaultActiveTab={filteredTopics?.[0]?.code}
             mode="scroll"
         >
-            {filteredTopics.map((topic, idx) => (
-                <Tab key={topic.code} label={topic.code} title={topic.title} className={styles.tabContent}>
-                    <StatementsContent topic={topic} index={idx} />
-                </Tab>
-            ))}
+            {filteredTopics.map(renderTab)}
         </Tabs>
     );
 };

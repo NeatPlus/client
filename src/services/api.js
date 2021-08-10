@@ -310,6 +310,12 @@ class Api {
     }
 
     async getOrganizationMemberRequests() {
+        let {
+            auth: {isAuthenticated},
+        } = store.getState();
+        if(!isAuthenticated) {
+            return;
+        }
         try {
             const data = await this.get('/organization-member-request/');
             dispatch(organizationActions.setMemberRequests(data?.results || []));
