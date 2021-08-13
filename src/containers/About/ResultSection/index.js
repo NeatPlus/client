@@ -80,7 +80,7 @@ const ResultSection = () => {
                             </ul>
                             <ListTitle title="Advocacy" />
                             <ul className={styles.pillarsList}>
-                                <SubListTitle title="The results can be used to trigger internet in environmental issues" />
+                                <SubListTitle title="The results can be used to trigger interest in environmental issues" />
                             </ul>
                         </ul>
                     </div>
