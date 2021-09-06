@@ -1,6 +1,9 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
 
+import cs from '@ra/cs';
+import {sleep} from '@ra/utils';
+
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
 
@@ -48,12 +51,20 @@ const StatementsContent = ({statementData, index, topic}) => {
         );
     }, [expanded]);
 
+    const handleExportPDF = useCallback(async () => {
+        if(!expanded) {
+            toggleExpand();
+        }
+        await sleep(80); //Allow all remaining renders to complete
+        window.print();
+    }, [toggleExpand, expanded]);
+
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
                 <h3 className={styles.title}>{topic.title}</h3>
                 {index === 0 && (
-                    <div className={styles.exports}>
+                    <div onClick={handleExportPDF} className={cs(styles.exports, 'no-print')}>
                         <FiUpload />
                         <span className={styles.exportsTitle}>Export PDF</span>
                     </div>
@@ -73,7 +84,7 @@ const StatementsContent = ({statementData, index, topic}) => {
             <div className={styles.statementWrapper}>
                 <div className={styles.statementHeader}>
                     <h4 className={styles.statementTitle}>statements</h4>
-                    <div onClick={toggleExpand} className={styles.expandWrapper}>
+                    <div onClick={toggleExpand} className={cs(styles.expandWrapper, 'no-print')}>
                         <span>{expanded ? 'Collapse' : 'Expand'} All</span>
                         <FiChevronRight />
                     </div>

@@ -1,5 +1,7 @@
 import {useCallback} from 'react';
 
+import cs from '@ra/cs';
+
 import Tabs, {Tab} from 'components/Tabs';
 
 import Overview from '../Overview';
@@ -24,7 +26,7 @@ const SurveyTabs = props => {
             className={styles.tabs}
             PreHeaderComponent={renderSpacer}
             PostHeaderComponent={renderHeaderControls}
-            headerContainerClassName={styles.headerContainer}
+            headerContainerClassName={cs(styles.headerContainer, 'no-print')}
             headerClassName={styles.tabsHeader}
             tabItemClassName={styles.headerItem}
             contentContainerClassName={styles.tabContent}

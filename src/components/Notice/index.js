@@ -8,6 +8,7 @@ import Modal from '@ra/components/Modal';
 
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';
+import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
@@ -34,7 +35,7 @@ const Notice = () => {
     }
 
     return (
-        <section className={styles.noticeContainer}>
+        <section className={cs(styles.noticeContainer, 'no-print')}>
             <Container primary>
                 {showNotice && (
                     <div className={styles.topBar}>

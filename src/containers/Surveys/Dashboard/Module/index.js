@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
@@ -61,6 +61,13 @@ const Module = props => {
     const {topics} = useSelector(state => state.statement);
     const {isEditMode} = useSelector(state => state.dashboard);
     const {activeSurvey} = useSelector(state => state.survey);
+
+    useEffect(() => {
+        document.body.classList.add('mode-print');
+        return () => {
+            document.body.classList.remove('mode-print');
+        };
+    }, []);
 
     const renderTabsHeader = useCallback(tabHeaderProps => {
         const {title, active, ...rest} = tabHeaderProps;
@@ -130,7 +137,7 @@ const Module = props => {
         <Tabs
             className={styles.tabs}
             renderHeader={renderTabsHeader}
-            headerClassName={styles.tabsHeader}
+            headerClassName={cs(styles.tabsHeader, 'no-print')}
             contentContainerClassName={styles.contentContainer}
             defaultActiveTab={filteredTopics?.[0]?.code}
             mode="scroll"

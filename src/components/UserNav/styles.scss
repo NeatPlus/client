@@ -10,10 +10,12 @@
     }
 
     .title {
+        flex: 1;
         font-family: var(--font-family-header);
         font-size: var(--font-size-medium-sm);
         font-weight: 600;
         color: var(--color-tertiary);
+        text-align: center;
     }
 
     .right-content {

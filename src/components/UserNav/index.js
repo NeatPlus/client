@@ -85,7 +85,7 @@ const UserNav = (props) => {
                 <img className={styles.logo} src={logo} alt='Neat+ Logo' />
             </Link>
             {isSurveyPath && <h1 className={styles.title}>{activeSurvey?.title}</h1>}
-            <div className={styles.rightContent}>
+            <div className={cs(styles.rightContent, 'no-print')}>
                 {isSurveyPath && (
                     <Dropdown 
                         className={styles.shareDropdown}
