@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
@@ -56,11 +56,22 @@ const UnderDevelopment = props => {
 
 const Module = props => {
     const {code} = props;
+
+    const [expanded, setExpanded] = useState(false);
     
     const statements = useSelector(selectStatements);
     const {topics} = useSelector(state => state.statement);
     const {isEditMode} = useSelector(state => state.dashboard);
     const {activeSurvey} = useSelector(state => state.survey);
+
+    const toggleExpand = useCallback(() => setExpanded(!expanded), [expanded]);
+
+    useEffect(() => {
+        document.body.classList.add('mode-print');
+        return () => {
+            document.body.classList.remove('mode-print');
+        };
+    }, []);
 
     const renderTabsHeader = useCallback(tabHeaderProps => {
         const {title, active, ...rest} = tabHeaderProps;
@@ -111,10 +122,10 @@ const Module = props => {
 
         return (
             <Tab key={topic.code} label={topic.code} title={topic.title} className={styles.tabContent}>
-                <StatementsContent statementData={statementData} topic={topic} index={idx} />
+                <StatementsContent toggleExpand={toggleExpand} expanded={expanded} statementData={statementData} topic={topic} index={idx} />
             </Tab>
         );
-    }, [getStatementData]);
+    }, [getStatementData, toggleExpand, expanded]);
 
     if(!topics?.length) {
         return <NeatLoader />;
@@ -130,7 +141,7 @@ const Module = props => {
         <Tabs
             className={styles.tabs}
             renderHeader={renderTabsHeader}
-            headerClassName={styles.tabsHeader}
+            headerClassName={cs(styles.tabsHeader, 'no-print')}
             contentContainerClassName={styles.contentContainer}
             defaultActiveTab={filteredTopics?.[0]?.code}
             mode="scroll"

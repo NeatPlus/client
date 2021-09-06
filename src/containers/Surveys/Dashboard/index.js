@@ -257,7 +257,7 @@ const SurveyDashboard = () => {
             ) : activeProject ? (
                 <Link 
                     to={`/projects/${activeProject.id}/surveys/`} 
-                    className={styles.backLink}
+                    className={cs(styles.backLink, 'no-print')}
                 >
                     <BiChevronLeft 
                         size={22} 

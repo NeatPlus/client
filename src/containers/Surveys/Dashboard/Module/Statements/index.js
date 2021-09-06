@@ -1,5 +1,8 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
+
+import cs from '@ra/cs';
+import {sleep} from '@ra/utils';
 
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
@@ -25,11 +28,7 @@ const ConcernItem = (props) => {
     );
 };
 
-const StatementsContent = ({statementData, index, topic}) => {
-    const [expanded, setExpanded] = useState(false);
-
-    const toggleExpand = useCallback(() => setExpanded(!expanded), [expanded]);
-
+const StatementsContent = ({statementData, index, topic, toggleExpand, expanded}) => {
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
 
     const renderConcernItem = useCallback(listProps => {
@@ -48,12 +47,20 @@ const StatementsContent = ({statementData, index, topic}) => {
         );
     }, [expanded]);
 
+    const handleExportPDF = useCallback(async () => {
+        if(!expanded) {
+            toggleExpand();
+        }
+        await sleep(200); //Allow all remaining renders to complete
+        window.print();
+    }, [toggleExpand, expanded]);
+
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
                 <h3 className={styles.title}>{topic.title}</h3>
                 {index === 0 && (
-                    <div className={styles.exports}>
+                    <div onClick={handleExportPDF} className={cs(styles.exports, 'no-print')}>
                         <FiUpload />
                         <span className={styles.exportsTitle}>Export PDF</span>
                     </div>
@@ -73,10 +80,12 @@ const StatementsContent = ({statementData, index, topic}) => {
             <div className={styles.statementWrapper}>
                 <div className={styles.statementHeader}>
                     <h4 className={styles.statementTitle}>statements</h4>
-                    <div onClick={toggleExpand} className={styles.expandWrapper}>
-                        <span>{expanded ? 'Collapse' : 'Expand'} All</span>
-                        <FiChevronRight />
-                    </div>
+                    {index === 0 && (
+                        <div onClick={toggleExpand} className={cs(styles.expandWrapper, 'no-print')}>
+                            <span>{expanded ? 'Collapse' : 'Expand'} All</span>
+                            <FiChevronRight />
+                        </div>
+                    )}
                 </div>
                 <List
                     data={statementData}
