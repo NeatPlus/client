@@ -4838,7 +4838,7 @@ domexception@^2.0.1:
   dependencies:
     webidl-conversions "^5.0.0"
 
-domhandler@4.2.2:
+domhandler@4.2.2, domhandler@^4.0.0, domhandler@^4.2.0:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-4.2.2.tgz#e825d721d19a86b8c201a35264e226c678ee755f"
   integrity sha512-PzE9aBMsdZO8TK4BnuJwH0QT41wgMbRzuZrHUcpYncEjmQazq8QEaBWgLG7ZyC/DAZKEgglpIA6j4Qn/HmxS3w==
@@ -4851,13 +4851,6 @@ domhandler@^2.3.0:
   integrity sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
   dependencies:
     domelementtype "1"
-
-domhandler@^4.0.0, domhandler@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-4.2.0.tgz#f9768a5f034be60a89a27c2e4d0f74eba0d8b059"
-  integrity sha512-zk7sgt970kzPks2Bf+dwT/PLzghLnsivb9CcxkvR8Mzr66Olr0Ofd8neSbglHJHaHa2MadfoSdNlKYAaafmWfA==
-  dependencies:
-    domelementtype "^2.2.0"
 
 domutils@^1.5.1, domutils@^1.7.0:
   version "1.7.0"
@@ -6467,14 +6460,14 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
-html-react-parser@^1.2.9:
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-1.2.9.tgz#2350079649345a974172e979f2a0461cc8e01ec1"
-  integrity sha512-ZvR7ComEqDlu02fNTA6JR1HDRFH5DqNV+A9PWIzgFmyMNtKRVcit7nrryyOJstVtLXCv4RhcASCWFgLgipa/0Q==
+html-react-parser@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/html-react-parser/-/html-react-parser-1.3.0.tgz#81eff0558f34183ac1d372aa9218b8fb47bb3d6d"
+  integrity sha512-lhpkOFH8pwqEjlNUYCWvjT43/JVCZO9MAZuCS6afT1/VP+bZcNxNUs4AUqiMzH0QPSDHwM/GFNXZNok1KTA4BQ==
   dependencies:
     domhandler "4.2.2"
     html-dom-parser "1.0.2"
-    react-property "1.0.2"
+    react-property "2.0.0"
     style-to-js "1.1.0"
 
 html-tags@^3.1.0:
@@ -10668,10 +10661,10 @@ react-map-gl@^6.1.15:
     resize-observer-polyfill "^1.5.1"
     viewport-mercator-project "^7.0.3"
 
-react-property@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-property/-/react-property-1.0.2.tgz#44c018fff77ceefacb5180dbd3b518a2415847a3"
-  integrity sha512-DhOw478q1wLnSLb4C15h2FxOso6OVB/VN5NOXdmrjebH/6IYm3K2jModJefbeURobK7+pgH6CKZZhumT8KdK/Q==
+react-property@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-property/-/react-property-2.0.0.tgz#2156ba9d85fa4741faf1918b38efc1eae3c6a136"
+  integrity sha512-kzmNjIgU32mO4mmH5+iUyrqlpFQhF8K2k7eZ4fdLSOPFrD1XgEuSBv9LDEgxRXTMBqMd8ppT0x6TIzqE5pdGdw==
 
 react-redux@^7.2.5:
   version "7.2.5"
