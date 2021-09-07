@@ -1,0 +1,13 @@
+@media print {
+    :global {
+        body.mode-print {
+            @page {
+                size: a4 portrait;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+    }
+}
