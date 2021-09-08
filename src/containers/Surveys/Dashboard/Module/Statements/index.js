@@ -51,7 +51,7 @@ const StatementsContent = ({statementData, index, topic, toggleExpand, expanded}
         if(!expanded) {
             toggleExpand();
         }
-        await sleep(200); //Allow all remaining renders to complete
+        await sleep(expanded ? 200 : 1000); //Allow all remaining renders to complete
         window.print();
     }, [toggleExpand, expanded]);
 

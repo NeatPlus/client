@@ -1,9 +1,11 @@
 import {useCallback, useState, useMemo, useRef} from 'react';
 import {MdCheckCircle} from 'react-icons/md';
+import {BsCloudUpload} from 'react-icons/bs';
 
 import Loader from 'components/Loader';
-import FileInput from '@ra/components/Form/FileInput';
+import DragDropFileInput from '@ra/components/Form/DragDropFileInput';
 
+import Toast from 'services/toast';
 import useRequest from 'hooks/useRequest';
 
 import styles from './styles.scss';
@@ -18,14 +20,17 @@ const ImageInput = ({answer, onChange, disabled}) => {
         headers: new Headers(),
     });
 
-    const handleChange = useCallback(async target => {
+    const handleChange = useCallback(async ({files, rejections}) => {
         const formData = new FormData();
-        if(target.files && !target.files.length > 0) {
+        if(!files?.length) {
+            if(rejections?.length) {
+                Toast.show(rejections[0].errors?.[0].message || 'File is invalid', Toast.DANGER);
+            }
             setImageUrl(null);
             return onChange && onChange({value: ''}); 
         }
         try {
-            formData.append('file', target.files[0]);
+            formData.append('file', files[0]);
             const result = await uploadImage(formData);
             if(result) {
                 setImageUrl(result.url);
@@ -62,10 +67,19 @@ const ImageInput = ({answer, onChange, disabled}) => {
     return (
         <>    
             <form ref={formRef} className={styles.input}>
-                <FileInput
+                <DragDropFileInput
                     disabled={disabled}
                     accept="image/*"
                     onChange={handleChange}
+                    dropZoneClassName={styles.dropZone}
+                    activeDropZoneClassName={styles.activeInput}
+                    dragOverFrameClassName={styles.dragOverFrame}
+                    DropZoneComponent={
+                        <>
+                            <BsCloudUpload size={36} className={styles.dropZoneIcon} />
+                            <p className={styles.dropZoneText}>Drag & drop files here or click to upload</p>
+                        </>
+                    }
                 />
                 <div className={styles.images}>
                     {loading ? <Loader color="#00a279" /> : renderImage()}

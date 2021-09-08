@@ -20,6 +20,7 @@ const ConcernCounter = ({color, dataItem, totalCount}) => {
                 fill="#8884d8"
                 startAngle={90}
                 endAngle={-270}
+                animationDuration={180}
             >
                 {data.map((entry, index) => (
                     <Cell 
