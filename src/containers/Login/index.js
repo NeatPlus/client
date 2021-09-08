@@ -65,7 +65,7 @@ const Login = () => {
                     </div>
                     <main className={styles.content}>
                         <h2 className={styles.subTitle}>Welcome back!</h2>
-                        <h1 className={styles.title}>Log in to Neat+</h1>
+                        <h1 className={styles.title}>Log in to NEAT+</h1>
                         <div className={styles.loginContainer}>
                             <Form
                                 error={error}
