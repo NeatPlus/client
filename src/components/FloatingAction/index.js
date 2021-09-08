@@ -52,7 +52,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
     useEffect(() => () => hideAction(), [hideAction]);
 
     return (
-        <>
+        <div className='no-print'>
             <div onClick={showAction} className={styles.actionButton}>
                 {Icon && <Icon className={styles.icon} />}
             </div>
@@ -79,7 +79,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
                 </div>
             </div>
             <SurveyModals {...surveyModalsConfig} onDelete={handleDelete} />
-        </>
+        </div>
     );
 };
 
