@@ -8,6 +8,7 @@ import UserNav from 'components/UserNav';
 import SurveyDashboard from 'containers/Surveys/Dashboard';
 
 import Api from 'services/api';
+import cs from '@ra/cs';
 
 import List from './List';
 import Dashboard from './Dashboard';
@@ -22,7 +23,7 @@ const Projects = () => {
     const {projectId, title} = useSelector(state => state.draft);
 
     return (
-        <div className={styles.container}>
+        <div className={cs(styles.container, 'no-bgcolor')}>
             <UserNav />
             <div className={styles.content}>
                 <Switch>
