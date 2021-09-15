@@ -221,9 +221,15 @@ const TakeSurveyModal = (props) => {
         try {
             const results = calculateSurveyResults(answers);
             const project = draftProjectId;
+            const submissionAnswers = answers.map(ans => {
+                if(ans.formattedAnswer) {
+                    delete ans.formattedAnswer;
+                }
+                return ans;
+            }, []);
             const response  = await createSurvey({
                 title: surveyTitle,
-                answers,
+                answers: submissionAnswers,
                 project,
                 results,
             });

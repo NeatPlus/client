@@ -33,7 +33,8 @@ const getInputComponent = question => {
         return MultiOptionInput;
     case 'number':
         return NumberInput;
-    case 'image':
+    case 'single_image':
+    case 'multiple_image':
         return ImageInput;
     default:
         if(question.code==='overview') {
@@ -61,7 +62,7 @@ const Question = forwardRef((props, ref) => {
     [item, showRequired, answers]
     );
 
-    const handleChangeAnswer = useCallback(({value}) => {
+    const handleChangeAnswer = useCallback(({value, formattedValue}) => {
         if(!editable) {
             return;
         }
@@ -74,6 +75,9 @@ const Question = forwardRef((props, ref) => {
             answer.options = value;    
         } else {
             answer.answer = value;
+        }
+        if(formattedValue) {
+            answer.formattedAnswer = formattedValue;
         }
         const answerIndex = answers.findIndex(ans => {
             const questionId = ans.question?.id || ans.question;
@@ -123,7 +127,8 @@ const Question = forwardRef((props, ref) => {
                         checkedOptions={answerItem?.options}
                         value={answerItem?.answer}
                         answer={answerItem?.answer}
-                        accept="image/png, image/jpeg"
+                        formattedAnswer={answerItem?.formattedAnswer}
+                        multiple={item.answerType==='multiple_image'}
                     />
                 ) : (
                     <p className={styles.contentBlockText}>
