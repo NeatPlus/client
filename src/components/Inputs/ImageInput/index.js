@@ -1,74 +1,113 @@
-import {useCallback, useState, useMemo, useRef} from 'react';
-import {MdCheckCircle} from 'react-icons/md';
+import {useCallback, useRef, useMemo} from 'react';
+import {IoClose} from 'react-icons/io5';
 import {BsCloudUpload} from 'react-icons/bs';
 
 import Loader from 'components/Loader';
 import DragDropFileInput from '@ra/components/Form/DragDropFileInput';
+import List from '@ra/components/List';
 
+import cs from '@ra/cs';
 import Toast from 'services/toast';
 import useRequest from 'hooks/useRequest';
 
 import styles from './styles.scss';
 
-const ImageInput = ({answer, onChange, disabled}) => {
-    const formRef = useRef();
+const ImagePreview = ({item, index, onRemove, disabled}) => {
+    const handleClick = useCallback(() => onRemove(index), [onRemove, index]);
 
-    const [imageUrl, setImageUrl] = useState(null);
+    return (
+        <div className={cs(styles.imageContainer, {
+            [styles.imageContainerDisabled]: disabled,
+        })}>
+            <div className={styles.removeIconContainer} onClick={handleClick}>
+                <IoClose className={styles.removeIcon} />
+            </div>
+            <img src={item} alt={`upload-${index}`} className={styles.image} />
+        </div>
+    );
+};
+
+const ImageInput = ({
+    answer: imageNames, 
+    formattedAnswer: images = [], 
+    onChange, 
+    disabled, 
+    multiple
+}) => {
+    const formRef = useRef();
 
     const [{loading}, uploadImage] = useRequest('/user/upload_image/', {
         method: 'POST',
         headers: new Headers(),
     });
 
+    const answer = useMemo(() => imageNames?.split(',') ?? [], [imageNames]);
+
     const handleChange = useCallback(async ({files, rejections}) => {
-        const formData = new FormData();
         if(!files?.length) {
             if(rejections?.length) {
                 Toast.show(rejections[0].errors?.[0].message || 'File is invalid', Toast.DANGER);
             }
-            setImageUrl(null);
-            return onChange && onChange({value: ''}); 
+            return;
         }
-        try {
-            formData.append('file', files[0]);
-            const result = await uploadImage(formData);
-            if(result) {
-                setImageUrl(result.url);
-                onChange && onChange({value: result.name});
+        const newAnswer = [...answer];
+        const newImages = [...images];
+        files.forEach(async file => {
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                const result = await uploadImage(formData);
+                if(result) {
+                    if(!multiple) {
+                        onChange && onChange({
+                            value: result.name, 
+                            formattedValue: result.url,
+                        });
+                        return;
+                    }
+                    newAnswer.push(result.name);
+                    newImages.push(result.url);
+                    onChange && onChange({
+                        value: newAnswer.join(','), 
+                        formattedValue: newImages,
+                    });
+                }
+            } catch(err) {
+                console.log(err);
             }
-        } catch(err) {
-            console.log(err);
-        }
-    }, [uploadImage, onChange]);
+        });
+    }, [onChange, uploadImage, images, answer, multiple]);
 
     const handleClear = useCallback(() => {
-        setImageUrl(null);
         formRef.current.reset();
         return onChange && onChange({value: ''});
     }, [onChange]);
 
-    const renderImage = useCallback(() => {
-        if(!imageUrl) {
-            return null;
+    const handleImageRemove = useCallback(imgIdx => {
+        const newImages = [...images];
+        newImages.splice(imgIdx, 1);
+        onChange && onChange({value: newImages.join(',')});
+    }, [onChange, images]);
+
+    const renderImage = useCallback(listProps => {
+        if(loading) {
+            return <Loader color="#00a279" />;
         }
         return (
-            <img src={imageUrl} alt={answer} className={styles.image} />
+            <ImagePreview 
+                {...listProps} 
+                onRemove={handleImageRemove} 
+                disabled={disabled} 
+            />
         );
-    }, [imageUrl, answer]);
-
-    const fileName = useMemo(() => {
-        if(!answer) {
-            return '';
-        }
-        const name = answer.split('/');
-        return name?.[name.length - 1] || '';
-    }, [answer]);
+    }, [handleImageRemove, loading, disabled]);
 
     return (
         <>    
             <form ref={formRef} className={styles.input}>
                 <DragDropFileInput
                     disabled={disabled}
+                    multiple={multiple}
                     accept="image/*"
                     onChange={handleChange}
                     dropZoneClassName={styles.dropZone}
@@ -77,19 +116,18 @@ const ImageInput = ({answer, onChange, disabled}) => {
                     DropZoneComponent={
                         <>
                             <BsCloudUpload size={36} className={styles.dropZoneIcon} />
-                            <p className={styles.dropZoneText}>Drag & drop files here or click to upload</p>
+                            <p className={styles.dropZoneText}>Drag & drop images here or click to upload</p>
                         </>
                     }
                 />
-                <div className={styles.images}>
-                    {loading ? <Loader color="#00a279" /> : renderImage()}
-                    {!imageUrl && answer && (
-                        <div className={styles.fileName}>
-                            <MdCheckCircle className={styles.answerIcon} />
-                            <span className={styles.answerText}>{fileName}</span>
-                        </div>
-                    )}
-                </div>
+                {images?.length > 0 && (
+                    <List
+                        className={styles.images}
+                        data={multiple ? images : [images]}
+                        keyExtractor={(item, index) => index}
+                        renderItem={renderImage}
+                    />
+                )}
             </form>
             {answer && <div className={styles.clear} onClick={handleClear}>Clear</div>}
         </>
