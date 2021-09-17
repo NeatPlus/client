@@ -58,7 +58,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "customize-cra": "^1.0.0",
     "eslint-plugin-css-modules": "^2.11.0",
-    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react": "^7.25.2",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "react-app-rewired": "^2.1.8",
