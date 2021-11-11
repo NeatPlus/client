@@ -18,6 +18,7 @@ import cs from '@ra/cs';
 import {getErrorMessage} from '@ra/utils/error';
 import {calculateSurveyResults} from 'utils/calculation';
 import {initDraftAnswers} from 'utils/dispatch';
+import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
 
 import Api from 'services/api';
 import Toast from 'services/toast';
@@ -114,6 +115,7 @@ const TakeSurveyModal = (props) => {
         title: surveyTitle, 
         projectId: draftProjectId,
         moduleCode: draftCode,
+        surveyId: draftSurveyId,
     } = useSelector(state => state.draft);
 
     const {
@@ -143,6 +145,14 @@ const TakeSurveyModal = (props) => {
 
     const [{loading}, createSurvey] = useRequest(
         `/project/${draftProjectId}/create_survey/`, 
+        {method: 'POST'}
+    );
+    const [{loading: addingAnswers}, addSurveyAnswers] = useRequest(
+        `/survey/${draftSurveyId}/add_answers/`,
+        {method: 'POST'}
+    );
+    const [{loading: addingResults}, addSurveyResults] = useRequest(
+        `/survey/${draftSurveyId}/add_results/`,
         {method: 'POST'}
     );
 
@@ -219,7 +229,7 @@ const TakeSurveyModal = (props) => {
     const handleValidate = useCallback(async () => {
         setError(null);
         try {
-            const results = calculateSurveyResults(answers);
+            const results = calculateSurveyResults(answers, moduleCode);
             const project = draftProjectId;
             const submissionAnswers = answers.map(ans => {
                 if(ans.formattedAnswer) {
@@ -227,13 +237,19 @@ const TakeSurveyModal = (props) => {
                 }
                 return ans;
             }, []);
-            const response  = await createSurvey({
-                title: surveyTitle,
-                answers: submissionAnswers,
-                project,
-                results,
-            });
-            Toast.show(response?.detail || 'Survey complete!', Toast.SUCCESS);
+            if(moduleCode==='sens') {
+                const response  = await createSurvey({
+                    title: surveyTitle,
+                    answers: submissionAnswers,
+                    project,
+                    results,
+                });
+                Toast.show(response?.detail || 'Survey complete!', Toast.SUCCESS);
+            } else {
+                await addSurveyAnswers(answers);
+                const response = await addSurveyResults(results);
+                Toast.show(response?.detail || 'Survey complete!', Toast.SUCCESS);
+            }
             dispatch(questionActions.setAnswers([]));
             initDraftAnswers(null);
             handleClose();
@@ -253,6 +269,9 @@ const TakeSurveyModal = (props) => {
         draftProjectId,
         surveyTitle,
         params,
+        moduleCode,
+        addSurveyAnswers,
+        addSurveyResults,
     ]);
 
     if(!isVisible) {
@@ -330,9 +349,12 @@ const TakeSurveyModal = (props) => {
                             </Button>
                             {editable && (
                                 <Button 
-                                    // TODO: Submit for modules other than sensitivity
-                                    disabled={isFormIncomplete || !questionGroups?.length || moduleCode!=='sens'}
-                                    loading={loading}
+                                    disabled={
+                                        isFormIncomplete 
+                                            || !questionGroups?.length 
+                                            || !AVAILABLE_SURVEY_MODULES.includes(moduleCode)
+                                    }
+                                    loading={loading || addingAnswers || addingResults}
                                     className={cs(styles.button, styles.buttonNext)} 
                                     onClick={handleValidate}
                                 >

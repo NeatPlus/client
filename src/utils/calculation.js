@@ -5,7 +5,10 @@ export const calculateSurveyResults = (surveyAnswers, moduleCode = 'sens') => {
         statement: {statements},
         weightage: {questionStatements, optionStatements},
         question: {options, questions},
+        context: {modules},
     } = store.getState();
+
+    const activeModule = modules.find(mod => mod.code === moduleCode);
 
     const results = statements.map((st, idx) => {
         const weightedQuestions = questionStatements.filter(qst => 
@@ -29,7 +32,10 @@ export const calculateSurveyResults = (surveyAnswers, moduleCode = 'sens') => {
                     )?.weightage;
                 }) || [];
                 const currentQuestion = questions[moduleCode].find(que => que.id === cur.question);
-                if(currentQuestion.answerType === 'single_option') {    
+                if(!currentQuestion) {
+                    return acc;
+                }
+                if(currentQuestion.answerType === 'single_option') {
                     const questionValue = (optionScores[0] * cur.weightage) / maxOptionWeight;
                     return (
                         acc.sum = acc.sum + cur.weightage, 
@@ -39,8 +45,7 @@ export const calculateSurveyResults = (surveyAnswers, moduleCode = 'sens') => {
                 }
                 const maxSelected = Math.max(...optionScores);
                 const sumSelected = optionScores.reduce(
-                    (selectedScoreAcc, curSelectedScore) => 
-                        selectedScoreAcc + curSelectedScore, 0
+                    (selectedScoreAcc, curSelectedScore) => selectedScoreAcc + curSelectedScore, 0
                 );
                 const totalWeight = options
                     .filter(opt => opt.question === cur.question)
@@ -69,6 +74,7 @@ export const calculateSurveyResults = (surveyAnswers, moduleCode = 'sens') => {
         return {
             statement: st.id,
             score: score,
+            module: activeModule.id,
         };
     });
     return results;

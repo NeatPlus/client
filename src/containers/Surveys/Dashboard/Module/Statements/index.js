@@ -1,11 +1,15 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
+import {RiFileList3Line} from 'react-icons/ri';
 
 import cs from '@ra/cs';
 import {sleep} from '@ra/utils';
 
+import TakeSurveyModal from 'components/TakeSurveyModal';
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
+import * as questionActions from 'store/actions/question';
 
 import List from '@ra/components/List';
 
@@ -28,8 +32,30 @@ const ConcernItem = (props) => {
     );
 };
 
-const StatementsContent = ({statementData, index, topic, toggleExpand, expanded}) => {
+const StatementsContent = ({
+    statementData,
+    index,
+    topic,
+    toggleExpand,
+    expanded,
+    moduleCode,
+}) => {
+    const dispatch = useDispatch();
+    const {activeSurvey} = useSelector(state => state.survey);
+    
+    const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
+
+    const handleShowQuestionnaire = useCallback(() => {
+        dispatch(questionActions.setAnswers(activeSurvey?.answers));
+        setShowQuestionnaire(true);
+    }, [activeSurvey, dispatch]);
+
+    const handleCloseQuestionnaire = useCallback(() => {
+        dispatch(questionActions.setAnswers([]));
+        setShowQuestionnaire(false);
+    }, [dispatch]);
 
     const renderConcernItem = useCallback(listProps => {
         const total = severityCounts.reduce((acc, cur) => acc + cur.count, 0);
@@ -60,9 +86,25 @@ const StatementsContent = ({statementData, index, topic, toggleExpand, expanded}
             <div className={styles.sectionHeader}>
                 <h3 className={styles.title}>{topic.title}</h3>
                 {index === 0 && (
-                    <div onClick={handleExportPDF} className={cs(styles.exports, 'no-print')}>
-                        <FiUpload />
-                        <span className={styles.exportsTitle}>Export PDF</span>
+                    <div className={styles.headerButtons}>
+                        <TakeSurveyModal 
+                            isVisible={showQuestionnaire} 
+                            editable={false}
+                            onClose={handleCloseQuestionnaire}
+                            code={moduleCode}
+                        />
+                        <div
+                            disabled={!activeSurvey?.answers?.length}
+                            onClick={handleShowQuestionnaire}
+                            className={styles.exports}
+                        >
+                            <RiFileList3Line />
+                            <span className={styles.exportsTitle}>Show Questionnaires</span>
+                        </div>
+                        <div onClick={handleExportPDF} className={cs(styles.exports, 'no-print')}>
+                            <FiUpload />
+                            <span className={styles.exportsTitle}>Export PDF</span>
+                        </div>
                     </div>
                 )}
             </div>

@@ -38,7 +38,6 @@ const SurveyTabs = props => {
             <Tab label="sensitivity" title="Sensitivity">
                 <Module code="sens" />
             </Tab>
-            {/* FIXME: Other tab modules in public mode */}
             {!publicMode && (
                 <Tab label="shelter" title="Shelter">
                     <Module code="shelter" />

@@ -18,14 +18,14 @@ export const getFormattedSurveys = createSelector([
     if(!statements.length) {
         return [];
     }
+    const allQuestions = Object.values(questions).flatMap(el => el);
     return surveys?.map(survey => ({
         ...survey, 
         config: typeof survey.config === 'string' ? JSON.parse(survey.config) : survey.config,
         answers: surveyAnswers
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {
-                // FIXME: Add support for other modules
-                const que = questions['sens'].find(q => q.id === srv.question);
+                const que = allQuestions.find(q => q.id === srv.question);
                 return {
                     ...srv,
                     question: {

@@ -15,7 +15,7 @@
         justify-content: space-between;
 
         @media screen and (max-width: 767px) {
-            flex-direction: column; 
+            flex-direction: column;
             gap: 1em;
             padding: 0 25px;
         }
@@ -62,7 +62,7 @@
     .content {
         flex: 1;
 
-        @media screen and (max-width: 767px) { 
+        @media screen and (max-width: 767px) {
             width: 90vw;
             margin-left: auto;
             margin-right: auto;
@@ -89,7 +89,7 @@
                         font-weight: 600;
                         color: var(--color-grey);
 
-                        @media screen and (max-width: 767px) { 
+                        @media screen and (max-width: 767px) {
                             line-height: 1.33;
                         }
 
