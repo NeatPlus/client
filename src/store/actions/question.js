@@ -12,8 +12,8 @@ export function setQuestionGroups(questionGroups) {
     return {type: SET_QUESTION_GROUPS, questionGroups};
 }
 
-export function setQuestions(code, questions) {
-    return {type: SET_QUESTIONS, code, questions};
+export function setQuestions(questions) {
+    return {type: SET_QUESTIONS, questions};
 }
 
 export function setOptions(options) {

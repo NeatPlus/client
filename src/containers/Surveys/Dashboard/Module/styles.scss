@@ -78,7 +78,8 @@
                 .tab-icon {
                     margin-right: 20px;
 
-                    path, rect {
+                    path,
+                    rect {
                         fill: #909696;
                     }
 
@@ -100,7 +101,8 @@
                 border-right: 3px solid var(--color-primary);
 
                 .header-title .tab-icon {
-                    path, rect {
+                    path,
+                    rect {
                         fill: var(--color-primary);
                     }
                 }

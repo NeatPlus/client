@@ -21,6 +21,7 @@ const Projects = () => {
     }, []);
 
     const {projectId, title} = useSelector(state => state.draft);
+    const {status} = useSelector(state => state.question);
 
     return (
         <div className={cs(styles.container, 'no-bgcolor')}>
@@ -33,7 +34,7 @@ const Projects = () => {
                     <Route path='/projects/:projectId' component={Dashboard} />
                 </Switch>
             </div>
-            {projectId && !!title && (
+            {projectId && !!title && status==='complete' && (
                 <FloatingAction surveyTitle={title} icon={AiOutlineFileText} />
             )}
         </div>

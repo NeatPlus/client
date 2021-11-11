@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 import {initDraftAnswers} from 'utils/dispatch';
 import Api from 'services/api';
 
-const useSurveyModals = (module) => {
+const useSurveyModals = (module, surveyId) => {
     const {projectId} = useParams(); 
     const {projectId: draftId, title} = useSelector(state => state.draft);
     const {questions} = useSelector(state => state.question);
@@ -19,7 +19,7 @@ const useSurveyModals = (module) => {
 
     const handleShowTakeSurvey = useCallback((reset=true) => {
         if(reset) {
-            initDraftAnswers(+projectId, module);
+            initDraftAnswers(+projectId, module, surveyId);
         }
         if(!questions?.[module]?.length) {
             Api.getQuestions(module);
@@ -28,7 +28,7 @@ const useSurveyModals = (module) => {
             showTakeSurveyModal: true,
             showDeleteDraftModal: false,
         });
-    }, [projectId, module, questions]);
+    }, [projectId, module, questions, surveyId]);
 
     const handleShowDeleteDraft = useCallback(() => {
         if(doesDraftExist) {

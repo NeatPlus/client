@@ -16,7 +16,7 @@ const StatementAccordion = ({item, isExpanded}) => {
     const [contentHeight, setContentHeight] = useState(isExpanded?'none':'0px');
     
     const content = useRef(null);
-  
+
     const toggleAccordion = useCallback((type, value) => {
         let shouldOpen = !open;
         if(type==='all') {

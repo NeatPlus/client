@@ -16,9 +16,9 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
     const actionRef = useRef();
     const dispatch = useDispatch();
 
-    const {draftAnswers, moduleCode} = useSelector(state => state.draft);
+    const {draftAnswers, moduleCode, surveyId} = useSelector(state => state.draft);
 
-    const surveyModalsConfig = useSurveyModals(moduleCode);
+    const surveyModalsConfig = useSurveyModals(moduleCode, surveyId);
 
     const [actionVisible, setActionVisible] = useState(false);
 

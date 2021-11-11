@@ -38,6 +38,7 @@ const StatementList = ({statements=[], severity}) => {
 const SummaryModal = props => {
     const {isVisible, onClose, activeSeverity, setActiveSeverity} = props;
 
+    const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
     const {statements} = useSelector(state => state.statement);
 
@@ -60,11 +61,14 @@ const SummaryModal = props => {
     }, [setActiveSeverity]);
 
     const statementData = useMemo(() => {
-        return activeSurvey?.results?.map(res => ({
+        const sensitivityModule = modules.find(mod => mod.code === 'sens');
+        return activeSurvey?.results?.filter(res => {
+            return res && res?.module === sensitivityModule?.id;
+        }).map(res => ({
             ...res,
             statement: statements.find(st => st.id === res.statement),
         })) || [];
-    }, [activeSurvey, statements]);
+    }, [activeSurvey, statements, modules]);
 
     if(!isVisible) {
         return null;
@@ -72,7 +76,9 @@ const SummaryModal = props => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Statements Severity Summary</h2>
+                <h2 className={styles.title}>
+                    Sensitivity Statements Severity Summary
+                </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>

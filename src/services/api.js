@@ -226,19 +226,21 @@ class Api {
         }
     }
 
-    async getQuestions(code) {
+    async getQuestions() {
         dispatch(questionActions.setStatus('loading'));
         try {
             const {
                 context: {modules},
                 question: {options},
             } = store.getState();
-            const query = {
-                limit: -1, 
-                module: modules.find(mod => mod.code === code)?.id,
-            };
+            const query = {limit: -1};
             const data = await this.get('/question/', {query});
-            dispatch(questionActions.setQuestions(code, data?.results || []));
+            const groupedQuestions = modules.reduce((acc, cur)=> (
+                // eslint-disable-next-line no-sequences
+                acc[cur.code] = data?.results.filter(que => que.module === cur.id),
+                acc
+            ), {});
+            dispatch(questionActions.setQuestions(groupedQuestions || []));
             if(!options.length) {
                 const optionsData = await this.get('/option/', {query: {limit: -1}});
                 dispatch(questionActions.setOptions(optionsData?.results || []));

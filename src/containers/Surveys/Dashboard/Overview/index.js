@@ -1,15 +1,12 @@
 import {useCallback, useState, useMemo} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {IoIosArrowRoundForward} from 'react-icons/io';
 
-import Button from 'components/Button';
 import Map from 'components/Map';
 import SummaryModal from 'components/SummaryModal';
-import TakeSurveyModal from 'components/TakeSurveyModal';
 import List from '@ra/components/List';
 
 import cs from '@ra/cs';
-import * as questionActions from 'store/actions/question';
 import {getSeverityCounts} from 'utils/severity';
 
 import styles from './styles.scss';
@@ -53,24 +50,12 @@ const ConcernItem = ({item, onClick}) => {
 };
 
 const Overview = () => {
-    const dispatch = useDispatch();
-
+    const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
     const {activeProject} = useSelector(state => state.project);
 
-    const [showQuestionnaire, setShowQuestionnaire] = useState(false);
     const [showSummaryModal, setShowSummaryModal] = useState(false);
     const [activeSeverity, setActiveSeverity] = useState('high');
-
-    const handleShowQuestionnaire = useCallback(() => {
-        dispatch(questionActions.setAnswers(activeSurvey?.answers));
-        setShowQuestionnaire(true);
-    }, [activeSurvey, dispatch]);
-
-    const handleCloseQuestionnaire = useCallback(() => {
-        dispatch(questionActions.setAnswers([]));
-        setShowQuestionnaire(false);
-    }, [dispatch]);
 
     const handleShowSummary = useCallback(severity => {
         setActiveSeverity(severity);
@@ -88,7 +73,12 @@ const Overview = () => {
         return '';
     }, [activeSurvey]);
 
-    const severityCounts = useMemo(() => getSeverityCounts(activeSurvey?.results || []), [activeSurvey]);
+    const severityCounts = useMemo(() => {
+        const sensitivityModule = modules.find(mod => mod.code === 'sens');
+        return getSeverityCounts(activeSurvey?.results?.filter(res => {
+            return res && res.module === sensitivityModule?.id;
+        }) || []);
+    }, [activeSurvey, modules]);
 
     const renderConcernItem = useCallback(listProps => (
         <ConcernItem {...listProps} onClick={handleShowSummary} />
@@ -134,21 +124,12 @@ const Overview = () => {
                                 value={getLocaleDate(activeSurvey?.modifiedAt)}
                             />
                         </div>
-                        <Button
-                            disabled={!activeSurvey?.answers?.length}
-                            onClick={handleShowQuestionnaire}
-                            secondary 
-                            outline 
-                            className={styles.buttonBottom}
-                        >
-                            <span className={styles.buttonText}>
-                                See Questionnaires
-                            </span>
-                        </Button>
                     </div>
                 </div>
                 <div className={styles.statementSummary}>
-                    <h4 className={styles.statementTitle}>Statement Severity Summary</h4>
+                    <h4 className={styles.statementTitle}>
+                        Sensitivity Statements Severity Summary
+                    </h4>
                     <List 
                         className={styles.concerns}
                         data={severityCounts}
@@ -164,12 +145,7 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
-            <TakeSurveyModal 
-                isVisible={showQuestionnaire} 
-                editable={false}
-                onClose={handleCloseQuestionnaire}
-                code="sens" // TODO: Show other modules
-            />
+            
             <SummaryModal 
                 isVisible={showSummaryModal} 
                 onClose={handleCloseSummaryModal}
