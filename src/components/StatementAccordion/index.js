@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react';
-import {FiChevronRight} from 'react-icons/fi';
+import {FiAlertTriangle, FiChevronRight} from 'react-icons/fi';
 
 import Editable from 'components/Editable';
 import List from '@ra/components/List';
@@ -72,6 +72,9 @@ const StatementAccordion = ({item, isExpanded}) => {
                         </span>
                     )}
                     <div className={styles.accordion} onClick={toggleAccordion}>
+                        {item.statement.isExperimental &&
+                            <FiAlertTriangle className={styles.experimentalIcon} title="This statement is in experimental phase currently and may not give accurate result." />
+                        }
                         <div className={cs(
                             styles.accordionTitle, 
                             open && styles.activeTitle
