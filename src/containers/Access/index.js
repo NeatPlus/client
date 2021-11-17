@@ -80,6 +80,7 @@ const Access = () => {
                     <h1 className={styles.contentTitle}>FAQs</h1>
                     {data?.results.map(item =>
                         <FaqAccordion
+                            key={item.id}
                             question={item.question}
                             answer={item.answer}
                         />

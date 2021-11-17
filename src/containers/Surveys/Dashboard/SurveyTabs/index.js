@@ -1,8 +1,10 @@
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
+import {useSelector} from 'react-redux';
 
 import cs from '@ra/cs';
 
 import Tabs, {Tab} from 'components/Tabs';
+import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
 
 import Overview from '../Overview';
 import Module from '../Module';
@@ -12,12 +14,37 @@ import styles from './styles.scss';
 const SurveyTabs = props => {
     const {activeTab, onTabChange, renderHeaderControls, publicMode} = props;
 
+    const {modules} = useSelector(state => state.context);
+    const {activeSurvey} = useSelector(state => state.survey);
+
     const renderSpacer = useCallback(() => {
         if (activeTab==='overview' || publicMode) {
             return null;
         }
         return <div className={styles.spacer} />;
     }, [activeTab, publicMode]);
+
+    const availableModules = useMemo(() => modules.filter(mod => {
+        return AVAILABLE_SURVEY_MODULES.includes(mod.code);
+    }), [modules]);
+
+    const availablePublicModules = useMemo(() => availableModules.filter(mod => {
+        return activeSurvey?.results.some(res => res.module === mod.id);
+    }).map(el => el.code), [availableModules, activeSurvey]);
+
+    const renderModuleTab = useCallback(module => {
+        if(publicMode && !availablePublicModules.includes(module.code)) {
+            return null;
+        }
+
+        const label = module.code==='sens' ? 'sensitivity' : module.code;
+
+        return (
+            <Tab key={module.id} label={label} title={module.title}>
+                <Module code={module.code} />
+            </Tab>
+        );
+    }, [publicMode, availablePublicModules]);
 
     return (
         <Tabs 
@@ -35,24 +62,7 @@ const SurveyTabs = props => {
             <Tab label="overview" title="Overview">
                 <Overview />
             </Tab>
-            <Tab label="sensitivity" title="Sensitivity">
-                <Module code="sens" />
-            </Tab>
-            {!publicMode && (
-                <Tab label="shelter" title="Shelter">
-                    <Module code="shelter" />
-                </Tab>
-            )}
-            {!publicMode && (
-                <Tab label="wash" title="WASH">
-                    <Module code="wash" />
-                </Tab>
-            )}
-            {!publicMode && (
-                <Tab label="fs" title="FS">
-                    <Module code="fs" />
-                </Tab>
-            )}
+            {modules.map(renderModuleTab)}
         </Tabs>
     );
 };

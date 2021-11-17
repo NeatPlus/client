@@ -31,7 +31,7 @@ const CreateEditProjectModal = (props) => {
     const {onClose, project, mode} = props;
     const [error, setError] = useState(null);
     const [visibility, setVisibility] = useState('');
-    const [orgObj, setOrgObj] = useState();
+    const [orgObj, setOrgObj] = useState({});
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('');
     const [title, setTitle] = useState('');
