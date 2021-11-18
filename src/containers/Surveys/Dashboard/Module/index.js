@@ -31,7 +31,7 @@ const FillQuestionnaire = props => {
         <div className={styles.container}>
             <img className={styles.infoImage} src={fillImage} alt="Fill Questionnaire" />
             <p className={styles.infoText}>
-                Please fill up the Shelter questionnaire to view this analysis.
+                Please fill up the questionnaire to view this analysis.
             </p>
             <Button 
                 outline 

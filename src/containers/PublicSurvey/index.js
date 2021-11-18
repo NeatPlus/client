@@ -25,11 +25,17 @@ const PublicSurvey = () => {
     const [{loading}, getPublicSurvey] = usePromise(Api.getPublicSurvey);
 
     const {isAuthenticated} = useSelector(state => state.auth);
-    const {questions} = useSelector(state => state.question); 
+    const {questions, status: questionsStatus} = useSelector(state => state.question); 
     const {statements} = useSelector(state => state.statement);
     const {activeSurvey} = useSelector(state => state.survey);
 
-    const isDataReady = useMemo(() => questions['sens'].length && statements.length, [questions, statements]);
+    const isDataReady = useMemo(() => {
+        return questionsStatus==='complete' && statements.length;
+    }, [statements, questionsStatus]);
+
+    const allQuestions = useMemo(() => {
+        return Object.values(questions)?.flatMap(el => el) || [];
+    }, [questions]);
 
     const getSurvey = useCallback(async () => {
         if(!isDataReady) {
@@ -39,8 +45,7 @@ const PublicSurvey = () => {
             const survey = await getPublicSurvey(identifier);
             const config = typeof survey.config === 'string' ? JSON.parse(survey.config) : survey.config;
             const answers = survey.answers.map(ans => {
-                // FIXME: Add support for other modules
-                const que = questions['sens'].find(q => q.id === ans.question);
+                const que = allQuestions.find(q => q.id === ans.question);
                 return {
                     ...ans,
                     question: {
@@ -72,7 +77,7 @@ const PublicSurvey = () => {
         identifier, 
         getPublicSurvey, 
         dispatch, 
-        questions, 
+        allQuestions, 
         statements, 
         history, 
         isDataReady,
