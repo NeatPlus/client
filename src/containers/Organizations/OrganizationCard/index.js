@@ -29,7 +29,7 @@ const OrganizationCard = ({item: organization}) => {
             <div className={styles.cardHeader}>
                 {organization.logo && (
                     <img 
-                        source={organization.logo}
+                        src={organization.logo}
                         alt="logo"
                         className={styles.logo}
                     />
