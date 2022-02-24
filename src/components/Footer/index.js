@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {FaFacebook, FaTwitter, FaYoutube} from 'react-icons/fa';
+import {FaGithub, FaLinkedin, FaTwitter, FaYoutube} from 'react-icons/fa';
 
 import Container from 'components/Container';
 
@@ -35,9 +35,18 @@ const Footer = () => {
                     <div className={styles.footerHead}>
                         <img className={styles.footerLogo} src={logo} alt="neat-logo" />
                         <div className={styles.socialIconWrapper}>
-                            <a href="#" target="_blank"> <FaFacebook className={styles.socialIcon} /></a>
-                            <a href="#" target="_blank"> <FaTwitter className={styles.socialIcon} /></a>
-                            <a href="#" target="_blank"> <FaYoutube className={styles.socialIcon} /></a>
+                            <a href="https://www.linkedin.com/in/joint-environment-unit-jeu-a073646a/" target="_blank" rel="noreferrer">
+                                <FaLinkedin className={styles.socialIcon} />
+                            </a>
+                            <a href="https://twitter.com/EnvironmentOcha/" target="_blank" rel="noreferrer">
+                                <FaTwitter className={styles.socialIcon} />
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCfAAS7C2HdQ13WmA9rhupPQ" target="_blank" rel="noreferrer">
+                                <FaYoutube className={styles.socialIcon} />
+                            </a>
+                            <a href="https://github.com/NeatPlus/" target="_blank" rel="noreferrer">
+                                <FaGithub className={styles.socialIcon} />
+                            </a>
                         </div>
                     </div>
                     <hr className={styles.seperator} />
