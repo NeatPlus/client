@@ -25,7 +25,7 @@ jobs:
           git clone https://TestToken:${{ secrets.GITLAB_TOKEN }}@gitlab.com/nepware-internals/react-arsenal.git src/vendor/react-arsenal
 
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
