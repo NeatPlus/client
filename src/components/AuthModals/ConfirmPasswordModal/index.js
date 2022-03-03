@@ -7,6 +7,7 @@ import SecureTextInput from '@ra/components/Form/SecureTextInput';
 import Form, {InputField} from '@ra/components/Form';
 import Modal from '@ra/components/Modal';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import Toast from 'services/toast';
 import {getErrorMessage} from '@ra/utils/error';
@@ -31,7 +32,7 @@ const ConfirmPasswordModal = props => {
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <h2 className={styles.title}>
-                    Confirm your password
+                    <Localize>Confirm your password</Localize>
                 </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
@@ -43,7 +44,7 @@ const ConfirmPasswordModal = props => {
                     required
                     component={SecureTextInput}
                     className={styles.input}
-                    label="Password"
+                    label={_('Password')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                 />
@@ -54,13 +55,13 @@ const ConfirmPasswordModal = props => {
                         className={styles.button} 
                         onClick={onClose}
                     >
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button 
                         loading={loading} 
                         className={styles.button}
                     >
-                        Continue
+                        <Localize>Continue</Localize>
                     </Button>
                 </div>
             </Form>

@@ -3,17 +3,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
 import {RiFileList3Line} from 'react-icons/ri';
 
-import cs from '@ra/cs';
-import {sleep} from '@ra/utils';
-
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
-import * as questionActions from 'store/actions/question';
-
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
+import cs from '@ra/cs';
+import {sleep} from '@ra/utils';
 import {getSeverityCounts} from 'utils/severity';
+import * as questionActions from 'store/actions/question';
 
 import styles from './styles.scss';
 
@@ -26,7 +25,7 @@ const ConcernItem = (props) => {
             <ConcernCounter dataItem={item} totalCount={total} />
             <div className={styles.concernInfo}>
                 <p className={styles.concernNumber}>{item.count}</p>
-                <p className={styles.concernLabel}>{item.severity} Concerns</p>
+                <p className={styles.concernLabel}>{item.severity} <Localize>Concerns</Localize></p>
             </div>
         </div>
     );
@@ -99,11 +98,11 @@ const StatementsContent = ({
                             className={styles.exports}
                         >
                             <RiFileList3Line />
-                            <span className={styles.exportsTitle}>Show Questionnaires</span>
+                            <span className={styles.exportsTitle}><Localize>Show Questionnaires</Localize></span>
                         </div>
                         <div onClick={handleExportPDF} className={cs(styles.exports, 'no-print')}>
                             <FiUpload />
-                            <span className={styles.exportsTitle}>Export PDF</span>
+                            <span className={styles.exportsTitle}><Localize>Export PDF</Localize></span>
                         </div>
                     </div>
                 )}
@@ -121,10 +120,10 @@ const StatementsContent = ({
             </div>
             <div className={styles.statementWrapper}>
                 <div className={styles.statementHeader}>
-                    <h4 className={styles.statementTitle}>statements</h4>
+                    <h4 className={styles.statementTitle}><Localize>Statements</Localize></h4>
                     {index === 0 && (
                         <div onClick={toggleExpand} className={cs(styles.expandWrapper, 'no-print')}>
-                            <span>{expanded ? 'Collapse' : 'Expand'} All</span>
+                            <span>{expanded ? _('Collapse All') : _('Expand All')}</span>
                             <FiChevronRight />
                         </div>
                     )}

@@ -3,6 +3,7 @@ import {HiArrowNarrowLeft} from 'react-icons/hi';
 
 import NavBar from 'components/NavBar';
 import Button from 'components/Button';
+import {Localize} from '@ra/components/I18n';
 
 import image from 'assets/images/404.svg';
 
@@ -14,11 +15,11 @@ const Error404 = () => {
             <NavBar dark />
             <section className={styles.section}>
                 <img src={image} alt="404" />  
-                <h3 className={styles.sectionTitle}>Page not found!</h3>
+                <h3 className={styles.sectionTitle}><Localize>Page not found!</Localize></h3>
                 <Link to="/">
                     <Button className={styles.button}>
                         <HiArrowNarrowLeft className={styles.arrowIcon} />
-                        Back to Home                
+                        <Localize>Back to Home</Localize>
                     </Button>
                 </Link>
             </section>

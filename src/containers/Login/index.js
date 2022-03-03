@@ -10,6 +10,7 @@ import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import TextInput from '@ra/components/Form/TextInput';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import initStore from 'services/initStore';
 import useAuthModals from 'hooks/useAuthModals';
@@ -59,13 +60,13 @@ const Login = () => {
                             <img
                                 className={styles.logo}
                                 src={logo}
-                                alt='Neat+ Logo'
+                                alt={_('Neat+ Logo')}
                             />
                         </Link>
                     </div>
                     <main className={styles.content}>
-                        <h2 className={styles.subTitle}>Welcome back!</h2>
-                        <h1 className={styles.title}>Log in to NEAT+</h1>
+                        <h2 className={styles.subTitle}><Localize>Welcome back!</Localize></h2>
+                        <h1 className={styles.title}><Localize>Log in to NEAT+</Localize></h1>
                         <div className={styles.loginContainer}>
                             <Form
                                 error={error}
@@ -74,7 +75,7 @@ const Login = () => {
                                 className={styles.loginForm}
                             >
                                 <InputField
-                                    label='Email or Username'
+                                    label={_('Email or Username')}
                                     component={TextInput}
                                     name='username'
                                     required
@@ -83,7 +84,7 @@ const Login = () => {
                                     containerClassName={styles.inputGroup}
                                 />
                                 <InputField
-                                    label='Password'
+                                    label={_('Password')}
                                     component={SecureTextInput}
                                     name='password'
                                     required
@@ -92,7 +93,7 @@ const Login = () => {
                                     containerClassName={styles.inputGroup}
                                 />
                                 <Button loading={loading} className={styles.button}>
-                                Log in
+                                    <Localize>Log in</Localize>
                                 </Button>
                             </Form>
                             <div className={styles.links}>
@@ -101,7 +102,7 @@ const Login = () => {
                                     to='#'
                                     onClick={authModalsConfig.handleShowForgotPassword}
                                 >
-                                Forgot Password?
+                                    <Localize>Forgot Password?</Localize>
                                 </Link>
                                 {!!error && (
                                     <Link 
@@ -109,14 +110,14 @@ const Login = () => {
                                         to="#" 
                                         onClick={authModalsConfig.handleShowVerifyEmail}
                                     >
-                                    Activate account?
+                                        <Localize>Activate account?</Localize>
                                     </Link>
                                 )}
                             </div>
                             <p className={styles.text}>
-                                Don't have an account?{' '}
+                                <Localize>Don't have an account?</Localize>{' '}
                                 <Link className={styles.link} to='/register'>
-                                Register Now
+                                    <Localize>Register Now</Localize>
                                 </Link>
                             </p>
                         </div>
@@ -128,7 +129,7 @@ const Login = () => {
                                     title: 'privacy-policy'
                                 }}
                             >
-                            Privacy Policy
+                                <Localize>Privacy Policy</Localize>
                             </Link>
                             <Link
                                 className={styles.link}
@@ -137,7 +138,7 @@ const Login = () => {
                                     title: 'terms-and-conditions'
                                 }}
                             >
-                            Terms of Use
+                                <Localize>Terms of Use</Localize>
                             </Link>
                         </div>
                     </main>

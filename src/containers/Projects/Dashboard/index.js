@@ -9,6 +9,7 @@ import Tabs, {Tab} from 'components/Tabs';
 import Map from 'components/Map';
 import ConcernsTable from 'components/Concerns/Table';
 import ConcernsChart from 'components/Concerns/Chart';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import SurveyList from 'containers/Surveys/List';
 
@@ -85,7 +86,7 @@ const ProjectDashboard = withNoSurvey(() => {
     return (
         <div className={styles.container}>
             <Link to="/projects" className={styles.backLink}>
-                <BiChevronLeft size={22} className={styles.backIcon} /> Back to Projects
+                <BiChevronLeft size={22} className={styles.backIcon} /> <Localize>Back to Projects</Localize>
             </Link>
             <Tabs 
                 activeTab={location.pathname.includes('surveys') ? 'surveys' : 'summary'}
@@ -94,14 +95,14 @@ const ProjectDashboard = withNoSurvey(() => {
                 headerClassName={styles.tabsHeader}
                 onChange={handleTabChange}
             >
-                <Tab label="summary" title="Summary">
+                <Tab label="summary" title={_('Summary')}>
                     <div className={styles.summaryContainer}>
                         <SurveyTable onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft} />
                         <div className={styles.overview}>
-                            <h3 className={styles.overviewTitle}>Overview</h3>
+                            <h3 className={styles.overviewTitle}><Localize>Overview</Localize></h3>
                             <div className={styles.overviewContent}>
                                 <div className={styles.concerns}>
-                                    <h4 className={styles.concernsTitle}>Top concerns topics</h4>
+                                    <h4 className={styles.concernsTitle}><Localize>Top concerns topics</Localize></h4>
                                     <div className={styles.concernsTable}>
                                         <ConcernsTable 
                                             concerns={topConcerns} 
@@ -112,7 +113,7 @@ const ProjectDashboard = withNoSurvey(() => {
                                     </div>
                                 </div>
                                 <div className={styles.location}>
-                                    <h4 className={styles.locationTitle}>Number of issues of concern by location</h4>
+                                    <h4 className={styles.locationTitle}><Localize>Number of issues of concern by location</Localize></h4>
                                     <div className={styles.map}>
                                         <Map 
                                             project={activeProject} 
@@ -127,7 +128,7 @@ const ProjectDashboard = withNoSurvey(() => {
                         </div>
                     </div>
                 </Tab>
-                <Tab label="surveys" title="Surveys">
+                <Tab label="surveys" title={_('Surveys')}>
                     <SurveyList />
                 </Tab>
             </Tabs>

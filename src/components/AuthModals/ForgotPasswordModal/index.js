@@ -8,6 +8,7 @@ import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import Input from '@ra/components/Form/Input';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
@@ -43,7 +44,7 @@ const ForgotPasswordModal = (props) => {
                 handleShowCode();
             }
         } catch (err) {
-            Toast.show(err?.error || 'Invalid Email !', Toast.DANGER);
+            Toast.show(err?.error || _('Invalid Email!'), Toast.DANGER);
         }
     }, [
         onClose,
@@ -56,13 +57,13 @@ const ForgotPasswordModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Forgot Password?</h2>
+                <h2 className={styles.title}><Localize>Forgot Password?</Localize></h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
             <div className={styles.content}>
-                <p>We will send a code to your email to reset your password.</p>
+                <p><Localize>We will send a code to your email to reset your password.</Localize></p>
                 <div className={styles.inputGroup}>
                     <Label className={styles.inputLabel}>Email</Label>
                     <Input
@@ -74,10 +75,10 @@ const ForgotPasswordModal = (props) => {
                 </div>
                 <div className={styles.buttons}>
                     <Link to='#' onClick={onClose}>
-                        Return to Log in
+                        <Localize>Return to Log in</Localize>
                     </Link>
                     <Button loading={loading} onClick={handleSumbitEmail}>
-                        Continue
+                        <Localize>Continue</Localize>
                     </Button>
                 </div>
             </div>

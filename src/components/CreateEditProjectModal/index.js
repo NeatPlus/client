@@ -14,6 +14,7 @@ import SelectInput from '@ra/components/Form/SelectInput';
 import MultiSelectInput from '@ra/components/Form/MultiSelectInput';
 import Form, {InputField} from '@ra/components/Form';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import useRequest from 'hooks/useRequest';
@@ -66,13 +67,13 @@ const CreateEditProjectModal = (props) => {
             setUrl('/project/');
             setMethod('POST');
             setVisibility('private');
-            setTitle('Create a project');
+            setTitle(_('Create a project'));
         }
         if (mode === 'edit' && project) {
             setUrl(`/project/${project?.id}/`);
             setMethod('PATCH');
             setVisibility(project?.visibility);
-            setTitle('Edit project');
+            setTitle(_('Edit project'));
         }
     }, [mode, project, project?.id, project?.visibility]);
 
@@ -98,7 +99,7 @@ const CreateEditProjectModal = (props) => {
             const {title, organization, description, users} = formData;
             if(!organization?.id && visibility==='public_within_organization') {
                 return setError(
-                    new Error('Visibility cannot be \'Public within organization\' with no organization selected')
+                    new Error(_('Visibility cannot be \'Public within organization\' with no organization selected'))
                 );
             } 
             const body = {
@@ -125,14 +126,14 @@ const CreateEditProjectModal = (props) => {
                     await Api.upsertUsers(result?.id, users.map(u => ({user: parseInt(u.id), permission: u.mode})));
                 }
                 if (result && mode === 'create') {
-                    Toast.show('Project successfully Created!', Toast.SUCCESS);
+                    Toast.show(_('Project successfully Created!'), Toast.SUCCESS);
                     Api.getProjects();
                     history.push(`/projects/${result.id}/`);
                 }
 
                 if (result && mode === 'edit') {
                     onClose();
-                    Toast.show('Project successfully Edited!', Toast.SUCCESS);
+                    Toast.show(_('Project successfully Edited!'), Toast.SUCCESS);
                     Api.getProjects();
                 }
             } catch (err) {
@@ -171,7 +172,7 @@ const CreateEditProjectModal = (props) => {
                     required
                     component={TextInput}
                     className={styles.input}
-                    label='Name'
+                    label={_('Name')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={mode === 'edit' ? project.title : ''}
@@ -180,12 +181,12 @@ const CreateEditProjectModal = (props) => {
                     name='organization'
                     component={SelectInput}
                     className={cs(styles.input, styles.inputSelect)}
-                    label='Organization'
+                    label={_('Organization')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     fieldValueExtractor={fieldValueExtractor}
                     options={organizations}
-                    placeholder='Select An Organization'
+                    placeholder={_('Select An Organization')}
                     valueExtractor={valueExtractor}
                     keyExtractor={keyExtractor}
                     clearable={false}
@@ -199,7 +200,7 @@ const CreateEditProjectModal = (props) => {
                     className={cs(styles.input, styles.inputArea)}
                     rows={4}
                     cols={5}
-                    label='Description'
+                    label={_('Description')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={mode === 'edit' ? project.description : ''}
@@ -212,14 +213,14 @@ const CreateEditProjectModal = (props) => {
                             onCheck={handleVisibilitySelect}
                             className={styles.radioInput}
                             value='public'
-                            label='Public'
+                            label={_('Public')}
                             checked={visibility === 'public'}
                         />
                         <RadioInput
                             onCheck={handleVisibilitySelect}
                             className={styles.radioInput}
                             value='public_within_organization'
-                            label='Public within organization'
+                            label={_('Public within organization')}
                             checked={
                                 visibility === 'public_within_organization'
                             }
@@ -228,7 +229,7 @@ const CreateEditProjectModal = (props) => {
                             onCheck={handleVisibilitySelect}
                             className={styles.radioInput}
                             value='private'
-                            label='Private'
+                            label={_('Private')}
                             checked={visibility === 'private'}
                         />
                     </div>
@@ -239,12 +240,12 @@ const CreateEditProjectModal = (props) => {
                     containerClassName={styles.inputGroup}
                     component={MultiSelectInput}
                     controlClassName={styles.multiSelect}
-                    placeholder='Select Users'
+                    placeholder={_('Select Users')}
                     keyExtractor={keyExtractor}
                     valueExtractor={userValueExtractor}
                     defaultValue={initialUsers}
                     loading={loadingUsers}
-                    label='Users'
+                    label={_('Users')}
                     renderOptionLabel={UserOptionLabel}
                     renderControlLabel={UserIcon}
                     options={users?.results}
@@ -256,10 +257,10 @@ const CreateEditProjectModal = (props) => {
                         className={styles.button}
                         onClick={onClose}
                     >
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button loading={loading} className={styles.button}>
-                        {mode === 'edit' ? 'Edit' : 'Create'}
+                        {mode === 'edit' ? _('Edit') : _('Create')}
                     </Button>
                 </div>
             </Form>

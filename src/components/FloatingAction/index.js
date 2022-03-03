@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Button from 'components/Button';
 import SurveyModals from 'components/SurveyModals';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';
@@ -47,7 +48,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
 
     const handleDelete = useCallback(() => {
         initDraftAnswers();
-        Toast.show(`Draft of ${surveyTitle} has been deleted`, Toast.SUCCESS);
+        Toast.show(`${surveyTitle} ${_('draft has been deleted')}`, Toast.SUCCESS);
     }, [surveyTitle]);
     useEffect(() => () => hideAction(), [hideAction]);
 
@@ -62,11 +63,11 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
                 <p className={styles.draftDesc}>
                     <span className={styles.surveyTitle}>
                         {surveyTitle}
-                    </span> survey has been saved in draft
+                    </span> <Localize>survey has been saved in draft</Localize>
                 </p>
                 <div className={styles.buttons}>
                     <Button onClick={showSurveyModal} className={styles.button}>
-                        Resume
+                        <Localize>Resume</Localize>
                     </Button>
                     <Button
                         type='button'
@@ -74,7 +75,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
                         className={styles.button}
                         onClick={surveyModalsConfig.handleShowDeleteDraft}
                     >
-                        Delete
+                        <Localize>Delete</Localize>
                     </Button>
                 </div>
             </div>

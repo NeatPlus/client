@@ -1,5 +1,7 @@
 import {BiCheck} from 'react-icons/bi';
 
+import {Localize} from '@ra/components/I18n';
+
 import styles from './styles.scss';
 
 const FilterTagButtons = ({
@@ -41,7 +43,7 @@ const FilterTagButtons = ({
                 }`}
                 onClick={handleClearAll}
             >
-                Clear all
+                <Localize>Clear all</Localize>
             </button>
         </div>
     );

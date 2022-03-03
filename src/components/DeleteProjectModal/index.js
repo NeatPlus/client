@@ -4,8 +4,9 @@ import {MdClose} from 'react-icons/md';
 
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
-import trash from 'assets/images/trash.png';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
+import trash from 'assets/images/trash.png';
 import useRequest from 'hooks/useRequest';
 import Api from 'services/api';
 import Toast from 'services/toast';
@@ -25,12 +26,12 @@ const DeleteProjectModal = (props) => {
                 onDelete && onDelete();
                 Api.getSurveys();
                 onClose();
-                Toast.show('Project successfully Deleted!', Toast.SUCCESS);
+                Toast.show(_('Project successfully Deleted!'), Toast.SUCCESS);
             }
         } catch (error) {
             console.log(error);
             onClose();
-            Toast.show('Something Went Wrong!', Toast.DANGER);
+            Toast.show(_('Something Went Wrong!'), Toast.DANGER);
         }
     }, [onDelete, deleteProject, onClose]);
 
@@ -41,7 +42,7 @@ const DeleteProjectModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Delete Project</h2>
+                <h2 className={styles.title}><Localize>Delete Project</Localize></h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
@@ -54,15 +55,15 @@ const DeleteProjectModal = (props) => {
                         alt='trash bin'
                     />
                     <p className={styles.deleteText}>
-                        Are you sure you want to delete the project?
+                        <Localize>Are you sure you want to delete the project?</Localize>
                     </p>
                 </div>
                 <div className={styles.buttons}>
                     <Button onClick={onClose} type='button' secondary>
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button loading={loading} onClick={handleDeleteProject}>
-                        Delete
+                        <Localize>Delete</Localize>
                     </Button>
                 </div>
             </div>

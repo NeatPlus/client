@@ -31,7 +31,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "lint": "eslint --fix --ext .js,.jsx . && stylelint '**/*.{css,scss}'"
+    "lint": "eslint --fix --ext .js,.jsx . && stylelint '**/*.{css,scss}'",
+    "generate:po": "react-gettext-parser --config translation.config.js --output src/po/locale_fr.po 'src/**/{*.js,*.jsx,*.ts,*.tsx}' '!src/vendor'"
   },
   "eslintConfig": {
     "extends": [
@@ -62,6 +63,7 @@
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
     "react-app-rewired": "^2.1.8",
+    "react-gettext-parser": "^1.16.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0"
   },

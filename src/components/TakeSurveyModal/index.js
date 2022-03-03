@@ -9,6 +9,7 @@ import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 import CompletedTaskImage from 'assets/images/completed-task.svg';
@@ -89,7 +90,7 @@ const GroupContent = props => {
                         onClick={onPreviousClick}
                     >
                         <BsArrowLeft size={22} className={styles.buttonIconLeft} />
-                        Previous
+                        <Localize>Previous</Localize>
                     </Button>
                 )}
                 {showNext && (
@@ -97,7 +98,7 @@ const GroupContent = props => {
                         className={cs(styles.button, styles.buttonNext)} 
                         onClick={handleNextClick}
                     >
-                        Next
+                        <Localize>Next</Localize>
                         <BsArrowRight size={22} className={styles.buttonIconRight} />
                     </Button>
                 )}
@@ -244,11 +245,11 @@ const TakeSurveyModal = (props) => {
                     project,
                     results,
                 });
-                Toast.show(response?.detail || 'Survey complete!', Toast.SUCCESS);
+                Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
             } else {
                 await addSurveyAnswers(answers);
                 const response = await addSurveyResults(results);
-                Toast.show(response?.detail || 'Survey complete!', Toast.SUCCESS);
+                Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
             }
             dispatch(questionActions.setAnswers([]));
             initDraftAnswers(null);
@@ -314,21 +315,21 @@ const TakeSurveyModal = (props) => {
                             <div className={styles.contentTextContainer}>
                                 <img 
                                     src={isFormIncomplete ? NoSurveyImage : CompletedTaskImage} 
-                                    alt={isFormIncomplete ? 'Task Incomplete'  : 'Task Complete'}
+                                    alt={isFormIncomplete ? _('Task Incomplete')  : _('Task Complete')}
                                     className={styles.completeImage} 
                                 />
                                 <p className={styles.completeText}>
                                     {isFormIncomplete 
-                                        ? 'You have not filled in all the required fields in the form.' 
-                                        : 'You have now completed all modules and sub-modules that you previously selected in the initial NEAT+ survey page.'
+                                        ? _('You have not filled in all the required fields in the form.')
+                                        : _('You have now completed all modules and sub-modules that you previously selected in the initial NEAT+ survey page.')
                                     } 
                                 </p>
                                 <p className={cs(styles.completeText, {
                                     [styles.completeTextWarning]: isFormIncomplete,
                                 })}>
                                     {isFormIncomplete 
-                                        ? 'Please go back and complete the form in order to continue.'
-                                        : 'Please follow the provided instructions for how to download and analyse this information.'
+                                        ? _('Please go back and complete the form in order to continue.')
+                                        : _('Please follow the provided instructions for how to download and analyse this information.')
                                     }
                                 </p>
                             </div>
@@ -345,7 +346,7 @@ const TakeSurveyModal = (props) => {
                                 onClick={handlePreviousClick}
                             >
                                 <BsArrowLeft size={22} className={styles.buttonIconLeft} />
-                                Previous
+                                <Localize>Previous</Localize>
                             </Button>
                             {editable && (
                                 <Button 
@@ -360,7 +361,7 @@ const TakeSurveyModal = (props) => {
                                 >
                                     <BsCheck size={22} className={styles.buttonIconLeft} />
 
-                                    Calculate
+                                    <Localize>Calculate</Localize>
                                 </Button>
                             )}
                         </div>
@@ -381,10 +382,10 @@ const TakeSurveyModal = (props) => {
             <div className={styles.footer}>
                 <div className={styles.footerLink} onClick={handleFirstIndex}>
                     <RiSkipBackLine size={20} className={styles.footerLinkIconLeft} />
-                    Back to the beginning
+                    <Localize>Back to the beginning</Localize>
                 </div>
                 <div className={styles.footerLink} onClick={handleLastIndex}>
-                    Go to the end
+                    <Localize>Go to the end</Localize>
                     <RiSkipForwardLine size={20} className={styles.footerLinkIconRight} />
                 </div>
             </div>

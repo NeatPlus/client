@@ -6,6 +6,7 @@ import {BiUser} from 'react-icons/bi';
 import {AiOutlineLock} from 'react-icons/ai';
 
 import UserNav from 'components/UserNav';
+import {Localize} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 
@@ -27,10 +28,10 @@ const Account = () => {
             <div className={styles.settings}>
                 <div className={styles.textSection}>
                     <div onClick={handleGoBack} className={styles.backLink}>
-                        <IoIosArrowBack className={styles.backIcon} size={20} /> BACK
+                        <IoIosArrowBack className={styles.backIcon} size={20} /> <Localize>BACK</Localize>
                     </div>
                     <h1 className={styles.title}>
-                        Account Settings
+                        <Localize>Account Settings</Localize>
                     </h1>
                 </div>
                 <div className={styles.mainSection}>
@@ -41,7 +42,7 @@ const Account = () => {
                                 [styles.panelItemActive]: route==='account',
                             })}>
                             <BiUser size="20px" className={styles.panelIcon} />
-                            <span>Account</span>
+                            <span><Localize>Account</Localize></span>
                         </div>
                         <div 
                             onClick={handlePasswordClick} 
@@ -49,7 +50,7 @@ const Account = () => {
                                 [styles.panelItemActive]: route==='password',
                             })}>
                             <AiOutlineLock size="20px" className={styles.panelIcon} />
-                            <span>Password</span>
+                            <span><Localize>Password</Localize></span>
                         </div>
                     </div>
                     <div className={styles.editSection}>

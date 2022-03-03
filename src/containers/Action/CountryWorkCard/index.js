@@ -1,6 +1,8 @@
 import React, {useCallback} from 'react';
 import {BsArrowRight} from 'react-icons/bs';
 
+import {Localize} from '@ra/components/I18n';
+
 import styles from './styles.scss';
 
 const CountryWorkCard = ({item, toggleWorkModal}) => {
@@ -22,15 +24,15 @@ const CountryWorkCard = ({item, toggleWorkModal}) => {
                 />
             </div>
             <div className={styles.organization}>
-                <p className={styles.organizationTitle}>ORGANIZATION</p>
+                <p className={styles.organizationTitle}><Localize>ORGANIZATION</Localize></p>
                 <p className={styles.organizationName}>{item?.organization}</p>
             </div>
             <div className={styles.organization}>
-                <p className={styles.organizationTitle}>MODULES TESTED</p>
+                <p className={styles.organizationTitle}><Localize>MODULES TESTED</Localize></p>
                 <p className={styles.organizationName}>{item?.contextTitle}</p>
             </div>
             <div className={styles.description}>
-                <p className={styles.descriptionTitle}>DESCRIPTION</p>
+                <p className={styles.descriptionTitle}><Localize>DESCRIPTION</Localize></p>
                 <p className={styles.descriptionText}>{item?.summary}</p>
             </div>
         </div>

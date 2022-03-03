@@ -5,6 +5,7 @@ import {MdClose} from 'react-icons/md';
 import List from '@ra/components/List';
 import Modal from '@ra/components/Modal';
 import Tabs, {Tab} from 'components/Tabs';
+import {Localize} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 
@@ -77,7 +78,7 @@ const SummaryModal = props => {
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <h2 className={styles.title}>
-                    Sensitivity Statements Severity Summary
+                    <Localize>Sensitivity Statements Severity Summary</Localize>
                 </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />

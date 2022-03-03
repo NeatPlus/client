@@ -1,4 +1,5 @@
 import {useReducer, useCallback} from 'react';
+import {localizeFn as _} from '@ra/components/I18n';
 
 import {request} from 'services/api';
 
@@ -48,10 +49,10 @@ const useRequest = (url, options, body) => {
                     : `/api/${apiVersion}${url}`, requestOptions
             );
             if(response.status === 500) {
-                throw new Error('500 Internal Server Error');
+                throw new Error(_('500 Internal Server Error'));
             }
             if(error || !response.ok) {
-                throw data || new Error('Request Error');
+                throw data || new Error(_('Request Error'));
             }
             dispatch({type: 'FETCHED', data, response});
             if(shouldReturnData) {

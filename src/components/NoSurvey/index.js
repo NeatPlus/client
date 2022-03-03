@@ -9,6 +9,7 @@ import {BiChevronLeft} from 'react-icons/bi';
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import SurveyModals from 'components/SurveyModals';
+import {Localize} from '@ra/components/I18n';
 
 import useInitActiveProject from 'hooks/useInitActiveProject';
 import useSurveyModals from 'hooks/useSurveyModals';
@@ -29,18 +30,18 @@ const NoSurveys = () => {
     return (
         <div className={styles.container}>
             <Link to="/projects" className={styles.backLink}>
-                <BiChevronLeft size={22} className={styles.backIcon} /> Back to Projects
+                <BiChevronLeft size={22} className={styles.backIcon} /> <Localize>Back to Projects</Localize>
             </Link>
             <main className={styles.content}>
                 <div className={styles.takeSurveyBox}>
                     <img src={noSurveyImage} alt="No Surveys" className={styles.infoImage} />
-                    <p className={styles.infoText}>No surveys found</p>
+                    <p className={styles.infoText}><Localize>No surveys found</Localize></p>
                     {hasEditAccess && (
                         <Button 
                             className={styles.button} 
                             onClick={surveyModalsConfig.handleShowDeleteDraft}
                         >
-                            <BsPlus size={24} className={styles.buttonIcon} />Take Survey
+                            <BsPlus size={24} className={styles.buttonIcon} /><Localize>Take Survey</Localize>
                         </Button>
                     )}
                 </div>

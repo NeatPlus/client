@@ -5,6 +5,7 @@ import {MdClose} from 'react-icons/md';
 import Container from 'components/Container';
 
 import Modal from '@ra/components/Modal';
+import {Localize} from '@ra/components/I18n';
 
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';
@@ -44,7 +45,7 @@ const Notice = () => {
                             onClick={handleToggleModal} 
                             className={styles.moreLink}
                         >
-                            Learn more
+                            <Localize>Learn more</Localize>
                         </div>
                         <div className={styles.closeIconContainer}>
                             <IoClose 

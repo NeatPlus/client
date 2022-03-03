@@ -1,4 +1,6 @@
 import RequestBuilder from '@ra/services/request';
+
+import {_} from './i18n';
 import store from 'store';
 
 import * as authActions from 'store/actions/auth';
@@ -44,10 +46,10 @@ class Api {
         const {error, data, response} = await request(`/api/${apiVersion}${url}`, options);
         if(error) {
             if(response.status === 500) {
-                throw new Error('500 Internal Server Error');
+                throw new Error(_('500 Internal Server Error'));
             }
             console.log(data);
-            throw data || 'Request Error';
+            throw data || _('Request Error');
         }
         return data;
     }
@@ -64,7 +66,7 @@ class Api {
             });
         if(error) {
             if(response.status === 500) {
-                throw new Error('500 Internal Server Error');
+                throw new Error(_('500 Internal Server Error'));
             }
             console.log(data);
             throw data || 'Request Error';
@@ -83,10 +85,10 @@ class Api {
         });
         if(error) {
             if(response.status === 500) {
-                throw new Error('500 Internal Server Error');
+                throw new Error(_('500 Internal Server Error'));
             }
             console.log(data);
-            throw data || 'Request Error';
+            throw data || _('Request Error');
         }
         return data;
     }
@@ -101,10 +103,10 @@ class Api {
         });
         if(error) {
             if(response.status === 500) {
-                throw new Error('500 Internal Server Error');
+                throw new Error(_('500 Internal Server Error'));
             }
             console.log(data);
-            throw data || 'Request Error';
+            throw data || _('Request Error');
         }
         return data;
     }
@@ -115,10 +117,10 @@ class Api {
         });
         if(error) {
             if(response.status === 500) {
-                throw new Error('500 Internal Server Error');
+                throw new Error(_('500 Internal Server Error'));
             }
             console.log(data);
-            throw data || 'Request Error';
+            throw data || _('Request Error');
         }
         return data;
     }

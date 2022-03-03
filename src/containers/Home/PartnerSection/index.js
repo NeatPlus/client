@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import {Localize} from '@ra/components/I18n';
 
 import iucn from 'assets/images/partners/iucn.webp';
 import msb from 'assets/images/partners/msb.webp';
@@ -28,9 +29,9 @@ const PartnerSection = () => {
             <Container jumbotron>
                 <div className={styles.container}>
                     <h1 className={styles.title}>
-                        NEAT+ was developed with the support of
-                        <a className={styles.joinLink} href="https://eecentre.org/2017/01/01/the-joint-initiative/" target="_blank" rel="noreferrer"> Joint Initiative</a>
-                        * partners:
+                        <Localize>NEAT+ was developed with the support of</Localize>
+                        <a className={styles.joinLink} href="https://eecentre.org/2017/01/01/the-joint-initiative/" target="_blank" rel="noreferrer"> <Localize>Joint Initiative</Localize></a>
+                        * <Localize>partners:</Localize>
                     </h1>
                     <div className={styles.partnersWrapper}>
                         {partners.map(item =>
@@ -39,7 +40,7 @@ const PartnerSection = () => {
                             </div>
                         )}
                     </div>
-                    <span className={styles.footerText}>* a multi-stakeholder project aimed at improving collaboration between environmental and humanitarian actors</span>
+                    <span className={styles.footerText}>* <Localize>a multi-stakeholder project aimed at improving collaboration between environmental and humanitarian actors</Localize></span>
                 </div>
             </Container>
         </section>

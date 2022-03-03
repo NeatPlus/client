@@ -1,9 +1,10 @@
 import {useCallback, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 
-import cs from '@ra/cs';
-
 import Tabs, {Tab} from 'components/Tabs';
+import {localizeFn as _} from '@ra/components/I18n';
+
+import cs from '@ra/cs';
 import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
 
 import Overview from '../Overview';
@@ -37,7 +38,7 @@ const SurveyTabs = props => {
             return null;
         }
 
-        const label = module.code==='sens' ? 'sensitivity' : module.code;
+        const label = module.code==='sens' ? _('Sensitivity') : module.code;
 
         return (
             <Tab key={module.id} label={label} title={module.title}>
@@ -59,7 +60,7 @@ const SurveyTabs = props => {
             contentContainerClassName={styles.tabContent}
             onChange={onTabChange}
         >
-            <Tab label="overview" title="Overview">
+            <Tab label="overview" title={_('Overview')}>
                 <Overview />
             </Tab>
             {modules.map(renderModuleTab)}

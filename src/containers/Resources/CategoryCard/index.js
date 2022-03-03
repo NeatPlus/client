@@ -3,8 +3,9 @@ import {useCallback, useState} from 'react';
 import {AiOutlinePlayCircle} from 'react-icons/ai';
 import {BiDownload} from 'react-icons/bi';
 
-import VideoModal from '../../../components/VideoModal';
+import VideoModal from 'components/VideoModal';
 import Button from 'components/Button';
+import {Localize} from '@ra/components/I18n';
 
 import styles from './styles.scss';
 
@@ -27,7 +28,7 @@ const CategoryCard = ({title, description, videoUrl, attachment}) => {
                         onClick={() => window.open(attachment, '_blank')}
                     >
                         <BiDownload size={20} />
-                        Download
+                        <Localize>Download</Localize>
                     </Button>
                 )}
                 {videoUrl && (
@@ -36,7 +37,7 @@ const CategoryCard = ({title, description, videoUrl, attachment}) => {
                         onClick={handleShowVideoModal}
                     >
                         <AiOutlinePlayCircle size={20} />
-                        Watch Video
+                        <Localize>Watch Video</Localize>
                     </Button>
                 )}
             </div>

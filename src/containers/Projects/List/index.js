@@ -11,6 +11,7 @@ import Tabs, {Tab} from 'components/Tabs';
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';
@@ -18,31 +19,6 @@ import usePromise from '@ra/hooks/usePromise';
 import {HeaderItem, DataItem} from './TableItems';
 
 import styles from './styles.scss';
-
-const columns = [
-    {
-        Header: 'Name',
-        accessor: 'title',
-    }, {
-        Header: 'Organization',
-        accessor: 'organizationTitle',
-    },  {
-        Header: 'Created by',
-        accessor: 'createdBy',
-    }, {
-        Header: 'Created on',
-        accessor: 'createdAt',
-    }, {
-        Header: 'Visibility',
-        accessor: 'visibility',
-    }, {
-        Header: 'Surveys',
-        accessor: 'surveys',
-    }, {
-        Header: 'Options',
-        accessor: '',
-    }
-]; 
 
 const maxRowsOptions = [
     {
@@ -89,6 +65,31 @@ const ProjectTable = withNoProject(props => {
         onAction,
     } = props;
 
+    const columns = useMemo(() => ([
+        {
+            Header: _('Name'),
+            accessor: 'title',
+        }, {
+            Header: _('Organization'),
+            accessor: 'organizationTitle',
+        },  {
+            Header: _('Created by'),
+            accessor: 'createdBy',
+        }, {
+            Header: _('Created on'),
+            accessor: 'createdAt',
+        }, {
+            Header: _('Visibility'),
+            accessor: 'visibility',
+        }, {
+            Header: _('Surveys'),
+            accessor: 'surveys',
+        }, {
+            Header: _('Options'),
+            accessor: '',
+        }
+    ]), []); 
+
     const history = useHistory();
 
     const handlePageChange = useCallback(({currentPage}) => {
@@ -127,7 +128,7 @@ const ProjectTable = withNoProject(props => {
             />
             <div className={styles.contentFooter}>
                 <div className={styles.maxRowsSelect}>
-                    Show 
+                    <Localize>Show</Localize>
                     <SelectInput 
                         className={styles.select}
                         controlClassName={styles.selectControl}
@@ -141,7 +142,7 @@ const ProjectTable = withNoProject(props => {
                         searchable={false}
                         optionsDirection="up"
                     />
-                    Rows
+                    <Localize>Rows</Localize>
                 </div>
                 <Pagination 
                     className={styles.pagination}
@@ -190,7 +191,7 @@ const ProjectList = () => {
 
     const renderTitle = useCallback(() => (
         <h1 className={styles.title}>
-            Projects
+            <Localize>Projects</Localize>
         </h1>
     ), []);
 
@@ -200,7 +201,7 @@ const ProjectList = () => {
             className={styles.button} 
             onClick={handleShowCreateModal}
         >
-            <BsPlus size={24} className={styles.buttonIcon} /> Create
+            <BsPlus size={24} className={styles.buttonIcon} /> <Localize>Create</Localize>
         </Button>
     ), [handleShowCreateModal]);
 

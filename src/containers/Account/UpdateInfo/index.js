@@ -5,6 +5,7 @@ import AuthModals from 'components/AuthModals';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import TextInput from '@ra/components/Form/TextInput';
+import { localizeFn as _ } from '@ra/components/I18n';
 
 import Api from 'services/api';
 import Toast from 'services/toast';
@@ -28,7 +29,7 @@ const UpdateInfo = () => {
     const [password, setPassword] = useState(null);
 
     const handleUpdateComplete = useCallback(async () => {
-        Toast.show('Profile has been successfully updated!', Toast.SUCCESS);
+        Toast.show(_('Profile has been successfully updated!'), Toast.SUCCESS);
         try {
             const res = await Api.getUser();
             dispatch(setUser(res));
@@ -41,7 +42,7 @@ const UpdateInfo = () => {
         if(formData.email !== user.email) {
             setPassword(pass);
             await requestEmailChange({newEmail: formData.email, password: pass});
-            Toast.show('An email has been sent to the new address', Toast.SUCCESS);
+            Toast.show(_('An email has been sent to the new address'), Toast.SUCCESS);
             return authModalsConfig.handleShowVerifyEmail();
         }
         const submitParams = {...formData, password: pass};
@@ -77,25 +78,25 @@ const UpdateInfo = () => {
     return (
         <>
             <Form onSubmit={handleChangeProfile}>
-                <AccountPanel actionTitle='Save Changes' />
+                <AccountPanel actionTitle={_('Save Changes')} />
                 <InputField
                     name='fullName'
                     required
                     component={TextInput}
                     className={styles.input}
-                    label='Full Name'
+                    label={_('Full Name')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={`${user.firstName} ${user.lastName}`}
                 />
                 <InputField
                     name='email'
-                    info="If you change this, we will send you an email at your new address to confirm it. The new address will not become active until confirmed."
+                    info={_('If you change this, we will send you an email at your new address to confirm it. The new address will not become active until confirmed.')}
                     required
                     type='email'
                     component={Input}
                     className={styles.input}
-                    label='Email'
+                    label={_('Email')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={user.email}
@@ -105,7 +106,7 @@ const UpdateInfo = () => {
                     required
                     component={TextInput}
                     className={styles.input}
-                    label='Organization'
+                    label={_('Organization')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={user.organization}
@@ -115,7 +116,7 @@ const UpdateInfo = () => {
                     required
                     component={TextInput}
                     className={styles.input}
-                    label='Role in Organization'
+                    label={_('Role in Organization')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={user.role}

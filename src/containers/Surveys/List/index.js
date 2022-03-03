@@ -7,6 +7,7 @@ import OptionsDropdown from 'components/OptionsDropdown';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import DeleteDraftModal from 'components/DeleteDraftModal';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
@@ -18,33 +19,6 @@ import * as questionActions from 'store/actions/question';
 import {getFormattedSurveys} from 'store/selectors/survey';
 
 import styles from './styles.scss';
-
-const columns = [
-    {
-        Header: 'Name',
-        accessor: 'title',
-    }, 
-    {
-        Header: 'Location',
-        accessor: 'location',
-    },
-    {
-        Header: 'Surveyed by',
-        accessor: 'createdBy',
-    },
-    {
-        Header: 'Created on',
-        accessor: 'createdAt',
-    },
-    {
-        Header: 'Modified on',
-        accessor: 'modifiedAt',
-    },
-    {
-        Header: 'Options',
-        accessor: '',
-    },
-];
 
 const maxRowsOptions = [
     {
@@ -65,7 +39,7 @@ const keyExtractor = item => item.value;
 const labelExtractor = item => item.label;
 
 const HeaderItem = ({column}) => {
-    if(column.Header==='Options') {
+    if(column.Header===_('Options')) {
         return '';
     }
     return column.Header;
@@ -122,26 +96,26 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
         setShowDeleteDraftModal(false);
     }, []);
 
-    if(column.Header==='Name') {
+    if(column.Header===_('Name')) {
         return (
             <div className={styles.nameItem}>
                 {item[column.accessor]}
             </div>
         );
     }
-    if(column.Header==='Location') {
+    if(column.Header===_('Location')) {
         const answer = item?.answers?.find(ans => ans.question.code === 'place')?.answer;
         return answer || '';
     }
-    if(column.Header==='Created on' || column.Header==='Modified on') {
+    if(column.Header===_('Created on') || column.Header===_('Modified on')) {
         const date = new Date(item[column.accessor]);
         return date.toLocaleDateString();
     }
-    if(column.Header==='Surveyed by') {
+    if(column.Header===_('Surveyed by')) {
         const answer = item?.answers?.find(ans => ans.question.code === 'usrname')?.answer;
         return answer || '';
     }
-    if(column.Header==='Options') {
+    if(column.Header===_('Options')) {
         if(!hasEditAccess) {
             return null;
         }
@@ -175,6 +149,33 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
 
 
 const SurveyList = () => {
+    const columns = useMemo(() => ([
+        {
+            Header: _('Name'),
+            accessor: 'title',
+        }, 
+        {
+            Header: _('Location'),
+            accessor: 'location',
+        },
+        {
+            Header: _('Surveyed by'),
+            accessor: 'createdBy',
+        },
+        {
+            Header: _('Created on'),
+            accessor: 'createdAt',
+        },
+        {
+            Header: _('Modified on'),
+            accessor: 'modifiedAt',
+        },
+        {
+            Header: _('Options'),
+            accessor: '',
+        },
+    ]), []);
+
     const {projectId} = useParams();
     const history = useHistory();
 
@@ -211,7 +212,7 @@ const SurveyList = () => {
             />
             <div className={styles.contentFooter}>
                 <div className={styles.maxRowsSelect}>
-                    Show 
+                    <Localize>Show</Localize> 
                     <SelectInput 
                         className={styles.select}
                         controlClassName={styles.selectControl}
@@ -224,7 +225,7 @@ const SurveyList = () => {
                         searchable={false}
                         optionsDirection="up"
                     />
-                    Rows
+                    <Localize>Rows</Localize>
                 </div>
                 <Pagination 
                     className={styles.pagination}
@@ -237,7 +238,6 @@ const SurveyList = () => {
                     pageNum={page}
                 />
             </div>
-
         </div>
     );
 };

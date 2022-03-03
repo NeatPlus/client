@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react';
 
-import CountrySection from './CountrySection';
 import VideoModal from 'components/VideoModal';
-import header from 'assets/images/neat-in-action-header.webp';
 import Footer from 'components/Footer';
 import NavBar from 'components/NavBar';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
+import header from 'assets/images/neat-in-action-header.webp';
+
+import CountrySection from './CountrySection';
 import styles from './styles.scss';
 
 
@@ -24,21 +26,16 @@ const Action = () => {
                     <NavBar />
                     <div className={styles.hero}>
                         <div className={styles.heroInfo}>
-                            <p className={styles.pageTitle}>NEAT+ IN ACTION</p>
+                            <p className={styles.pageTitle}>
+                                <Localize>NEAT+ IN ACTION</Localize>
+                            </p>
                             <h1 className={styles.heroTitle}>
-                                NEAT+ Around the <br />
-                                World
+                                <Localize>NEAT+ Around the World</Localize>
                             </h1>
                             <p className={styles.heroDesc}>
-                                To date, the NEAT+ has been successfully tested
-                                and applied by over ten humanitarian
-                                organization in around 20 field operations
-                                worldwide. See examples and links to
-                                the findings of previous NEAT+ environment
-                                scoping missions on this page. If you would like
-                                to submit a case study for inclusion on this
-                                page, please let us know through the Contact
-                                page.
+                                <Localize>
+                                    To date, the NEAT+ has been successfully tested and applied by over ten humanitarian organization in around 20 field operations worldwide. See examples and links to the findings of previous NEAT+ environment scoping missions on this page. If you would like to submit a case study for inclusion on this page, please let us know through the Contact page.
+                                </Localize>
                             </p>
                         </div>
                         <img
@@ -56,7 +53,7 @@ const Action = () => {
                 videoUrl='https://www.youtube.com/embed/oOYMwEU-g24'
                 isVisible={showVideoModal}
                 onClose={handleHideVideoModal}
-                title='Applying the Nexus Environmental Assessment Tool (NEAT+) in humanitarian settings'
+                title={_('Applying the Nexus Environmental Assessment Tool (NEAT+) in humanitarian settings')}
             />
         </>
     );

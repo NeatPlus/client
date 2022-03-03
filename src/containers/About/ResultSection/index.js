@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import programmatic from 'assets/images/programmatic.svg';
 import organizational from 'assets/images/organizational.svg';
@@ -9,7 +10,9 @@ import styles from './styles.scss';
 const ListTitle = ({title}) => {
     return (
         <li className={styles.listStyle}>
-            <span className={styles.listTitle}>{title}</span>
+            <span className={styles.listTitle}>
+                {title}
+            </span>
         </li>
     );
 };
@@ -27,22 +30,28 @@ const ResultSection = () => {
         <div className={styles.container}>
             <Container jumbotron>
                 <h2 className={styles.sectionTitle}>
-                How can the results of the NEAT+ be applied?  
+                    <Localize>
+                        How can the results of the NEAT+ be applied?
+                    </Localize>
                 </h2>
                 <p className={styles.sectionDesc}>
-                The NEAT+ is a generic tool, designed for project-level applications across all ecosystems. Thus, the results should be discussed and contextualized to increase the relevance to your organization. Broadly, the ways that the results can be applied can be seen across three pillars:
+                    <Localize>
+                        The NEAT+ is a generic tool, designed for project-level applications across all ecosystems. Thus, the results should be discussed and contextualized to increase the relevance to your organization. Broadly, the ways that the results can be applied can be seen across three pillars:
+                    </Localize>
                 </p>
                 <div className={styles.pillars}>
                     <div className={styles.pillarsInfo}>
-                        <h3 className={styles.pillarsTitle}>Programmatic Purposes</h3>
+                        <h3 className={styles.pillarsTitle}>
+                            <Localize>Programmatic Purposes</Localize>
+                        </h3>
                         <ul className={styles.pillarsList}>
-                            <ListTitle title="Project screening, design and proposal" />
+                            <ListTitle title={_('Project screening, design and proposal')} />
                             <ul className={styles.pillarsList}>
-                                <SubListTitle title="The results of the NEAT+ can be part of the needs assessment & analysis" />
-                                <SubListTitle title="The results can be used to secure technical support and means to mitigate risks identified" />
+                                <SubListTitle title={_('The results of the NEAT+ can be part of the needs assessment & analysis')} />
+                                <SubListTitle title={_('The results can be used to secure technical support and means to mitigate risks identified')} />
                             </ul>
-                            <ListTitle title="Project montoring and evaluation" />
-                            <ListTitle title="Base for subsequent assessments and EIA" />
+                            <ListTitle title={_('Project montoring and evaluation')} />
+                            <ListTitle title={_('Base for subsequent assessments and EIA')} />
                         </ul>
                     </div>
                     <div className={styles.pillarsImageWrapper}>
@@ -51,15 +60,17 @@ const ResultSection = () => {
                 </div>
                 <div className={styles.pillars}>
                     <div className={styles.pillarsInfo}>
-                        <h3 className={styles.pillarsTitle}>Organizational Purposes</h3>
+                        <h3 className={styles.pillarsTitle}>
+                            <Localize>Organizational Purposes</Localize>
+                        </h3>
                         <ul className={styles.pillarsList}>
-                            <ListTitle title="Baseline for broader organizations’ mitigation plans" />
-                            <ListTitle title="Audit purposes" />
-                            <ListTitle title="Fundraising" />
+                            <ListTitle title={_('Baseline for broader organizations’ mitigation plans')} />
+                            <ListTitle title={_('Audit purposes')} />
+                            <ListTitle title={_('Fundraising')} />
                             <ul className={styles.pillarsList}>
-                                <SubListTitle title="The results can be used to secure fundings for environmental risks" />
+                                <SubListTitle title={_('The results can be used to secure fundings for environmental risks')} />
                             </ul>
-                            <ListTitle title="Environmental baseline to compare operations on global scale" />
+                            <ListTitle title={_('Environmental baseline to compare operations on global scale')} />
                         </ul>
                     </div>
                     <div className={styles.pillarsImageWrapper}>
@@ -68,19 +79,21 @@ const ResultSection = () => {
                 </div>
                 <div className={styles.pillars}>
                     <div className={styles.pillarsInfo}>
-                        <h3 className={styles.pillarsTitle}>Organizational Purposes</h3>
+                        <h3 className={styles.pillarsTitle}>
+                            <Localize>Advocacy Purposes</Localize>
+                        </h3>
                         <ul className={styles.pillarsList}>
-                            <ListTitle title="Sensitization" />
+                            <ListTitle title={_('Sensitization')} />
                             <ul className={styles.pillarsList}>
-                                <SubListTitle title="The NEAT+ is a tool to raise awareness on environmental risks among humanitarian workers who use the tool" />
+                                <SubListTitle title={_('The NEAT+ is a tool to raise awareness on environmental risks among humanitarian workers who use the tool')} />
                             </ul>
-                            <ListTitle title="Communication" />
+                            <ListTitle title={_('Communication')} />
                             <ul className={styles.pillarsList}>
-                                <SubListTitle title="The results can be used to promote the organizations’ green transition" />
+                                <SubListTitle title={_('The results can be used to promote the organizations’ green transition')} />
                             </ul>
-                            <ListTitle title="Advocacy" />
+                            <ListTitle title={_('Advocacy')} />
                             <ul className={styles.pillarsList}>
-                                <SubListTitle title="The results can be used to trigger interest in environmental issues" />
+                                <SubListTitle title={_('The results can be used to trigger interest in environmental issues')} />
                             </ul>
                         </ul>
                     </div>

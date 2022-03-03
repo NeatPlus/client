@@ -6,6 +6,7 @@ import {BsPlus} from 'react-icons/bs';
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import CreateEditProjectModal from 'components/CreateEditProjectModal';
+import {Localize} from '@ra/components/I18n';
 
 import noProjectImage from 'assets/images/no-project.svg';
 
@@ -34,16 +35,16 @@ const NoProject = () => {
                         alt='No Projects'
                         className={styles.infoImage}
                     />
-                    <p className={styles.infoTextTitle}>Hi {user.firstName},</p>
+                    <p className={styles.infoTextTitle}><Localize>Hi</Localize> {user.firstName},</p>
                     <p className={styles.infoText}>
-                        Let's get started by creating a new project
+                        <Localize>Let's get started by creating a new project</Localize>
                     </p>
                     <Button
                         className={styles.button}
                         onClick={handleShowCreateModal}
                     >
                         <BsPlus size={24} className={styles.buttonIcon} />{' '}
-                        Create
+                        <Localize>Create</Localize>
                     </Button>
                 </div>
             </main>

@@ -1,6 +1,8 @@
 import {MdClose} from 'react-icons/md';
 
 import Modal from '@ra/components/Modal';
+import { localizeFn as _ } from '@ra/components/I18n';
+
 import styles from './styles.scss';
 
 const VideoModal = ({isVisible, onClose, videoUrl, title}) => {
@@ -24,7 +26,7 @@ const VideoModal = ({isVisible, onClose, videoUrl, title}) => {
                     frameBorder='0'
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
-                    title='Embedded youtube'
+                    title={_('Embedded youtube')}
                 />
             </div>
         </Modal>

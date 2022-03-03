@@ -1,4 +1,5 @@
 import cs from '@ra/cs';
+import {localizeFn as _} from '@ra/components/I18n';
 
 import styles from './styles.scss';
 
@@ -16,11 +17,11 @@ const Popup = ({className, project}) => {
 
     return(
         <div className={cs(styles.popup, className)}>
-            <DataItem label="Project Name" value={project?.title} />
-            <DataItem label="Organization" value={project?.organizationTitle} />
+            <DataItem label={_('Project Name')} value={project?.title} />
+            <DataItem label={_('Organization')} value={project?.organizationTitle} />
             {project?.createdAt && (
                 <DataItem 
-                    label="Submission Date" 
+                    label={_('Submission Date')}
                     value={projectDate.toLocaleDateString()} 
                 />
             )}

@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import {FaGithub, FaLinkedin, FaTwitter, FaYoutube} from 'react-icons/fa';
 
 import Container from 'components/Container';
+import {Localize} from '@ra/components/I18n';
 
 import List from '@ra/components/List';
 
@@ -52,55 +53,54 @@ const Footer = () => {
                     <hr className={styles.seperator} />
                     <div className={styles.footerNav}>
                         <div className={styles.footerNavList}>
-                            <h4 className={styles.footerNavTitle}>ABOUT</h4>
+                            <h4 className={styles.footerNavTitle}><Localize>ABOUT</Localize></h4>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/about">
-                                    Why Environmental Assessments
-                                    in Humanitarian Operations?
+                                    <Localize>Why Environmental Assessments in Humanitarian Operations?</Localize>
                                 </Link>
                             </div>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/about">
-                                    About NEAT+
+                                    <Localize>About NEAT+</Localize>
                                 </Link>
                             </div>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/access">
-                                    Rural and Urban NEAT+
+                                    <Localize>Rural and Urban NEAT+</Localize>
                                 </Link>
                             </div>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/about">
-                                    History of the NEAT+
+                                    <Localize>History of the NEAT+</Localize>
                                 </Link>
                             </div>
                         </div>
                         <div className={styles.footerNavList}>
-                            <h4 className={styles.footerNavTitle}>ACCESS THE NEAT+</h4>
+                            <h4 className={styles.footerNavTitle}><Localize>ACCESS THE NEAT+</Localize></h4>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/access">
-                                    Urban NEAT+
+                                    <Localize>Urban NEAT+</Localize>
                                 </Link>
                             </div>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/access">
-                                    Rural NEAT+
+                                    <Localize>Rural NEAT+</Localize>
                                 </Link>
                             </div>
                         </div>
                         <div className={styles.footerNavList}>
-                            <h4 className={styles.footerNavTitle}>NEAT+ IN ACTION</h4>
+                            <h4 className={styles.footerNavTitle}><Localize>NEAT+ IN ACTION</Localize></h4>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/action">
-                                    Scoping Videos and Reports
+                                    <Localize>Scoping Videos and Reports</Localize>
                                 </Link>
                             </div>
                         </div>
                         <div className={styles.footerNavList}>
-                            <h4 className={styles.footerNavTitle}>RESOURCE AND SUPPORT</h4>
+                            <h4 className={styles.footerNavTitle}><Localize>RESOURCE AND SUPPORT</Localize></h4>
                             <div className={styles.footerNavItem}>
                                 <Link className={styles.footerNavLink} to="/resource">
-                                    Videos and Guidance
+                                    <Localize>Videos and Guidance</Localize>
                                 </Link>
                             </div>
                         </div>

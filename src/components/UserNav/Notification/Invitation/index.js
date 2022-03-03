@@ -1,9 +1,10 @@
 import {useCallback, useMemo} from 'react';
 import {BsPersonPlusFill} from 'react-icons/bs';
 
-import List from '@ra/components/List';
-
 import Button from 'components/Button';
+import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
+
 import Api from 'services/api';
 
 import NoNotification from '../NoNotification';
@@ -30,14 +31,16 @@ const Invitation = ({item}) => {
                 />
             </div>
             <div className={styles.descriptionContainer}>
-                <p className={styles.description}>Project '{item.title}' wants to join organization '{item.organizationTitle}'</p>
+                <p className={styles.description}>
+                    <Localize>Project</Localize> '{item.title}' <Localize>wants to join organization</Localize> '{item.organizationTitle}'
+                </p>
                 <div className={styles.buttons}>
                     <Button
                         className={styles.button}
                         type='button'
                         onClick={handleAccept}
                     >
-                        Accept
+                        <Localize>Accept</Localize>
                     </Button>
                     <Button
                         className={styles.button}
@@ -45,7 +48,7 @@ const Invitation = ({item}) => {
                         secondary
                         onClick={handleDecline}
                     >
-                        Decline
+                        <Localize>Decline</Localize>
                     </Button>
                 </div>
             </div>
@@ -56,7 +59,7 @@ const Invitation = ({item}) => {
 const Invitations = ({invitations}) => {
     const keyExtractor = useCallback((item, index) => item.id, []);
 
-    const EmptyComponent =useMemo(() => <NoNotification placeholder='No Invitations' />, []);
+    const EmptyComponent =useMemo(() => <NoNotification placeholder={_('No Invitations')} />, []);
 
     return (
         <List

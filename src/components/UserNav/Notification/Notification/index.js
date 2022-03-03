@@ -5,6 +5,8 @@ import {AiOutlineNotification} from 'react-icons/ai';
 
 import cs from '@ra/cs';
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
+
 import NoNotification from '../NoNotification';
 
 import styles from './styles.scss';
@@ -33,7 +35,7 @@ const Notification = ({notifications, handleMarkAllAsRead}) => {
         );
     }, []);
 
-    const EmptyComponent =useMemo(() => <NoNotification placeholder='No Notifications' />, []);
+    const EmptyComponent =useMemo(() => <NoNotification placeholder={_('No Notifications')} />, []);
 
     return (
         <>
@@ -47,7 +49,7 @@ const Notification = ({notifications, handleMarkAllAsRead}) => {
             {notifications.length > 1 && (
                 <div className={styles.footer}>
                     <p className={styles.footerText} onClick={handleMarkAllAsRead}>
-                    Mark all as read
+                        <Localize>Mark all as read</Localize>
                     </p>
                 </div>
             )}

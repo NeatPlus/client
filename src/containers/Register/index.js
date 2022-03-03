@@ -8,6 +8,7 @@ import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import logo from 'assets/images/logo-dark.svg';
 import useRequest from 'hooks/useRequest';
@@ -52,7 +53,7 @@ const Register = () => {
         const lastName = fullName.substring(name[0].length).trim();
 
         if(!lastName) {
-            setError({fullName: 'Lastname cannot be empty'});
+            setError({fullName: _('Last name cannot be empty')});
             return;
         }
 
@@ -74,7 +75,7 @@ const Register = () => {
         } catch(err) {
             console.log(err);
             if(err?.recaptcha){
-                return setError(new Error('Our system has identified you as bot. Please contact us if otherwise.'));
+                return setError(new Error(_('Our system has identified you as bot. Please contact us if otherwise.')));
             }
             setError(err);
         }
@@ -101,15 +102,19 @@ const Register = () => {
                 <div className={styles.registerContent}>
                     <div className={styles.nav}>
                         <Link to="/" className={styles.navLink}>
-                            <img className={styles.logo} src={logo} alt="Neat+ Logo" />
+                            <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
                         </Link>
                     </div>
                     <div className={styles.contentContainer}>
                         <main className={styles.content}>
                             <div className={styles.info}>
-                                <h1 className={styles.infoTitle}>Get Started with Neat+</h1>
+                                <h1 className={styles.infoTitle}>
+                                    <Localize>Get Started with Neat+</Localize>
+                                </h1>
                                 <p className={styles.infoText}>
-                                    NEAT+ is conducted on the KoBo Toolbox data collection platform – an open source data collection tool – (on phone, tablet or computer) and produces an automatically generated report in Microsoft Excel, categorizing areas of risk into low, medium and high level of concern. The tool assesses the current sensitivity of the crisis-affected environment, highlighting any underlying risks and vulnerabilities to the environment and affected communities.
+                                    <Localize>
+                                        NEAT+ is conducted on the KoBo Toolbox data collection platform - an open source data collection tool - (on phone, tablet or computer) and produces an automatically generated report in Microsoft Excel, categorizing areas of risk into low, medium and high level of concern. The tool assesses the current sensitivity of the crisis-affected environment, highlighting any underlying risks and vulnerabilities to the environment and affected communities.
+                                    </Localize>
                                 </p>
                                 <div className={styles.infoLinks}>
                                     <Link
@@ -118,7 +123,7 @@ const Register = () => {
                                             pathname: '/legal-document', 
                                             title: 'privacy-policy'
                                         }}
-                                    >Privacy Policy</Link>
+                                    ><Localize>Privacy Policy</Localize></Link>
                                     <Link
                                         className={styles.link}
                                         to={{
@@ -126,7 +131,7 @@ const Register = () => {
                                             title: 'terms-and-conditions'
                                         }}
                                     >
-                                        Terms of Use
+                                        <Localize>Terms of Use</Localize>
                                     </Link>
                                 </div>
                             </div>
@@ -136,7 +141,7 @@ const Register = () => {
                                 onSubmit={handleRegister} 
                                 className={styles.form}
                             >
-                                <h2 className={styles.formHeader}>Create your account</h2>
+                                <h2 className={styles.formHeader}><Localize>Create your account</Localize></h2>
                                 <InputField
                                     name="fullName"
                                     required
@@ -149,10 +154,10 @@ const Register = () => {
                                 <InputField
                                     name="username"
                                     required
-                                    info="Length can be between 5 to 20. Letters, digits and ./-/_ only."
+                                    info={_('Length can be between 5 to 20. Letters, digits and ./-/_ only.')}
                                     component={TextInput}
                                     className={styles.input}
-                                    label="Pick a username"
+                                    label={_('Pick a username')}
                                     labelClassName={styles.inputLabel}
                                     containerClassName={styles.inputGroup}
                                 />
@@ -162,7 +167,7 @@ const Register = () => {
                                     type="email"
                                     component={Input}
                                     className={styles.input}
-                                    label="Email"
+                                    label={_('Email')}
                                     labelClassName={styles.inputLabel}
                                     containerClassName={styles.inputGroup}
                                 />
@@ -171,7 +176,7 @@ const Register = () => {
                                     required
                                     component={SecureTextInput}
                                     className={styles.input}
-                                    label="Enter Password"
+                                    label={_('Enter Password')}
                                     labelClassName={styles.inputLabel}
                                     containerClassName={styles.inputGroup}
                                 />
@@ -180,7 +185,7 @@ const Register = () => {
                                     required
                                     component={TextInput}
                                     className={styles.input}
-                                    label="Organization"
+                                    label={_('Organization')}
                                     labelClassName={styles.inputLabel}
                                     containerClassName={styles.inputGroup}
                                 />
@@ -189,14 +194,14 @@ const Register = () => {
                                     required
                                     component={TextInput}
                                     className={styles.input}
-                                    label="What is your role?"
+                                    label={_('What is your role?')}
                                     labelClassName={styles.inputLabel}
                                     containerClassName={styles.inputGroup}
                                 />
                                 <div className={styles.termsInput}>
                                     <CheckboxInput id="termsCheckbox" size={18} onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
                                     <label htmlFor="termsCheckbox" className={styles.termsInputLabel}>
-                                        I accept Neat+
+                                        <Localize>I accept Neat+</Localize>
                                         <Link
                                             className={styles.termsInputLabelLink}
                                             to={{
@@ -204,9 +209,9 @@ const Register = () => {
                                                 title: 'terms-and-conditions'
                                             }}
                                         >
-                                            Terms of Use
+                                            <Localize>Terms of Use</Localize>
                                         </Link>
-                                        and 
+                                        <Localize>and</Localize> 
                                         <Link
                                             className={styles.termsInputLabelLink}
                                             to={{
@@ -214,18 +219,18 @@ const Register = () => {
                                                 title: 'privacy-policy'
                                             }}
                                         >
-                                            Privacy Policy
+                                            <Localize>Privacy Policy</Localize>
                                         </Link>
                                     </label>
                                 </div>
                                 <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}>
                                     <GoogleReCaptcha onVerify={setRecaptchaToken} />
                                 </GoogleReCaptchaProvider>
-                                <Button loading={loading} disabled={!acceptTerms}>Create Account</Button>
+                                <Button loading={loading} disabled={!acceptTerms}><Localize>Create Account</Localize></Button>
                             </Form>
                         </main>
                         <p className={styles.loginText}>
-                            Already have an account? <Link to="/login" className={styles.link}>Log in</Link>
+                            <Localize>Already have an account?</Localize> <Link to="/login" className={styles.link}><Localize>Log in</Localize></Link>
                         </p>
                     </div>
                     <AuthModals username={loginData.username} onRegisterComplete={handleRegisterComplete} {...authModalsConfig} />

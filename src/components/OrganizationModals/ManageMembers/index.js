@@ -15,6 +15,7 @@ import withVisibleCheck from '@ra/components/WithVisibleCheck';
 import MultiSelectInput from '@ra/components/Form/MultiSelectInput';
 import Form, {InputField} from '@ra/components/Form';
 import Dropdown from '@ra/components/Dropdown';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import usePromise from '@ra/hooks/usePromise';
 import {getErrorMessage} from '@ra/utils/error';
@@ -75,7 +76,7 @@ const UserItem = ({item, organization}) => {
                 admins: [...organization.admins, item.id],
                 members: newMembers,
             }, organization.id);
-            Toast.show('User role successfully updated!', Toast.SUCCESS);
+            Toast.show(_('User role successfully updated!'), Toast.SUCCESS);
             Api.getOrganizations();
         } catch (error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);
@@ -91,7 +92,7 @@ const UserItem = ({item, organization}) => {
                 admins: newAdmins,
                 members: [...organization.members, item.id],
             }, organization.id);
-            Toast.show('User role successfully updated!', Toast.SUCCESS);
+            Toast.show(_('User role successfully updated!'), Toast.SUCCESS);
             Api.getOrganizations();
         } catch (error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);
@@ -121,12 +122,12 @@ const UserItem = ({item, organization}) => {
                     <div className={styles.userOptions}>
                         <UserOption 
                             onClick={handleSwitchToAdmin}
-                            title="Admin" 
+                            title={_('Admin')} 
                             checked={item.mode === 'admin'} 
                         />
                         <UserOption 
                             onClick={handleSwitchToMember}
-                            title="Member" 
+                            title={_('Member')}
                             checked={item.mode === 'member'} 
                         />
                     </div>
@@ -143,7 +144,7 @@ const RequestItem = ({item}) => {
     const handleApprove = useCallback(async () => {
         try {
             await approveRequest(item.id);
-            Toast.show('Request approved!', Toast.SUCCESS);
+            Toast.show(_('Request approved!'), Toast.SUCCESS);
             Api.getOrganizationMemberRequests();
             Api.getOrganizations();
         } catch(error) {
@@ -153,7 +154,7 @@ const RequestItem = ({item}) => {
     const handleDecline = useCallback(async () => {
         try {
             await rejectRequest(item.id);
-            Toast.show('Request rejected!', Toast.SUCCESS);
+            Toast.show(_('Request rejected!'), Toast.SUCCESS);
             Api.getOrganizationMemberRequests();
         } catch(error) {
             console.log(error);
@@ -166,14 +167,14 @@ const RequestItem = ({item}) => {
             <div className={styles.requestDetails}>
                 <span className={styles.requestName}>
                     {userValueExtractor(item.user)}
-                </span> wants to join this organization.
+                </span> <Localize>wants to join this organization.</Localize>
                 <div className={styles.buttons}>
                     <Button
                         className={styles.button}
                         onClick={handleApprove}
                         loading={approving}
                     >
-                        Approve
+                        <Localize>Approve</Localize>
                     </Button>
                     <Button
                         className={styles.button}
@@ -181,7 +182,7 @@ const RequestItem = ({item}) => {
                         onClick={handleDecline}
                         loading={rejecting}
                     >
-                        Decline
+                        <Localize>Decline</Localize>
                     </Button>
                 </div>
             </div>
@@ -236,7 +237,7 @@ const ManageMembersModal = (props) => {
                 admins: admins.map(el => el.id), 
                 members: members.map(el => el.id),
             }, organization.id);
-            Toast.show('Changes saved!', Toast.SUCCESS);
+            Toast.show(_('Changes saved!'), Toast.SUCCESS);
             Api.getOrganizations();
         } catch(error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);
@@ -267,7 +268,7 @@ const ManageMembersModal = (props) => {
                     />
                 )}
                 <h2 className={styles.title}>
-                    {respondMode ? 'Respond to requests' : 'Manage Members'}
+                    {respondMode ? _('Respond to requests') : _('Manage Members')}
                 </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
@@ -286,20 +287,20 @@ const ManageMembersModal = (props) => {
                 <div className={styles.content}>
                     <div className={styles.requestInfo}>
                         <p className={styles.requestText}>
-                            Member Requests
+                            <Localize>Member Requests</Localize>
                             <span className={styles.requestNumber}>
                                 {` (${pendingRequests.length})`}
                             </span>
                         </p>
                         {!!pendingRequests.length && (
                             <div className={styles.respondLink} onClick={toggleRespondMode}>
-                                Respond to all requests
+                                <Localize>Respond to all requests</Localize>
                                 <BsArrowRight size={22} className={styles.rightArrowIcon} />
                             </div>
                         )}
                     </div>
                     <h5 className={styles.sectionTitle}>
-                        Add New Members
+                        <Localize>Add New Members</Localize>
                     </h5>
                     <Form 
                         className={styles.editForm}
@@ -310,7 +311,7 @@ const ManageMembersModal = (props) => {
                             component={MultiSelectInput}
                             containerClassName={styles.inputContainer}
                             controlClassName={styles.multiSelect}
-                            placeholder='Select Users'
+                            placeholder={_('Select Users')}
                             keyExtractor={keyExtractor}
                             valueExtractor={userValueExtractor}
                             defaultValue={organizationUsers}
@@ -319,11 +320,11 @@ const ManageMembersModal = (props) => {
                             renderControlLabel={UserIcon}
                             options={users?.results}
                         />
-                        <Button loading={saving} className={styles.saveButton}>Save</Button>
+                        <Button loading={saving} className={styles.saveButton}><Localize>Save</Localize></Button>
                     </Form>
                     <div className={styles.listContainer}>
                         <h5 className={styles.sectionTitle}>
-                            Admins
+                            <Localize>Admins</Localize>
                         </h5> 
                         <List
                             className={styles.userList}
@@ -332,7 +333,7 @@ const ManageMembersModal = (props) => {
                             renderItem={renderUserItem}
                         />
                         <h5 className={styles.sectionTitle}>
-                            Members
+                            <Localize>Members</Localize>
                         </h5> 
                         <List
                             className={styles.userList}
