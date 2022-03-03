@@ -64,8 +64,8 @@
     "lint-staged": "^11.2.6",
     "react-app-rewired": "^2.1.8",
     "react-gettext-parser": "^1.16.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0"
+    "stylelint": "^14.5.3",
+    "stylelint-config-standard": "^25.0.0"
   },
   "jest": {
     "testPathIgnorePatterns": [
