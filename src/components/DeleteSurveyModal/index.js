@@ -5,6 +5,7 @@ import {MdClose} from 'react-icons/md';
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import trash from 'assets/images/trash.png';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 import Api from 'services/api';
@@ -24,12 +25,12 @@ const DeleteSurveyModal = (props) => {
             if (result) {
                 Api.getSurveys();
                 onClose();
-                Toast.show('Survey successfully deleted!', Toast.SUCCESS);
+                Toast.show(_('Survey successfully deleted!'), Toast.SUCCESS);
             }
         } catch (error) {
             console.log(error);
             onClose();
-            Toast.show(error?.detail || 'Something Went Wrong!', Toast.DANGER);
+            Toast.show(error?.detail || _('Something Went Wrong!'), Toast.DANGER);
         }
     }, [deleteSurvey, onClose]);
 
@@ -40,7 +41,7 @@ const DeleteSurveyModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Delete Survey</h2>
+                <h2 className={styles.title}><Localize>Delete Survey</Localize></h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
@@ -53,15 +54,15 @@ const DeleteSurveyModal = (props) => {
                         alt='trash bin'
                     />
                     <p className={styles.deleteText}>
-                        Are you sure you want to delete the survey?
+                        <Localize>Are you sure you want to delete the survey?</Localize>
                     </p>
                 </div>
                 <div className={styles.buttons}>
                     <Button onClick={onClose} type='button' secondary>
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button loading={loading} onClick={handleDeleteProject}>
-                        Delete
+                        <Localize>Delete</Localize>
                     </Button>
                 </div>
             </div>

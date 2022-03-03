@@ -10,6 +10,7 @@ import JoinOrganizationModal from 'components/OrganizationModals/JoinOrganizatio
 import UserNav from 'components/UserNav';
 import Button from 'components/Button';
 import List from '@ra/components/List';
+import {Localize} from '@ra/components/I18n';
 
 import {selectMyOrganizations} from 'store/selectors/organization';
 
@@ -50,10 +51,10 @@ const Organizations = () => {
             <UserNav />
             <div className={styles.content}>
                 <div onClick={history.goBack} className={styles.backLink}>
-                    <BiChevronLeft size={22} className={styles.backIcon} /> BACK
+                    <BiChevronLeft size={22} className={styles.backIcon} /> <Localize>BACK</Localize>
                 </div>
                 <header className={styles.header}>
-                    <h1 className={styles.title}>My Organizations</h1>
+                    <h1 className={styles.title}><Localize>My Organizations</Localize></h1>
                     {!!myOrganizations.length && (
                         <Button 
                             outline 
@@ -61,7 +62,7 @@ const Organizations = () => {
                             className={styles.button}
                         >
                             <BsPlus size={24} className={styles.buttonIcon} />
-                            Join
+                            <Localize>Join</Localize>
                         </Button>
                     )}
                 </header>

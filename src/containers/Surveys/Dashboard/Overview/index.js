@@ -5,6 +5,7 @@ import {IoIosArrowRoundForward} from 'react-icons/io';
 import Map from 'components/Map';
 import SummaryModal from 'components/SummaryModal';
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import {getSeverityCounts} from 'utils/severity';
@@ -36,14 +37,14 @@ const ConcernItem = ({item, onClick}) => {
     return (
         <div 
             className={cs(styles.concernsItem, {
-                [styles.concernsItemHigh]: item.severity==='High',
-                [styles.concernsItemMedium]: item.severity==='Medium',
-                [styles.concernsItemLow]: item.severity==='Low',
+                [styles.concernsItemHigh]: item.severity===_('High'),
+                [styles.concernsItemMedium]: item.severity===_('Medium'),
+                [styles.concernsItemLow]: item.severity===_('Low'),
             })}
             onClick={handleClick}
         >
             <p className={styles.concernNumber}>{item.count}</p>
-            <p className={styles.concernLabel}>{item.severity} Concerns</p>
+            <p className={styles.concernLabel}>{item.severity} <Localize>Concerns</Localize></p>
             <IoIosArrowRoundForward size={24} className={styles.concernIcon} />
         </div>
     );
@@ -93,34 +94,34 @@ const Overview = () => {
                         {getSurveyAnswerFromCode('overview')}
                     </p>
                     <div className={styles.surveyInformation}>
-                        <h4 className={styles.infoHeader}>Survey Information</h4>
+                        <h4 className={styles.infoHeader}><Localize>Survey Information</Localize></h4>
                         <div className={styles.infoContent}>
                             <InfoItem 
-                                title="Name" 
+                                title={_('Name')}
                                 value={getSurveyAnswerFromCode('nickname')} 
                             />
                             <InfoItem 
-                                title="Location" 
+                                title={_('Location')}
                                 value={getSurveyAnswerFromCode('place')} 
                             />
                             <InfoItem 
-                                title="Organization" 
+                                title={_('Organization')}
                                 value={activeProject?.organizationTitle} 
                             />
                             <InfoItem 
-                                title="Surveyed by" 
+                                title={_('Surveyed by')}
                                 value={getSurveyAnswerFromCode('usrname')}
                             />
                             <InfoItem 
-                                title="Programme Scale" 
+                                title={_('Programme Scale')}
                                 value={getSurveyAnswerFromCode('scale')} 
                             />
                             <InfoItem 
-                                title="Created on" 
+                                title={_('Created on')}
                                 value={getLocaleDate(activeSurvey?.createdAt)} 
                             />
                             <InfoItem 
-                                title="Modified on" 
+                                title={_('Modified on')}
                                 value={getLocaleDate(activeSurvey?.modifiedAt)}
                             />
                         </div>
@@ -128,7 +129,7 @@ const Overview = () => {
                 </div>
                 <div className={styles.statementSummary}>
                     <h4 className={styles.statementTitle}>
-                        Sensitivity Statements Severity Summary
+                        <Localize>Sensitivity Statements Severity Summary</Localize>
                     </h4>
                     <List 
                         className={styles.concerns}
@@ -136,7 +137,7 @@ const Overview = () => {
                         keyExtractor={item => item.severity}
                         renderItem={renderConcernItem}
                     />
-                    <h4 className={styles.statementTitle}>Location of Assessment</h4>
+                    <h4 className={styles.statementTitle}><Localize>Location of Assessment</Localize></h4>
                     <div className={styles.map}>
                         <Map
                             surveyLocation={getSurveyAnswerFromCode('coords')}

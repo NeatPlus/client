@@ -12,6 +12,7 @@ import {BiHelpCircle, BiShareAlt} from 'react-icons/bi';
 
 import ShareSurvey from 'components/ShareSurvey';
 import Dropdown from '@ra/components/Dropdown';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import OrganizationIcon from 'assets/icons/organization.svg';
 import logo from 'assets/images/logo-dark.svg';
@@ -72,7 +73,7 @@ const UserNav = (props) => {
                 />
                 {activeSurvey?.isSharedPublicly && (
                     <div className={styles.publicText}>
-                        PUBLIC
+                        <Localize>PUBLIC</Localize>
                     </div>
                 )}
             </>
@@ -82,7 +83,7 @@ const UserNav = (props) => {
     return (
         <nav className={styles.container}>
             <Link to='/'>
-                <img className={styles.logo} src={logo} alt='Neat+ Logo' />
+                <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
             </Link>
             {isSurveyPath && <h1 className={styles.title}>{activeSurvey?.title}</h1>}
             <div className={cs(styles.rightContent, 'no-print')}>
@@ -128,26 +129,26 @@ const UserNav = (props) => {
                                 className={styles.userIcon} 
                                 alt="organization"
                             />
-                            Organizations
+                            <Localize>Organizations</Localize>
                         </Link>
                         <Link to='/account' className={styles.userOption}>
                             <IoSettingsOutline className={styles.userIcon} />
-                            Account Settings
+                            <Localize>Account Settings</Localize>
                         </Link>
                         <div className={styles.userOption}>
                             <MdLanguage className={styles.userIcon} />
-                            Language
+                            <Localize>Language</Localize>
                         </div>
                         <div className={styles.userOption}>
                             <BiHelpCircle className={styles.userIcon} />
-                            Help
+                            <Localize>Help</Localize>
                         </div>
                         <div
                             className={styles.userOption}
                             onClick={handleLogOut}
                         >
                             <IoMdLogOut className={styles.userIcon} />
-                            Log out
+                            <Localize>Log out</Localize>
                         </div>
                     </div>
                 </Dropdown>

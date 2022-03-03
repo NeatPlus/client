@@ -5,10 +5,10 @@ import {RiArrowDownSLine} from 'react-icons/ri';
 
 import Button from 'components/Button';
 import Container from 'components/Container';
+import Input from '@ra/components/Form/Input';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import Api from 'services/api';
-
-import Input from '@ra/components/Form/Input';
 
 import FilterTagButtons from '../FilterTagButtons';
 import SuggestedTagButtons from '../SuggestedTagButtons';
@@ -143,13 +143,13 @@ const CategorySection = () => {
                             name='searchInput'
                             onChange={handleChange}
                             className={styles.input}
-                            placeholder='Search resources'
+                            placeholder={_('Search resources')}
                         />
                     </div>
                 </div>
                 <div className={styles.suggested}>
                     <h2 className={styles.suggestedTitle}>
-                    Suggested Categories/Tags :
+                        <Localize>Suggested Categories/Tags:</Localize>
                     </h2>
                     <SuggestedTagButtons
                         handleSuggestedTags={handleSuggestedTags}
@@ -157,12 +157,12 @@ const CategorySection = () => {
                     <div className={styles.allResources}>
                         <h2>
                             {!inputData.searchInput && requiredData.length === 0
-                                ? `All Resources (${allResources.length})`
-                                : `Showing Results (${requiredData.length})`}
+                                ? `${_('All Resources')} (${allResources.length})`
+                                : `${_('Showing Results')} (${requiredData.length})`}
                         </h2>
                         <div className={styles.filterSort}>
                             <button className={styles.filters}>
-                            Sort by <RiArrowDownSLine size={20} />
+                                <Localize>Sort by</Localize> <RiArrowDownSLine size={20} />
                             </button>
                             <button
                                 className={`${styles.filters} ${
@@ -171,7 +171,7 @@ const CategorySection = () => {
                                 onClick={handleToggleFiltersClicked}
                             >
                                 <FiFilter size={20} />
-                            Filters
+                                <Localize>Filters</Localize>
                             </button>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ const CategorySection = () => {
                 <div className={styles.cards}>
                     {!allResources.length ? (
                         <p className={styles.fallbackText}>
-                        There are not any resources currently.
+                            <Localize>There are no resources currently.</Localize>
                         </p>
                     ) : !requiredData.length ? (
                         allResources
@@ -239,7 +239,7 @@ const CategorySection = () => {
                         }`}
                         onClick={loadMore}
                     >
-                    Load More
+                        <Localize>Load More</Localize>
                     </Button>
                     <Button
                         className={`${
@@ -249,7 +249,7 @@ const CategorySection = () => {
                         }`}
                         onClick={loadMore2}
                     >
-                    Load More
+                        <Localize>Load More</Localize>
                     </Button>
                 </div>
             </Container>

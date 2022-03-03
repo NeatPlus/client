@@ -1,0 +1,1787 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"POT-Creation-Date: Thu Mar 03 2022 16:21:47 GMT+0545 (Nepal Time)\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:35
+msgid "Confirm your password"
+msgstr ""
+
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:47
+#: src/containers/Account/index.js:53
+#: src/containers/Login/index.js:87
+msgid "Password"
+msgstr ""
+
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:58
+#: src/components/CloneProjectModal/index.js:97
+#: src/components/CreateEditProjectModal/index.js:260
+#: src/components/DeleteDraftModal/index.js:51
+#: src/components/DeleteProjectModal/index.js:63
+#: src/components/DeleteProjectModal/index.js:66
+#: src/components/DeleteSurveyModal/index.js:62
+#: src/components/OrganizationModals/AddEditOrganization/index.js:106
+#: src/components/RestoreItemsModal/index.js:195
+#: src/components/TakeSurveyModal/InitSurvey/index.js:61
+msgid "Cancel"
+msgstr ""
+
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:64
+#: src/components/AuthModals/ForgotPasswordModal/index.js:81
+#: src/components/TakeSurveyModal/InitSurvey/index.js:68
+msgid "Continue"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:68
+msgid "Invalid Code !"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:79
+#: src/components/AuthModals/VerifyEmailModal/index.js:56
+msgid "Successfully resent confirmation mail!"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:84
+#: src/components/ShareSurvey/index.js:57
+#: src/components/ShareSurvey/index.js:68
+msgid "An error occured!"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:97
+msgid "OK, You got a code"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:105
+#: src/components/AuthModals/VerifyEmailModal/index.js:101
+msgid "Enter a verification code we just sent to your email address"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:108
+#: src/components/AuthModals/VerifyEmailModal/index.js:104
+msgid "Enter the code"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:119
+#: src/components/AuthModals/VerifyEmailModal/index.js:116
+msgid "Didn't get a code?"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:121
+#: src/components/AuthModals/VerifyEmailModal/index.js:117
+msgid "Resend"
+msgstr ""
+
+#: src/components/AuthModals/EnterCodeModal/index.js:126
+#: src/components/AuthModals/VerifyEmailModal/index.js:127
+msgid "Done"
+msgstr ""
+
+#: src/components/AuthModals/ForgotPasswordModal/index.js:47
+msgid "Invalid Email!"
+msgstr ""
+
+#: src/components/AuthModals/ForgotPasswordModal/index.js:60
+#: src/containers/Account/UpdatePassword/index.js:85
+#: src/containers/Login/index.js:105
+msgid "Forgot Password?"
+msgstr ""
+
+#: src/components/AuthModals/ForgotPasswordModal/index.js:66
+msgid "We will send a code to your email to reset your password."
+msgstr ""
+
+#: src/components/AuthModals/ForgotPasswordModal/index.js:78
+msgid "Return to Log in"
+msgstr ""
+
+#: src/components/AuthModals/ResetPasswordModal/index.js:49
+msgid "Password Reset Successfull!"
+msgstr ""
+
+#: src/components/AuthModals/ResetPasswordModal/index.js:53
+msgid "Invalid Password"
+msgstr ""
+
+#: src/components/AuthModals/ResetPasswordModal/index.js:69
+msgid "Reset Password"
+msgstr ""
+
+#: src/components/AuthModals/ResetPasswordModal/index.js:75
+msgid "Please set a new password for your account"
+msgstr ""
+
+#: src/components/AuthModals/ResetPasswordModal/index.js:87
+#: src/containers/Account/UpdatePassword/index.js:101
+msgid "Verify New Password"
+msgstr ""
+
+#: src/components/AuthModals/ResetPasswordModal/index.js:98
+msgid "Set Password"
+msgstr ""
+
+#: src/components/AuthModals/VerifyEmailModal/index.js:58
+msgid "An error occured while sending email. Please try again!"
+msgstr ""
+
+#: src/components/AuthModals/VerifyEmailModal/index.js:76
+msgid "Could not verify email!"
+msgstr ""
+
+#: src/components/AuthModals/VerifyEmailModal/index.js:94
+msgid "Verify your email"
+msgstr ""
+
+#: src/components/CloneProjectModal/index.js:53
+msgid "Project successfully Cloned!"
+msgstr ""
+
+#: src/components/CloneProjectModal/index.js:58
+#: src/components/DeleteProjectModal/index.js:34
+#: src/components/DeleteSurveyModal/index.js:33
+msgid "Something Went Wrong!"
+msgstr ""
+
+#: src/components/CloneProjectModal/index.js:78
+msgid "Clone Project"
+msgstr ""
+
+#: src/components/CloneProjectModal/index.js:86
+msgid "Name the Cloned Project"
+msgstr ""
+
+#: src/components/CloneProjectModal/index.js:100
+#: src/components/OptionsDropdown/index.js:24
+msgid "Clone"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:70
+msgid "Create a project"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:76
+msgid "Edit project"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:102
+msgid ""
+"Visibility cannot be 'Public within organization' with no organization "
+"selected"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:129
+msgid "Project successfully Created!"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:136
+msgid "Project successfully Edited!"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:175
+#: src/components/OrganizationModals/AddEditOrganization/index.js:73
+#: src/components/TakeSurveyModal/InitSurvey/index.js:50
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:78
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:119
+#: src/containers/Projects/List/index.js:70
+#: src/containers/Projects/List/TableItems/index.js:67
+#: src/containers/Surveys/Dashboard/Overview/index.js:100
+#: src/containers/Surveys/List/index.js:99
+#: src/containers/Surveys/List/index.js:154
+msgid "Name"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:184
+#: src/components/Map/Popup/index.js:21
+#: src/containers/Account/UpdateInfo/index.js:109
+#: src/containers/Projects/List/index.js:73
+#: src/containers/Projects/List/TableItems/index.js:74
+#: src/containers/Register/index.js:188
+#: src/containers/Surveys/Dashboard/Overview/index.js:108
+msgid "Organization"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:189
+msgid "Select An Organization"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:203
+#: src/components/OrganizationModals/AddEditOrganization/index.js:84
+msgid "Description"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:216
+msgid "Public"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:223
+#: src/containers/Projects/List/TableItems/index.js:132
+msgid "Public within organization"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:232
+#: src/containers/Projects/List/TableItems/index.js:138
+msgid "Private"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:243
+#: src/components/OrganizationModals/ManageMembers/index.js:314
+msgid "Select Users"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:248
+msgid "Users"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:263
+#: src/components/OptionsDropdown/index.js:19
+#: src/containers/Organizations/OrganizationCard/index.js:52
+#: src/containers/Surveys/Dashboard/index.js:210
+msgid "Edit"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:263
+#: src/components/NoProject/index.js:47
+#: src/containers/Projects/List/index.js:204
+msgid "Create"
+msgstr ""
+
+#: src/components/DeleteDraftModal/index.js:33
+msgid "Delete Draft"
+msgstr ""
+
+#: src/components/DeleteDraftModal/index.js:46
+msgid "This will delete your draft of the survey"
+msgstr ""
+
+#: src/components/DeleteDraftModal/index.js:54
+#: src/components/DeleteSurveyModal/index.js:65
+#: src/components/FloatingAction/index.js:78
+#: src/components/OptionsDropdown/index.js:29
+msgid "Delete"
+msgstr ""
+
+#: src/components/DeleteProjectModal/index.js:29
+msgid "Project successfully Deleted!"
+msgstr ""
+
+#: src/components/DeleteProjectModal/index.js:45
+msgid "Delete Project"
+msgstr ""
+
+#: src/components/DeleteProjectModal/index.js:58
+msgid "Are you sure you want to delete the project?"
+msgstr ""
+
+#: src/components/DeleteSurveyModal/index.js:28
+msgid "Survey successfully deleted!"
+msgstr ""
+
+#: src/components/DeleteSurveyModal/index.js:44
+msgid "Delete Survey"
+msgstr ""
+
+#: src/components/DeleteSurveyModal/index.js:57
+msgid "Are you sure you want to delete the survey?"
+msgstr ""
+
+#: src/components/FloatingAction/index.js:51
+msgid "draft has been deleted"
+msgstr ""
+
+#: src/components/FloatingAction/index.js:66
+msgid "survey has been saved in draft"
+msgstr ""
+
+#: src/components/FloatingAction/index.js:70
+msgid "Resume"
+msgstr ""
+
+#: src/components/Footer/index.js:56
+msgid "ABOUT"
+msgstr ""
+
+#: src/components/Footer/index.js:59
+msgid "Why Environmental Assessments in Humanitarian Operations?"
+msgstr ""
+
+#: src/components/Footer/index.js:64
+#: src/containers/Home/AboutSection/index.js:20
+msgid "About NEAT+"
+msgstr ""
+
+#: src/components/Footer/index.js:69
+msgid "Rural and Urban NEAT+"
+msgstr ""
+
+#: src/components/Footer/index.js:74
+msgid "History of the NEAT+"
+msgstr ""
+
+#: src/components/Footer/index.js:79
+msgid "ACCESS THE NEAT+"
+msgstr ""
+
+#: src/components/Footer/index.js:82
+#: src/containers/Access/index.js:67
+msgid "Urban NEAT+"
+msgstr ""
+
+#: src/components/Footer/index.js:87
+#: src/containers/Access/index.js:59
+msgid "Rural NEAT+"
+msgstr ""
+
+#: src/components/Footer/index.js:92
+#: src/containers/Action/index.js:30
+msgid "NEAT+ IN ACTION"
+msgstr ""
+
+#: src/components/Footer/index.js:95
+msgid "Scoping Videos and Reports"
+msgstr ""
+
+#: src/components/Footer/index.js:100
+msgid "RESOURCE AND SUPPORT"
+msgstr ""
+
+#: src/components/Footer/index.js:103
+msgid "Videos and Guidance"
+msgstr ""
+
+#: src/components/Inputs/ImageInput/index.js:50
+msgid "File is invalid"
+msgstr ""
+
+#: src/components/Inputs/ImageInput/index.js:120
+msgid "Drag & drop images here or click to upload"
+msgstr ""
+
+#: src/components/Inputs/ImageInput/index.js:133
+#: src/containers/Surveys/Dashboard/index.js:110
+msgid "Clear"
+msgstr ""
+
+#: src/components/Inputs/LocationInput/index.js:145
+msgid "Latitude (x.y °)"
+msgstr ""
+
+#: src/components/Inputs/LocationInput/index.js:154
+msgid "Value must be between -90 and 90"
+msgstr ""
+
+#: src/components/Inputs/LocationInput/index.js:158
+msgid "Longitude (x.y °)"
+msgstr ""
+
+#: src/components/Inputs/LocationInput/index.js:169
+#: src/containers/Surveys/Dashboard/index.js:230
+msgid "Clear All"
+msgstr ""
+
+#: src/components/Inputs/LocationInput/index.js:176
+msgid "Search places"
+msgstr ""
+
+#: src/components/Map/Popup/index.js:20
+msgid "Project Name"
+msgstr ""
+
+#: src/components/Map/Popup/index.js:24
+msgid "Submission Date"
+msgstr ""
+
+#: src/components/NavBar/index.js:52
+msgid "About"
+msgstr ""
+
+#: src/components/NavBar/index.js:53
+msgid "NEAT+ in Action"
+msgstr ""
+
+#: src/components/NavBar/index.js:54
+msgid "Resources and Support"
+msgstr ""
+
+#: src/components/NavBar/index.js:55
+msgid "Contact"
+msgstr ""
+
+#: src/components/NavBar/index.js:59
+#: src/containers/PublicSurvey/index.js:103
+msgid "Login"
+msgstr ""
+
+#: src/components/NavBar/index.js:68
+#: src/containers/About/WorkSection/index.js:57
+#: src/containers/About/WorkSection/index.js:63
+#: src/containers/About/WorkSection/index.js:67
+#: src/containers/Home/index.js:33
+msgid "Access the NEAT+"
+msgstr ""
+
+#: src/components/NoOrganization/index.js:34
+msgid "No Organizations"
+msgstr ""
+
+#: src/components/NoOrganization/index.js:38
+msgid "You haven't been added to any organization"
+msgstr ""
+
+#: src/components/NoOrganization/index.js:45
+#: src/components/OrganizationModals/JoinOrganization/index.js:117
+msgid "Join Organization"
+msgstr ""
+
+#: src/components/NoProject/index.js:38
+msgid "Hi"
+msgstr ""
+
+#: src/components/NoProject/index.js:40
+msgid "Let's get started by creating a new project"
+msgstr ""
+
+#: src/components/NoSurvey/index.js:33
+#: src/containers/Projects/Dashboard/index.js:89
+msgid "Back to Projects"
+msgstr ""
+
+#: src/components/NoSurvey/index.js:38
+msgid "No surveys found"
+msgstr ""
+
+#: src/components/NoSurvey/index.js:44
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:160
+#: src/containers/Surveys/Dashboard/Module/index.js:43
+msgid "Take Survey"
+msgstr ""
+
+#: src/components/Notice/index.js:48
+msgid "Learn more"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:33
+msgid "Organization sucessfully edited!"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:34
+msgid "Request to create organization has been made!"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:56
+msgid "Edit Organization"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:56
+msgid "Request to add an organization"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:94
+msgid "Point of Contact"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:109
+#: src/components/OrganizationModals/ManageMembers/index.js:323
+#: src/containers/Surveys/Dashboard/index.js:200
+msgid "Save"
+msgstr ""
+
+#: src/components/OrganizationModals/AddEditOrganization/index.js:109
+msgid "Submit"
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:69
+#: src/containers/Organizations/index.js:65
+msgid "Join"
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:124
+msgid ""
+"Please choose an organization you want to join. The organization admin "
+"should accept your join invitation to be added to that organization."
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:133
+msgid "Search Organizations"
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:139
+msgid "Suggested Organizations"
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:151
+msgid "No results found. Make sure your search is spelled correctly."
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:155
+msgid "Should this be added to NEAT+? Appeal to add an organization"
+msgstr ""
+
+#: src/components/OrganizationModals/JoinOrganization/index.js:163
+msgid "Add Organization"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:79
+#: src/components/OrganizationModals/ManageMembers/index.js:95
+msgid "User role successfully updated!"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:125
+msgid "Admin"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:130
+msgid "Member"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:147
+msgid "Request approved!"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:157
+msgid "Request rejected!"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:170
+msgid "wants to join this organization."
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:177
+msgid "Approve"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:185
+#: src/components/UserNav/Notification/Invitation/index.js:51
+msgid "Decline"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:240
+msgid "Changes saved!"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:271
+msgid "Respond to requests"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:271
+msgid "Manage Members"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:290
+msgid "Member Requests"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:297
+msgid "Respond to all requests"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:303
+msgid "Add New Members"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:327
+msgid "Admins"
+msgstr ""
+
+#: src/components/OrganizationModals/ManageMembers/index.js:336
+msgid "Members"
+msgstr ""
+
+#: src/components/RestoreItemsModal/index.js:175
+msgid "Restore Items"
+msgstr ""
+
+#: src/components/RestoreItemsModal/index.js:202
+#: src/containers/Surveys/Dashboard/index.js:192
+msgid "Restore"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:45
+msgid "An error occured"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:55
+msgid "The survey can no longer be accessed publicly"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:65
+msgid "Link has been copied to clipboard!"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:81
+msgid "Share Insight"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:81
+msgid "Share Link"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:87
+msgid "Everyone with this link can view on the Web"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:99
+msgid "Stop Sharing"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:109
+msgid "Copy Link"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:114
+msgid "This link has been shared publicly"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:121
+msgid "Everyone with public link can view on the Web"
+msgstr ""
+
+#: src/components/ShareSurvey/index.js:128
+msgid "Get Public Link"
+msgstr ""
+
+#: src/components/StatementAccordion/index.js:72
+msgid "concern"
+msgstr ""
+
+#: src/components/StatementAccordion/index.js:77
+msgid ""
+"This statement is in experimental phase currently and may not give accurate "
+"result."
+msgstr ""
+
+#: src/components/StatementAccordion/index.js:88
+msgid "Mitigations, Opportunities and more"
+msgstr ""
+
+#: src/components/StatementAccordion/index.js:103
+msgid "ADDITIONAL INFORMATION"
+msgstr ""
+
+#: src/components/StatementAccordion/index.js:107
+msgid "MITIGATION"
+msgstr ""
+
+#: src/components/StatementAccordion/index.js:114
+msgid "OPPORTUNITY"
+msgstr ""
+
+#: src/components/SummaryModal/index.js:81
+#: src/containers/Surveys/Dashboard/Overview/index.js:132
+msgid "Sensitivity Statements Severity Summary"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:93
+#: src/components/TakeSurveyModal/index.js:349
+msgid "Previous"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:101
+msgid "Next"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:248
+#: src/components/TakeSurveyModal/index.js:252
+msgid "Survey complete!"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:318
+msgid "Task Incomplete"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:318
+msgid "Task Complete"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:323
+msgid "You have not filled in all the required fields in the form."
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:324
+msgid ""
+"You have now completed all modules and sub-modules that you previously "
+"selected in the initial NEAT+ survey page."
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:331
+msgid "Please go back and complete the form in order to continue."
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:332
+msgid ""
+"Please follow the provided instructions for how to download and analyse "
+"this information."
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:364
+msgid "Calculate"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:385
+msgid "Back to the beginning"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:388
+msgid "Go to the end"
+msgstr ""
+
+#: src/components/TakeSurveyModal/InitSurvey/index.js:38
+msgid "Name the new survey"
+msgstr ""
+
+#: src/components/TakeSurveyModal/InitSurvey/index.js:38
+msgid "Take a survey"
+msgstr ""
+
+#: src/components/TakeSurveyModal/Question/index.js:125
+msgid "Add Answer..."
+msgstr ""
+
+#: src/components/TakeSurveyModal/Question/index.js:141
+msgid "Required"
+msgstr ""
+
+#: src/components/UserNav/index.js:76
+msgid "PUBLIC"
+msgstr ""
+
+#: src/components/UserNav/index.js:86
+#: src/containers/Login/index.js:63
+#: src/containers/PublicSurvey/index.js:99
+#: src/containers/Register/index.js:105
+msgid "Neat+ Logo"
+msgstr ""
+
+#: src/components/UserNav/index.js:132
+msgid "Organizations"
+msgstr ""
+
+#: src/components/UserNav/index.js:136
+#: src/containers/Account/index.js:34
+msgid "Account Settings"
+msgstr ""
+
+#: src/components/UserNav/index.js:140
+msgid "Language"
+msgstr ""
+
+#: src/components/UserNav/index.js:144
+msgid "Help"
+msgstr ""
+
+#: src/components/UserNav/index.js:151
+msgid "Log out"
+msgstr ""
+
+#: src/components/UserNav/Notification/index.js:61
+msgid "Notifications"
+msgstr ""
+
+#: src/components/UserNav/Notification/index.js:69
+msgid "Invitations"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:35
+msgid "Project"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:35
+msgid "wants to join organization"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:43
+msgid "Accept"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:62
+msgid "No Invitations"
+msgstr ""
+
+#: src/components/UserNav/Notification/Notification/index.js:38
+msgid "No Notifications"
+msgstr ""
+
+#: src/components/UserNav/Notification/Notification/index.js:52
+msgid "Mark all as read"
+msgstr ""
+
+#: src/components/VideoModal/index.js:29
+msgid "Embedded youtube"
+msgstr ""
+
+#: src/containers/About/index.js:21
+msgid "About the NEAT+"
+msgstr ""
+
+#: src/containers/About/index.js:24
+msgid ""
+"The Nexus Environmental Assessment Tool (NEAT+) is a rapid and simple "
+"project-level environmental screening tool that allows humanitarian actors "
+"to quickly identify issues of environmental concern before designing "
+"longer-term emergency or recovery interventions. The NEAT+ was developed by "
+"the Coordination of Assessments for Environment in Humanitarian Action "
+"Joint Initiative; a multi-stakeholder project aiming to improve the "
+"coordination between environmental and humanitarian actors including "
+"organizations such as USAID, UNHCR, NRC, IUCN, WWF and other partners. It "
+"is currently maintained and developed with the UNEP/OCHA Joint Environment "
+"Unit as custodian."
+msgstr ""
+
+#: src/containers/About/index.js:29
+msgid ""
+"The NEAT+ was specifically designed to address the needs of humanitarian "
+"actors and to provide a creative and practical approach to integrating more "
+"sustainable environmental practices into humanitarian aid. The NEAT+ is a "
+"fully developed and proven tool, available in English, French, and Spanish. "
+"In 2021, an urban adaptation (U-NEAT+) is under development, with the "
+"sensitivities module available from this site from July 2021. There are "
+"plans to migrate the R-NEAT to this format at a later stage."
+msgstr ""
+
+#: src/containers/About/MeasureSection/index.js:15
+msgid "What does the NEAT+ measure?"
+msgstr ""
+
+#: src/containers/About/MeasureSection/index.js:20
+msgid ""
+"The NEAT+ assists in flagging environmental issues of high, medium, and low "
+"concern based on project-level information, and provides subsequent "
+"mitigation tips for addressing these issues. It is not a carbon footprint "
+"tool and does not replace the need for a full project environmental impact "
+"assessment."
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:33
+msgid "How can the results of the NEAT+ be applied?"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:38
+msgid ""
+"The NEAT+ is a generic tool, designed for project-level applications across "
+"all ecosystems. Thus, the results should be discussed and contextualized to "
+"increase the relevance to your organization. Broadly, the ways that the "
+"results can be applied can be seen across three pillars:"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:45
+msgid "Programmatic Purposes"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:48
+msgid "Project screening, design and proposal"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:50
+msgid "The results of the NEAT+ can be part of the needs assessment & analysis"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:51
+msgid ""
+"The results can be used to secure technical support and means to mitigate "
+"risks identified"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:53
+msgid "Project montoring and evaluation"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:54
+msgid "Base for subsequent assessments and EIA"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:64
+msgid "Organizational Purposes"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:67
+msgid "Baseline for broader organizations’ mitigation plans"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:68
+msgid "Audit purposes"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:69
+msgid "Fundraising"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:71
+msgid "The results can be used to secure fundings for environmental risks"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:73
+msgid "Environmental baseline to compare operations on global scale"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:83
+msgid "Advocacy Purposes"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:86
+msgid "Sensitization"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:88
+msgid ""
+"The NEAT+ is a tool to raise awareness on environmental risks among "
+"humanitarian workers who use the tool"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:90
+msgid "Communication"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:92
+msgid "The results can be used to promote the organizations’ green transition"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:94
+msgid "Advocacy"
+msgstr ""
+
+#: src/containers/About/ResultSection/index.js:96
+msgid "The results can be used to trigger interest in environmental issues"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:39
+msgid "How does the NEAT+ work?"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:42
+msgid ""
+"The NEAT+ combines contextual environmental information with site-specific "
+"data, both entered by the user. This input is assessed to generate a report "
+"which categorises environmental sensitivities into low, medium, and high "
+"levels of concern. This report provides organizations with a snapshot of "
+"local environmental vulnerabilities and highlights environmental risks "
+"associated with specific humanitarian activities. A set of humanitarian "
+"mitigation measures and suggestions for further resources, together with "
+"links to potential development opportunities, allow users to effectively "
+"prioritize areas of concern as relevant to their organization or operation."
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:47
+msgid ""
+"The NEAT+ works by collecting data through a questionnaire, answered by "
+"users who should be familiar with the project area, including the planned "
+"intervention, the local and host communities, and environmental "
+"surroundings."
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:60
+msgid "STEP 1"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:66
+msgid ""
+"Decide whether you wish to use the Urban or Rural version of the NEAT+. You "
+"can decide using the “Access the NEAT+” page of this website. The analysis "
+"of the Rural NEAT+ is completely performed in Excel, the files for which "
+"can be downloaded on this page. Kobo Toolbox can be optionally used to more "
+"easily collect data offline and to aggregate data at a project or "
+"organizational level. The Urban NEAT+ can be accessed directly from this "
+"site on the “"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:67
+msgid ""
+"” page. Currently, only the Environmental Sensitivity module is available "
+"for the U-NEAT+ users."
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:75
+#: src/containers/About/WorkSection/index.js:81
+msgid "Complete Environmental Sensitivity Module"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:78
+msgid "STEP 2"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:84
+msgid ""
+"The Environmental Sensitivity Module consists of questions about the "
+"activity area, and should take 30 minutes - 1 hour to complete. It must be "
+"completed before the Activity Modules. When completed, the ES Module "
+"generates a summary report including risks of high, medium, and low "
+"concern, humanitarian environmental mitigation tips, relevant resources and "
+"linked potential development opportunities."
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:93
+msgid "Complete Activity Module(s)"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:96
+msgid "STEP 3"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:99
+msgid ""
+"Complete Activity Module(s) (optional and currently only available for "
+"R-NEAT+)"
+msgstr ""
+
+#: src/containers/About/WorkSection/index.js:104
+msgid ""
+"Rural NEAT+ currently has activity modules for Shelter, WASH and Food "
+"Security. For Urban NEAT+ additional Livelihoods and Health activity "
+"modules are being developed. Within the Activity Modules you can select a "
+"number of mostly optional sub-modules. For example, within WASH sub-modules "
+"include latrines, water supply, and shower design. Each sub-module consists "
+"of 10-20 questions and should take the user 30 minutes - 1 hour to "
+"complete. When these are completed an Activity Impact Report is generated, "
+"which uses the output from the Environmental Sensitivity Report and the "
+"answers provided in the activity sub-modules to assess the potential "
+"environmental impacts of the activity, and suggest humanitarian "
+"environmental mitigation tips, relevant resources and potential development "
+"opportunities."
+msgstr ""
+
+#: src/containers/Access/index.js:60
+msgid ""
+"Is your project taking place in a camp or rural setting? The Rural NEAT+ is "
+"available for download here in French, English, and Spanish. The zip file "
+"will contain all of the information necessary to get you started using "
+"either Excel or Kobo Toolbox to complete the analysis."
+msgstr ""
+
+#: src/containers/Access/index.js:63
+msgid "Download here"
+msgstr ""
+
+#: src/containers/Access/index.js:68
+msgid ""
+"The Urban NEAT+ has been developed to address the needs of humanitarian "
+"operations in urban settings. Currently, only the Environmental Sensitivity "
+"Survey, Mitigations and Opportunities are available for users. You can "
+"access the U-NEAT+, create an account, and share your findings all within "
+"the browser application."
+msgstr ""
+
+#: src/containers/Access/index.js:71
+msgid "Access it here"
+msgstr ""
+
+#: src/containers/Access/index.js:76
+msgid ""
+"The NEAT+ has been designed as a simple, user-friendly method for "
+"non-environmentalists to identify environmental concerns in humanitarian "
+"operations. The language of the tool is geared towards humanitarian "
+"response and cluster coordination, including the Activity Modules: Shelter, "
+"WASH, Food Security & Livelihoods. The Environmental Sensitivity Module "
+"must be completed before the  Activity Modules. The ES module includes "
+"questions about the affected community, climate, and biodiversity. The "
+"UNEP/OCHA Joint Environment Unit has been supporting the development of the "
+"NEAT+ since its intial launch in 2018."
+msgstr ""
+
+#: src/containers/Access/index.js:81
+msgid ""
+"The original NEAT+ was designed for camp settings, peri-urban or rural "
+"non-camp settings or informal camp settings. In 2021, based on feedback "
+"from partners and stakeholders, the NEAT+ received significant updates "
+"including an urban adaptation on a lighter, cloud-based platform. Whilst "
+"the Rural NEAT+ (R-NEAT+) uses Kobo Toolbox and Excel to complete the "
+"analysis, the Urban NEAT (U-NEAT+) can be completed entirely in the browser "
+"application. From this page, you can download the R-NEAT+ package, "
+"including all guidance documents, in English French or Spanish, or access "
+"the U-NEAT+ Environmental Sensitivity Module."
+msgstr ""
+
+#: src/containers/Access/index.js:90
+msgid "FAQs"
+msgstr ""
+
+#: src/containers/Account/index.js:31
+#: src/containers/Organizations/index.js:54
+msgid "BACK"
+msgstr ""
+
+#: src/containers/Account/index.js:45
+msgid "Account"
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:32
+msgid "Profile has been successfully updated!"
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:45
+msgid "An email has been sent to the new address"
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:81
+msgid "Save Changes"
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:87
+msgid "Full Name"
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:94
+msgid ""
+"If you change this, we will send you an email at your new address to "
+"confirm it. The new address will not become active until confirmed."
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:99
+#: src/containers/Register/index.js:170
+msgid "Email"
+msgstr ""
+
+#: src/containers/Account/UpdateInfo/index.js:119
+msgid "Role in Organization"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:34
+msgid "Password Did Not Match!"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:38
+msgid "New password cannot be same as old password!"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:58
+msgid "Please make sure the current password is correct!"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:70
+msgid "Update Password"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:71
+msgid "Change Password?"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:77
+msgid "Current Password"
+msgstr ""
+
+#: src/containers/Account/UpdatePassword/index.js:92
+msgid "New Password"
+msgstr ""
+
+#: src/containers/Action/CountryWorkCard/index.js:27
+msgid "ORGANIZATION"
+msgstr ""
+
+#: src/containers/Action/CountryWorkCard/index.js:31
+msgid "MODULES TESTED"
+msgstr ""
+
+#: src/containers/Action/CountryWorkCard/index.js:35
+msgid "DESCRIPTION"
+msgstr ""
+
+#: src/containers/Action/index.js:33
+msgid "NEAT+ Around the World"
+msgstr ""
+
+#: src/containers/Action/index.js:36
+msgid ""
+"To date, the NEAT+ has been successfully tested and applied by over ten "
+"humanitarian organization in around 20 field operations worldwide. See "
+"examples and links to the findings of previous NEAT+ environment scoping "
+"missions on this page. If you would like to submit a case study for "
+"inclusion on this page, please let us know through the Contact page."
+msgstr ""
+
+#: src/containers/Action/index.js:56
+msgid ""
+"Applying the Nexus Environmental Assessment Tool (NEAT+) in humanitarian "
+"settings"
+msgstr ""
+
+#: src/containers/Contact/index.js:18
+msgid "CONTACT AND FEEDBACK"
+msgstr ""
+
+#: src/containers/Contact/index.js:22
+#: src/containers/Home/FeedbackSection/index.js:12
+msgid "Share your feedback with us"
+msgstr ""
+
+#: src/containers/Contact/index.js:25
+msgid ""
+"To continuously improve the NEAT+ and adapt it to user’s needs, we would "
+"like to learn more about your experience as a user and the context in which "
+"you used the tool in. Take 10 minutes to fill out"
+msgstr ""
+
+#: src/containers/Contact/index.js:26
+msgid "this NEAT+ user feedback form."
+msgstr ""
+
+#: src/containers/Contact/index.js:26
+#: src/containers/Home/FeedbackSection/index.js:17
+msgid "All responses are confidential and anonymous."
+msgstr ""
+
+#: src/containers/Contact/index.js:29
+msgid ""
+"If you have any further questions, comment or feedback, please contact the "
+"JEU"
+msgstr ""
+
+#: src/containers/Contact/index.js:34
+msgid "Contact Visual Chat Display"
+msgstr ""
+
+#: src/containers/Error404/index.js:18
+msgid "Page not found!"
+msgstr ""
+
+#: src/containers/Error404/index.js:22
+msgid "Back to Home"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:22
+msgid ""
+"The NEAT+  is a project-level screening tool, specifically designed for "
+"situations of displacement, which combines environmental data with "
+"site-specific and activity-based questions to automatically analyze and "
+"flag priority environmental risks. This allows the users and organizations "
+"to understand environmental sensitivities, mitigate risks, and find "
+"opportunities to collaborate on greener humanitarian operations."
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:32
+msgid "Why?"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:35
+msgid ""
+"A simple, user-friendly way for non-environmentalists to identify "
+"environmental concerns"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:40
+msgid "Flags key issues for subsequent mitigation and advocacy"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:52
+msgid "Who?"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:54
+msgid ""
+"Humanitarian actors, e.g. field staff, community members and team leaders "
+"working in camp, peri-urban or rural noncamp or informal camp settings"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:65
+msgid "When?"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:67
+msgid ""
+"After life-saving needs have been met; immediately following a crisis and "
+"prior to project design, or during a change in humanitarian setting, such "
+"as an expansion of a camp or development of new livelihood support programs"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:76
+msgid "Learn More"
+msgstr ""
+
+#: src/containers/Home/AboutSection/index.js:81
+msgid "App Usage"
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:29
+msgid "Adapted for rural and urban humanitarian contexts"
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:31
+msgid ""
+"The NEAT+ has been adapted to be used globally in both rural and urban "
+"environments. The tool generates a summary report providing organizations "
+"and actors with a snapshot of environmental vulnerabilities, highlighting "
+"environmental risks associated with specific activities."
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:38
+msgid "For rural environments"
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:39
+msgid ""
+"The tool gathers data, using KoBo Toolbox (a mobile data collection "
+"application already in use by many humanitarian organizations), and "
+"produces the report in Excel. Alternatively, data can be input into Excel "
+"directly."
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:43
+msgid "For urban environments"
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:44
+msgid ""
+"The tool gathers data directly through this web application or KoBo "
+"Toolbox(a mobile data collection application already in use by many "
+"humanitarian organizations), and produces the report in the exportable "
+"(pdf, excel) or online form."
+msgstr ""
+
+#: src/containers/Home/AdaptedSection/index.js:50
+msgid ""
+"As an initial rapid screening tool, the NEAT+ helps humanitarian actors "
+"determine whether a more comprehensive environmental assessment should be "
+"carried out. The tool produces results in an easy to read and understand "
+"format and does not require expertise in environmental topics. The "
+"suggested mitigations can be prioritised to strengthen projects against "
+"environmental vulnerabilities and reduce harmful project impacts on the "
+"environment."
+msgstr ""
+
+#: src/containers/Home/ExampleSection/index.js:77
+msgid "NEAT+ APPLICATION"
+msgstr ""
+
+#: src/containers/Home/ExampleSection/index.js:81
+msgid "Examples of the NEAT+ in action by humanitarian organizations"
+msgstr ""
+
+#: src/containers/Home/ExampleSection/index.js:84
+msgid ""
+"The NEAT+ has been successfully used and applied by over fifteen "
+"humanitarian organizations in over 30 field operations worldwide. With the "
+"latest update, the Rural NEAT+ will now be expanding into French- and "
+"Spanish-speaking operations in 2021."
+msgstr ""
+
+#: src/containers/Home/ExampleSection/index.js:89
+msgid ""
+"See examples and findings of previous NEAT+ pilots and environmental "
+"scoping missions. If you have a report to submit, please contact the "
+"UNEP/OCHA Joint Environment Unit (JEU) (ochaunep@un.org)."
+msgstr ""
+
+#: src/containers/Home/FeedbackSection/index.js:14
+msgid ""
+"To continuously improve the NEAT+ and adapt it to user's needs, we would "
+"like to learn more about your experience as a user and the context in which "
+"you used the tool in. Take 10 minutes to fill out this"
+msgstr ""
+
+#: src/containers/Home/FeedbackSection/index.js:17
+msgid "NEAT+ user feedback form"
+msgstr ""
+
+#: src/containers/Home/FeedbackSection/index.js:20
+msgid ""
+"If you have any further questions, comment or feedback, please contact the "
+"OCHA/UNEP Joint Environment Unit (JEU)]"
+msgstr ""
+
+#: src/containers/Home/index.js:26
+msgid ""
+"Rapid and simple project-level environmental screening for humanitarian "
+"operations"
+msgstr ""
+
+#: src/containers/Home/index.js:28
+msgid ""
+"Free and open-source, the Nexus Environmental Assessment Tool (NEAT+) has "
+"been specifically designed for humanitarian actors to quickly identify "
+"issues of environmental concern to make emergency and recovery "
+"interventions more sustainable."
+msgstr ""
+
+#: src/containers/Home/PartnerSection/index.js:32
+msgid "NEAT+ was developed with the support of"
+msgstr ""
+
+#: src/containers/Home/PartnerSection/index.js:33
+msgid "Joint Initiative"
+msgstr ""
+
+#: src/containers/Home/PartnerSection/index.js:34
+msgid "partners:"
+msgstr ""
+
+#: src/containers/Home/PartnerSection/index.js:43
+msgid ""
+"a multi-stakeholder project aimed at improving collaboration between "
+"environmental and humanitarian actors"
+msgstr ""
+
+#: src/containers/Login/index.js:68
+msgid "Welcome back!"
+msgstr ""
+
+#: src/containers/Login/index.js:69
+msgid "Log in to NEAT+"
+msgstr ""
+
+#: src/containers/Login/index.js:78
+msgid "Email or Username"
+msgstr ""
+
+#: src/containers/Login/index.js:96
+#: src/containers/Register/index.js:233
+msgid "Log in"
+msgstr ""
+
+#: src/containers/Login/index.js:113
+msgid "Activate account?"
+msgstr ""
+
+#: src/containers/Login/index.js:118
+msgid "Don't have an account?"
+msgstr ""
+
+#: src/containers/Login/index.js:120
+msgid "Register Now"
+msgstr ""
+
+#: src/containers/Login/index.js:132
+#: src/containers/Register/index.js:126
+#: src/containers/Register/index.js:222
+msgid "Privacy Policy"
+msgstr ""
+
+#: src/containers/Login/index.js:141
+#: src/containers/Register/index.js:134
+#: src/containers/Register/index.js:212
+msgid "Terms of Use"
+msgstr ""
+
+#: src/containers/Organizations/index.js:57
+msgid "My Organizations"
+msgstr ""
+
+#: src/containers/Organizations/OrganizationCard/index.js:59
+msgid "Manage Roles"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/index.js:98
+msgid "Summary"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/index.js:102
+#: src/containers/Surveys/Dashboard/SurveyTabs/index.js:63
+msgid "Overview"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/index.js:105
+msgid "Top concerns topics"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/index.js:116
+msgid "Number of issues of concern by location"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/index.js:131
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:153
+#: src/containers/Projects/List/index.js:85
+#: src/containers/Projects/List/TableItems/index.js:117
+msgid "Surveys"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:81
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:123
+#: src/containers/Projects/List/index.js:79
+#: src/containers/Projects/List/TableItems/index.js:84
+#: src/containers/Surveys/Dashboard/Overview/index.js:120
+#: src/containers/Surveys/List/index.js:110
+#: src/containers/Surveys/List/index.js:166
+msgid "Created on"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:85
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:127
+#: src/containers/Projects/List/index.js:88
+#: src/containers/Projects/List/TableItems/index.js:14
+#: src/containers/Projects/List/TableItems/index.js:88
+#: src/containers/Surveys/List/index.js:42
+#: src/containers/Surveys/List/index.js:118
+#: src/containers/Surveys/List/index.js:174
+msgid "Options"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:164
+msgid "surveys"
+msgstr ""
+
+#: src/containers/Projects/Dashboard/SurveyTable/index.js:183
+msgid "More Details"
+msgstr ""
+
+#: src/containers/Projects/List/index.js:76
+#: src/containers/Projects/List/TableItems/index.js:77
+msgid "Created by"
+msgstr ""
+
+#: src/containers/Projects/List/index.js:82
+#: src/containers/Projects/List/TableItems/index.js:120
+msgid "Visibility"
+msgstr ""
+
+#: src/containers/Projects/List/index.js:131
+#: src/containers/Surveys/List/index.js:215
+msgid "Show"
+msgstr ""
+
+#: src/containers/Projects/List/index.js:145
+#: src/containers/Surveys/List/index.js:228
+msgid "Rows"
+msgstr ""
+
+#: src/containers/Projects/List/index.js:194
+msgid "Projects"
+msgstr ""
+
+#: src/containers/PublicSurvey/index.js:103
+msgid "Go to Projects"
+msgstr ""
+
+#: src/containers/Register/index.js:56
+msgid "Last name cannot be empty"
+msgstr ""
+
+#: src/containers/Register/index.js:78
+msgid "Our system has identified you as bot. Please contact us if otherwise."
+msgstr ""
+
+#: src/containers/Register/index.js:112
+msgid "Get Started with Neat+"
+msgstr ""
+
+#: src/containers/Register/index.js:115
+msgid ""
+"NEAT+ is conducted on the KoBo Toolbox data collection platform - an open "
+"source data collection tool - (on phone, tablet or computer) and produces "
+"an automatically generated report in Microsoft Excel, categorizing areas of "
+"risk into low, medium and high level of concern. The tool assesses the "
+"current sensitivity of the crisis-affected environment, highlighting any "
+"underlying risks and vulnerabilities to the environment and affected "
+"communities."
+msgstr ""
+
+#: src/containers/Register/index.js:144
+msgid "Create your account"
+msgstr ""
+
+#: src/containers/Register/index.js:157
+msgid "Length can be between 5 to 20. Letters, digits and ./-/_ only."
+msgstr ""
+
+#: src/containers/Register/index.js:160
+msgid "Pick a username"
+msgstr ""
+
+#: src/containers/Register/index.js:179
+msgid "Enter Password"
+msgstr ""
+
+#: src/containers/Register/index.js:197
+msgid "What is your role?"
+msgstr ""
+
+#: src/containers/Register/index.js:204
+msgid "I accept Neat+"
+msgstr ""
+
+#: src/containers/Register/index.js:214
+msgid "and"
+msgstr ""
+
+#: src/containers/Register/index.js:229
+msgid "Create Account"
+msgstr ""
+
+#: src/containers/Register/index.js:233
+msgid "Already have an account?"
+msgstr ""
+
+#: src/containers/Resources/CategoryCard/index.js:31
+msgid "Download"
+msgstr ""
+
+#: src/containers/Resources/CategoryCard/index.js:40
+msgid "Watch Video"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:146
+msgid "Search resources"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:152
+msgid "Suggested Categories/Tags:"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:160
+msgid "All Resources"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:161
+msgid "Showing Results"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:165
+msgid "Sort by"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:174
+#: src/containers/Surveys/Dashboard/index.js:225
+msgid "Filters"
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:189
+msgid "There are no resources currently."
+msgstr ""
+
+#: src/containers/Resources/CategorySection/index.js:242
+#: src/containers/Resources/CategorySection/index.js:252
+msgid "Load More"
+msgstr ""
+
+#: src/containers/Resources/FilterTagButtons/index.js:46
+msgid "Clear all"
+msgstr ""
+
+#: src/containers/Resources/index.js:15
+msgid "Resources & Support"
+msgstr ""
+
+#: src/containers/Resources/SuggestedTagButtons/index.js:12
+msgid "How-to"
+msgstr ""
+
+#: src/containers/Resources/SuggestedTagButtons/index.js:13
+msgid "U-NEAT"
+msgstr ""
+
+#: src/containers/Resources/SuggestedTagButtons/index.js:14
+msgid "R-NEAT"
+msgstr ""
+
+#: src/containers/Resources/SuggestedTagButtons/index.js:15
+msgid "French"
+msgstr ""
+
+#: src/containers/Resources/SuggestedTagButtons/index.js:16
+msgid "Video"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/index.js:107
+msgid "Apply"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/index.js:110
+msgid "Select All"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/index.js:256
+msgid "Close Edit Mode"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/index.js:266
+msgid "Back to Surveys"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/index.js:33
+msgid "Fill Questionnaire"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/index.js:35
+msgid "Please fill up the questionnaire to view this analysis."
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/index.js:53
+msgid "Under Development"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/index.js:55
+msgid "This module is under development. Please check back later."
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:28
+#: src/containers/Surveys/Dashboard/Overview/index.js:47
+msgid "Concerns"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:101
+msgid "Show Questionnaires"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:105
+msgid "Export PDF"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:123
+msgid "Statements"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:126
+msgid "Collapse All"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:126
+msgid "Expand All"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:40
+msgid "High"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:41
+msgid "Medium"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:42
+msgid "Low"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:97
+msgid "Survey Information"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:104
+#: src/containers/Surveys/List/index.js:106
+#: src/containers/Surveys/List/index.js:158
+msgid "Location"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:112
+#: src/containers/Surveys/List/index.js:114
+#: src/containers/Surveys/List/index.js:162
+msgid "Surveyed by"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:116
+msgid "Programme Scale"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:124
+#: src/containers/Surveys/List/index.js:110
+#: src/containers/Surveys/List/index.js:170
+msgid "Modified on"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:140
+msgid "Location of Assessment"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/SurveyTabs/index.js:41
+msgid "Sensitivity"
+msgstr ""
+
+#: src/hooks/useRequest.js:52
+#: src/services/api.js:49
+#: src/services/api.js:69
+#: src/services/api.js:88
+#: src/services/api.js:106
+#: src/services/api.js:120
+msgid "500 Internal Server Error"
+msgstr ""
+
+#: src/hooks/useRequest.js:55
+#: src/services/api.js:52
+#: src/services/api.js:91
+#: src/services/api.js:109
+#: src/services/api.js:123
+msgid "Request Error"
+msgstr ""

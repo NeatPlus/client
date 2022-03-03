@@ -2,8 +2,9 @@ import {NavLink, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import Container from 'components/Container';
-
 import Input from '@ra/components/Form/Input';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
+
 import cs from '@ra/cs';
 
 import lightLogo from 'assets/images/logo-light.svg';
@@ -48,14 +49,14 @@ export const NavBar = ({dark}) => {
                     [styles.navMenuDark]: dark
                 })}>
                     <ul className={styles.navItems}>
-                        <LinkItem isDark={dark} to='/about' title="About" />
-                        <LinkItem isDark={dark} to='/action' title="NEAT+ in Action" />
-                        <LinkItem isDark={dark} to='/resource' title="Resources and Support" />
-                        <LinkItem isDark={dark} to='/contact' title="Contact" />
+                        <LinkItem isDark={dark} to='/about' title={_('About')} />
+                        <LinkItem isDark={dark} to='/action' title={_('NEAT+ in Action')} />
+                        <LinkItem isDark={dark} to='/resource' title={_('Resources and Support')} />
+                        <LinkItem isDark={dark} to='/contact' title={_('Contact')} />
                     </ul>
                     <ul className={styles.navItems}>
                         {!isAuthenticated && (
-                            <LinkItem isDark={dark} to='/login' title="Login" />
+                            <LinkItem isDark={dark} to='/login' title={_('Login')} />
                         )}
                         <NavLink
                             to='/access'
@@ -64,7 +65,7 @@ export const NavBar = ({dark}) => {
                                 {[styles.accessButtonDark]: dark}
                             )}
                         >
-                            <li className={styles.accessItem}>Access the NEAT+</li>
+                            <li className={styles.accessItem}><Localize>Access the NEAT+</Localize></li>
                         </NavLink>
                     </ul>
                 </div>

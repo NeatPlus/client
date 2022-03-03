@@ -5,8 +5,9 @@ import {IoMdInformationCircle} from 'react-icons/io';
 
 import Button from 'components/Button';
 import Dropdown from '@ra/components/Dropdown';
-import ShareImage from 'assets/images/data-sharing.svg';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
+import ShareImage from 'assets/images/data-sharing.svg';
 import cs from '@ra/cs';
 import Api from 'services/api';
 import Toast from 'services/toast';
@@ -41,7 +42,7 @@ const ShareSurvey = props => {
             await getShareLink(activeSurvey?.id);
             Api.getSurveys();
         } catch(error) {
-            Toast.show(getErrorMessage(error) || 'An error occured', Toast.DANGER);
+            Toast.show(getErrorMessage(error) || _('An error occured'), Toast.DANGER);
             console.log(error);
         }
     }, [activeSurvey, getShareLink]);
@@ -51,9 +52,9 @@ const ShareSurvey = props => {
             await unshareLink(activeSurvey?.id);
             setLinkIdentifier(null);
             Api.getSurveys();
-            Toast.show('The survey can no longer be accessed publicly', Toast.SUCCESS);
+            Toast.show(_('The survey can no longer be accessed publicly'), Toast.SUCCESS);
         } catch(error) {
-            Toast.show('An error occured!', Toast.DANGER);
+            Toast.show(_('An error occured!'), Toast.DANGER);
             console.log(error);
         }
     }, [unshareLink, activeSurvey]);
@@ -61,10 +62,10 @@ const ShareSurvey = props => {
     const handleCopyLink = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(publicLink);
-            Toast.show('Link has been copied to clipboard!', Toast.SUCCESS);
+            Toast.show(_('Link has been copied to clipboard!'), Toast.SUCCESS);
         } catch (err) {
             console.log(err);
-            Toast.show('An error occured!', Toast.DANGER);
+            Toast.show(_('An error occured!'), Toast.DANGER);
         }
     }, [publicLink]);
 
@@ -77,13 +78,13 @@ const ShareSurvey = props => {
     return (
         <div onClick={handleStopPropagation} className={styles.shareContent}>
             <h3 className={styles.shareTitle}>
-                {linkIdentifier ? 'Share Insight' : 'Share Link'}
+                {linkIdentifier ? _('Share Insight') : _('Share Link')}
             </h3>
             {linkIdentifier ? (
                 <>
                     <div className={styles.shareBody}>
                         <p className={cs(styles.shareInfo, styles.shareText)}>
-                            Everyone with this link can view on the Web
+                            <Localize>Everyone with this link can view on the Web</Localize>
                         </p>
                         <div className={styles.linkContainer}>
                             <p className={styles.linkInput}>{publicLink}</p>
@@ -95,7 +96,7 @@ const ShareSurvey = props => {
                             >
                                 <div className={styles.options}>
                                     <p onClick={handleUnshareLink} className={styles.optionItem}>
-                                        Stop Sharing
+                                        <Localize>Stop Sharing</Localize>
                                     </p>
                                 </div>
                             </Dropdown>
@@ -105,26 +106,26 @@ const ShareSurvey = props => {
                             className={styles.copyButton}
                             onClick={handleCopyLink}
                         >
-                            Copy Link
+                            <Localize>Copy Link</Localize>
                         </Button>
                     </div>
                     <div className={styles.shareFooter}>
                         <IoMdInformationCircle className={styles.footerIcon} />
-                        This link has been shared publicly
+                        <Localize>This link has been shared publicly</Localize>
                     </div>
                 </>
             ) : (
                 <div className={styles.shareBody}>
                     <img src={ShareImage} alt="Share" className={styles.shareImage} />
                     <p className={styles.shareInfo}>
-                        Everyone with public link can view on the Web
+                        <Localize>Everyone with public link can view on the Web</Localize>
                     </p>
                     <Button 
                         loading={isLoading} 
                         className={styles.button}
                         onClick={handleGetShareLink}
                     >
-                        Get Public Link
+                        <Localize>Get Public Link</Localize>
                     </Button>
                 </div>
             )}

@@ -3,6 +3,7 @@ import {BiEditAlt, BiCog} from 'react-icons/bi';
 
 import AddEditOrganizationModal from 'components/OrganizationModals/AddEditOrganization';
 import ManageMembersModal from 'components/OrganizationModals/ManageMembers';
+import {localizeFn as _} from '@ra/components/I18n';
 
 import styles from './styles.scss';
 
@@ -48,14 +49,14 @@ const OrganizationCard = ({item: organization}) => {
                 {organization.role === 'admin' && (
                     <div className={styles.actionIcons}>
                         <div 
-                            title="Edit" 
+                            title={_('Edit')}
                             className={styles.actionIcon}
                             onClick={handleShowEditModal}
                         >
                             <BiEditAlt className={styles.icon} />
                         </div>
                         <div 
-                            title="Manage Roles" 
+                            title={_('Manage Roles')}
                             className={styles.actionIcon}
                             onClick={handleShowManageModal}
                         >

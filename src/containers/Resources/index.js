@@ -1,7 +1,8 @@
-import CategorySection from './CategorySection';
 import NavBar from 'components/NavBar';
 import Footer from 'components/Footer';
+import {Localize} from '@ra/components/I18n';
 
+import CategorySection from './CategorySection';
 import styles from './styles.scss';
 
 const Resources = () => {
@@ -11,7 +12,7 @@ const Resources = () => {
                 <NavBar />
                 <div className={styles.hero}>
                     <div className={styles.titles}>
-                        <h1 className={styles.title}>Resources & Support</h1>
+                        <h1 className={styles.title}><Localize>Resources & Support</Localize></h1>
                     </div>
                 </div>
             </header>

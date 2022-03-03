@@ -1,4 +1,7 @@
 import {useEffect, useState} from 'react';
+
+import {_} from 'services/i18n';
+
 import styles from './styles.scss';
 
 const SuggestedTagButtons = ({handleSuggestedTags}) => {
@@ -6,11 +9,11 @@ const SuggestedTagButtons = ({handleSuggestedTags}) => {
 
     useEffect(() => {
         setSuggestedTags([
-            {tag: 1, text: 'How-to'},
-            {tag: 4, text: 'U-NEAT'},
-            {tag: 3, text: 'R-NEAT'},
-            {tag: 5, text: 'French'},
-            {tag: 9, text: 'Video'},
+            {tag: 1, text: _('How-to')},
+            {tag: 4, text: _('U-NEAT')},
+            {tag: 3, text: _('R-NEAT')},
+            {tag: 5, text: _('French')},
+            {tag: 9, text: _('Video')},
         ]);
     }, []);
     return (

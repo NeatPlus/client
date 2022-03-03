@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import TextInput from '@ra/components/Form/TextInput';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
@@ -49,12 +50,12 @@ const CloneProjectModal = (props) => {
             if (result) {
                 onClone && onClone();
                 closeThisModal();
-                Toast.show('Project successfully Cloned!', Toast.SUCCESS);
+                Toast.show(_('Project successfully Cloned!'), Toast.SUCCESS);
             }
         } catch (error) {
             console.log(error);
             closeThisModal();
-            Toast.show('Something Went Wrong!', Toast.DANGER);
+            Toast.show(_('Something Went Wrong!'), Toast.DANGER);
         }
     }, [
         onClone,
@@ -74,7 +75,7 @@ const CloneProjectModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Clone Project</h2>
+                <h2 className={styles.title}><Localize>Clone Project</Localize></h2>
                 <div className={styles.closeContainer} onClick={closeThisModal}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
@@ -82,7 +83,7 @@ const CloneProjectModal = (props) => {
             <div className={styles.content}>
                 <div className={styles.inputGroup}>
                     <Label className={styles.inputLabel}>
-                        Name the Cloned Project
+                        <Localize>Name the Cloned Project</Localize>
                     </Label>
                     <TextInput
                         name='title'
@@ -93,10 +94,10 @@ const CloneProjectModal = (props) => {
                 </div>
                 <div className={styles.buttons}>
                     <Button onClick={closeThisModal} type='button' secondary>
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button loading={loading} onClick={handleCloneProject}>
-                        Clone
+                        <Localize>Clone</Localize>
                     </Button>
                 </div>
             </div>

@@ -13,6 +13,7 @@ import TextAreaInput from 'components/Inputs/TextAreaInput';
 import Input from '@ra/components/Form/Input';
 import DateInput from '@ra/components/Form/DateInput';
 import NumberInput from '@ra/components/Form/NumberInput';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import * as questionActions from 'store/actions/question';
@@ -121,7 +122,7 @@ const Question = forwardRef((props, ref) => {
                     <InputComponent
                         disabled={!editable}
                         className={styles.input} 
-                        placeholder="Add Answer..." 
+                        placeholder={_('Add Answer...')}
                         onChange={handleChangeAnswer}
                         options={options?.filter(opt => opt.question === item.id)}
                         checkedOptions={answerItem?.options}
@@ -137,7 +138,7 @@ const Question = forwardRef((props, ref) => {
                 )}
             </div>
             {showRequiredMessage && (
-                <span className={styles.requiredText}>Required</span>
+                <span className={styles.requiredText}><Localize>Required</Localize></span>
             )}
         </>
     );

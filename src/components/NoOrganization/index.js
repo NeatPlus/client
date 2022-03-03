@@ -6,6 +6,7 @@ import {BsPlus} from 'react-icons/bs';
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import JoinOrganizationModal from 'components/OrganizationModals/JoinOrganization';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import noOrganizationImage from 'assets/images/no-organization.svg';
 import {selectMyOrganizations} from 'store/selectors/organization';
@@ -30,18 +31,18 @@ const NoOrganization = () => {
                 <div className={styles.createBox}>
                     <img
                         src={noOrganizationImage}
-                        alt='No Organizations'
+                        alt={_('No Organizations')}
                         className={styles.infoImage}
                     />
                     <p className={styles.infoText}>
-                        You haven’t been added to any organization
+                        <Localize>You haven't been added to any organization</Localize>
                     </p>
                     <Button
                         className={styles.button}
                         onClick={handleShowCreateModal}
                     >
                         <BsPlus size={24} className={styles.buttonIcon} />
-                        Join Organization
+                        <Localize>Join Organization</Localize>
                     </Button>
                 </div>
             </main>

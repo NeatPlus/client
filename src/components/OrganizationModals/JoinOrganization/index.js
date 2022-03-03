@@ -10,6 +10,7 @@ import List from '@ra/components/List';
 import Modal from '@ra/components/Modal';
 import TextInput from '@ra/components/Form/TextInput';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
@@ -65,7 +66,7 @@ const OrganizationItem = ({item}) => {
                 })}
             >
                 {!memberRequest && <BsPlus size={20} className={styles.buttonIcon} />}
-                {memberRequest ? '' : 'Join'}
+                {memberRequest ? '' : _('Join')}
             </Button>
         </div>
     );
@@ -113,27 +114,29 @@ const JoinOrganizationModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Join Organization</h2>
+                <h2 className={styles.title}><Localize>Join Organization</Localize></h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
             <div className={styles.content}>
                 <p className={styles.infoText}>
-                    Please choose an organization you want to join. The organization admin should accept your join invitation to be added to that organization.
+                    <Localize>
+                        Please choose an organization you want to join. The organization admin should accept your join invitation to be added to that organization.
+                    </Localize>
                 </p>
                 <div className={styles.searchInput}>
                     <IoIosSearch className={styles.searchIcon} />
                     <TextInput
                         onChange={handleSearchChange}
                         className={styles.input}
-                        placeholder="Search Organizations"
+                        placeholder={_('Search Organizations')}
                     />
                 </div>
                 {filteredOrganizations.length ? (
                     <div className={styles.searchResults}>
                         <h5 className={styles.suggestedTitle}>
-                            Suggested Organizations
+                            <Localize>Suggested Organizations</Localize>
                         </h5>
                         <List
                             className={styles.resultsList}
@@ -145,11 +148,11 @@ const JoinOrganizationModal = (props) => {
                 ) : (
                     <>
                         <p className={styles.noResults}>
-                            No results found. Make sure your search is spelled correctly.
+                            <Localize>No results found. Make sure your search is spelled correctly.</Localize>
                         </p>
                         <div className={styles.addInfo}>
                             <p className={styles.addInfoText}>
-                                Should this be added to NEAT+? Appeal to add an organization named ‘<span className={styles.queryTitle}>{query}</span>’. 
+                                <Localize>Should this be added to NEAT+? Appeal to add an organization</Localize> '<span className={styles.queryTitle}>{query}</span>'.
                             </p>
                             <Button
                                 outline
@@ -157,7 +160,7 @@ const JoinOrganizationModal = (props) => {
                                 className={styles.addButton}
                             >
                                 <BsPlus size={20} className={styles.addButtonIcon} />
-                                Add Organization
+                                <Localize>Add Organization</Localize>
                             </Button>
                         </div>
                     </>

@@ -10,6 +10,7 @@ import Button from 'components/Button';
 import RestoreItemsModal from 'components/RestoreItemsModal';
 import List from '@ra/components/List';
 import CheckboxInput from '@ra/components/Form/CheckboxInput';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
@@ -103,10 +104,10 @@ const IssuesBox = ({showIssues, onClose}) => {
             />
             <div className={styles.issuesFooter}>
                 <Button className={styles.button} onClick={handleApplyFilter}>
-                    Apply
+                    <Localize>Apply</Localize>
                 </Button>
                 <div className={styles.allControl} onClick={handleToggleAll}>
-                    {selectedIssues.length===tags.length ? 'Clear' : 'Select All'}
+                    {selectedIssues.length===tags.length ? _('Clear') : _('Select All')}
                 </div>
             </div>
         </div>
@@ -188,7 +189,7 @@ const SurveyDashboard = () => {
                         onClick={toggleRestoreModal}
                     >
                         <BsArrowCounterclockwise size={20} className={styles.controlIcon} />
-                        Restore
+                        <Localize>Restore</Localize>
                     </Button>
                     <Button
                         loading={loading}
@@ -196,7 +197,7 @@ const SurveyDashboard = () => {
                         onClick={handleSaveClick}
                         className={styles.saveButton}
                     >
-                        Save
+                        <Localize>Save</Localize>
                     </Button>
                 </div>
             );
@@ -206,7 +207,7 @@ const SurveyDashboard = () => {
             <div className={styles.headerControls}>
                 <Button className={styles.controlButton} onClick={activateEditMode}>
                     <BiEditAlt size={20} className={styles.controlIcon} />
-                    Edit
+                    <Localize>Edit</Localize>
                 </Button>
                 <Button 
                     className={cs(styles.controlButton, {
@@ -221,12 +222,12 @@ const SurveyDashboard = () => {
                     ) : (
                         <FiFilter size={18} className={styles.controlIcon} />
                     )}
-                    Filters
+                    <Localize>Filters</Localize>
                 </Button>
                 <IssuesBox onClose={toggleIssues} showIssues={showIssues} />
                 {filters?.length > 0 && (
                     <div className={styles.clearText} onClick={handleClearFilters}>
-                        Clear All
+                        <Localize>Clear All</Localize>
                     </div>
                 )}
             </div>
@@ -252,7 +253,7 @@ const SurveyDashboard = () => {
                     <div className={styles.closeIconContainer}>
                         <MdClose size={18} className={styles.closeIcon} />
                     </div>
-                    Close Edit Mode
+                    <Localize>Close Edit Mode</Localize>
                 </div>
             ) : activeProject ? (
                 <Link 
@@ -262,7 +263,7 @@ const SurveyDashboard = () => {
                     <BiChevronLeft 
                         size={22} 
                         className={styles.backIcon} 
-                    /> Back to Surveys
+                    /> <Localize>Back to Surveys</Localize>
                 </Link>
             ) : null}
             <SurveyTabs 

@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {BsArrowRight} from 'react-icons/bs';
 
 import Container from 'components/Container';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import aboutImage from 'assets/images/home-about.webp';
 import questionIcon from 'assets/images/why-neat.svg';
@@ -16,31 +17,43 @@ const AboutSection = () => {
             <Container jumbotron>
                 <div className={styles.aboutSection}>
                     <div className={styles.aboutDetail}>
-                        <h1 className={styles.aboutTitle} >About NEAT+</h1>
+                        <h1 className={styles.aboutTitle}><Localize>About NEAT+</Localize></h1>
                         <p className={styles.aboutDesc}>
-                    The NEAT+  is a project-level screening tool, specifically designed for situations of displacement, which combines environmental data with site-specific and activity-based questions to automatically analyze and flag priority environmental risks. This allows the users and organizations to understand environmental sensitivities, mitigate risks, and find opportunities to collaborate on greener humanitarian operations.
+                            <Localize>
+                                The NEAT+  is a project-level screening tool, specifically designed for situations of displacement, which combines environmental data with site-specific and activity-based questions to automatically analyze and flag priority environmental risks. This allows the users and organizations to understand environmental sensitivities, mitigate risks, and find opportunities to collaborate on greener humanitarian operations.
+                            </Localize>
                         </p>
                         <div className={styles.infoList}>
                             <div className={styles.infoListItem}>
                                 <div className={styles.imageWrapper}>
-                                    <img src={questionIcon} alt="question icon" />
+                                    <img src={questionIcon} alt="Question icon" />
                                 </div>
                                 <div>
-                                    <h3 className={styles.reasonTitle}>Why?</h3>
+                                    <h3 className={styles.reasonTitle}><Localize>Why?</Localize></h3>
                                     <ul className={styles.reasonList}>
-                                        <li className={styles.reasonDesc}>A simple, user-friendly way for non-environmentalists to identify environmental concerns</li>
-                                        <li className={styles.reasonDesc}>Flags key issues for subsequent mitigation and advocacy</li>
+                                        <li className={styles.reasonDesc}>
+                                            <Localize>
+                                                A simple, user-friendly way for non-environmentalists to identify environmental concerns
+                                            </Localize>
+                                        </li>
+                                        <li className={styles.reasonDesc}>
+                                            <Localize>
+                                                Flags key issues for subsequent mitigation and advocacy
+                                            </Localize>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <div className={styles.infoListItem}>
                                 <div className={styles.imageWrapper}>
-                                    <img src={userIcon} alt="users icon" />
+                                    <img src={userIcon} alt="Users icon" />
                                 </div>
                                 <div>
-                                    <h3 className={styles.reasonTitle}>Who?</h3>
+                                    <h3 className={styles.reasonTitle}><Localize>Who?</Localize></h3>
                                     <p className={styles.reasonDesc}>
-                                Humanitarian actors, e.g. field staff, community members and team leaders working in camp, peri-urban or rural noncamp or informal camp settings
+                                        <Localize>
+                                            Humanitarian actors, e.g. field staff, community members and team leaders working in camp, peri-urban or rural noncamp or informal camp settings
+                                        </Localize>
                                     </p>
                                 </div>
                             </div>
@@ -49,24 +62,23 @@ const AboutSection = () => {
                                     <img src={calendarIcon} alt="calendar icon" />
                                 </div>
                                 <div>
-                                    <h3 className={styles.reasonTitle}>When?</h3>
+                                    <h3 className={styles.reasonTitle}><Localize>When?</Localize></h3>
                                     <p className={styles.reasonDesc}>
-                                After life-saving needs have been met; immediately following
-                                a crisis and prior to project design, or during a change in
-                                humanitarian setting, such as an expansion of a camp or
-                                development of new livelihood support programs
+                                        <Localize>
+                                            After life-saving needs have been met; immediately following a crisis and prior to project design, or during a change in humanitarian setting, such as an expansion of a camp or development of new livelihood support programs
+                                        </Localize>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.learnMore}>
                             <Link to="/about" className={styles.learnMoreLink}>
-                        Learn More<BsArrowRight className={styles.learnMoreIcon} />
+                                <Localize>Learn More</Localize><BsArrowRight className={styles.learnMoreIcon} />
                             </Link>
                         </div>
                     </div>
                     <div className={styles.infoVisual}>
-                        <img className={styles.infoImage} src={aboutImage} alt="App Usage" />
+                        <img className={styles.infoImage} src={aboutImage} alt={_('App Usage')} />
                     </div>
                 </div>
             </Container>

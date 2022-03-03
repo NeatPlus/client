@@ -6,11 +6,12 @@ import {PublicIcon, OrganizationIcon, PrivateIcon} from 'components/Icons';
 import CreateEditProjectModal from 'components/CreateEditProjectModal';
 import CloneProjectModal from 'components/CloneProjectModal';
 import DeleteProjectModal from 'components/DeleteProjectModal';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import styles from './styles.scss';
 
 export const HeaderItem = ({column}) => {
-    if (column.Header === 'Options') {
+    if (column.Header === _('Options')) {
         return '';
     }
     return column.Header;
@@ -63,28 +64,28 @@ export const DataItem = ({item, column, onAction}) => {
 
     const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
 
-    if (column.Header === 'Name') {
+    if (column.Header === _('Name')) {
         return (
             <div className={styles.nameItem}>
                 {item[column.accessor]}
             </div>
         );
     }
-    if (column.Header === 'Organization') {
+    if (column.Header === _('Organization')) {
         return item[column.accessor] || '-';
     }
-    if (column.Header === 'Created by') {
+    if (column.Header === _('Created by')) {
         if(item[column.accessor]) {
             const {firstName, lastName} = item[column.accessor];
             return `${firstName} ${lastName}`;
         }
         return '-';
     }
-    if (column.Header === 'Created on') {
+    if (column.Header === _('Created on')) {
         const date = new Date(item[column.accessor]);
         return date.toLocaleDateString();
     }
-    if (column.Header === 'Options') {
+    if (column.Header === _('Options')) {
         return item.isAdminOrOwner?(
             <div onClick={stopEventBubbling}>
                 <OptionsDropdown
@@ -113,10 +114,10 @@ export const DataItem = ({item, column, onAction}) => {
             </div>
         ):null;
     }
-    if (column.Header === 'Surveys') {
+    if (column.Header === _('Surveys')) {
         return surveyCount;
     }
-    if (column.Header === 'Visibility') {
+    if (column.Header === _('Visibility')) {
         const value = item[column.accessor];
         if (value === 'public') {
             return (
@@ -128,13 +129,13 @@ export const DataItem = ({item, column, onAction}) => {
         if (value === 'public_within_organization') {
             return (
                 <div className={styles.visibilityItem}>
-                    <OrganizationIcon /> Public within organization
+                    <OrganizationIcon /> <Localize>Public within organization</Localize>
                 </div>
             );
         }
         return (
             <div className={styles.visibilityItem}>
-                <PrivateIcon /> Private
+                <PrivateIcon /> <Localize>Private</Localize>
             </div>
         );
     }

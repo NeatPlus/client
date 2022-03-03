@@ -7,6 +7,7 @@ import Modal from '@ra/components/Modal';
 import TextInput from '@ra/components/Form/TextInput';
 import Form, {InputField} from '@ra/components/Form';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
@@ -29,8 +30,8 @@ const AddEditOrganizationModal = (props) => {
             if(org) {
                 Toast.show(
                     editMode 
-                        ? 'Organization sucessfully edited' 
-                        : 'Request to create organization has been made!', 
+                        ? _('Organization sucessfully edited!')
+                        : _('Request to create organization has been made!'),
                     Toast.SUCCESS
                 );
                 onClose && onClose();
@@ -52,7 +53,7 @@ const AddEditOrganizationModal = (props) => {
                     />
                 )}
                 <h2 className={styles.title}>
-                    {editMode ? 'Edit Organization' : 'Request to add an organization'}
+                    {editMode ? _('Edit Organization') : _('Request to add an organization')}
                 </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
@@ -69,7 +70,7 @@ const AddEditOrganizationModal = (props) => {
                     required
                     component={TextInput}
                     className={styles.input}
-                    label='Name'
+                    label={_('Name')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={organization?.title || ''}
@@ -80,7 +81,7 @@ const AddEditOrganizationModal = (props) => {
                     className={cs(styles.input, styles.inputArea)}
                     rows={4}
                     cols={5}
-                    label='Description'
+                    label={_('Description')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                     defaultValue={organization?.description || ''}
@@ -90,7 +91,7 @@ const AddEditOrganizationModal = (props) => {
                         name="pointOfContact"
                         component={TextInput}
                         className={styles.input}
-                        label="Point of Contact"
+                        label={_('Point of Contact')}
                         labelClassName={styles.inputLabel}
                         containerClassName={styles.inputGroup}
                     />
@@ -102,10 +103,10 @@ const AddEditOrganizationModal = (props) => {
                         className={styles.button}
                         onClick={onClose}
                     >
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button loading={loading} className={styles.button}>
-                        {editMode ? 'Save' : 'Submit'}
+                        {editMode ? _('Save') : _('Submit')}
                     </Button>
                 </div>
             </Form>

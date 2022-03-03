@@ -7,6 +7,7 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import CheckboxInput from '@ra/components/Form/CheckboxInput';
+import {Localize} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
@@ -171,7 +172,7 @@ const RestoreItemsModal = props => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Restore Items</h2>
+                <h2 className={styles.title}><Localize>Restore Items</Localize></h2>
                 <div className={styles.closeContainer} onClick={handleClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
@@ -191,14 +192,14 @@ const RestoreItemsModal = props => {
                     className={styles.button}
                     onClick={handleClose}
                 >
-                    Cancel
+                    <Localize>Cancel</Localize>
                 </Button>
                 <Button 
                     loading={loading} 
                     onClick={handleRestoreClick} 
                     className={styles.button}
                 >
-                    Restore
+                    <Localize>Restore</Localize>
                 </Button>
             </div>
         </Modal>

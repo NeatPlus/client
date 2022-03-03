@@ -8,6 +8,7 @@ import Button from 'components/Button';
 import Editable from 'components/Editable';
 import SurveyModals from 'components/SurveyModals';
 import Tabs, {Tab} from '@ra/components/Tabs';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import useFilterItems from 'hooks/useFilterItems';
@@ -29,9 +30,9 @@ const FillQuestionnaire = props => {
 
     return (
         <div className={styles.container}>
-            <img className={styles.infoImage} src={fillImage} alt="Fill Questionnaire" />
+            <img className={styles.infoImage} src={fillImage} alt={_('Fill Questionnaire')} />
             <p className={styles.infoText}>
-                Please fill up the questionnaire to view this analysis.
+                <Localize>Please fill up the questionnaire to view this analysis.</Localize>
             </p>
             <Button 
                 outline 
@@ -39,7 +40,7 @@ const FillQuestionnaire = props => {
                 className={styles.button}
             >
                 <BsPlus className={styles.buttonIcon} />
-                Take Survey
+                <Localize>Take Survey</Localize>
             </Button>
             <SurveyModals {...surveyModalsConfig} />
         </div>
@@ -49,9 +50,9 @@ const FillQuestionnaire = props => {
 const UnderDevelopment = props => {
     return (
         <div className={styles.container}>
-            <img className={styles.infoImage} src={devImage} alt="Under Development" />
+            <img className={styles.infoImage} src={devImage} alt={_('Under Development')} />
             <p className={styles.infoText}>
-                This module is under development. Please check back later.
+                <Localize>This module is under development. Please check back later.</Localize>
             </p>
         </div>
     );

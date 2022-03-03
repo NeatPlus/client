@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Button from 'components/Button';
 import {NeatLoader} from 'components/Loader';
 import SurveyTabs from 'containers/Surveys/Dashboard/SurveyTabs';
+import {localizeFn as _} from '@ra/components/I18n';
 
 import usePromise from '@ra/hooks/usePromise';
 import Api from 'services/api';
@@ -95,11 +96,11 @@ const PublicSurvey = () => {
         <div className={styles.container}>
             <nav className={styles.navbar}>
                 <Link to='/'>
-                    <img className={styles.logo} src={logo} alt='Neat+ Logo' />
+                    <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
                 </Link> 
                 <h1 className={styles.title}>{activeSurvey?.title}</h1>
                 <Button outline className={styles.button} onClick={handleNavButtonClick}>
-                    {isAuthenticated ? 'Go to Projects' : 'Login'} 
+                    {isAuthenticated ? _('Go to Projects') : _('Login')} 
                 </Button>
             </nav>
             {(loading || !isDataReady) ? (

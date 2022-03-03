@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux';
 import AuthModals from 'components/AuthModals';
 import Form, {InputField} from '@ra/components/Form';
 import {SecureTextInput} from '@ra/components/Form/inputs';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';
@@ -30,11 +31,11 @@ const UpdatePassword = () => {
         async (formData) => {
             const {oldPassword, newPassword, reNewPassword} = formData;
             if (newPassword !== reNewPassword) {
-                return Toast.show('Password Did Not Match !!', Toast.DANGER);
+                return Toast.show(_('Password Did Not Match!'), Toast.DANGER);
             }
             if (oldPassword === newPassword) {
                 return Toast.show(
-                    'New password cannot be same as old password!', 
+                    _('New password cannot be same as old password!'), 
                     Toast.DANGER
                 );
             }
@@ -54,7 +55,7 @@ const UpdatePassword = () => {
             } catch (err) {
                 let errorMessage = getErrorMessage(err);
                 if(err?.code === 'user_inactive') {
-                    errorMessage = 'Please make sure the current password is correct!';
+                    errorMessage = _('Please make sure the current password is correct!');
                 }
                 Toast.show(errorMessage, Toast.DANGER);
                 console.log(err);
@@ -66,14 +67,14 @@ const UpdatePassword = () => {
     return (
         <>
             <Form className={styles.container} onSubmit={handleSubmit}>
-                <AccountPanel loading={loading} actionTitle='Update Password' />
-                <h1 className={styles.changePassword}>Change Password?</h1>
+                <AccountPanel loading={loading} actionTitle={_('Update Password')} />
+                <h1 className={styles.changePassword}><Localize>Change Password?</Localize></h1>
                 <InputField
                     name='oldPassword'
                     required
                     component={SecureTextInput}
                     className={styles.input}
-                    label='Current Password'
+                    label={_('Current Password')}
                     labelClassName={styles.inputLabel}
                     containerClassName={cs(styles.inputGroup, styles.inputGroupInfo)}
                 />
@@ -81,14 +82,14 @@ const UpdatePassword = () => {
                     className={styles.forgotPasswordLink}
                     onClick={authModalsConfig.handleShowForgotPassword}
                 >
-                    Forgot Password?
+                    <Localize>Forgot Password?</Localize>
                 </div>
                 <InputField
                     name='newPassword'
                     required
                     component={SecureTextInput}
                     className={styles.input}
-                    label='New Password'
+                    label={_('New Password')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                 />
@@ -97,7 +98,7 @@ const UpdatePassword = () => {
                     required
                     component={SecureTextInput}
                     className={styles.input}
-                    label='Verify New Password'
+                    label={_('Verify New Password')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                 />

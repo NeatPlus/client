@@ -3,6 +3,7 @@ import {FiAlertTriangle, FiChevronRight} from 'react-icons/fi';
 
 import Editable from 'components/Editable';
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 
@@ -68,12 +69,12 @@ const StatementAccordion = ({item, isExpanded}) => {
                                 styles.concernSpan, 
                                 styles[`concernSpan${item.severity}`]
                             )}>
-                            {item.severity} concern
+                            {item.severity} <Localize>concern</Localize>
                         </span>
                     )}
                     <div className={styles.accordion} onClick={toggleAccordion}>
                         {item.statement.isExperimental &&
-                            <FiAlertTriangle className={styles.experimentalIcon} title="This statement is in experimental phase currently and may not give accurate result." />
+                            <FiAlertTriangle className={styles.experimentalIcon} title={_('This statement is in experimental phase currently and may not give accurate result.')} />
                         }
                         <div className={cs(
                             styles.accordionTitle, 
@@ -84,7 +85,9 @@ const StatementAccordion = ({item, isExpanded}) => {
                         <div className={styles.rightSection}>
                             {!open && (
                                 <span className={styles.span}>
-                                    Mitigations, Opportunities and more
+                                    <Localize>
+                                        Mitigations, Opportunities and more
+                                    </Localize>
                                 </span>
                             )}
                             <FiChevronRight className={cs(styles.downIcon, open && styles.rotateUp)} />
@@ -97,18 +100,18 @@ const StatementAccordion = ({item, isExpanded}) => {
                         <div className={styles.accordionText}>
                             {item.statement?.hints && (
                                 <h3 className={styles.listTitle}>
-                                    ADDITIONAL INFORMATION
+                                    <Localize>ADDITIONAL INFORMATION</Localize>
                                 </h3>
                             )}
                             {item.statement?.hints || ''}
-                            <h3 className={styles.listTitle}>MITIGATION</h3>
+                            <h3 className={styles.listTitle}><Localize>MITIGATION</Localize></h3>
                             <List
                                 data={mitigations}
                                 component="ul"
                                 keyExtractor={keyExtractor}
                                 renderItem={renderListData}
                             />
-                            <h3 className={styles.listTitle}>OPPORTUNITY</h3>
+                            <h3 className={styles.listTitle}><Localize>OPPORTUNITY</Localize></h3>
                             <List
                                 data={opportunities}
                                 component="ul"

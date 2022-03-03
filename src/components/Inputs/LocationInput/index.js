@@ -6,6 +6,7 @@ import Label from '@ra/components/Form/Label';
 import NumberInput from '@ra/components/Form/NumberInput';
 import TextInput from '@ra/components/Form/TextInput';
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 
@@ -141,7 +142,7 @@ const LocationInput = props => {
         <div className={styles.container}>
             <div className={styles.inputs}>
                 <div className={styles.inputGroup}>
-                    <Label className={styles.label}>Latitude (x.y °)</Label>
+                    <Label className={styles.label}><Localize>Latitude (x.y °)</Localize></Label>
                     <NumberInput
                         name="latitude"
                         value={location?.latitude || ''}
@@ -150,11 +151,11 @@ const LocationInput = props => {
                         onChange={handleInputChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
-                        info="Value must be between -90 and 90"
+                        info={_('Value must be between -90 and 90')}
                     />
                 </div>
                 <div className={styles.inputGroup}>
-                    <Label className={styles.label}>Longitude (x.y °)</Label>
+                    <Label className={styles.label}><Localize>Longitude (x.y °)</Localize></Label>
                     <NumberInput
                         name="longitude"
                         value={location?.longitude || ''}
@@ -165,14 +166,14 @@ const LocationInput = props => {
                         onBlur={handleBlur}
                     />
                 </div>
-                <div className={styles.clear} onClick={handleClear}>Clear All</div>
+                <div className={styles.clear} onClick={handleClear}><Localize>Clear All</Localize></div>
             </div>
             <div className={styles.mapContainer}>
                 <div className={styles.searchContainer}>
                     <TextInput 
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        placeholder="Search places" 
+                        placeholder={_('Search places')}
                         className={styles.searchInput} 
                     />
                     <IoIosSearch size={20} className={styles.searchIcon} />

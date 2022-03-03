@@ -7,6 +7,7 @@ import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import Input from '@ra/components/Form/Input';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
@@ -45,11 +46,11 @@ const ResetPasswordModal = (props) => {
             });
             if (result) {
                 onClose();
-                Toast.show('Password Reset Successfull!', Toast.SUCCESS);
+                Toast.show(_('Password Reset Successfull!'), Toast.SUCCESS);
             }
         } catch (err) {
             Toast.show(
-                err?.error || err?.errors?.[0] || 'Invalid Password',
+                err?.error || err?.errors?.[0] || _('Invalid Password'),
                 Toast.DANGER
             );
         }
@@ -65,13 +66,13 @@ const ResetPasswordModal = (props) => {
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
-                <h2 className={styles.title}>Reset Password</h2>
+                <h2 className={styles.title}><Localize>Reset Password</Localize></h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
             <div className={styles.content}>
-                <p>Please set a new password for your account</p>
+                <p><Localize>Please set a new password for your account</Localize></p>
                 <div className={styles.inputGroup}>
                     <Label className={styles.inputLabel}>New Password</Label>
                     <Input
@@ -83,7 +84,7 @@ const ResetPasswordModal = (props) => {
                 </div>
                 <div className={styles.inputGroup}>
                     <Label className={styles.inputLabel}>
-                        Verify New Password
+                        <Localize>Verify New Password</Localize>
                     </Label>
                     <Input
                         type='password'
@@ -94,7 +95,7 @@ const ResetPasswordModal = (props) => {
                 </div>
                 <div className={styles.button}>
                     <Button loading={loading} onClick={handlePasswordReset}>
-                        Set Password
+                        <Localize>Set Password</Localize>
                     </Button>
                 </div>
             </div>

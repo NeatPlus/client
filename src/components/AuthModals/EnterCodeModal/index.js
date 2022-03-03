@@ -8,6 +8,7 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
@@ -64,7 +65,7 @@ const EnterCodeModal = (props) => {
                 showRPM();
             }
         } catch (err) {
-            Toast.show(err?.error || 'Invalid Code !', Toast.DANGER);
+            Toast.show(err?.error || _('Invalid Code !'), Toast.DANGER);
         }
     }, [otpData.otpCode, showRPM, verifyPassword, email, setIdentifier]);
 
@@ -75,12 +76,12 @@ const EnterCodeModal = (props) => {
             });
             if (result) {
                 Toast.show(
-                    'Successfully resent confirmation mail!',
+                    _('Successfully resent confirmation mail!'),
                     Toast.SUCCESS
                 );
             }
         } catch (err) {
-            Toast.show(err?.error || 'An error occured!', Toast.DANGER);
+            Toast.show(err?.error || _('An error occured!'), Toast.DANGER);
         }
     }, [email, resetPassword]);
 
@@ -93,7 +94,7 @@ const EnterCodeModal = (props) => {
                         onClick={showFPM}
                         className={styles.arrowIcon}
                     />
-                    <h2 className={styles.title}>OK, You got a code</h2>
+                    <h2 className={styles.title}><Localize>OK, You got a code</Localize></h2>
                 </div>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
@@ -101,10 +102,10 @@ const EnterCodeModal = (props) => {
             </div>
             <div className={styles.content}>
                 <p>
-                    Enter a verification code we just sent to your email address
+                    <Localize>Enter a verification code we just sent to your email address</Localize>
                 </p>
                 <div className={styles.inputGroup}>
-                    <Label className={styles.inputLabel}>Enter the code</Label>
+                    <Label className={styles.inputLabel}><Localize>Enter the code</Localize></Label>
                     <OTPInput
                         autoFocus
                         isNumberInput
@@ -115,14 +116,14 @@ const EnterCodeModal = (props) => {
                     />
                 </div>
                 <p className={styles.resend}>
-                    Didn't get a code?
+                    <Localize>Didn't get a code?</Localize>
                     <Link to='#' onClick={handleResendCode}>
-                        {' Resend'}
+                        {` ${_('Resend')}`}
                     </Link>
                 </p>
                 <div className={styles.button}>
                     <Button loading={loading} onClick={handleVerifyPassword}>
-                        Done
+                        <Localize>Done</Localize>
                     </Button>
                 </div>
             </div>

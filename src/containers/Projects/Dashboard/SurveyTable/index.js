@@ -10,6 +10,7 @@ import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import DeleteDraftModal from 'components/DeleteDraftModal';
 import Table from '@ra/components/Table';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import {initDraftAnswers} from 'utils/dispatch';
 import {checkEditAccess} from 'utils/permission';
@@ -17,21 +18,6 @@ import * as questionActions from 'store/actions/question';
 import {getFormattedSurveys} from 'store/selectors/survey';
 
 import styles from './styles.scss';
-
-const surveyColumns = [
-    {
-        Header: 'Name',
-        accessor: 'title',
-    }, 
-    {
-        Header: 'Created on',
-        accessor: 'createdAt',
-    },
-    {
-        Header: 'Options',
-        accessor: '',
-    },
-];
 
 const HeaderItem = ({column}) => {
     if(column.Header==='Options') {
@@ -89,14 +75,14 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
         checkEditAccess(activeProject?.accessLevel), 
     [activeProject]);
 
-    if(column.Header==='Name') {
+    if(column.Header===_('Name')) {
         return <div className={styles.nameItem}>{item[column.accessor]}</div>;
     }
-    if(column.Header==='Created on') {
+    if(column.Header===_('Created on')) {
         const date = new Date(item[column.accessor]);
         return date.toLocaleDateString();
     }
-    if(column.Header==='Options') {
+    if(column.Header===_('Options')) {
         if(!hasEditAccess) {
             return null;
         }
@@ -128,6 +114,21 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
 };
 
 const SurveyTable = ({onTakeSurveyClick}) => {
+    const surveyColumns = useMemo(() => ([
+        {
+            Header: _('Name'),
+            accessor: 'title',
+        }, 
+        {
+            Header: _('Created on'),
+            accessor: 'createdAt',
+        },
+        {
+            Header: _('Options'),
+            accessor: '',
+        },
+    ]), []);
+
     const {projectId} = useParams();
     const history = useHistory();
 
@@ -149,18 +150,18 @@ const SurveyTable = ({onTakeSurveyClick}) => {
     return (
         <div className={styles.surveys}>
             <div className={styles.surveyHeader}>
-                <h3 className={styles.surveyTitle}>Surveys</h3>
+                <h3 className={styles.surveyTitle}><Localize>Surveys</Localize></h3>
                 {hasEditAccess && (
                     <Button 
                         outline 
                         onClick={onTakeSurveyClick} 
                         className={styles.button}
                     >
-                        <BsPlus size={20} className={styles.buttonIcon} /> Take Survey
+                        <BsPlus size={20} className={styles.buttonIcon} /> <Localize>Take Survey</Localize>
                     </Button>
                 )}
             </div>
-            <p className={styles.subTitle}>{surveyData.length} surveys</p>
+            <p className={styles.subTitle}>{surveyData.length} <Localize>surveys</Localize></p>
             <div className={styles.surveyTable}>
                 <Table 
                     loading={status==='loading'}
@@ -179,7 +180,7 @@ const SurveyTable = ({onTakeSurveyClick}) => {
                 /> 
             </div>
             <Button className={styles.buttonBottom} secondary outline onClick={handleMoreClick}>
-                More Details <BsArrowRight size={20} className={styles.buttonBottomIcon} />
+                <Localize>More Details</Localize> <BsArrowRight size={20} className={styles.buttonBottomIcon} />
             </Button>
         </div> 
     );

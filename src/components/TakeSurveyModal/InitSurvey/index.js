@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import TextInput from '@ra/components/Form/TextInput';
 import Form, {InputField} from '@ra/components/Form';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import * as draftActions from 'store/actions/draft';
 
@@ -34,7 +35,7 @@ const InitSurvey = props => {
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <h2 className={styles.title}>
-                    {clone ? 'Name the new survey' : 'Take a survey'}
+                    {clone ? _('Name the new survey') : _('Take a survey')}
                 </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />
@@ -46,7 +47,7 @@ const InitSurvey = props => {
                     required
                     component={TextInput}
                     className={styles.input}
-                    label="Name"
+                    label={_('Name')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                 />
@@ -57,14 +58,14 @@ const InitSurvey = props => {
                         className={styles.button} 
                         onClick={onClose}
                     >
-                        Cancel
+                        <Localize>Cancel</Localize>
                     </Button>
                     <Button 
                         loading={questionsStatus!=='complete'} 
                         className={styles.button}
                         onClick={handleSetSurveyTitle}
                     >
-                        Continue
+                        <Localize>Continue</Localize>
                     </Button>
                 </div>
             </Form>

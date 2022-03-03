@@ -5,6 +5,7 @@ import {BsCloudUpload} from 'react-icons/bs';
 import Loader from 'components/Loader';
 import DragDropFileInput from '@ra/components/Form/DragDropFileInput';
 import List from '@ra/components/List';
+import {Localize, localizeFn as _} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';
@@ -46,7 +47,7 @@ const ImageInput = ({
     const handleChange = useCallback(async ({files, rejections}) => {
         if(!files?.length) {
             if(rejections?.length) {
-                Toast.show(rejections[0].errors?.[0].message || 'File is invalid', Toast.DANGER);
+                Toast.show(rejections[0].errors?.[0].message || _('File is invalid'), Toast.DANGER);
             }
             return;
         }
@@ -116,7 +117,7 @@ const ImageInput = ({
                     DropZoneComponent={
                         <>
                             <BsCloudUpload size={36} className={styles.dropZoneIcon} />
-                            <p className={styles.dropZoneText}>Drag & drop images here or click to upload</p>
+                            <p className={styles.dropZoneText}><Localize>Drag & drop images here or click to upload</Localize></p>
                         </>
                     }
                 />
@@ -129,7 +130,7 @@ const ImageInput = ({
                     />
                 )}
             </form>
-            {answer && <div className={styles.clear} onClick={handleClear}>Clear</div>}
+            {answer && <div className={styles.clear} onClick={handleClear}><Localize>Clear</Localize></div>}
         </>
     );
 };

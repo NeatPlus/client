@@ -2,9 +2,10 @@ import React, {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 
 import Tabs, {Tab} from '@ra/components/Tabs';
+import {localizeFn as _} from '@ra/components/I18n';
+
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
-
 import Api from 'services/api';
 import useInterval from 'hooks/useInterval';
 
@@ -57,7 +58,7 @@ const NotificationCard = React.forwardRef(({openNotification}, ref) => {
                     headerClassName={styles.tabsHeader}
                     defaultActiveTab='notification'
                 >
-                    <Tab label='notification' title='Notifications'>
+                    <Tab label='notification' title={_('Notifications')}>
                         <Notification
                             notifications={notifications}
                             handleMarkAllAsRead={handleMarkAllAsRead}
@@ -65,7 +66,7 @@ const NotificationCard = React.forwardRef(({openNotification}, ref) => {
                     </Tab>
                     <Tab
                         label='invitation'
-                        title={`Invitations (${invitations?.length})`}
+                        title={`${_('Invitations')} (${invitations?.length})`}
                     >
                         <Invitation invitations={invitations} />
                     </Tab>

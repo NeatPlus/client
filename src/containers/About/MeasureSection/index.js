@@ -1,4 +1,5 @@
 import Container from 'components/Container';
+import {Localize} from '@ra/components/I18n';
 
 import measure from 'assets/images/measure.webp';
 
@@ -11,10 +12,14 @@ const MeasureSection = () => {
                 <div className={styles.measureSection}>
                     <div className={styles.measureInfo}>
                         <h2 className={styles.measureTitle}>
-                        What does the NEAT+ measure? 
+                            <Localize>
+                                What does the NEAT+ measure?
+                            </Localize>
                         </h2>
                         <p className={styles.measureDesc}>
-                        The NEAT+ assists in flagging environmental issues of high, medium, and low concern based on project-level information, and provides subsequent mitigation tips for addressing these issues. It is not a carbon footprint tool and does not replace the need for a full project environmental impact assessment. 
+                            <Localize>
+                                The NEAT+ assists in flagging environmental issues of high, medium, and low concern based on project-level information, and provides subsequent mitigation tips for addressing these issues. It is not a carbon footprint tool and does not replace the need for a full project environmental impact assessment.
+                            </Localize>
                         </p>
                     </div>
                     <div className={styles.measureImageWrapper}>
