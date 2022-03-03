@@ -20,7 +20,7 @@
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "reselect": "^4.0.0",
+    "reselect": "^4.1.5",
     "sass": "^1.49.7",
     "web-vitals": "^2.1.2",
     "whatwg-fetch": "^3.6.2",
