@@ -2,6 +2,7 @@ import {sleep} from '@ra/utils';
 
 import store from 'store';
 import * as authActions from 'store/actions/auth';
+import * as uiActions from 'store/actions/ui';
 import Api from './api';
 
 
@@ -17,6 +18,7 @@ export default async function initStore() {
             await Api.refreshToken(refreshToken);
         } else {
             dispatch(authActions.logout());
+            dispatch(uiActions.showExpiryModal());
         }
         const user = await Api.getUser();
         loadUserData(user.id);

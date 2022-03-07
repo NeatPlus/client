@@ -35,7 +35,6 @@ const CreateEditProjectModal = (props) => {
     const [orgObj, setOrgObj] = useState({});
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('');
-    const [title, setTitle] = useState('');
 
     const history = useHistory();
 
@@ -62,18 +61,24 @@ const CreateEditProjectModal = (props) => {
         }
     }, [mode, getProjectUsers]);
 
+    const title = useMemo(() => {
+        if(mode==='create') {
+            return _('Create a project');
+        } else {
+            return _('Edit project');
+        }
+    }, [mode]);
+
     useEffect(() => {
         if (mode === 'create') {
             setUrl('/project/');
             setMethod('POST');
             setVisibility('private');
-            setTitle(_('Create a project'));
         }
         if (mode === 'edit' && project) {
             setUrl(`/project/${project?.id}/`);
             setMethod('PATCH');
             setVisibility(project?.visibility);
-            setTitle(_('Edit project'));
         }
     }, [mode, project, project?.id, project?.visibility]);
 
