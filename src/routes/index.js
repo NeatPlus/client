@@ -8,6 +8,7 @@ import {AuthRoute} from '@ra/auth/AuthRoute';
 
 import Toast from 'components/Toast';
 import Notice from 'components/Notice';
+import LoggedOutModal from 'components/LoggedOutModal';
 
 import Home from 'containers/Home';
 import Login from 'containers/Login';
@@ -28,7 +29,8 @@ import usePageViews from 'hooks/usePageViews';
 
 const Routes = () => {
     const {pathname} = useLocation();
-    const {isAuthenticated} = useSelector((state) => state.auth);
+    const {isAuthenticated} = useSelector(state => state.auth);
+    const {showExpiryModal} = useSelector(state => state.ui);
 
     usePageViews();
 
@@ -56,6 +58,7 @@ const Routes = () => {
                 <Route component={Error404} />
             </Switch>
             <Toast />
+            <LoggedOutModal isVisible={showExpiryModal} />
         </>
     );
 };

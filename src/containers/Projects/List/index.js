@@ -164,10 +164,23 @@ const ProjectList = () => {
 
     const totalProjects = useMemo(() => result?.count || 0, [result]);
     const projects = useMemo(() => result?.results || [], [result]);
+    
+    const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
+    
+    const initialPageValue = useMemo(() => {
+        if(!result?.previous) {
+            return 1;
+        }
+        const searchParams = new URLSearchParams(result.previous);
+        const offset = searchParams.get('offset');
+        if(!offset) {
+            return 2;
+        }
+        return Math.floor(offset / maxRows.value);
+    }, [result, maxRows]);
 
     const [tab, setTab] = useState(tabs[0].label);
-    const [page, setPage] = useState(1);
-    const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
+    const [page, setPage] = useState(initialPageValue);
 
     const fetchProjects = useCallback(() => {
         getProjects({
@@ -182,6 +195,7 @@ const ProjectList = () => {
     }, [fetchProjects]);
 
     const handleTabChange = useCallback(({activeTab}) => {
+        setPage(1);
         setTab(activeTab);
     }, []);
 

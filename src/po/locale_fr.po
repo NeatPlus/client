@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Thu Mar 03 2022 16:21:47 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Mon Mar 07 2022 17:04:42 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -17,10 +17,9 @@ msgstr ""
 
 #: src/components/AuthModals/ConfirmPasswordModal/index.js:58
 #: src/components/CloneProjectModal/index.js:97
-#: src/components/CreateEditProjectModal/index.js:260
+#: src/components/CreateEditProjectModal/index.js:265
 #: src/components/DeleteDraftModal/index.js:51
 #: src/components/DeleteProjectModal/index.js:63
-#: src/components/DeleteProjectModal/index.js:66
 #: src/components/DeleteSurveyModal/index.js:62
 #: src/components/OrganizationModals/AddEditOrganization/index.js:106
 #: src/components/RestoreItemsModal/index.js:195
@@ -156,29 +155,29 @@ msgstr ""
 msgid "Clone"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:70
+#: src/components/CreateEditProjectModal/index.js:66
 msgid "Create a project"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:76
+#: src/components/CreateEditProjectModal/index.js:68
 msgid "Edit project"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:102
+#: src/components/CreateEditProjectModal/index.js:107
 msgid ""
 "Visibility cannot be 'Public within organization' with no organization "
 "selected"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:129
+#: src/components/CreateEditProjectModal/index.js:134
 msgid "Project successfully Created!"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:136
+#: src/components/CreateEditProjectModal/index.js:141
 msgid "Project successfully Edited!"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:175
+#: src/components/CreateEditProjectModal/index.js:180
 #: src/components/OrganizationModals/AddEditOrganization/index.js:73
 #: src/components/TakeSurveyModal/InitSurvey/index.js:50
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:78
@@ -191,7 +190,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:184
+#: src/components/CreateEditProjectModal/index.js:189
 #: src/components/Map/Popup/index.js:21
 #: src/containers/Account/UpdateInfo/index.js:109
 #: src/containers/Projects/List/index.js:73
@@ -201,46 +200,46 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:189
+#: src/components/CreateEditProjectModal/index.js:194
 msgid "Select An Organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:203
+#: src/components/CreateEditProjectModal/index.js:208
 #: src/components/OrganizationModals/AddEditOrganization/index.js:84
 msgid "Description"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:216
+#: src/components/CreateEditProjectModal/index.js:221
 msgid "Public"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:223
+#: src/components/CreateEditProjectModal/index.js:228
 #: src/containers/Projects/List/TableItems/index.js:132
 msgid "Public within organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:232
+#: src/components/CreateEditProjectModal/index.js:237
 #: src/containers/Projects/List/TableItems/index.js:138
 msgid "Private"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:243
+#: src/components/CreateEditProjectModal/index.js:248
 #: src/components/OrganizationModals/ManageMembers/index.js:314
 msgid "Select Users"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:248
+#: src/components/CreateEditProjectModal/index.js:253
 msgid "Users"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:263
+#: src/components/CreateEditProjectModal/index.js:268
 #: src/components/OptionsDropdown/index.js:19
 #: src/containers/Organizations/OrganizationCard/index.js:52
 #: src/containers/Surveys/Dashboard/index.js:210
 msgid "Edit"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:263
+#: src/components/CreateEditProjectModal/index.js:268
 #: src/components/NoProject/index.js:47
 #: src/containers/Projects/List/index.js:204
 msgid "Create"
@@ -255,6 +254,7 @@ msgid "This will delete your draft of the survey"
 msgstr ""
 
 #: src/components/DeleteDraftModal/index.js:54
+#: src/components/DeleteProjectModal/index.js:66
 #: src/components/DeleteSurveyModal/index.js:65
 #: src/components/FloatingAction/index.js:78
 #: src/components/OptionsDropdown/index.js:29
@@ -383,6 +383,18 @@ msgstr ""
 msgid "Search places"
 msgstr ""
 
+#: src/components/LoggedOutModal/index.js:25
+msgid "Session Expired"
+msgstr ""
+
+#: src/components/LoggedOutModal/index.js:38
+msgid "Your session has expired, and you have been logged out."
+msgstr ""
+
+#: src/components/LoggedOutModal/index.js:43
+msgid "OK"
+msgstr ""
+
 #: src/components/Map/Popup/index.js:20
 msgid "Project Name"
 msgstr ""
@@ -442,7 +454,7 @@ msgid "Let's get started by creating a new project"
 msgstr ""
 
 #: src/components/NoSurvey/index.js:33
-#: src/containers/Projects/Dashboard/index.js:89
+#: src/containers/Projects/Dashboard/index.js:90
 msgid "Back to Projects"
 msgstr ""
 
@@ -1456,24 +1468,24 @@ msgstr ""
 msgid "Manage Roles"
 msgstr ""
 
-#: src/containers/Projects/Dashboard/index.js:98
+#: src/containers/Projects/Dashboard/index.js:99
 msgid "Summary"
 msgstr ""
 
-#: src/containers/Projects/Dashboard/index.js:102
+#: src/containers/Projects/Dashboard/index.js:103
 #: src/containers/Surveys/Dashboard/SurveyTabs/index.js:63
 msgid "Overview"
 msgstr ""
 
-#: src/containers/Projects/Dashboard/index.js:105
+#: src/containers/Projects/Dashboard/index.js:106
 msgid "Top concerns topics"
 msgstr ""
 
-#: src/containers/Projects/Dashboard/index.js:116
+#: src/containers/Projects/Dashboard/index.js:117
 msgid "Number of issues of concern by location"
 msgstr ""
 
-#: src/containers/Projects/Dashboard/index.js:131
+#: src/containers/Projects/Dashboard/index.js:132
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:153
 #: src/containers/Projects/List/index.js:85
 #: src/containers/Projects/List/TableItems/index.js:117
@@ -1723,18 +1735,6 @@ msgstr ""
 msgid "Expand All"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:40
-msgid "High"
-msgstr ""
-
-#: src/containers/Surveys/Dashboard/Overview/index.js:41
-msgid "Medium"
-msgstr ""
-
-#: src/containers/Surveys/Dashboard/Overview/index.js:42
-msgid "Low"
-msgstr ""
-
 #: src/containers/Surveys/Dashboard/Overview/index.js:97
 msgid "Survey Information"
 msgstr ""
@@ -1770,18 +1770,18 @@ msgid "Sensitivity"
 msgstr ""
 
 #: src/hooks/useRequest.js:52
-#: src/services/api.js:49
-#: src/services/api.js:69
-#: src/services/api.js:88
-#: src/services/api.js:106
-#: src/services/api.js:120
+#: src/services/api.js:50
+#: src/services/api.js:70
+#: src/services/api.js:89
+#: src/services/api.js:107
+#: src/services/api.js:121
 msgid "500 Internal Server Error"
 msgstr ""
 
 #: src/hooks/useRequest.js:55
-#: src/services/api.js:52
-#: src/services/api.js:91
-#: src/services/api.js:109
-#: src/services/api.js:123
+#: src/services/api.js:53
+#: src/services/api.js:92
+#: src/services/api.js:110
+#: src/services/api.js:124
 msgid "Request Error"
 msgstr ""

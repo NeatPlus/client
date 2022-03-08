@@ -12,6 +12,7 @@ import * as statementActions from 'store/actions/statement';
 import * as weightageActions from 'store/actions/weightage';
 import * as notificationActions from 'store/actions/notification';
 import * as legislationActions from 'store/actions/legislation';
+import * as uiActions from 'store/actions/ui';
 
 const dispatch = store.dispatch;
 
@@ -133,9 +134,11 @@ class Api {
             if(data?.access) {
                 return dispatch(authActions.setToken(data.access));
             }
+            dispatch(uiActions.showExpiryModal());
             dispatch(authActions.logout());
         }
         catch(error) {
+            dispatch(uiActions.showExpiryModal());
             dispatch(authActions.logout());
             console.log(error);
         }

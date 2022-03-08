@@ -6,7 +6,8 @@ let initialState = {
         visible: false,
         status: 'neutral',
         message: '',
-    }
+    },
+    showExpiryModal: false, 
 };
 
 const uiReducer = (state = initialState, action) => {
@@ -22,7 +23,11 @@ const uiReducer = (state = initialState, action) => {
             }
         };
     case actions.HIDE_TOAST:
-        return initialState;
+        return {...state, toast: initialState.toast};
+    case actions.SHOW_EXPIRY_MODAL:
+        return {...state, showExpiryModal: true};
+    case actions.HIDE_EXPIRY_MODAL:
+        return {...state, showExpiryModal: false};
     default:
         return state;
     }

@@ -37,9 +37,9 @@ const ConcernItem = ({item, onClick}) => {
     return (
         <div 
             className={cs(styles.concernsItem, {
-                [styles.concernsItemHigh]: item.severity===_('High'),
-                [styles.concernsItemMedium]: item.severity===_('Medium'),
-                [styles.concernsItemLow]: item.severity===_('Low'),
+                [styles.concernsItemHigh]: item.severity==='High',
+                [styles.concernsItemMedium]: item.severity==='Medium',
+                [styles.concernsItemLow]: item.severity==='Low',
             })}
             onClick={handleClick}
         >
