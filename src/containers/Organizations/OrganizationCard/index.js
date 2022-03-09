@@ -3,7 +3,7 @@ import {BiEditAlt, BiCog} from 'react-icons/bi';
 
 import AddEditOrganizationModal from 'components/OrganizationModals/AddEditOrganization';
 import ManageMembersModal from 'components/OrganizationModals/ManageMembers';
-import {localizeFn as _} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import styles from './styles.scss';
 

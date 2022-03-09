@@ -14,7 +14,8 @@ import SelectInput from '@ra/components/Form/SelectInput';
 import MultiSelectInput from '@ra/components/Form/MultiSelectInput';
 import Form, {InputField} from '@ra/components/Form';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import useRequest from 'hooks/useRequest';

@@ -8,7 +8,8 @@ import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';

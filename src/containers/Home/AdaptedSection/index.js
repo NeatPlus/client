@@ -1,5 +1,6 @@
 import Container from 'components/Container';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import rural from 'assets/images/rural-neat.svg';
 import urban from 'assets/images/urban-neat.svg';

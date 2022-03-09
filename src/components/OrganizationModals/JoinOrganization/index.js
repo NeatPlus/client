@@ -10,7 +10,8 @@ import List from '@ra/components/List';
 import Modal from '@ra/components/Modal';
 import TextInput from '@ra/components/Form/TextInput';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';

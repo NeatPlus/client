@@ -11,7 +11,8 @@ import Tabs, {Tab} from 'components/Tabs';
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';

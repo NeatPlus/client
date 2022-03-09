@@ -6,7 +6,8 @@ import {PublicIcon, OrganizationIcon, PrivateIcon} from 'components/Icons';
 import CreateEditProjectModal from 'components/CreateEditProjectModal';
 import CloneProjectModal from 'components/CloneProjectModal';
 import DeleteProjectModal from 'components/DeleteProjectModal';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import styles from './styles.scss';
 

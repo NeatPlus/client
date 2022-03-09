@@ -8,7 +8,8 @@ import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import logo from 'assets/images/logo-dark.svg';
 import useRequest from 'hooks/useRequest';

@@ -3,7 +3,8 @@ import {useSelector} from 'react-redux';
 
 import Container from 'components/Container';
 import Input from '@ra/components/Form/Input';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 

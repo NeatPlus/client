@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 import Container from 'components/Container';
 
 import Tabs, {Tab} from '@ra/components/Tabs';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 import cs from '@ra/cs';
 
 import step1 from 'assets/images/step1.webp';

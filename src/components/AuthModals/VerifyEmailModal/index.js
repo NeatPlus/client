@@ -7,7 +7,8 @@ import Button from 'components/Button';
 import OTPInput from 'components/Inputs/OtpInput';
 import Modal from '@ra/components/Modal';
 import Label from '@ra/components/Form/Label';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';

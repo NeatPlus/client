@@ -5,7 +5,7 @@ import AuthModals from 'components/AuthModals';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
 import TextInput from '@ra/components/Form/TextInput';
-import { localizeFn as _ } from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import Api from 'services/api';
 import Toast from 'services/toast';

@@ -5,7 +5,8 @@ import {useDispatch} from 'react-redux';
 import AuthModals from 'components/AuthModals';
 import Form, {InputField} from '@ra/components/Form';
 import {SecureTextInput} from '@ra/components/Form/inputs';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';

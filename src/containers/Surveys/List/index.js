@@ -7,7 +7,8 @@ import OptionsDropdown from 'components/OptionsDropdown';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import DeleteDraftModal from 'components/DeleteDraftModal';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import Table from '@ra/components/Table';
 import Pagination from '@ra/components/Pagination';

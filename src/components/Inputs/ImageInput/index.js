@@ -5,7 +5,8 @@ import {BsCloudUpload} from 'react-icons/bs';
 import Loader from 'components/Loader';
 import DragDropFileInput from '@ra/components/Form/DragDropFileInput';
 import List from '@ra/components/List';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';

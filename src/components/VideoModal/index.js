@@ -1,7 +1,7 @@
 import {MdClose} from 'react-icons/md';
 
 import Modal from '@ra/components/Modal';
-import { localizeFn as _ } from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import styles from './styles.scss';
 

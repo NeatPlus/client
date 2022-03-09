@@ -6,7 +6,8 @@ import Label from '@ra/components/Form/Label';
 import NumberInput from '@ra/components/Form/NumberInput';
 import TextInput from '@ra/components/Form/TextInput';
 import List from '@ra/components/List';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
 
