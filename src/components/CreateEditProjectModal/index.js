@@ -24,7 +24,7 @@ import Api from 'services/api';
 import styles from './styles.scss';
 
 const keyExtractor = (item) => item.id;
-const valueExtractor = (item) => item.title;
+const orgValueExtractor = (item) => item.level > 0?'\u00A0'.repeat(item.level*8)+item.title:item.title;
 const userValueExtractor = (item) => `${item.firstName} ${item.lastName}`;
 const fieldValueExtractor = (val) => val.option;
 
@@ -192,7 +192,7 @@ const CreateEditProjectModal = (props) => {
                     fieldValueExtractor={fieldValueExtractor}
                     options={organizations}
                     placeholder={_('Select An Organization')}
-                    valueExtractor={valueExtractor}
+                    valueExtractor={orgValueExtractor}
                     keyExtractor={keyExtractor}
                     clearable={false}
                     controlClassName={styles.selectControl}
