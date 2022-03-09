@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 
 import Tabs, {Tab} from '@ra/components/Tabs';
-import {localizeFn as _} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';

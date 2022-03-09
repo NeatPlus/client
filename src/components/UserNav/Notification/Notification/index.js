@@ -5,7 +5,8 @@ import {AiOutlineNotification} from 'react-icons/ai';
 
 import cs from '@ra/cs';
 import List from '@ra/components/List';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import NoNotification from '../NoNotification';
 

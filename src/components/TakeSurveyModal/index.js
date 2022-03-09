@@ -5,11 +5,15 @@ import {useSelector, useDispatch} from 'react-redux';
 import {MdClose} from 'react-icons/md';
 import {BsArrowLeft, BsArrowRight, BsCheck} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
+import {IoIosArrowDropright, IoIosArrowDropleft} from 'react-icons/io';
 
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import withVisibleCheck from '@ra/components/WithVisibleCheck';
+
+import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
 import CompletedTaskImage from 'assets/images/completed-task.svg';
@@ -31,6 +35,34 @@ import InitSurvey from './InitSurvey';
 import styles from './styles.scss';
 
 const keyExtractor = item => item.id;
+
+const QuestionGroupItem = props => {
+    const {
+        item,
+        index,
+        onItemClick,
+        activeGroupId,
+        incompleteQuestionGroups,
+        isTouched,
+    } = props;
+
+    const handleItemClick = useCallback(() => {
+        if(isTouched) {
+            onItemClick && onItemClick(index);
+        }
+    }, [index, onItemClick, isTouched]);
+
+    return (
+        <p className={cs(styles.groupItem, {
+            [styles.groupItemIncomplete]: isTouched && incompleteQuestionGroups.some(grp => grp.id === item.id),
+            [styles.groupItemActive]: item.id===activeGroupId,
+            [styles.groupItemActiveIncomplete]: item.id === activeGroupId && incompleteQuestionGroups.some(grp => grp.id === item.id),
+            [styles.groupItemUntouched]: !isTouched,
+        })} onClick={handleItemClick}>
+            {item.title}
+        </p>
+    );
+}; 
 
 const GroupContent = props => {
     const {answers} = useSelector(state => state.question);
@@ -81,6 +113,7 @@ const GroupContent = props => {
                 data={questions}
                 renderItem={renderQuestion}
                 keyExtractor={keyExtractor}
+                
             />
             <div className={styles.buttons}>
                 {showPrevious && (
@@ -165,6 +198,11 @@ const TakeSurveyModal = (props) => {
 
     const [activeGroupIndex, setActiveGroupIndex] = useState(0);
     const [showRequired, setShowRequired] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
+
+    const toggleCollapsed = useCallback(() => {
+        setCollapsed(!collapsed);
+    }, [collapsed]);
 
     const [error, setError] = useState(null);
 
@@ -186,12 +224,11 @@ const TakeSurveyModal = (props) => {
             if(scrollTop) {
                 contentRef.current.scrollTo({top: scrollTop, behavior: 'smooth'});
             }
-            return setShowRequired(true);
+            setShowRequired(true);
         }
         if(!clone && editable) {
             dispatch(draftActions.setDraftAnswers(answers));
         }
-        setShowRequired(false);
         setActiveGroupIndex(activeGroupIndex + 1);
         contentRef.current.scrollTo({top: 0, behavior: 'smooth'});
     }, [
@@ -218,6 +255,14 @@ const TakeSurveyModal = (props) => {
         setActiveGroupIndex(questionGroups.length),
     [questionGroups]
     );
+
+    const handleQuestionGroupClick = useCallback((idx) => {
+        if(editable && idx > activeGroupIndex) {
+            setShowRequired(true);
+        }
+        setActiveGroupIndex(idx);
+        contentRef.current.scrollTo({top: 0, behavior: 'smooth'});
+    }, [activeGroupIndex, editable]);
 
     const handleClose = useCallback(() => {
         if(editable) {
@@ -275,9 +320,52 @@ const TakeSurveyModal = (props) => {
         addSurveyResults,
     ]);
 
-    if(!isVisible) {
-        return null;
-    }
+    const incompleteQuestionGroups = useMemo(() => {
+        if(!editable) {
+            return [];
+        }
+        return questionGroups.filter(grp => {
+            return questions[moduleCode]?.some(ques => ques && ques.group === grp.id && ques.isRequired && answers &&
+                !answers?.some(ans => ans.question === ques.id));
+        });
+    }, [answers, moduleCode, questionGroups, questions, editable]);
+
+    const answeredGroups = useMemo(() => {
+        if(!editable) {
+            return questionGroups;
+        }
+        return questionGroups.filter(grp => {
+            return questions[moduleCode]?.some(ques => ques && ques.group === grp.id && answers?.some(ans => ans.question === ques.id));
+        });
+    }, [editable, answers, moduleCode, questions, questionGroups]);
+
+    const maxTouchedGroupIndex = useMemo(() => {
+        const answeredGroupIds = answeredGroups.map(item => item.id);
+        if(answeredGroupIds.length > 0) {
+            const maxAnsweredGroupId = Math.max(...answeredGroupIds);
+            return questionGroups.findIndex(grp => grp.id === maxAnsweredGroupId);
+        }
+        return 0;
+    }, [answeredGroups, questionGroups]);
+
+    const touchedGroupIndexes = useRef([...Array(maxTouchedGroupIndex + 1).keys()]);
+
+    useEffect(() => {
+        if(activeGroupIndex && !touchedGroupIndexes.current.some(el => el === activeGroupIndex)) {
+            touchedGroupIndexes.current.push(activeGroupIndex);
+        }
+    }, [activeGroupIndex]);
+
+    const renderQuestionGroupItem = useCallback(listProps => (
+        <QuestionGroupItem 
+            {...listProps}
+            activeGroupId={activeGroup?.id}
+            incompleteQuestionGroups={incompleteQuestionGroups}
+            onItemClick={handleQuestionGroupClick}
+            isTouched={touchedGroupIndexes.current?.some(grpIdx => grpIdx === listProps.index)}
+            showRequiredError={listProps.index !== maxTouchedGroupIndex}
+        />
+    ), [activeGroup, incompleteQuestionGroups, handleQuestionGroupClick, maxTouchedGroupIndex]);
 
     if(!surveyTitle && editable && moduleCode==='sens') {
         return (
@@ -308,89 +396,114 @@ const TakeSurveyModal = (props) => {
                     }} 
                 />
             </div>
-            <div ref={contentRef} className={styles.content}>
-                {activeGroupIndex === questionGroups?.length ? (
-                    <>
-                        <div className={styles.contentMessage}>
-                            <div className={styles.contentTextContainer}>
-                                <img 
-                                    src={isFormIncomplete ? NoSurveyImage : CompletedTaskImage} 
-                                    alt={isFormIncomplete ? _('Task Incomplete')  : _('Task Complete')}
-                                    className={styles.completeImage} 
-                                />
-                                <p className={styles.completeText}>
-                                    {isFormIncomplete 
-                                        ? _('You have not filled in all the required fields in the form.')
-                                        : _('You have now completed all modules and sub-modules that you previously selected in the initial NEAT+ survey page.')
-                                    } 
-                                </p>
-                                <p className={cs(styles.completeText, {
-                                    [styles.completeTextWarning]: isFormIncomplete,
-                                })}>
-                                    {isFormIncomplete 
-                                        ? _('Please go back and complete the form in order to continue.')
-                                        : _('Please follow the provided instructions for how to download and analyse this information.')
-                                    }
-                                </p>
-                            </div>
-                        </div>
-                        {!!error && (
-                            <span className={styles.errorMessage}>
-                                {getErrorMessage(error)}
-                            </span>
-                        )}
-                        <div className={styles.buttons}>
-                            <Button
-                                secondary 
-                                className={styles.button} 
-                                onClick={handlePreviousClick}
-                            >
-                                <BsArrowLeft size={22} className={styles.buttonIconLeft} />
-                                <Localize>Previous</Localize>
-                            </Button>
-                            {editable && (
-                                <Button 
-                                    disabled={
-                                        isFormIncomplete 
-                                            || !questionGroups?.length 
-                                            || !AVAILABLE_SURVEY_MODULES.includes(moduleCode)
-                                    }
-                                    loading={loading || addingAnswers || addingResults}
-                                    className={cs(styles.button, styles.buttonNext)} 
-                                    onClick={handleValidate}
-                                >
-                                    <BsCheck size={22} className={styles.buttonIconLeft} />
-
-                                    <Localize>Calculate</Localize>
-                                </Button>
-                            )}
-                        </div>
-                    </>
-                ) : (
-                    <GroupContent 
-                        editable={editable}
-                        activeGroup={activeGroup} 
-                        questions={activeQuestions}
-                        onPreviousClick={handlePreviousClick}
-                        onNextClick={handleNextClick}
-                        showPrevious={activeGroupIndex!==0}
-                        showNext={activeGroupIndex!==questionGroups.length}
-                        showRequired={showRequired}
-                    />
+            <div className={styles.contentContainer}>
+                {collapsed && (
+                    <IoIosArrowDropright onClick={toggleCollapsed} size={22} className={styles.expandIcon} />
                 )}
+                <div className={cs(styles.groupList, {
+                    [styles.groupListCollapsed]: collapsed
+                })}>
+                    <List
+                        data={questionGroups}
+                        keyExtractor={item => item.id}
+                        renderItem={renderQuestionGroupItem}
+                        HeaderComponent={!collapsed && (
+                            <div className={styles.groupHeader}>
+                                <div className={styles.groupTitle}>
+                                    <Localize>QUESTION GROUPS</Localize>
+                                </div>
+                                <IoIosArrowDropleft onClick={toggleCollapsed} size={22} className={styles.collapseIcon} />
+                            </div>
+                        )}
+                    />
+                </div>
+                <div ref={contentRef} className={styles.content}>
+                    {activeGroupIndex === questionGroups?.length ? (
+                        <>
+                            <div className={styles.contentMessage}>
+                                <div className={styles.contentTextContainer}>
+                                    <img 
+                                        src={isFormIncomplete ? NoSurveyImage : CompletedTaskImage} 
+                                        alt={isFormIncomplete ? _('Task Incomplete')  : _('Task Complete')}
+                                        className={styles.completeImage} 
+                                    />
+                                    <p className={styles.completeText}>
+                                        {isFormIncomplete 
+                                            ? _('You have not filled in all the required fields in the form.')
+                                            : _('You have now completed all modules and sub-modules that you previously selected in the initial NEAT+ survey page.')
+                                        } 
+                                    </p>
+                                    <p className={cs(styles.completeText, {
+                                        [styles.completeTextWarning]: isFormIncomplete,
+                                    })}>
+                                        {isFormIncomplete 
+                                            ? _('Please go back and complete the form in order to continue.')
+                                            : _('Please follow the provided instructions for how to download and analyse this information.')
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            {!!error && (
+                                <span className={styles.errorMessage}>
+                                    {getErrorMessage(error)}
+                                </span>
+                            )}
+                            <div className={styles.buttons}>
+                                <Button
+                                    secondary 
+                                    className={styles.button} 
+                                    onClick={handlePreviousClick}
+                                >
+                                    <BsArrowLeft size={22} className={styles.buttonIconLeft} />
+                                    <Localize>Previous</Localize>
+                                </Button>
+                                {editable && (
+                                    <Button 
+                                        disabled={
+                                            isFormIncomplete 
+                                                || !questionGroups?.length 
+                                                || !AVAILABLE_SURVEY_MODULES.includes(moduleCode)
+                                        }
+                                        loading={loading || addingAnswers || addingResults}
+                                        className={cs(styles.button, styles.buttonNext)} 
+                                        onClick={handleValidate}
+                                    >
+                                        <BsCheck size={22} className={styles.buttonIconLeft} />
+
+                                        <Localize>Calculate</Localize>
+                                    </Button>
+                                )}
+                            </div>
+                        </>
+                    ) : (
+                        <GroupContent 
+                            editable={editable}
+                            activeGroup={activeGroup} 
+                            questions={activeQuestions}
+                            onPreviousClick={handlePreviousClick}
+                            onNextClick={handleNextClick}
+                            showPrevious={activeGroupIndex!==0}
+                            showNext={activeGroupIndex!==questionGroups.length}
+                            showRequired={showRequired}
+                        />
+                    )}
+                </div>
+
             </div>
             <div className={styles.footer}>
                 <div className={styles.footerLink} onClick={handleFirstIndex}>
                     <RiSkipBackLine size={20} className={styles.footerLinkIconLeft} />
                     <Localize>Back to the beginning</Localize>
                 </div>
-                <div className={styles.footerLink} onClick={handleLastIndex}>
-                    <Localize>Go to the end</Localize>
-                    <RiSkipForwardLine size={20} className={styles.footerLinkIconRight} />
-                </div>
-            </div>
+                {questionGroups?.length <= touchedGroupIndexes.current.length && (
+                    <div className={styles.footerLink} onClick={handleLastIndex}>
+                        <Localize>Go to the end</Localize>
+                        <RiSkipForwardLine size={20} className={styles.footerLinkIconRight} />
+                    </div>
+                )}
+            </div> 
         </Modal>
     );
 };
 
-export default TakeSurveyModal;
+export default withVisibleCheck(TakeSurveyModal);

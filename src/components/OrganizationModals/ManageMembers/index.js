@@ -15,7 +15,8 @@ import withVisibleCheck from '@ra/components/WithVisibleCheck';
 import MultiSelectInput from '@ra/components/Form/MultiSelectInput';
 import Form, {InputField} from '@ra/components/Form';
 import Dropdown from '@ra/components/Dropdown';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import usePromise from '@ra/hooks/usePromise';
 import {getErrorMessage} from '@ra/utils/error';

@@ -10,7 +10,8 @@ import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import DeleteDraftModal from 'components/DeleteDraftModal';
 import Table from '@ra/components/Table';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import {initDraftAnswers} from 'utils/dispatch';
 import {checkEditAccess} from 'utils/permission';

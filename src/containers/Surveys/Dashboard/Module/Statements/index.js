@@ -7,7 +7,8 @@ import TakeSurveyModal from 'components/TakeSurveyModal';
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
 import List from '@ra/components/List';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import {sleep} from '@ra/utils';

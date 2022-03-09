@@ -2,7 +2,8 @@ import {Link} from 'react-router-dom';
 import {BsArrowRight} from 'react-icons/bs';
 
 import Container from 'components/Container';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import aboutImage from 'assets/images/home-about.webp';
 import questionIcon from 'assets/images/why-neat.svg';

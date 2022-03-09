@@ -10,7 +10,8 @@ import Button from 'components/Button';
 import RestoreItemsModal from 'components/RestoreItemsModal';
 import List from '@ra/components/List';
 import CheckboxInput from '@ra/components/Form/CheckboxInput';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Button from 'components/Button';
 import {NeatLoader} from 'components/Loader';
 import SurveyTabs from 'containers/Surveys/Dashboard/SurveyTabs';
-import {localizeFn as _} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import usePromise from '@ra/hooks/usePromise';
 import Api from 'services/api';

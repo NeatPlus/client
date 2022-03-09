@@ -6,7 +6,8 @@ import {BsPlus} from 'react-icons/bs';
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import JoinOrganizationModal from 'components/OrganizationModals/JoinOrganization';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import noOrganizationImage from 'assets/images/no-organization.svg';
 import {selectMyOrganizations} from 'store/selectors/organization';

@@ -2,7 +2,7 @@ import {useCallback, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 
 import Tabs, {Tab} from 'components/Tabs';
-import {localizeFn as _} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
@@ -38,7 +38,7 @@ const SurveyTabs = props => {
             return null;
         }
 
-        const label = module.code==='sens' ? _('Sensitivity') : module.code;
+        const label = module.code==='sens' ? _('sensitivity') : module.code;
 
         return (
             <Tab key={module.id} label={label} title={module.title}>

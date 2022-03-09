@@ -3,7 +3,8 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Button from 'components/Button';
 import SurveyModals from 'components/SurveyModals';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import Toast from 'services/toast';

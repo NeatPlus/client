@@ -1,7 +1,8 @@
 import Container from 'components/Container';
 import NavBar from 'components/NavBar';
 import Footer from 'components/Footer';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import HeroImage from 'assets/images/contact-visual.svg';
 

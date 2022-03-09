@@ -5,12 +5,13 @@ import {IoMdInformationCircle} from 'react-icons/io';
 
 import Button from 'components/Button';
 import Dropdown from '@ra/components/Dropdown';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
 
 import ShareImage from 'assets/images/data-sharing.svg';
 import cs from '@ra/cs';
 import Api from 'services/api';
 import Toast from 'services/toast';
+import {_} from 'services/i18n';
 import usePromise from '@ra/hooks/usePromise';
 import {getErrorMessage} from '@ra/utils/error';
 

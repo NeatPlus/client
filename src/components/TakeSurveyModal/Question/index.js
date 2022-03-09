@@ -13,7 +13,8 @@ import TextAreaInput from 'components/Inputs/TextAreaInput';
 import Input from '@ra/components/Form/Input';
 import DateInput from '@ra/components/Form/DateInput';
 import NumberInput from '@ra/components/Form/NumberInput';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import * as questionActions from 'store/actions/question';

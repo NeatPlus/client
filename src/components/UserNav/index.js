@@ -12,7 +12,8 @@ import {BiHelpCircle, BiShareAlt} from 'react-icons/bi';
 
 import ShareSurvey from 'components/ShareSurvey';
 import Dropdown from '@ra/components/Dropdown';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import OrganizationIcon from 'assets/icons/organization.svg';
 import logo from 'assets/images/logo-dark.svg';

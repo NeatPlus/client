@@ -4,7 +4,8 @@ import {MdClose} from 'react-icons/md';
 
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import trash from 'assets/images/trash.png';
 import useRequest from 'hooks/useRequest';

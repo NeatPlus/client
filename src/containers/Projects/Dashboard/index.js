@@ -10,7 +10,8 @@ import Tabs, {Tab} from 'components/Tabs';
 import Map from 'components/Map';
 import ConcernsTable from 'components/Concerns/Table';
 import ConcernsChart from 'components/Concerns/Chart';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import SurveyList from 'containers/Surveys/List';
 

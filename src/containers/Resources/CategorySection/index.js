@@ -6,7 +6,8 @@ import {RiArrowDownSLine} from 'react-icons/ri';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Input from '@ra/components/Form/Input';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import Api from 'services/api';
 

@@ -10,7 +10,8 @@ import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import TextInput from '@ra/components/Form/TextInput';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
-import {Localize, localizeFn as _} from '@ra/components/I18n';
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
 
 import initStore from 'services/initStore';
 import useAuthModals from 'hooks/useAuthModals';
