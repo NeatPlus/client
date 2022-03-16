@@ -61,7 +61,7 @@
     "eslint-plugin-css-modules": "^2.11.0",
     "eslint-plugin-react": "^7.26.1",
     "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
+    "lint-staged": "^12.3.6",
     "react-app-rewired": "^2.1.8",
     "react-gettext-parser": "^1.16.0",
     "stylelint": "^13.13.1",
