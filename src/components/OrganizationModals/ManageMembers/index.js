@@ -27,7 +27,8 @@ import Api from 'services/api';
 import styles from './styles.scss';
 
 const keyExtractor = item => item.id;
-const userValueExtractor = (item) => `${item?.firstName || ''} ${item?.lastName || ''}`;
+const userKeyExtractor = item => item.username;
+const userValueExtractor = (item) => `${item.firstName} ${item.lastName}`;
 
 const organizationOptions = [
     {
@@ -65,41 +66,39 @@ const UserOption = ({title, checked, onClick}) => {
     );
 };
 
-const UserItem = ({item, organization}) => {
+const UserItem = ({item, organization, getOrgUsers}) => {
     const {user} = useSelector(state => state.auth);
 
-    const [{loading}, updateOrganizationUser] = usePromise(Api.editOrganization);
+    const [{loading}, upsertOrganizationUsers] = usePromise(Api.upsertOrganizationUsers);
 
     const handleSwitchToAdmin = useCallback(async () => {
         try {
-            const newMembers = organization.members.filter(el => el !== item.id);
-            await updateOrganizationUser({
-                admins: [...organization.admins, item.id],
-                members: newMembers,
-            }, organization.id);
+            await upsertOrganizationUsers(organization.id, [{
+                user: item.username,
+                role: 'admin',
+            }]);
+            getOrgUsers(organization.id);
             Toast.show(_('User role successfully updated!'), Toast.SUCCESS);
-            Api.getOrganizations();
         } catch (error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);
             console.log(error);
         }
 
-    }, [organization, item, updateOrganizationUser]);
+    }, [organization, upsertOrganizationUsers, item, getOrgUsers]);
 
     const handleSwitchToMember = useCallback(async () => {
         try {
-            const newAdmins = organization.admins.filter(el => el !== item.id);
-            await updateOrganizationUser({
-                admins: newAdmins,
-                members: [...organization.members, item.id],
-            }, organization.id);
+            await upsertOrganizationUsers(organization.id, [{
+                user: item.username,
+                role: 'member',
+            }]);
+            getOrgUsers(organization.id);
             Toast.show(_('User role successfully updated!'), Toast.SUCCESS);
-            Api.getOrganizations();
         } catch (error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);
             console.log(error);
         } 
-    }, [organization, item, updateOrganizationUser]);
+    }, [organization, item, upsertOrganizationUsers, getOrgUsers]);
 
     const renderButton = useCallback(() => (
         <Button 
@@ -115,7 +114,7 @@ const UserItem = ({item, organization}) => {
         <div className={styles.userItem}>
             <UserIcon item={item} className={styles.userAvatar} />
             <p className={styles.userName}>{userValueExtractor(item)}</p>
-            {user.id !== item.id && (
+            {user.username !== item.username && (
                 <Dropdown 
                     renderLabel={renderButton}
                     align="right"
@@ -192,33 +191,51 @@ const RequestItem = ({item}) => {
 };
 
 const ManageMembersModal = (props) => {
+    const [searchValue, setSearchvalue] = useState('');
+    const [newOrgUsers, setNewOrgUsers] = useState(null);
+
     const {onClose, organization} = props;
     const {memberRequests} = useSelector(state => state.organization);
 
-    const [{loading, result: users}, getUsers] = usePromise(Api.getUsers);
-    const [{loading: saving}, editMembers] = usePromise(Api.editOrganization);
+    const [{loading: loadingUsers, result: users}, getUsers] = usePromise(Api.getUsers);
+    const [{loading: saving}, upsertUsers] = usePromise(Api.upsertOrganizationUsers);
+    const [{loading: removing}, removeUsers] = usePromise(Api.removeOrganizationUsers);
+    const [{loading: loadingOrgUsers, result: orgUsers}, getOrgUsers] = usePromise(Api.getOrganizationUsers);
+
+    const FilterEmptyComponent = useCallback(
+        () => {
+            if(searchValue?.length < 3) {
+                return <Localize>Please enter more than 3 characters to search</Localize>;
+            }
+            else {
+                return <Localize>No result found for given input</Localize>;
+            }
+        }, [searchValue]);
 
     useEffect(() => {
-        getUsers();
-    }, [getUsers]);
+        getUsers(searchValue);
+    }, [getUsers, searchValue]);
+
+
+    useEffect(() => {
+        getOrgUsers(organization.id);
+    }, [getOrgUsers, organization]);
 
     const organizationUsers = useMemo(() => {
-        if(!users?.results?.length) {
+
+        if(!orgUsers?.length) {
             return [];
         }
-        const orgUsers = [...new Set([
-            ...organization.admins, 
-            ...organization.members
-        ])];
-        return orgUsers.map(usr => {
+
+        return orgUsers.map(user => {
             return {
-                ...users.results.find(el => el.id === usr), 
-                mode: organization.admins.some(el => el === usr) ? 'admin' : 'member'
+                ...user.user,
+                mode: user.role,
             };
         });
-    }, [organization, users]);
+    }, [orgUsers]);
 
-    const [adminUsers, memberUsers] = useMemo(() => splitUserModes(organizationUsers), [organizationUsers]);
+    const [adminUsers, memberUsers] = useMemo(() => splitUserModes(newOrgUsers?? organizationUsers), [organizationUsers, newOrgUsers]);
 
     const pendingRequests = useMemo(() => {
         return memberRequests.filter(req => 
@@ -232,19 +249,19 @@ const ManageMembersModal = (props) => {
     const [respondMode, setRespondMode] = useState(false);
 
     const handleUpdateUsers = useCallback(async formData => {
+        const userIds = formData.users.map(u => u.username);
+        const removedUsers = organizationUsers?.filter(u => !userIds.includes(u.username))
+            .map(u => ({user: u.username, role: u.mode}));
+
         try {
-            const [admins, members] = splitUserModes(formData.users);
-            await editMembers({
-                admins: admins.map(el => el.id), 
-                members: members.map(el => el.id),
-            }, organization.id);
+            await removeUsers(organization.id, removedUsers);
+            await upsertUsers(organization.id, formData.users.map(u => ({user: u.username, role: u.mode})));
             Toast.show(_('Changes saved!'), Toast.SUCCESS);
-            Api.getOrganizations();
         } catch(error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);
             console.log(error);
         }
-    }, [editMembers, organization]);
+    }, [upsertUsers, removeUsers, organizationUsers, organization]);
 
     const toggleRespondMode = useCallback(() => {
         setRespondMode(!respondMode);
@@ -254,9 +271,9 @@ const ManageMembersModal = (props) => {
         <UserOptionLabel {...listProps} userOptions={organizationOptions} />
     ), []);
 
-    const renderUserItem = useCallback(listProps => (
-        <UserItem organization={organization} {...listProps} />
-    ), [organization]);
+    const handleUserChange = useCallback(({value}) => {
+        setNewOrgUsers(value);
+    }, []);
 
     return (
         <Modal className={styles.modal}>
@@ -313,15 +330,19 @@ const ManageMembersModal = (props) => {
                             containerClassName={styles.inputContainer}
                             controlClassName={styles.multiSelect}
                             placeholder={_('Select Users')}
-                            keyExtractor={keyExtractor}
+                            keyExtractor={userKeyExtractor}
                             valueExtractor={userValueExtractor}
                             defaultValue={organizationUsers}
-                            loading={loading}
+                            onChange={handleUserChange}
+                            loading={loadingUsers}
                             renderOptionLabel={renderOptionsLabel}
                             renderControlLabel={UserIcon}
                             options={users?.results}
+                            onInputChange={setSearchvalue}
+                            FilterEmptyComponent={FilterEmptyComponent}
+                            EmptyComponent={FilterEmptyComponent}
                         />
-                        <Button loading={saving} className={styles.saveButton}><Localize>Save</Localize></Button>
+                        <Button loading={saving || removing} className={styles.saveButton}><Localize>Save</Localize></Button>
                     </Form>
                     <div className={styles.listContainer}>
                         <h5 className={styles.sectionTitle}>
@@ -329,18 +350,24 @@ const ManageMembersModal = (props) => {
                         </h5> 
                         <List
                             className={styles.userList}
+                            loading={loadingOrgUsers}
                             data={adminUsers}
                             keyExtractor={keyExtractor}
-                            renderItem={renderUserItem}
+                            renderItem={UserItem}
+                            getOrgUsers={getOrgUsers}
+                            organization={organization}
                         />
                         <h5 className={styles.sectionTitle}>
                             <Localize>Members</Localize>
                         </h5> 
                         <List
                             className={styles.userList}
+                            loading={loadingOrgUsers}
                             data={memberUsers}
                             keyExtractor={keyExtractor}
-                            renderItem={renderUserItem}
+                            renderItem={UserItem}
+                            getOrgUsers={getOrgUsers}
+                            organization={organization}
                         />
                     </div>
                 </div>

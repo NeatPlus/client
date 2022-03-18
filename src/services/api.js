@@ -180,6 +180,10 @@ class Api {
         }
     }
 
+    getOrganizationUsers = (orgId) => {
+        return this.get(`/organization/${orgId}/users`);
+    }
+
     async getContextsModules() {
         try {
             const [contexts, modules] = await Promise.all([
@@ -335,8 +339,13 @@ class Api {
         return this.get('/project/', {query});
     }
 
-    getUsers = async () => {
-        return this.get('/user/');
+    getUsers = async (searchValue) => {
+        return this.get('/user/',
+            {
+                query: {
+                    search: searchValue
+                }
+            });
     }
 
     getNotifications = async () => {
@@ -408,6 +417,14 @@ class Api {
 
     editOrganization = (body, organizationId) => {
         return this.patch(`/organization/${organizationId}/`, body);
+    }
+
+    upsertOrganizationUsers = (organizationId, body) => {
+        return this.post(`/organization/${organizationId}/update_or_add_users/`, body);
+    }
+
+    removeOrganizationUsers = (organizationId, body) => {
+        return this.post(`/organization/${organizationId}/remove_users/`, body);
     }
 
     requestOrganizationMember = organizationId => {

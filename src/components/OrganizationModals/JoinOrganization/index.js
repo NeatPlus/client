@@ -36,7 +36,7 @@ const OrganizationItem = ({item}) => {
 
     const memberRequest = useMemo(() => {
         return memberRequests.find(
-            req => req.user === user.id && req.organization===item.id
+            req => req.user.username === user.username && req.organization===item.id
         );
     }, [memberRequests, user, item]);
 

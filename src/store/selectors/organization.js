@@ -12,9 +12,9 @@ export const selectMyOrganizations = createSelector([
     }
 
     return organizations.reduce((acc, org) => {
-        if(org.admins.some(adm => adm === user.id)) {
+        if(org.isAdmin) {
             acc.push({...org, role: 'admin'});
-        } else if(org.members.some(mem => mem === user.id)) {
+        } else if(org.isMember) {
             acc.push({...org, role: 'member'});
         }
         return acc;
