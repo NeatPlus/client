@@ -18,13 +18,15 @@ import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
+import usePromise from '@ra/hooks/usePromise';
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
 import Api from 'services/api';
 
 import styles from './styles.scss';
 
-const keyExtractor = (item) => item.id;
+const orgKeyExtractor = (item) => item.id;
+const userKeyExtractor = (item) => item.username;
 const orgValueExtractor = (item) => item.level > 0?'\u00A0'.repeat(item.level*8)+item.title:item.title;
 const userValueExtractor = (item) => `${item.firstName} ${item.lastName}`;
 const fieldValueExtractor = (val) => val.option;
@@ -32,6 +34,7 @@ const fieldValueExtractor = (val) => val.option;
 const CreateEditProjectModal = (props) => {
     const {onClose, project, mode} = props;
     const [error, setError] = useState(null);
+    const [searchValue, setSearchvalue] = useState('');
     const [visibility, setVisibility] = useState('');
     const [orgObj, setOrgObj] = useState({});
     const [url, setUrl] = useState('');
@@ -48,13 +51,11 @@ const CreateEditProjectModal = (props) => {
     const [{data: projectUsers}, getProjectUsers] = useRequest(
         `/project/${project?.id}/users/`,
     );
-    const [{loading: loadingUsers, data: users}, getUsers] = useRequest(
-        '/user/',
-    );
+    const [{loading: loadingUsers, result: users}, getUsers] = usePromise(Api.getUsers);
 
     useEffect(() => {
-        getUsers();
-    }, [getUsers]);
+        getUsers(searchValue);
+    }, [getUsers, searchValue]);
 
     useEffect(() => {
         if(mode==='edit') {
@@ -96,8 +97,18 @@ const CreateEditProjectModal = (props) => {
     );
 
     const initialUsers = useMemo(() =>
-        projectUsers?.map(p => ({id: p.user.id, firstName: p.user.firstName, lastName: p.user.lastName, mode: p.permission})) || []
+        projectUsers?.map(p => ({username: p.user.username, firstName: p.user.firstName, lastName: p.user.lastName, mode: p.permission})) || []
     , [projectUsers]);
+
+    const FilterEmptyComponent = useCallback(
+        () => {
+            if(searchValue?.length < 3) {
+                return <Localize>Please enter more than 3 characters to search</Localize>;
+            }
+            else {
+                return <Localize>No result found for given input</Localize>;
+            }
+        }, [searchValue]);
 
     const handleProjectSubmit = useCallback(
         async (formData) => {
@@ -125,11 +136,11 @@ const CreateEditProjectModal = (props) => {
 
             try {
                 if(removedUsers.length) {
-                    await Api.removeUsers(project?.id, removedUsers.map(u => ({user: parseInt(u.id)})));
+                    await Api.removeUsers(project?.id, removedUsers.map(u => ({user: u.username})));
                 }
                 const result = await createOrEditProject(body);
                 if(users.length) {
-                    await Api.upsertUsers(result?.id, users.map(u => ({user: parseInt(u.id), permission: u.mode})));
+                    await Api.upsertUsers(result?.id, users.map(u => ({user: u.username, permission: u.mode})));
                 }
                 if (result && mode === 'create') {
                     Toast.show(_('Project successfully Created!'), Toast.SUCCESS);
@@ -194,7 +205,7 @@ const CreateEditProjectModal = (props) => {
                     options={organizations}
                     placeholder={_('Select An Organization')}
                     valueExtractor={orgValueExtractor}
-                    keyExtractor={keyExtractor}
+                    keyExtractor={orgKeyExtractor}
                     clearable={false}
                     controlClassName={styles.selectControl}
                     defaultValue={mode === 'edit' ? orgObj : {}}
@@ -247,7 +258,7 @@ const CreateEditProjectModal = (props) => {
                     component={MultiSelectInput}
                     controlClassName={styles.multiSelect}
                     placeholder={_('Select Users')}
-                    keyExtractor={keyExtractor}
+                    keyExtractor={userKeyExtractor}
                     valueExtractor={userValueExtractor}
                     defaultValue={initialUsers}
                     loading={loadingUsers}
@@ -255,6 +266,9 @@ const CreateEditProjectModal = (props) => {
                     renderOptionLabel={UserOptionLabel}
                     renderControlLabel={UserIcon}
                     options={users?.results}
+                    onInputChange={setSearchvalue}
+                    FilterEmptyComponent={FilterEmptyComponent}
+                    EmptyComponent={FilterEmptyComponent}
                 />
                 <div className={styles.buttons}>
                     <Button

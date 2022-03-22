@@ -69,7 +69,11 @@ const UserOptionLabel = ({item, selected, onStateChange, userOptions}) => {
 
     const valueOptions = userOptions ?? options;
 
-    const value = valueOptions.find(o => o.id === item.mode) || valueOptions[0];
+    let value = valueOptions.find(o => o.id === item.mode);
+    if (selected && !value) {
+        value = valueOptions[0];
+        onStateChange({item: {...item, mode: value.id}});
+    }
 
     return (
         <div className={styles.optionLabel}>
