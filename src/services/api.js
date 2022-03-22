@@ -359,16 +359,8 @@ class Api {
 
     getProjectInvitations = async () => {
         try {
-            const {
-                auth: {adminOrganizations=[]},
-            } = store.getState();
-
-            const orgs = adminOrganizations?.map(a => a.id).join(',');
-            if(!orgs) {
-                return [];
-            }
-            const data = await this.get(`/project/?admin=${orgs}&status=pending`);
-            dispatch(notificationActions.setInvitations(data.results || []));
+            const data = await this.get('/project/pending_requests/');
+            dispatch(notificationActions.setInvitations(data || []));
         } catch (error) {
             console.log(error);
         }
