@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14.x]
+        node: [16.x]
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -25,7 +25,7 @@ jobs:
           git clone https://TestToken:${{ secrets.GITLAB_TOKEN }}@gitlab.com/nepware-internals/react-arsenal.git src/vendor/react-arsenal
 
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
@@ -34,7 +34,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache yarn dependencies
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
