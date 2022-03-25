@@ -23,18 +23,29 @@
             line-height: 1.75em;
         }
 
-        .close-container {
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            background-color: var(--color-white);
+        .header-right {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
 
-            .close-icon {
-                color: var(--color-grey-dark-alt);
+            .edit-button {
+                padding: 0.5em 1.25em;
+                font-size: var(--font-size-small);
+            }
+
+            .close-container {
+                width: 30px;
+                height: 30px;
+                border-radius: 15px;
+                background-color: var(--color-white);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                margin-left: 2em;
+
+                .close-icon {
+                    color: var(--color-grey-dark-alt);
+                }
             }
         }
     }
@@ -78,10 +89,6 @@
             max-height: 80vh;
             overflow-y: auto;
 
-            @media screen and (max-width: 620px) {
-                display: none;
-            }
-
             .group-header {
                 display: flex;
                 align-items: center;
@@ -100,10 +107,6 @@
 
                     &:hover {
                         color: var(--color-grey-dark-alt);
-                    }
-
-                    @media screen and (max-width: 620px) {
-                        display: none;
                     }
                 }
             }

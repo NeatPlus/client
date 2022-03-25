@@ -41,6 +41,8 @@ const StatementsContent = ({
     moduleCode,
 }) => {
     const dispatch = useDispatch();
+    const {questions} = useSelector(state => state.question);
+    const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
     
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
@@ -48,9 +50,11 @@ const StatementsContent = ({
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
 
     const handleShowQuestionnaire = useCallback(() => {
-        dispatch(questionActions.setAnswers(activeSurvey?.answers));
+        dispatch(questionActions.setAnswers(activeSurvey?.answers.map(ans => (
+            {...ans, question: ans.question.id}
+        )).filter(ans => questions?.[moduleCode]?.some(ques => ques.id === ans.question))));
         setShowQuestionnaire(true);
-    }, [activeSurvey, dispatch]);
+    }, [activeSurvey, dispatch, questions, moduleCode]);
 
     const handleCloseQuestionnaire = useCallback(() => {
         dispatch(questionActions.setAnswers([]));
@@ -92,6 +96,7 @@ const StatementsContent = ({
                             editable={false}
                             onClose={handleCloseQuestionnaire}
                             code={moduleCode}
+                            isNewEdit={activeProject?.isAdminOrOwner}
                         />
                         <div
                             disabled={!activeSurvey?.answers?.length}

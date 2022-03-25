@@ -7,13 +7,18 @@ import store from 'store';
 import Api from './api';
 import initStore from './initStore';
 
-ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID, {testMode: process.env.NODE_ENV === 'test'});
-
-setInterval(async () => {
+const tokenRefresh = async () => {
     let {
         auth: {refreshToken}
     } = store.getState();
     refreshToken && await Api.refreshToken(refreshToken);
-}, 240*1000);
+};
 
-initStore();
+export const bootstrapApp = async () => {
+    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID, {testMode: process.env.NODE_ENV === 'test'});
+
+    await tokenRefresh();
+    setInterval(tokenRefresh, 240*1000);
+
+    initStore();
+};

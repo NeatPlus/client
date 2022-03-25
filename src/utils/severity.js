@@ -7,7 +7,7 @@ export const THRESHOLDS = {
 const initialCounts = [
     {severity: 'High', count: 0, color: '#fe625e'},
     {severity: 'Medium', count: 0, color: '#f8b535'},
-    {severity: 'Low', count: 0, color: '#f8e9a1'},
+    {severity: 'Low', count: 0, color: '#dBcf95'},
 ];
 
 export const getSeverityFromScore = (score) => {

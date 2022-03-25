@@ -3,6 +3,7 @@
     border-radius: 4px;
     border: solid 1px #e2e2e2;
     margin: 10px 0;
+    background-color: #fafafa;
 
     &__required {
         border: solid 1px var(--color-warning);
@@ -25,6 +26,10 @@
             margin-bottom: 0;
             margin-right: 20px;
         }
+    }
+
+    &__disabled {
+        background-color: var(--color-white);
     }
 
     .description-title {
