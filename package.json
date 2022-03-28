@@ -54,6 +54,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "babel-plugin-transform-remove-console": "^6.9.4",

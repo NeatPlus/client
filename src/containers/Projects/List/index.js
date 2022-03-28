@@ -36,21 +36,6 @@ const maxRowsOptions = [
     },
 ];
 
-const tabs = [
-    {
-        label: 'my_project',
-        title: 'My Projects',
-    },
-    {
-        label: 'organization',
-        title: 'My Organizations',
-    },
-    {
-        label: 'public',
-        title: 'Public',
-    },
-];
-
 const keyExtractor = item => item.value;
 const labelExtractor = item => item.label;
 
@@ -165,9 +150,24 @@ const ProjectList = () => {
 
     const totalProjects = useMemo(() => result?.count || 0, [result]);
     const projects = useMemo(() => result?.results || [], [result]);
-    
+
+    const tabs = useMemo(() => ([
+        {
+            label: 'my_project',
+            title: _('My Projects'),
+        },
+        {
+            label: 'organization',
+            title: _('My Organizations'),
+        },
+        {
+            label: 'public',
+            title: _('Public'),
+        }
+    ]), []);
+
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
-    
+
     const initialPageValue = useMemo(() => {
         if(!result?.previous) {
             return 1;

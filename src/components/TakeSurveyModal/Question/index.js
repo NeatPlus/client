@@ -109,6 +109,7 @@ const Question = forwardRef((props, ref) => {
             <div ref={ref} className={cs(styles.contentBlock, {
                 [styles.contentBlockRequired]: showRequiredMessage,
                 [styles.contentBlockBoolean]: item.answerType==='boolean',
+                [styles.contentBlockDisabled]: !editable,
             })}>
                 <p className={cs(styles.contentBlockTitle, {
                     [styles.descriptionTitle]: item.answerType==='description',

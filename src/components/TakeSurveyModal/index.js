@@ -8,6 +8,7 @@ import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 import {IoIosArrowDropright, IoIosArrowDropleft} from 'react-icons/io';
 
 import Button from 'components/Button';
+import DeleteDraftModal from 'components/DeleteDraftModal';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
@@ -16,6 +17,7 @@ import withVisibleCheck from '@ra/components/WithVisibleCheck';
 import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
+import useSize from '@ra/hooks/useSize';
 import CompletedTaskImage from 'assets/images/completed-task.svg';
 import NoSurveyImage from 'assets/images/no-survey.svg';
 
@@ -75,7 +77,7 @@ const GroupContent = props => {
         showPrevious,
         showNext,
         showRequired,
-        editable
+        editable,
     } = props;
 
     const questionsRef = useRef(new Array(questions.length));
@@ -152,15 +154,21 @@ const TakeSurveyModal = (props) => {
         surveyId: draftSurveyId,
     } = useSelector(state => state.draft);
 
+    const doesDraftExist = useMemo(() => draftProjectId && surveyTitle, [draftProjectId, surveyTitle]);
+
     const {
         isVisible, 
         onClose, 
-        editable = true, 
+        editable: isEditable = true, 
         clone,
         code,
+        isNewEdit,
     } = props;
 
     const params = useParams();
+    
+    const [editMode, setEditMode] = useState(false);
+    const editable = useMemo(() => isEditable || editMode, [editMode, isEditable]);
 
     const {
         questionGroups: allQuestionGroups, 
@@ -168,6 +176,34 @@ const TakeSurveyModal = (props) => {
         status, 
         answers
     } = useSelector(state => state.question);
+
+    const [showDeleteDraftModal, setShowDeleteDraftModal] = useState(false);
+
+    const handleCloseDeleteDraftModal = useCallback(() => {
+        setShowDeleteDraftModal(false);
+    }, []);
+
+    const initializeNewDraft = useCallback(() => {
+        dispatch(draftActions.setTitle(activeSurvey?.title));
+        dispatch(draftActions.setDraftAnswers(answers));
+        dispatch(draftActions.setProjectId(+params.projectId));
+        dispatch(draftActions.setSurveyId(activeSurvey?.id));
+        dispatch(draftActions.setDraftModule(code));
+    }, [params, answers, activeSurvey, code, dispatch]);
+
+    const handleDeleteDraft = useCallback(() => {
+        initializeNewDraft();
+        handleCloseDeleteDraftModal();
+        setEditMode(true);
+    }, [initializeNewDraft, handleCloseDeleteDraftModal]);
+
+    const handleEditButtonClick = useCallback(() => {
+        if(doesDraftExist) {
+            return setShowDeleteDraftModal(true);
+        }
+        initializeNewDraft();
+        setEditMode(true);
+    }, [doesDraftExist, initializeNewDraft]);
 
     const moduleCode = useMemo(() => !editable ? code : draftCode ?? code, [editable, draftCode, code]);
 
@@ -198,7 +234,9 @@ const TakeSurveyModal = (props) => {
 
     const [activeGroupIndex, setActiveGroupIndex] = useState(0);
     const [showRequired, setShowRequired] = useState(false);
-    const [collapsed, setCollapsed] = useState(false);
+
+    const {width} = useSize(document);
+    const [collapsed, setCollapsed] = useState(width < 768);
 
     const toggleCollapsed = useCallback(() => {
         setCollapsed(!collapsed);
@@ -239,6 +277,7 @@ const TakeSurveyModal = (props) => {
         dispatch,
         clone,
     ]);
+
 
     const isFormIncomplete = useMemo(() => {
         if(!editable) {
@@ -281,9 +320,12 @@ const TakeSurveyModal = (props) => {
                 if(ans.formattedAnswer) {
                     delete ans.formattedAnswer;
                 }
+                if(ans.answerType==='single_option' || ans.answerType==='multiple_option') {
+                    return {...ans, answer: null};
+                }
                 return ans;
             }, []);
-            if(moduleCode==='sens') {
+            if(moduleCode==='sens' && !draftSurveyId) {
                 const response  = await createSurvey({
                     title: surveyTitle,
                     answers: submissionAnswers,
@@ -297,12 +339,10 @@ const TakeSurveyModal = (props) => {
                 Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
             }
             dispatch(questionActions.setAnswers([]));
-            initDraftAnswers(null);
             handleClose();
             Api.getSurveys();
-            if(+params.projectId === draftProjectId) {
-                Api.getSurveyDetails(draftProjectId);
-            }
+            Api.getSurveyDetails(+params.projectId);
+            initDraftAnswers(null);
         } catch(err) {
             setError(err);
             console.log(err);
@@ -313,6 +353,7 @@ const TakeSurveyModal = (props) => {
         handleClose, 
         dispatch,
         draftProjectId,
+        draftSurveyId,
         surveyTitle,
         params,
         moduleCode,
@@ -384,8 +425,23 @@ const TakeSurveyModal = (props) => {
                 <h2 className={styles.title}>
                     {editable ? surveyTitle : activeSurvey?.title}
                 </h2>
-                <div className={styles.closeContainer} onClick={handleClose}>
-                    <MdClose size={20} className={styles.closeIcon} />
+                <div className={styles.headerRight}>
+                    {isNewEdit && (
+                        <>
+                            {!editable ? (
+                                <Button onClick={handleEditButtonClick} className={styles.editButton}>
+                                    <Localize>Enable Edit</Localize>
+                                </Button>
+                            ) : (
+                                <Button disabled outline className={styles.editButton}>
+                                    <Localize>Editing...</Localize>
+                                </Button>
+                            )}
+                        </>
+                    )}
+                    <div className={styles.closeContainer} onClick={handleClose}>
+                        <MdClose size={20} className={styles.closeIcon} />
+                    </div>
                 </div>
             </div>
             <div className={styles.progressContainer}>
@@ -405,7 +461,7 @@ const TakeSurveyModal = (props) => {
                 })}>
                     <List
                         data={questionGroups}
-                        keyExtractor={item => item.id}
+                        keyExtractor={keyExtractor}
                         renderItem={renderQuestionGroupItem}
                         HeaderComponent={!collapsed && (
                             <div className={styles.groupHeader}>
@@ -502,6 +558,11 @@ const TakeSurveyModal = (props) => {
                     </div>
                 )}
             </div> 
+            <DeleteDraftModal
+                isVisible={showDeleteDraftModal}
+                onClose={handleCloseDeleteDraftModal}
+                onDelete={handleDeleteDraft}
+            />
         </Modal>
     );
 };

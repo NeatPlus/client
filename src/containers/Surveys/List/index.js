@@ -53,6 +53,7 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
 
     const {activeProject} = useSelector(state => state.project);
     const {projectId: draftId, title} = useSelector(state => state.draft);
+    const {questions} = useSelector(state => state.question);
     
     const doesDraftExist = useMemo(() => draftId && title, [draftId, title]);
     const itemAnswers = useMemo(() => item.answers.map(sur => (
@@ -78,10 +79,12 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
 
 
     const handleShowSurveyModal = useCallback(() => {
-        dispatch(questionActions.setAnswers(itemAnswers));
+        dispatch(questionActions.setAnswers(itemAnswers.filter(ans => {
+            return questions['sens'].some(ques => ques.id === ans.question);
+        })));
         initDraftAnswers(+projectId);
         setShowSurveyModal(true);
-    }, [dispatch, projectId, itemAnswers]);
+    }, [dispatch, projectId, itemAnswers, questions]);
     const hideSurveyModal = useCallback(() => {
         dispatch(questionActions.setAnswers([]));
         setShowSurveyModal(false);

@@ -7,7 +7,7 @@ import AuthModals from 'components/AuthModals';
 import Button from 'components/Button';
 import Form, {InputField} from '@ra/components/Form';
 import Input from '@ra/components/Form/Input';
-import {TextInput, SecureTextInput, CheckboxInput} from '@ra/components/Form/inputs';
+import {TextInput, CheckboxInput} from '@ra/components/Form/inputs';
 import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
 
@@ -75,7 +75,7 @@ const Register = () => {
             }
         } catch(err) {
             console.log(err);
-            if(err?.recaptcha){
+            if(err?.recaptcha) {
                 return setError(new Error(_('Our system has identified you as bot. Please contact us if otherwise.')));
             }
             setError(err);
@@ -175,7 +175,8 @@ const Register = () => {
                                 <InputField
                                     name="password"
                                     required
-                                    component={SecureTextInput}
+                                    type="password"
+                                    component={Input}
                                     className={styles.input}
                                     label={_('Enter Password')}
                                     labelClassName={styles.inputLabel}

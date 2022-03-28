@@ -26,10 +26,7 @@ export default async function initStore() {
 
     await Api.getLegislations();
 
-    await Promise.all([
-        Api.getOrganizations(),
-        Api.getContextsModules(),
-    ]);
+    await Api.getContextsModules();
 
     await Promise.all([
         Api.getQuestionGroups(),
@@ -48,6 +45,7 @@ export const loadUserData = async (userId) => {
     //To wait for the user value to be reflected
     //TODO: bit dirty use some hook/event
     await sleep(500);
+    await Api.getOrganizations();
     await Api.getMyOrganizations();
 };
 
