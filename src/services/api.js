@@ -20,7 +20,7 @@ const TokenInterceptor = req => {
     let {
         auth: {token},
     } = store.getState();
-    if(token) {
+    if(token && !req.url.includes('jwt/refresh')) {
         req.headers.append('Authorization', `Bearer ${token}`);
     }
 };
