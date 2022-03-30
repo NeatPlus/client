@@ -1,6 +1,8 @@
 import {useState, useCallback, useMemo, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {BsPlus} from 'react-icons/bs';
+import Tour from 'reactour';
+
 
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
@@ -13,6 +15,7 @@ import Pagination from '@ra/components/Pagination';
 import SelectInput from '@ra/components/Form/SelectInput';
 import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
+import cs from '@ra/cs';
 
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';
@@ -220,9 +223,47 @@ const ProjectList = () => {
         </Button>
     ), [handleShowCreateModal]);
 
+    const [isTourOpen, setIsTourOpen] = useState(
+        !localStorage.getItem('project-onboarding')
+    );
+
+    const onTourClose = useCallback(() => {
+        localStorage.setItem('project-onboarding', true);
+        setIsTourOpen(false);
+    }, []);
+
+    const steps = [
+        {
+            selector: '.project-list-div',
+            content: 'Welcome to Projects. Projects act as a portfolio for NEAT+ surveys in shared programmes or for surveys at the same location over time.'
+        },
+        {
+            selector: '.project-list-div',
+            content: 'You can view your projects here. Projects can be made public, public within your organization, or private.'
+        },
+        {
+            selector: '[label="my_project"]',
+            content: 'Here you can see projects that are created by you or you are added as user of project'
+        },
+        {
+            selector: '[label="organization"]',
+            content: 'Here you can see projects that are public within organization or project where you are admin of project organization'
+        },
+        {
+            selector: '[label="public"]',
+            content: 'Here you can see all other public projects which are not present in My Project and organization tab'
+        },
+        {
+            selector: '.dropdown-menu',
+            content: 'You can join organization by clicking on on your name initial letter present at top right and then clicking Organizations option',
+            position: [0, 0],
+            action: () => {document.getElementsByClassName('dropdown-menu')[0].click();}
+        }
+    ];
+
     return (
-        <div className={styles.container}>
-            <Tabs 
+        <div className={cs(styles.container, 'project-list-div')}>
+            <Tabs
                 activeTab={tab}
                 secondary
                 PreHeaderComponent={renderTitle}
@@ -255,6 +296,13 @@ const ProjectList = () => {
                 isVisible={showCreateModal}
                 onClose={handleHideCreateModal}
                 mode='create'
+            />
+            <Tour
+                closeWithMask={false}
+                steps={steps}
+                isOpen={isTourOpen}
+                lastStepNextButton={<Button>Done</Button>}
+                onRequestClose={onTourClose}
             />
         </div>
     );

@@ -108,7 +108,7 @@ const UserNav = (props) => {
                     onClick={onClick}
                 />
                 <Dropdown
-                    labelContainerClassName={styles.userAvatar}
+                    labelContainerClassName={cs(styles.userAvatar, 'dropdown-menu')}
                     renderLabel={getInitial}
                     align='right'
                 >
