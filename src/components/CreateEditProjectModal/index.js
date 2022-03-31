@@ -27,7 +27,7 @@ import styles from './styles.scss';
 
 const orgKeyExtractor = (item) => item.id;
 const userKeyExtractor = (item) => item.username;
-const orgValueExtractor = (item) => item.level > 0?'\u00A0'.repeat(item.level*8)+item.title:item.title;
+const orgValueExtractor = (item) => item?.level > 0?'\u00A0'.repeat(item.level*8)+item.title:item?.title;
 const userValueExtractor = (item) => `${item.firstName} ${item.lastName}`;
 const fieldValueExtractor = (val) => val.option;
 
