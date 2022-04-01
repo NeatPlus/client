@@ -196,6 +196,7 @@ const CreateEditProjectModal = (props) => {
                 />
                 <InputField
                     name='organization'
+                    clearable
                     component={SelectInput}
                     className={cs(styles.input, styles.inputSelect)}
                     label={_('Organization')}
@@ -206,7 +207,6 @@ const CreateEditProjectModal = (props) => {
                     placeholder={_('Select An Organization')}
                     valueExtractor={orgValueExtractor}
                     keyExtractor={orgKeyExtractor}
-                    clearable={false}
                     controlClassName={styles.selectControl}
                     defaultValue={mode === 'edit' ? orgObj : {}}
                 />
