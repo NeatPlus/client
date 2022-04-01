@@ -330,6 +330,8 @@ const ManageMembersModal = (props) => {
                             containerClassName={styles.inputContainer}
                             controlClassName={styles.multiSelect}
                             placeholder={_('Select Users')}
+                            anchorOrigin='bottom left'
+                            transformOrigin='bottom left'
                             keyExtractor={userKeyExtractor}
                             valueExtractor={userValueExtractor}
                             defaultValue={organizationUsers}
