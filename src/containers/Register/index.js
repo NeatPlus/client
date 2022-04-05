@@ -110,11 +110,11 @@ const Register = () => {
                         <main className={styles.content}>
                             <div className={styles.info}>
                                 <h1 className={styles.infoTitle}>
-                                    <Localize>Get Started with Neat+</Localize>
+                                    <Localize>Get Started with NEAT+</Localize>
                                 </h1>
                                 <p className={styles.infoText}>
                                     <Localize>
-                                        NEAT+ is conducted on the KoBo Toolbox data collection platform - an open source data collection tool - (on phone, tablet or computer) and produces an automatically generated report in Microsoft Excel, categorizing areas of risk into low, medium and high level of concern. The tool assesses the current sensitivity of the crisis-affected environment, highlighting any underlying risks and vulnerabilities to the environment and affected communities.
+                                        Free and open-source, the Nexus Environmental Assessment Tool (NEAT+) has been specifically designed for humanitarian actors to quickly identify issues of environmental concern to make emergency and recovery interventions more sustainable.
                                     </Localize>
                                 </p>
                                 <div className={styles.infoLinks}>
@@ -203,7 +203,7 @@ const Register = () => {
                                 <div className={styles.termsInput}>
                                     <CheckboxInput id="termsCheckbox" size={18} onChange={handleCheck} defaultChecked={acceptTerms} className={styles.checkbox} />
                                     <label htmlFor="termsCheckbox" className={styles.termsInputLabel}>
-                                        <Localize>I accept Neat+</Localize>
+                                        <Localize>I accept NEAT+</Localize>
                                         <Link
                                             className={styles.termsInputLabelLink}
                                             to={{
