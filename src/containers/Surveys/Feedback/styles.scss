@@ -1,0 +1,85 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 25px 0 25px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.25em;
+        justify-content: space-between;
+
+        .title-container {
+            display: flex;
+            align-items: center;
+
+            .back-link {
+                flex: 0 0 24px;
+                margin-right: 18px;
+                align-self: flex-start;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: var(--font-size-small);
+                color: var(--color-dark);
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                background-color: #d5dde5;
+                width: 24px;
+                height: 24px;
+                border-radius: 4px;
+                cursor: pointer;
+
+                &:hover {
+                    filter: opacity(80%);
+                }
+
+                .back-icon {
+                    font-size: 22px;
+                }
+            }
+
+            .title {
+                font-weight: bold;
+                font-size: var(--font-size-medium);
+            }
+
+            .help-icon {
+                color: var(--color-grey-dark-alt);
+                margin: 0 0.625em;
+                cursor: pointer;
+
+                &:hover {
+                    filter: brightness(80%);
+                }
+            }
+        }
+    }
+
+    .topic-item {
+        margin-bottom: 1.5em;
+
+        .topic-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75em;
+
+            .topic-icon {
+                margin-right: 12px;
+
+                path,
+                rect {
+                    fill: var(--color-primary);
+                }
+            }
+
+            .topic-title {
+                font-weight: 600;
+                font-size: var(--font-size-small);
+            }
+        }
+    }
+}

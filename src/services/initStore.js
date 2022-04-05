@@ -21,6 +21,7 @@ export default async function initStore() {
             dispatch(uiActions.showExpiryModal());
         }
         const user = await Api.getUser();
+        dispatch(authActions.setUser(user));
         loadUserData(user.id);
     }
 

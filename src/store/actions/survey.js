@@ -3,6 +3,7 @@ export const SET_SURVEYS = 'SET_SURVEYS';
 export const SET_SURVEY_ANSWERS = 'SET_SURVEY_ANSWERS';
 export const SET_ACTIVE_SURVEY = 'SET_ACTIVE_SURVEY';
 export const SET_SURVEY_RESULTS = 'SET_SURVEY_RESULTS';
+export const SET_ADVANCED_FEEDBACKS = 'SET_ADVANCED_FEEDBACKS';
 
 export function setStatus(status) {
     return {type: SET_STATUS, status};
@@ -22,4 +23,8 @@ export function setSurveyAnswers(answers) {
 
 export function setSurveyResults(results) {
     return {type: SET_SURVEY_RESULTS, results};
+}
+
+export function setAdvancedFeedbacks(feedbacks) {
+    return {type: SET_ADVANCED_FEEDBACKS, feedbacks};
 }

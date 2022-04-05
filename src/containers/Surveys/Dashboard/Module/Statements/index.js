@@ -1,12 +1,16 @@
 import React, {useCallback, useMemo, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
 import {RiFileList3Line} from 'react-icons/ri';
+import {BsThreeDots, BsQuestionCircle} from 'react-icons/bs';
+import {BiMessageDots, BiMessageAltAdd} from 'react-icons/bi';
 
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
 import List from '@ra/components/List';
+import Dropdown from '@ra/components/Dropdown';
 import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
 
@@ -44,8 +48,11 @@ const StatementsContent = ({
     const {questions} = useSelector(state => state.question);
     const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
+    const {user} = useSelector(state => state.auth);
     
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+
+    const history = useHistory();
 
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
 
@@ -60,6 +67,17 @@ const StatementsContent = ({
         dispatch(questionActions.setAnswers([]));
         setShowQuestionnaire(false);
     }, [dispatch]);
+
+    const handleFeedbacksClick = useCallback(() => {
+        history.push(`/projects/${activeProject?.id}/surveys/${activeSurvey?.id}/feedback/`, {moduleCode});
+    }, [history, activeProject, activeSurvey, moduleCode]);
+
+    const handleBaselineFeedbacksClick = useCallback(() => {
+        history.push(`/projects/${activeProject.id}/surveys/${activeSurvey?.id}/feedback/`, {
+            moduleCode,
+            isBaseline: true,
+        });
+    }, [history, activeProject, activeSurvey, moduleCode]);
 
     const renderConcernItem = useCallback(listProps => {
         const total = severityCounts.reduce((acc, cur) => acc + cur.count, 0);
@@ -84,6 +102,12 @@ const StatementsContent = ({
         await sleep(expanded ? 200 : 1000); //Allow all remaining renders to complete
         window.print();
     }, [toggleExpand, expanded]);
+
+    const renderOptionsLabel = useCallback(() => {
+        return (
+            <BsThreeDots size={22} />
+        );
+    }, []);
 
     return (
         <section className={styles.section}>
@@ -110,6 +134,29 @@ const StatementsContent = ({
                             <FiUpload />
                             <span className={styles.exportsTitle}><Localize>Export PDF</Localize></span>
                         </div>
+                        <Dropdown
+                            labelContainerClassName={styles.optionsLabel}
+                            renderLabel={renderOptionsLabel}
+                            align='right'
+                        >
+                            <div className={styles.dropdownOptions}>
+                                <div className={styles.optionItem} onClick={handleFeedbacksClick}>
+                                    <BiMessageDots size={20} className={styles.optionIcon} />
+                                    <span className={styles.optionText}>Feedbacks</span>
+                                </div>
+                                {user.permissions?.some(per => per === 'summary.add_baseline_feedback') && (
+                                    <div className={styles.optionItem} onClick={handleBaselineFeedbacksClick}>
+                                        <BiMessageAltAdd size={32} className={styles.optionIcon} />
+                                        <span className={styles.optionText}>Add Baseline Feedbacks</span>
+                                    </div>
+                                )}
+                                <div className={styles.optionItem}>
+                                    <BsQuestionCircle size={18} className={styles.optionIcon} />
+                                    <span className={styles.optionText}>Help</span>
+                                </div>
+
+                            </div>
+                        </Dropdown>
                     </div>
                 )}
             </div>

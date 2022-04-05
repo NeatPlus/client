@@ -13,3 +13,15 @@ export const checkEditAccess = accessLevel => {
     }
     return false;
 };
+
+export const weightagePermissions = [
+    'summary.add_optionstatement',
+    'summary.change_optionstatement',
+    'summary.delete_optionstatement',
+    'summary.add_questionstatement',
+    'summary.change_questionstatement',
+    'summary.delete_questionstatement',
+    'summary.add_statement',
+    'summary.change_statement',
+    'summary.delete_statement',
+];

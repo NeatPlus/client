@@ -29,29 +29,53 @@
             box-shadow: 5px 20px 45px 0 rgba(0, 0, 0, 0.04);
         }
 
-        .concern-span {
-            width: fit-content;
-            padding: 0.45em 0.8em;
-            border-radius: 0.25em;
-            font-weight: 500;
-            font-size: 0.75em;
-            text-transform: uppercase;
-            margin-bottom: 0.5em;
+        .statement-controls {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
 
-            &__high {
-                color: var(--color-severity-high);
-                background-color: var(--color-severity-high-bg);
+            .concern-span {
+                width: fit-content;
+                padding: 0.45em 0.8em;
+                border-radius: 0.25em;
+                font-weight: 500;
+                font-size: 0.75em;
+                text-transform: uppercase;
+                margin-bottom: 0.5em;
+
+                &__high {
+                    color: var(--color-severity-high);
+                    background-color: var(--color-severity-high-bg);
+                }
+
+                &__medium {
+                    color: var(--color-severity-medium);
+                    background-color: var(--color-severity-medium-bg);
+                }
+
+                &__low {
+                    color: var(--color-severity-low);
+                    background-color: var(--color-severity-low-bg);
+                    filter: contrast(50%);
+                }
             }
 
-            &__medium {
-                color: var(--color-severity-medium);
-                background-color: var(--color-severity-medium-bg);
-            }
+            .feedback-control {
+                display: flex;
+                align-items: center;
+                font-size: var(--font-size-tiny);
+                color: var(--color-grey-dark-alt);
 
-            &__low {
-                color: var(--color-severity-low);
-                background-color: var(--color-severity-low-bg);
-                filter: contrast(50%);
+                .feedback-icon {
+                    margin-right: 0.5em;
+                }
+
+                .link {
+                    color: var(--color-primary);
+                    font-size: var(--font-size-tiny);
+                    cursor: pointer;
+                    margin-left: 0.25em;
+                }
             }
         }
 

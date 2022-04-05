@@ -1,12 +1,13 @@
 import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react';
 import {FiAlertTriangle, FiChevronRight} from 'react-icons/fi';
 
+import FeedbackModal from 'components/FeedbackModal';
 import Editable from 'components/Editable';
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
-import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
+import {_} from 'services/i18n';
 
 // eslint-disable-next-line css-modules/no-unused-class
 import styles from './styles.scss';
@@ -33,6 +34,15 @@ const StatementAccordion = ({item, isExpanded}) => {
         );
     }, [open]);
 
+    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+    const handleShowFeedbackModal = useCallback(() => {
+        setShowFeedbackModal(true);
+    }, []);
+    const handleHideFeedbackModal = useCallback(() => {
+        setShowFeedbackModal(false);
+    }, []);
+
     useEffect(() => {
         if(item.severity && isExpanded) {
             toggleAccordion('all', isExpanded);
@@ -52,78 +62,93 @@ const StatementAccordion = ({item, isExpanded}) => {
     }
 
     return (
-        <div className={styles.accordionContainer}>
-            <Editable 
-                type="statement" 
-                accessor="id" 
-                identifier={item.statement.id}
-            >
-                <div
-                    className={cs(
-                        styles.accordionSection, 
-                        open && styles.accordionSectionActive,
-                        styles[`accordionSection${item.severity}`]
-                    )}>
-                    {open && (
-                        <span
-                            className={cs(
-                                styles.concernSpan, 
-                                styles[`concernSpan${item.severity}`]
-                            )}>
-                            {item.severity} <Localize>concern</Localize>
-                        </span>
-                    )}
-                    <div className={styles.accordion} onClick={toggleAccordion}>
-                        {item.statement.isExperimental &&
-                            <FiAlertTriangle className={styles.experimentalIcon} title={_('This statement is in experimental phase currently and may not give accurate result.')} />
-                        }
-                        <div className={cs(
-                            styles.accordionTitle, 
-                            open && styles.activeTitle
-                        )}>
-                            {item.statement.title}
-                        </div>
-                        <div className={styles.rightSection}>
-                            {!open && (
-                                <span className={styles.span}>
-                                    <Localize>
-                                        Mitigations, Opportunities and more
-                                    </Localize>
-                                </span>
-                            )}
-                            <FiChevronRight className={cs(styles.downIcon, open && styles.rotateUp)} />
-                        </div>
-                    </div>
+        <React.Fragment>
+            <div className={styles.accordionContainer}>
+                <Editable 
+                    type="statement" 
+                    accessor="id" 
+                    identifier={item.statement.id}
+                >
                     <div
-                        ref={content}
-                        style={{maxHeight: `${contentHeight}`}}
-                        className={styles.accordionContent}>
-                        <div className={styles.accordionText}>
-                            {item.statement?.hints && (
-                                <h3 className={styles.listTitle}>
-                                    <Localize>ADDITIONAL INFORMATION</Localize>
-                                </h3>
+                        className={cs(
+                            styles.accordionSection, 
+                            open && styles.accordionSectionActive,
+                            styles[`accordionSection${item.severity}`]
+                        )}>
+                        {open && (
+                            <div className={styles.statementControls}>
+                                <span
+                                    className={cs(
+                                        styles.concernSpan, 
+                                        styles[`concernSpan${item.severity}`]
+                                    )}>
+                                    {item.severity} <Localize>concern</Localize>
+                                </span>
+                                <div className={styles.feedbackControl}>
+                                    <FiAlertTriangle className={styles.feedbackIcon} />
+                                    <Localize>Conflicting score?</Localize>
+                                    <span className={styles.link} onClick={handleShowFeedbackModal}>
+                                        <Localize>suggest us.</Localize>
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+                        <div className={styles.accordion} onClick={toggleAccordion}>
+                            {item.statement.isExperimental && (
+                                <FiAlertTriangle
+                                    className={styles.experimentalIcon}
+                                    title={_('This statement is in experimental phase currently and may not give accurate result.')}
+                                />
                             )}
-                            {item.statement?.hints || ''}
-                            <h3 className={styles.listTitle}><Localize>MITIGATION</Localize></h3>
-                            <List
-                                data={mitigations}
-                                component="ul"
-                                keyExtractor={keyExtractor}
-                                renderItem={renderListData}
-                            />
-                            <h3 className={styles.listTitle}><Localize>OPPORTUNITY</Localize></h3>
-                            <List
-                                data={opportunities}
-                                component="ul"
-                                keyExtractor={keyExtractor}
-                                renderItem={renderListData}
-                            />
+                            <div className={cs(
+                                styles.accordionTitle, 
+                                open && styles.activeTitle
+                            )}>
+                                {item.statement.title}
+                            </div>
+                            <div className={styles.rightSection}>
+                                {!open && (
+                                    <span className={styles.span}>
+                                        <Localize>
+                                        Mitigations, Opportunities and more
+                                        </Localize>
+                                    </span>
+                                )}
+                                <FiChevronRight className={cs(styles.downIcon, open && styles.rotateUp)} />
+                            </div>
+                        </div>
+                        <div
+                            ref={content}
+                            style={{maxHeight: `${contentHeight}`}}
+                            className={styles.accordionContent}>
+                            <div className={styles.accordionText}>
+                                {item.statement?.hints && (
+                                    <h3 className={styles.listTitle}>
+                                        <Localize>ADDITIONAL INFORMATION</Localize>
+                                    </h3>
+                                )}
+                                {item.statement?.hints || ''}
+                                <h3 className={styles.listTitle}><Localize>MITIGATION</Localize></h3>
+                                <List
+                                    data={mitigations}
+                                    component="ul"
+                                    keyExtractor={keyExtractor}
+                                    renderItem={renderListData}
+                                />
+                                <h3 className={styles.listTitle}><Localize>OPPORTUNITY</Localize></h3>
+                                <List
+                                    data={opportunities}
+                                    component="ul"
+                                    keyExtractor={keyExtractor}
+                                    renderItem={renderListData}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Editable>
-        </div>
+                </Editable>
+            </div>
+            <FeedbackModal statementResult={item} isVisible={showFeedbackModal} onClose={handleHideFeedbackModal} />
+        </React.Fragment>
     );
 };
 

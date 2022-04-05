@@ -33,8 +33,7 @@
                 font-weight: 500;
                 color: var(--color-primary);
                 cursor: pointer;
-                margin-left: 4em;
-                margin-bottom: 1em;
+                margin-left: 1.25em;
                 transition: all 0.3s ease;
                 border-radius: 4px;
 
@@ -47,10 +46,49 @@
                     min-width: 9.5em;
                     padding: 0.75em;
                     margin-left: 1em;
+                    margin-bottom: 1em;
                 }
 
                 .exports-title {
                     margin-left: 0.4em;
+                }
+            }
+
+            .options-label {
+                margin-left: 1.25em;
+                display: flex;
+                align-items: center;
+                background-color: var(--color-light-alt);
+                border-radius: 50%;
+                padding: 3px;
+            }
+
+            .dropdown-options {
+                box-shadow: 0 5px 32px rgba(0, 0, 0, 0.12);
+                border-radius: 4px;
+                background-color: var(--color-white);
+                padding: 0.75em 0;
+                min-width: 150px;
+
+                .option-item {
+                    display: flex;
+                    align-items: center;
+                    padding: 0.75em;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #ecf2f7;
+                    }
+
+                    .option-icon {
+                        color: var(--color-grey-dark-alt);
+                        margin-right: 0.625em;
+                    }
+
+                    .option-text {
+                        color: var(--color-dark-alt);
+                        font-size: var(--font-size-small);
+                    }
                 }
             }
         }

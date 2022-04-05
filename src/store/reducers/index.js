@@ -15,6 +15,7 @@ import noticeReducer from './notice';
 import draftReducer from './draft';
 import legislationReducer from './legislation';
 import localeReducer from './locale';
+import adminReducer from './admin';
 
 export default combineReducers({
     auth: authReducer,
@@ -32,4 +33,5 @@ export default combineReducers({
     draft: draftReducer,
     legislation: legislationReducer,
     locale: localeReducer,
+    admin: adminReducer,
 });

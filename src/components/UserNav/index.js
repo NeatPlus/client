@@ -7,7 +7,7 @@ import {
     IoSettingsOutline, 
 } from 'react-icons/io5';
 import {IoMdLogOut} from 'react-icons/io';
-import {MdLanguage} from 'react-icons/md';
+import {MdLanguage, MdOutlineAdminPanelSettings} from 'react-icons/md';
 import {BiHelpCircle, BiShareAlt} from 'react-icons/bi';
 
 import ShareSurvey from 'components/ShareSurvey';
@@ -20,6 +20,8 @@ import logo from 'assets/images/logo-dark.svg';
 
 import cs from '@ra/cs';
 import {logout} from 'store/actions/auth';
+import usePermissions from 'hooks/usePermissions';
+import {weightagePermissions} from 'utils/permission';
 
 import Notification from './Notification';
 
@@ -38,7 +40,7 @@ const UserNav = (props) => {
     const match = useRouteMatch({
         path: '/projects/:projectId/surveys/:surveyId/',
     });
-    const isSurveyPath = useMemo(() => match?.isExact && activeSurvey, [activeSurvey, match]);
+    const isSurveyPath = useMemo(() => match && activeSurvey, [activeSurvey, match]);
 
     const hideNotification = useCallback((event) => {
         if (notificationsRef.current && !notificationsRef.current.contains(event?.target)) {
@@ -64,6 +66,9 @@ const UserNav = (props) => {
     }, [dispatch, history]);
 
     const getInitial = useCallback(() => user?.firstName?.[0], [user]);
+
+    const [hasWeightagePermissions] = usePermissions(weightagePermissions);
+    const showAdministration = useMemo(() => hasWeightagePermissions || user?.isSuperuser, [hasWeightagePermissions, user]);
 
     const renderShareLabel = useCallback(() => {
         return (
@@ -94,6 +99,7 @@ const UserNav = (props) => {
                         labelContainerClassName={styles.shareIconContainer} 
                         align="right" 
                         renderLabel={renderShareLabel}
+                        useCapture={false}
                     >
                         <ShareSurvey />
                     </Dropdown>
@@ -124,6 +130,12 @@ const UserNav = (props) => {
                                 <p className={styles.email}>{user?.email}</p>
                             </div>
                         </div>
+                        {showAdministration && (
+                            <Link to='/administration' className={styles.userOption}>
+                                <MdOutlineAdminPanelSettings className={styles.userIcon} />
+                                <Localize>Administration</Localize>
+                            </Link>
+                        )}
                         <Link to='/organizations' className={styles.userOption}>
                             <img 
                                 src={OrganizationIcon} 

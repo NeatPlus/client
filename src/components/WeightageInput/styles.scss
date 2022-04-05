@@ -1,0 +1,30 @@
+.weightage-item {
+    text-align: right;
+
+    .weightage-input {
+        background-color: var(--color-white);
+        max-width: 60px;
+        -moz-appearance: textfield;
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-small);
+        padding: 0.5em 0.8em;
+        font-size: var(--font-size-input);
+        text-align: center;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &:focus,
+        &:hover {
+            border: 1px solid var(--color-input-outline);
+            outline-color: var(--color-input-outline);
+        }
+
+        .weightage-input__active {
+            background-color: #e9f6f6;
+        }
+    }
+}

@@ -9,7 +9,7 @@
         align-items: center;
         justify-content: center;
 
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 991px) {
             flex-direction: column;
             margin: 2.5em 0;
         }
@@ -22,12 +22,12 @@
             box-shadow: 2px 6px 15px 0 rgba(0, 0, 0, 0.06);
             margin-bottom: 0;
             padding: 4px;
+            overflow-x: auto;
 
-            @media screen and (max-width: 767px) {
+            @media screen and (max-width: 991px) {
                 flex: unset;
                 width: 100%;
                 max-width: calc(100vw - 75px);
-                overflow-x: auto;
             }
 
             .header-item {

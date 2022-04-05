@@ -6,6 +6,7 @@ import {AiOutlineFileText} from 'react-icons/ai';
 import FloatingAction from 'components/FloatingAction';
 import UserNav from 'components/UserNav';
 import SurveyDashboard from 'containers/Surveys/Dashboard';
+import SurveyFeedback from 'containers/Surveys/Feedback';
 
 import Api from 'services/api';
 import cs from '@ra/cs';
@@ -31,6 +32,7 @@ const Projects = () => {
                     <Route exact path='/projects/' component={List} />
                     <Route exact path='/projects/:projectId/surveys/:surveyId' component={SurveyDashboard} />
                     <Route exact path='/projects/:projectId/surveys' component={Dashboard} />
+                    <Route exact path='/projects/:projectId/surveys/:surveyId/feedback/' component={SurveyFeedback} />
                     <Route path='/projects/:projectId' component={Dashboard} />
                 </Switch>
             </div>
