@@ -21,6 +21,8 @@ const ResetPasswordModal = (props) => {
         newPassword: '',
         verifyNewPassword: '',
     });
+    const [error, setError] = useState(null);
+
     const [{loading}, resetPassword] = useRequest(
         '/user/password_reset/change/',
         {
@@ -38,6 +40,10 @@ const ResetPasswordModal = (props) => {
     );
 
     const handlePasswordReset = useCallback(async () => {
+        setError(null);
+        if(inputData.newPassword !== inputData.verifyNewPassword) {
+            return Toast.show(_('Passwords do not match'), Toast.DANGER);
+        }
         try {
             const result = await resetPassword({
                 username: email,
@@ -50,6 +56,7 @@ const ResetPasswordModal = (props) => {
                 Toast.show(_('Password Reset Successfull!'), Toast.SUCCESS);
             }
         } catch (err) {
+            setError(err);
             Toast.show(
                 err?.error || err?.errors?.[0] || _('Invalid Password'),
                 Toast.DANGER
@@ -81,6 +88,7 @@ const ResetPasswordModal = (props) => {
                         name='newPassword'
                         onChange={handleChange}
                         className={styles.input}
+                        errorMessage={error?.password}
                     />
                 </div>
                 <div className={styles.inputGroup}>
