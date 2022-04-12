@@ -17,6 +17,12 @@ export const getSeverityFromScore = (score) => {
                 ? 'Low' : null;
 };
 
+export const getColorFromScore = score => {
+    return score >= THRESHOLDS.high
+        ? '#fe625e' : score >= THRESHOLDS.medium
+            ? '#f8b535' : '#dbcf95';
+};
+
 export const getSeverityCounts = surveyResults => {
     return initialCounts.map(ct => ({
         ...ct,

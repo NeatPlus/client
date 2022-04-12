@@ -1,0 +1,94 @@
+.questions-table-container {
+    flex: 1;
+    min-height: 40vh;
+    max-height: 60vh;
+    overflow: auto;
+    padding: 0 1em 0 0;
+
+    .table {
+        border: none;
+        border-collapse: collapse;
+        background-color: var(--color-white);
+        width: 100%;
+        margin: 12px 0;
+
+        .table-header {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-background);
+            border-radius: 4px;
+
+            .header__row {
+                .weightage-item {
+                    text-align: right;
+                }
+
+                th {
+                    border: none;
+                    padding: 0.5em 0.875em;
+                    text-align: left;
+                    line-height: 2em;
+                    font-size: var(--font-size-small);
+                    color: var(--color-dark-alt);
+                    font-weight: 400;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-transform: uppercase;
+
+                    &:first-child {
+                        width: 5%;
+                    }
+
+                    &:last-child {
+                        width: 20%;
+                    }
+
+                    &:nth-child(n):not(:first-child):not(:last-child) {
+                        width: 75%;
+                    }
+
+                    @media screen and (max-width: 767px) {
+                        line-height: 1.33;
+                    }
+                }
+            }
+        }
+
+        .table-body {
+            .row {
+                border: none;
+                cursor: pointer;
+
+                &__active {
+                    background-color: #e9f6f6;
+                }
+
+                .name-item {
+                    font-size: var(--font-size-small);
+                    font-weight: 500;
+                    text-decoration: none;
+                    color: var(--color-dark);
+                    text-align: left;
+
+                    &:hover {
+                        filter: opacity(80%);
+                    }
+                }
+
+                .name-item__active {
+                    color: var(--color-primary);
+                }
+
+                td {
+                    border: none;
+                    padding: 14px 12px;
+                    font-size: var(--font-size-small);
+                    line-height: 2em;
+                    color: var(--color-dark-alt);
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+}

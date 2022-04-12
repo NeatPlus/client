@@ -467,6 +467,18 @@ class Api {
     getPublicSurvey = identifier => {
         return this.get(`/survey/identifier/${identifier}/`);
     }
+
+    uploadWeightages = (statementId, body) => {
+        return this.post(`/statement/${statementId}/upload_weightage/`, body);
+    }
+
+    postFeedback = (body) => {
+        return this.post('/survey-result/add_feedback/', body);
+    }
+
+    addBaselineFeedback = body => {
+        return this.post('/survey-result/add_baseline_feedback/', body);
+    }
 }
 
 const ApiService = new Api();

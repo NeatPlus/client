@@ -21,6 +21,7 @@ import Contact from 'containers/Contact';
 import Resources from 'containers/Resources';
 import Account from 'containers/Account';
 import Organizations from 'containers/Organizations';
+import Administration from 'containers/Administration';
 import Error404 from 'containers/Error404';
 import LegalDocument from 'containers/LegalDocument';
 import PublicSurvey from 'containers/PublicSurvey';
@@ -47,6 +48,7 @@ const Routes = () => {
                 <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated} />
                 <PrivateRoute path="/account" component={Account} isAuthenticated={isAuthenticated} />
                 <PrivateRoute path="/organizations" component={Organizations} isAuthenticated={isAuthenticated} />
+                <PrivateRoute path="/administration" component={Administration} isAuthenticated={isAuthenticated} />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/about" component={About} />
                 <Route exact path="/contact" component={Contact} />

@@ -6,6 +6,7 @@ const initialState = {
     activeSurvey: null,
     surveyAnswers: [],
     surveyResults: [],
+    advancedFeedbacks: [],
 };
 
 const surveyReducer = (state=initialState, action) => {
@@ -20,6 +21,8 @@ const surveyReducer = (state=initialState, action) => {
         return {...state, surveyAnswers: action.answers};
     case actions.SET_SURVEY_RESULTS:
         return {...state, surveyResults: action.results};
+    case actions.SET_ADVANCED_FEEDBACKS:
+        return {...state, advancedFeedbacks: action.feedbacks};
     default:
         return state;
     }

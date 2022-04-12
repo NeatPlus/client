@@ -43,7 +43,14 @@ const HeaderItem = ({column}) => {
 
 export const DataItem = ({item, column}) => {
     if(column.Header==='Topic') {
-        return <span className={styles.nameItem}>{item[column.accessor]}</span>;
+        return (
+            <span
+                className={styles.nameItem}
+                title={item[column.accessor]}
+            >
+                {item[column.accessor]}
+            </span>
+        );
     }
     return item[column.accessor];
 };

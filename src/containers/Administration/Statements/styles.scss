@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+    padding: 25px;
+
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            @media screen and (max-width: 567px) {
+                flex-direction: column;
+
+                .selectors {
+                    margin: 0.5em 0;
+                }
+            }
+
+            .title {
+                font-size: var(--font-size-large);
+                font-family: var(--font-family-header);
+                font-weight: 600;
+            }
+
+            .selectors {
+                display: flex;
+                align-items: center;
+
+                .input {
+                    background-color: var(--color-white);
+                    cursor: pointer;
+                    font-size: var(--font-size-small);
+                }
+
+                :global {
+                    .select-value {
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        font-size: var(--font-size-small);
+                        font-weight: 500;
+                        padding-right: 2em;
+
+                        * {
+                            color: var(--color-dark-alt) !important;
+                        }
+                    }
+
+                    .select-indicator {
+                        display: flex;
+                        align-items: center;
+                        font-weight: 600;
+                    }
+
+                    .select_options {
+                        width: max-content;
+                        min-width: 100%;
+                        max-width: 320px;
+                        overflow: auto;
+                        font-weight: 600;
+                        margin-top: 5px;
+
+                        * {
+                            margin: 0 5px;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+            }
+
+            .button {
+                display: flex;
+                align-items: center;
+                padding: 0.625em 1.5em;
+                font-size: var(--font-size-base);
+                font-weight: 500;
+
+                &-icon {
+                    margin-right: 0.4em;
+                }
+            }
+        }
+    }
+}

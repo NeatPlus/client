@@ -1,0 +1,146 @@
+import {useCallback, useMemo, useEffect} from 'react';
+import {useHistory, useLocation, useParams} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import SVG from 'react-inlinesvg';
+import {BiChevronLeft} from 'react-icons/bi';
+import {BsQuestionCircle} from 'react-icons/bs';
+
+import Button from 'components/Button';
+import List from '@ra/components/List';
+import {Localize} from '@ra/components/I18n';
+
+import useInitActiveProject from 'hooks/useInitActiveProject';
+import useInitActiveSurvey from 'hooks/useInitActiveSurvey';
+
+import topicIconPlaceholder from 'assets/icons/topic-icon-placeholder.svg';
+import {setAdvancedFeedbacks} from 'store/actions/survey';
+
+import Api from 'services/api';
+import usePromise from '@ra/hooks/usePromise';
+import Toast from 'services/toast';
+import {getErrorMessage} from '@ra/utils/error';
+import {_} from 'services/i18n';
+
+import FeedbackTopicTable from './FeedbackTable';
+import styles from './styles.scss';
+
+const keyExtractor = item => item.id;
+
+const TopicItem  = ({item, activeModule}) => {
+    const {statements} = useSelector(state => state.statement);
+    const {activeSurvey} = useSelector(state => state.survey);
+
+    const topicStatementResults = useMemo(() => {
+        return statements.filter(st => st.topic === item.id).map(tpcSt => {
+            return {
+                ...tpcSt,
+                result: activeSurvey?.results?.find(res => res?.statement === tpcSt.id && res?.module === activeModule?.id),
+            };
+        });
+    }, [statements, item, activeSurvey, activeModule]);
+
+    return (
+        <div className={styles.topicItem}>
+            <div className={styles.topicHeader}>
+                <SVG 
+                    className={styles.topicIcon}
+                    src={item.icon ?? topicIconPlaceholder}
+                    width={20} 
+                    title={item.title}
+                />
+                <span className={styles.topicTitle}>{item.title}</span>
+            </div>
+            <FeedbackTopicTable topicStatementResults={topicStatementResults} activeModule={activeModule} />
+        </div>
+    );
+};
+
+const SurveyFeedback = props => {
+    useInitActiveProject();
+    useInitActiveSurvey();
+
+    const dispatch = useDispatch();
+    const {projectId, surveyId} = useParams();
+
+    const {topics} = useSelector(state => state.statement);
+    const {modules} = useSelector(state => state.context);
+    const {advancedFeedbacks} = useSelector(state => state.survey);
+
+    const history = useHistory();
+    const location = useLocation();
+
+    const [{loading}, submitFeedbacks] = usePromise(Api.postFeedback);
+    const [{loading: baselineLoading}, submitBaselineFeedbacks] = usePromise(Api.addBaselineFeedback);
+
+    useEffect(() => {
+        if(!location?.state?.moduleCode) {
+            if(projectId && surveyId) {
+                return history.push(`/projects/${projectId}/surveys/${surveyId}/`);
+            }
+            return history.push('/projects/');
+        }
+        dispatch(setAdvancedFeedbacks([]));
+    }, [location, history, dispatch, projectId, surveyId]);
+
+    const isBaselineFeedback = useMemo(() => location?.state?.isBaseline, [location]);
+
+    const activeModule = useMemo(() => {
+        return modules?.find(mod => mod.code === location?.state?.moduleCode);
+    }, [modules, location]);
+
+    const handleSubmit = useCallback(async () => {
+        try {
+            if(isBaselineFeedback) {
+                await submitBaselineFeedbacks(advancedFeedbacks);
+            } else {
+                await submitFeedbacks(advancedFeedbacks);
+            }
+            Toast.show(_('Your feedback has been successfully submitted'), Toast.SUCCESS);
+            dispatch(setAdvancedFeedbacks([]));
+        } catch(error) {
+            Toast.show(getErrorMessage(error) ?? _('An error occurred while submitting your feedbacks!'), Toast.DANGER);
+        }
+    }, [submitFeedbacks, advancedFeedbacks, dispatch, isBaselineFeedback, submitBaselineFeedbacks]);
+
+    const renderTopicItem = useCallback(listProps => (
+        <TopicItem {...listProps} activeModule={activeModule} />
+    ), [activeModule]);
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <div className={styles.titleContainer}>
+                    <div className={styles.backLink} onClick={history.goBack}>
+                        <BiChevronLeft 
+                            size={22} 
+                            className={styles.backIcon}
+                        />
+                    </div>
+                    <h1 className={styles.title}>
+                        {isBaselineFeedback ? (
+                            <Localize>Baseline Feedbacks</Localize>
+                        ) : (
+                            <Localize>Advanced feedbacks</Localize>
+                        )}
+                    </h1>
+                    <BsQuestionCircle size={20} className={styles.helpIcon} />
+                </div>
+                <Button
+                    onClick={handleSubmit}
+                    loading={loading || baselineLoading}
+                    disabled={advancedFeedbacks?.length===0}
+                >
+                    <Localize>Submit</Localize>
+                </Button>
+
+            </div>
+            <List
+                keyExtractor={keyExtractor}
+                data={topics}
+                renderItem={renderTopicItem}
+            />
+        </div>
+    );
+};
+
+export default SurveyFeedback;
