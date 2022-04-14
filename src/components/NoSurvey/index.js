@@ -1,7 +1,8 @@
-import {useMemo} from 'react';
+import {useMemo, useState, useCallback} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
+import Tour from 'reactour';
 
 import {BsPlus} from 'react-icons/bs';
 import {BiChevronLeft} from 'react-icons/bi';
@@ -27,6 +28,26 @@ const NoSurveys = () => {
 
     const hasEditAccess = useMemo(() => checkEditAccess(activeProject?.accessLevel), [activeProject]);
 
+    const stepContent =  `Surveys are individual U-NEAT+ assessments, conducted through a questionnaire.
+    Surveys are within projects. To take a survey, simply click on “Take Survey” and go through the questionnaire.
+    Please provide a meaningful name. There will be questions to provide more project information later.
+    Note that responses are saved continuously in your browser cache – you can skip questions or return to a partially
+    completed survey later using the same web browser on the same device. You can find your survey in the bottom-right corner of your screen.`;
+
+
+    const steps = [{
+        'content': stepContent
+    }];
+
+    const [isTourOpen, setIsTourOpen] = useState(
+        !localStorage.getItem('survey-onboarding')
+    );
+
+    const onTourClose = useCallback(() => {
+        localStorage.setItem('survey-onboarding', true);
+        setIsTourOpen(false);
+    }, []);
+
     return (
         <div className={styles.container}>
             <Link to="/projects" className={styles.backLink}>
@@ -37,12 +58,21 @@ const NoSurveys = () => {
                     <img src={noSurveyImage} alt="No Surveys" className={styles.infoImage} />
                     <p className={styles.infoText}><Localize>No surveys found</Localize></p>
                     {hasEditAccess && (
-                        <Button 
-                            className={styles.button} 
-                            onClick={surveyModalsConfig.handleShowDeleteDraft}
-                        >
-                            <BsPlus size={24} className={styles.buttonIcon} /><Localize>Take Survey</Localize>
-                        </Button>
+                        <>
+                            <Button
+                                className={styles.button}
+                                onClick={surveyModalsConfig.handleShowDeleteDraft}
+                            >
+                                <BsPlus size={24} className={styles.buttonIcon} /><Localize>Take Survey</Localize>
+                            </Button>
+                            <Tour
+                                closeWithMask={false}
+                                steps={steps}
+                                isOpen={isTourOpen}
+                                lastStepNextButton={<Button>Done</Button>}
+                                onRequestClose={onTourClose}
+                            />
+                        </>
                     )}
                 </div>
             </main>
