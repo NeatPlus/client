@@ -51,9 +51,9 @@ export const calculateSurveyResults = (surveyAnswers, moduleCode = 'sens') => {
                     .filter(opt => opt.question === cur.question)
                     .reduce((optionAcc, curOption) => {
                         const curOptionStatement =  optionStatements.find(el => 
-                            el.option === curOption.id
+                            el.option === curOption.id && el.statement === st.id
                         );
-                        return curOptionStatement?.weightage || 0 + optionAcc;
+                        return (curOptionStatement?.weightage || 0) + optionAcc;
                     }, 0);
                 let den = (totalWeight - maxSelected) * (1 - maxSelected) || 1;
                 const questionValue = (maxSelected + (

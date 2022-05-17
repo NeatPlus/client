@@ -1,12 +1,10 @@
 name: Linting, Unit and Integration Tests
 
-
 on:
   pull_request:
   push:
     branches:
       - "develop"
-
 
 jobs:
   validate-code-and-test:
@@ -50,10 +48,11 @@ jobs:
           yarn lint --fix
 
       - name: Run linters
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
           eslint: true
           stylelint: true
+          stylelint_extensions: "sass,scss"
 
       - name: Run Unit and Integration tests
         run: |
