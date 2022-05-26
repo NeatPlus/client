@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 import {BiSearch} from 'react-icons/bi';
 import {FiFilter} from 'react-icons/fi';
-import {RiArrowDownSLine} from 'react-icons/ri';
+// import {RiArrowDownSLine} from 'react-icons/ri';
 
 import Button from 'components/Button';
 import Container from 'components/Container';
@@ -162,9 +162,10 @@ const CategorySection = () => {
                                 : `${_('Showing Results')} (${requiredData.length})`}
                         </h2>
                         <div className={styles.filterSort}>
-                            <button className={styles.filters}>
+                            {/* <button className={styles.filters}>
                                 <Localize>Sort by</Localize> <RiArrowDownSLine size={20} />
                             </button>
+                            todo sort resources */}
                             <button
                                 className={`${styles.filters} ${
                                     filtersClicked && styles.filtersClicked
