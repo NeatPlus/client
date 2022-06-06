@@ -12,15 +12,13 @@ const CountryWorkCard = ({item, toggleWorkModal}) => {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h2
-                    className={styles.title}
-                    onClick={onClick}>
+                <h2 className={styles.title} onClick={onClick}>
                     {item?.title}
                 </h2>
                 <BsArrowRight
                     size={20}
                     className={styles.arrowIcon}
-                    onClick={toggleWorkModal}
+                    onClick={onClick}
                 />
             </div>
             <div className={styles.organization}>

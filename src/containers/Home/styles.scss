@@ -9,7 +9,7 @@
     .header {
         clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
         background-color: #0d2d41;
-        background-image: url("/assets/images/home-bg.svg");
+        background-image: url('/assets/images/home-bg.svg');
         background-repeat: no-repeat;
 
         @media screen and  (max-width: 767px) {
@@ -28,7 +28,7 @@
 
             @media screen and  (max-width: 767px) {
                 width: 100%;
-                padding: 10em 7.5vw 7em 7.5vw;
+                padding: 10em 7.5vw 7em;
             }
 
             @media screen and  (min-width: 1500px) {

@@ -12,7 +12,7 @@ import useRequest from 'hooks/useRequest';
 
 import styles from './styles.scss';
 
-const keyExtractor = item => item.id;
+const keyExtractor = (item) => item.id;
 
 const ExampleModal = ({description, onClose}) => {
     return (
@@ -31,7 +31,7 @@ const ExampleModal = ({description, onClose}) => {
     );
 };
 
-const ReadMore = ({ item, handleClick }) => {
+const ReadMore = ({item, handleClick}) => {
     const onClick = useCallback(() => {
         handleClick(item);
     }, [handleClick, item]);
@@ -48,46 +48,68 @@ const ReadMore = ({ item, handleClick }) => {
 const ExampleSection = () => {
     const [{data}, getData] = useRequest('/action/');
 
-    useEffect(() => {
-        getData();
+    const getExampleData = useCallback(async () => {
+        try {
+            await getData();
+        } catch (error) {
+            console.log(error);
+        }
     }, [getData]);
+
+    useEffect(() => {
+        getExampleData();
+    }, [getExampleData]);
 
     const [showExampleModal, setShowExampleModal] = useState(false);
     const [modalData, setModalData] = useState();
 
+    const handleToggleModal = useCallback(
+        (item) => {
+            setModalData(item);
+            setShowExampleModal(!showExampleModal);
+        },
+        [showExampleModal]
+    );
 
-    const handleToggleModal = useCallback((item) => {
-        setModalData(item);
-        setShowExampleModal(!showExampleModal);
-    }, [showExampleModal]);
-
-    const renderReadMore = useCallback(({item}) => {
-        return (
-            <ReadMore
-                handleClick={handleToggleModal}
-                item={item}
-            />
-        );
-    }, [handleToggleModal]);
+    const renderReadMore = useCallback(
+        ({item}) => {
+            return <ReadMore handleClick={handleToggleModal} item={item} />;
+        },
+        [handleToggleModal]
+    );
 
     return (
         <div className={styles.applicationContainer}>
             <Container jumbotron>
                 <section className={styles.application}>
-                    <h5 className={styles.mainTitle}><Localize>NEAT+ APPLICATION</Localize></h5>
+                    <h5 className={styles.mainTitle}>
+                        <Localize>NEAT+ APPLICATION</Localize>
+                    </h5>
                     <div className={styles.infoWrapper}>
                         <div>
                             <h1 className={styles.subTitle}>
-                                <Localize>Examples of the NEAT+ in action by humanitarian organizations</Localize>
+                                <Localize>
+                                    Examples of the NEAT+ in action by
+                                    humanitarian organizations
+                                </Localize>
                             </h1>
                             <p className={styles.infoDesc}>
                                 <Localize>
-                                    The NEAT+ has been successfully used and applied by over fifteen humanitarian organizations in over 30 field operations worldwide. With the latest update, the Rural NEAT+ will now be expanding into French- and Spanish-speaking operations in 2021.
+                                    The NEAT+ has been successfully used and
+                                    applied by over fifteen humanitarian
+                                    organizations in over 30 field operations
+                                    worldwide. With the latest update, the Rural
+                                    NEAT+ will now be expanding into French- and
+                                    Spanish-speaking operations in 2021.
                                 </Localize>
                             </p>
                             <p className={styles.infoDesc}>
                                 <Localize>
-                                    See examples and findings of previous NEAT+ pilots and environmental scoping missions. If you have a report to submit, please contact the UNEP/OCHA Joint Environment Unit (JEU) (ochaunep@un.org).
+                                    See examples and findings of previous NEAT+
+                                    pilots and environmental scoping missions.
+                                    If you have a report to submit, please
+                                    contact the UNEP/OCHA Joint Environment Unit
+                                    (JEU) (ochaunep@un.org).
                                 </Localize>
                             </p>
                         </div>
