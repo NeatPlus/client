@@ -62,10 +62,10 @@
         display: grid;
 
         .hero {
-            padding: 25vh 0 15vh 0;
+            padding: 25vh 0 15vh;
 
             @media screen and  (max-width: 767px) {
-                padding: 15vh 7.5vw 10vh 7.5vw;
+                padding: 15vh 7.5vw 10vh;
             }
 
             .hero-title {

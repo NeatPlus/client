@@ -6,10 +6,7 @@
         "node": true,
         "browser": true
     },
-    "plugins": [
-        "react",
-        "css-modules"
-    ],
+    "plugins": ["react", "css-modules"],
     "extends": [
         "react-app",
         "eslint:recommended",
@@ -20,6 +17,7 @@
         "allowImportExportEveryWhere": true,
         "ecmaVersion": 11
     },
+    "parser": "babel-eslint",
     "rules": {
         "css-modules/no-unused-class": [2, {"camelCase": true}],
         "css-modules/no-undef-class": [2, {"camelCase": true}],
@@ -38,27 +36,12 @@
                 "null": "ignore"
             }
         ],
-        "eol-last": [
-            "error",
-            "always"
-        ],
+        "eol-last": ["error", "always"],
         "strict": "off",
-        "indent": [
-            "error",
-            4
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "comma-style": [
-            "error",
-            "last"
-        ],
+        "indent": ["error", 4],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "comma-style": ["error", "last"],
         "key-spacing": [
             "error",
             {
@@ -66,10 +49,7 @@
                 "afterColon": true
             }
         ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
+        "linebreak-style": ["error", "unix"],
         "comma-spacing": [
             "error",
             {

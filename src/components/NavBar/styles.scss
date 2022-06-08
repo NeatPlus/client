@@ -92,7 +92,7 @@ $navbar-height: 90px;
                     border-bottom: 2px solid var(--color-primary);
                 }
 
-                .navItem {
+                .nav-item {
                     display: inline-block;
                     font-size: var(--font-size-base);
                     letter-spacing: -0.32px;
@@ -216,12 +216,12 @@ $navbar-height: 90px;
                     &Active {
                         border-bottom: none;
 
-                        .navItem {
+                        .nav-item {
                             border-bottom: 2px solid var(--color-primary);
                         }
                     }
 
-                    .navItem {
+                    .nav-item {
                         position: static;
                         margin-left: 6px;
                         transform: none;
@@ -232,7 +232,7 @@ $navbar-height: 90px;
                     &:hover {
                         border-bottom: none;
 
-                        .navItem {
+                        .nav-item {
                             border-bottom: 2px solid var(--color-primary);
                         }
                     }

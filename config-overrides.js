@@ -1,17 +1,17 @@
 const path = require('path');
 const {
     override,
-    addBabelPlugins, 
+    addBabelPlugins,
     adjustStyleLoaders,
 } = require('customize-cra');
 
-const resolve = dir => path.resolve(__dirname, dir);
+const resolve = (dir) => path.resolve(__dirname, dir);
 
 module.exports = override(
-    adjustStyleLoaders(({use: [ , css]}) => {
+    adjustStyleLoaders(({use: [, css]}) => {
         css.options.modules = {
             ...css.options.modules,
-            exportLocalsConvention: 'camelCase'
+            exportLocalsConvention: 'camelCase',
         };
     }),
     function (config) {
@@ -21,6 +21,6 @@ module.exports = override(
 
         return config;
     },
-    process.env.NODE_ENV !== 'development' && addBabelPlugins('transform-remove-console'),
+    process.env.NODE_ENV !== 'development' &&
+        addBabelPlugins('transform-remove-console')
 );
-

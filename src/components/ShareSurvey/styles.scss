@@ -9,21 +9,21 @@
         font-weight: 600;
         line-height: 1.5;
         color: var(--color-dark);
-        padding: 1.25em 1.5em 0.5em 1.5em;
+        padding: 1.25em 1.5em 0.5em;
     }
 
     .share-body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 1.5em 1.25em 1.5em;
+        padding: 0 1.5em 1.25em;
 
         .share-image {
             margin: 1.5em 0;
         }
 
         .share-info {
-            margin: 0.75em 0 1.75em 0;
+            margin: 0.75em 0 1.75em;
             text-align: center;
             font-size: var(--font-size-small);
             line-height: 1.71;
