@@ -7,7 +7,7 @@ import {
     IoSettingsOutline, 
 } from 'react-icons/io5';
 import {IoMdLogOut} from 'react-icons/io';
-import {MdLanguage, MdOutlineAdminPanelSettings} from 'react-icons/md';
+import {MdLanguage, MdOutlineAdminPanelSettings, MdOutlineListAlt} from 'react-icons/md';
 import {BiHelpCircle, BiShareAlt} from 'react-icons/bi';
 
 import ShareSurvey from 'components/ShareSurvey';
@@ -42,6 +42,10 @@ const UserNav = (props) => {
     });
     const isSurveyPath = useMemo(() => match && activeSurvey, [activeSurvey, match]);
 
+    const isAdminRoute = useRouteMatch({
+        path: '/administration/',
+    });
+
     const hideNotification = useCallback((event) => {
         if (notificationsRef.current && !notificationsRef.current.contains(event?.target)) {
             setOpenNotification(false);
@@ -68,7 +72,7 @@ const UserNav = (props) => {
     const getInitial = useCallback(() => user?.firstName?.[0], [user]);
 
     const [hasWeightagePermissions] = usePermissions(weightagePermissions);
-    const showAdministration = useMemo(() => hasWeightagePermissions || user?.isSuperuser, [hasWeightagePermissions, user]);
+    const showAdministration = useMemo(() => !isAdminRoute && (hasWeightagePermissions || user?.isSuperuser), [hasWeightagePermissions, user, isAdminRoute]);
 
     const renderShareLabel = useCallback(() => {
         return (
@@ -134,6 +138,12 @@ const UserNav = (props) => {
                             <Link to='/administration' className={styles.userOption}>
                                 <MdOutlineAdminPanelSettings className={styles.userIcon} />
                                 <Localize>Administration</Localize>
+                            </Link>
+                        )}
+                        {isAdminRoute && (
+                            <Link to='/projects' className={styles.userOption}>
+                                <MdOutlineListAlt className={styles.userIcon} />
+                                <Localize>Projects</Localize>
                             </Link>
                         )}
                         <Link to='/organizations' className={styles.userOption}>

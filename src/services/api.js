@@ -479,6 +479,18 @@ class Api {
     addBaselineFeedback = body => {
         return this.post('/survey-result/add_baseline_feedback/', body);
     }
+
+    getFeedbacks = query => {
+        return this.get('/survey-result-feedback/', {query});
+    }
+
+    getQuestionStatements = query => {
+        return this.get('/question-statement/', {query});
+    }
+
+    getOptionStatements = query => {
+        return this.get('/option-statement/', {query});
+    }
 }
 
 const ApiService = new Api();

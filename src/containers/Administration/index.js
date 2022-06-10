@@ -46,7 +46,14 @@ const Projects = () => {
             <UserNav />
             <Switch>
                 <Route exact path='/administration/statements/'>
-                    <Statements contexts={contexts} modules={modules} onContextChange={handleContextChange} onModuleChange={handleModuleChange} />
+                    <Statements 
+                        contexts={contexts}
+                        modules={modules}
+                        defaultContext={defaultContext}
+                        defaultModule={defaultModule}
+                        onContextChange={handleContextChange}
+                        onModuleChange={handleModuleChange}
+                    />
                 </Route>
                 <Route exact path='/administration/statements/:statementId'>
                     <StatementDetails

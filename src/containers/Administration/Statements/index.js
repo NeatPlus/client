@@ -47,7 +47,6 @@ const Statements = props => {
                         />
                     </div>
                     <Button 
-                        outline 
                         className={styles.button}
                     >
                         <BsPlus size={24} className={styles.buttonIcon} />

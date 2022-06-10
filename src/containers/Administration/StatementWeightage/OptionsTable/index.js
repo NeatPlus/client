@@ -1,9 +1,14 @@
-import {useMemo} from 'react';
+import {useMemo, useRef, useCallback} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {MdRefresh} from 'react-icons/md';
 
 import WeightageInput from 'components/WeightageInput';
 import Table from '@ra/components/Table';
 
+import {setChangedOptions} from 'store/actions/admin';
+
 import {_} from 'services/i18n';
+import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
@@ -15,35 +20,59 @@ const HeaderItem = ({column}) => {
             </div>
         );
     }
+    if(column.Header === 'Undo') {
+        return null;
+    }
     return column.Header;
 };
 
 const DataItem = props => {
     const {item, index, column} = props;
+   
+    const dispatch = useDispatch();
+    const {changedOptions} = useSelector(state => state.admin);
+
+    const isWeightageChanged = useMemo(() => {
+        return changedOptions.some(opt => opt.option === item.id);
+    }, [changedOptions, item]);
+
+    const handleUndoClick = useCallback(e => {
+        const newChangedOptions = changedOptions.filter(opt => opt.option !== item.id);
+        dispatch(setChangedOptions(newChangedOptions));
+    }, [dispatch, changedOptions, item]);
+
+    const inputRef = useRef();
 
     if(column.Header === _('Options')) {
         return (
-            <div className={styles.nameItem}>
+            <div className={cs(styles.nameItem, {[styles.nameItemEmpty]: !item.weightage})}>
                 {item?.[column.accessor]}
             </div>
         );
     }
     if(column.Header === _('S.N.')) {
-        return `${index+1}.`;
+        return <span className={cs({[styles.numberEmpty]: !item.weightage})}>{index+1}.</span>;
     }
     if(column.Header === _('Weightage')) {
         return (
-            <WeightageInput {...props} />
+            <WeightageInput ref={inputRef} {...props} />
         );
     }
-    return item?.[column.accessor] ?? '-';
+    if(column.Header === 'Undo' && isWeightageChanged) {
+        return (
+            <MdRefresh className={styles.undoIcon} size={18} onClick={handleUndoClick} />
+        );
+    }
+    return item?.[column.accessor] ?? ' ';
 };
 
 const OptionsTable = props => {
     const {
         activeOptions,
-        loading,
+        ...tableProps
     } = props;
+
+    const {changedOptions} = useSelector(state => state.admin);
 
     const columns = useMemo(() => ([
         {
@@ -55,16 +84,31 @@ const OptionsTable = props => {
         }, {
             Header: _('Weightage'),
             accessor: 'weightage',
+        }, {
+            Header: 'Undo',
+            accessor: '',
         },
     ]), []);
+
+    const editedOptions = useMemo(() => {
+        return activeOptions?.map(opt => {
+            const changedWeightageOption = changedOptions.find(chOpt => chOpt.option === opt.id);
+            if(changedWeightageOption) {
+                return {
+                    ...opt,
+                    weightage: changedWeightageOption.weightage,
+                };
+            }
+            return opt;
+        }) || [];
+    }, [activeOptions, changedOptions]);
 
     return (
         <div className={styles.optionsTableContainer}>
             <Table 
-                loading={loading}
-                className={styles.table} 
-                data={activeOptions} 
-                columns={columns} 
+                className={styles.table}
+                data={editedOptions}
+                columns={columns}
                 maxRows={activeOptions?.length}
                 renderDataItem={DataItem}
                 renderHeaderItem={HeaderItem}
@@ -72,6 +116,7 @@ const OptionsTable = props => {
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
                 bodyRowClassName={styles.bodyRow}
+                {...tableProps}
             />
         </div> 
     );

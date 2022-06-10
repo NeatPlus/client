@@ -63,8 +63,8 @@ const ProjectDashboard = withNoSurvey(() => {
                 res.severity === 'Low'
             ).length; 
             const totalCount = highCount + mediumCount + lowCount;
-
             return {
+                icon: topic.icon,
                 topic: topic.title,
                 highCount,
                 mediumCount,
