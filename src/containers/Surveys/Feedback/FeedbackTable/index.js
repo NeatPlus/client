@@ -46,6 +46,7 @@ const FeedbackInput = props => {
                 rows="4"
                 onChange={handleChangeFeedback}
                 className={styles.commentInput}
+                placeholder={_('Write a comment')}
             />
         );
     }

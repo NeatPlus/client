@@ -129,6 +129,15 @@
                         width: 100%;
                         margin: 12px 0;
 
+                        .status-message {
+                            font-size: var(--font-size-small);
+                            font-weight: 500;
+                            color: var(--color-dark);
+                            margin: 1em 0;
+                            padding-left: 0.5em;
+                            width: max-content;
+                        }
+
                         .table-header {
                             position: sticky;
                             top: 0;

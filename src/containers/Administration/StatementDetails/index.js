@@ -22,12 +22,27 @@ import styles from './styles.scss';
 
 const SelectIcon = ({selected, intermediate, onClick}) => {
     if(selected) {
-        return <BiCheckboxChecked className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected})} onClick={onClick} />;
+        return (
+            <BiCheckboxChecked
+                className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected})}
+                onClick={onClick}
+            />
+        );
     }
     if(intermediate) {
-        return <BiCheckboxSquare className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected || intermediate})} onClick={onClick} />;
+        return (
+            <BiCheckboxSquare
+                className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected || intermediate})}
+                onClick={onClick}
+            />
+        );
     } 
-    return <BiCheckbox className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected})} onClick={onClick} />; 
+    return (
+        <BiCheckbox
+            className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected})}
+            onClick={onClick}
+        />
+    ); 
 };
 
 const HeaderItem =  ({column, selectedQuestions, moduleQuestions, onClick}) => {
@@ -181,6 +196,9 @@ const StatementDetails = props => {
                             <Table 
                                 loading={status!=='complete'}
                                 LoadingComponent={<NeatLoader medium />}
+                                EmptyComponent={<p className={styles.statusMessage}>
+                                    <Localize>No questions found! Please wait...</Localize>
+                                </p>}
                                 className={styles.table} 
                                 data={moduleQuestions} 
                                 columns={columns} 

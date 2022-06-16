@@ -111,11 +111,17 @@
                         border: 1px solid #d5dde5;
                         border-radius: 4px;
                         padding: 10px;
+                        font-size: var(--font-size-small);
 
                         &:focus,
                         &:hover {
                             border: 1px solid var(--color-input-outline);
                             outline-color: var(--color-input-outline);
+                        }
+
+                        &::placeholder {
+                            color: var(--color-grey-light);
+                            font-size: var(--font-size-small);
                         }
                     }
                 }

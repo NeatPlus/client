@@ -14,6 +14,13 @@ $color-error: #fe625e;
         width: 100%;
         margin: 12px 0;
 
+        .status-message {
+            font-size: var(--font-size-small);
+            color: var(--color-dark);
+            width: max-content;
+            margin-top: 0.25em;
+        }
+
         .table-header {
             position: sticky;
             top: 0;

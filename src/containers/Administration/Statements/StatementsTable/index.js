@@ -1,4 +1,4 @@
-import {useMemo, useCallback, useState} from 'react';
+import {useMemo, useCallback, useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
@@ -9,7 +9,9 @@ import SelectInput from '@ra/components/Form/SelectInput';
 import {Localize} from '@ra/components/I18n';
 import Pagination from '@ra/components/Pagination';
 
+import Api from 'services/api';
 import {_} from 'services/i18n';
+import usePromise from '@ra/hooks/usePromise';
 
 import styles from './styles.scss';
 
@@ -31,8 +33,8 @@ const maxRowsOptions = [
     },
 ];
 
-export const DataItem = ({item, column, onClone, onDelete}) => {
-    if(column.Header===_('Title')) {
+export const DataItem = ({item, column, contextId, moduleId}) => {
+    if(column.Header === _('Title')) {
         return (
             <div className={styles.nameItem}>
                 {item[column.accessor]}
@@ -42,8 +44,9 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
     return item?.[column.accessor] ?? '-';
 };
 
-
 const StatementsTable = props => {
+    const {activeContext, activeModule} = props;
+
     const {statements, status} = useSelector(state => state.statement);
 
     const totalStatements = useMemo(() => statements?.length, [statements]);
@@ -54,24 +57,48 @@ const StatementsTable = props => {
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
     const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
 
+    const [{result: insightsResult}, loadInsights] = usePromise(Api.getInsights);
+
     const columns = useMemo(() => ([
         {
             Header: _('Title'),
             accessor: 'title',
         }, {
-            Header: _('Variance'),
-            accessor: '',
+            Header: _('Standard deviation'),
+            accessor: 'standardDeviation',
         },  {
             Header: _('Sum of squares'),
-            accessor: '',
+            accessor: 'sumOfSquare',
         }, {
             Header: _('Difference'),
-            accessor: '',
+            accessor: 'difference',
         }, {
             Header: _('Okay / Need Correction'),
             accessor: '',
         }
     ]), []); 
+
+    useEffect(() => {
+        if(activeModule?.id) {
+            loadInsights({module: activeModule.id});
+        }
+    }, [loadInsights, activeModule]);
+
+    const statementData = useMemo(() => {
+        if(!insightsResult?.length > 0) {
+            return statements;
+        }
+        return statements.map(st => {
+            const statementInsight = insightsResult.find(res => res.surveyResult_Statement === st.id);
+            const {difference, sumOfSquare, standardDeviation} = statementInsight;
+            return {
+                ...st,
+                difference: Number(difference).toFixed(2),
+                sumOfSquare: Number(sumOfSquare).toFixed(2),
+                standardDeviation: Number(standardDeviation).toFixed(2),
+            };
+        });
+    }, [statements, insightsResult]);
 
     const history = useHistory();
 
@@ -80,17 +107,20 @@ const StatementsTable = props => {
     }, [history]);
 
     const renderDataItem = useCallback(otherProps => (
-        <DataItem {...otherProps} />
-    ), []);
+        <DataItem contextId={activeContext?.id} moduleId={activeModule?.id} {...otherProps} />
+    ), [activeContext, activeModule]);
 
     return (
         <div className={styles.content}>
-            <Table 
+            <Table
                 loading={status!=='complete'}
                 LoadingComponent={<NeatLoader medium />}
-                className={styles.table} 
-                data={statements} 
-                columns={columns} 
+                EmptyComponent={<p className={styles.statusMessage}>
+                    <Localize>No statements found. Please wait...</Localize>
+                </p>}
+                className={styles.table}
+                data={statementData}
+                columns={columns}
                 maxRows={maxRows.value}
                 page={page}
                 renderDataItem={renderDataItem}
@@ -103,12 +133,12 @@ const StatementsTable = props => {
             <div className={styles.contentFooter}>
                 <div className={styles.maxRowsSelect}>
                     <Localize>Show</Localize>
-                    <SelectInput 
+                    <SelectInput
                         className={styles.select}
                         controlClassName={styles.selectControl}
-                        options={maxRowsOptions} 
-                        keyExtractor={keyExtractor} 
-                        valueExtractor={labelExtractor} 
+                        options={maxRowsOptions}
+                        keyExtractor={keyExtractor}
+                        valueExtractor={labelExtractor}
                         onChange={handleMaxRowsChange}
                         value={maxRows}
                         defaultValue={maxRowsOptions[0]}

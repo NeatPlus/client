@@ -1,10 +1,10 @@
 import {useMemo, useEffect, useRef} from 'react';
 
 import Table from '@ra/components/Table';
+import {Localize} from '@ra/components/I18n';
 
 import cs from '@ra/cs';
 import {_} from 'services/i18n';
-import {Localize} from '@ra/components/I18n';
 import {getSeverityFromScore} from 'utils/severity';
 
 import styles from './styles.scss';
@@ -40,6 +40,8 @@ const DataItem = props => {
 };
 
 const OptionsTable = props => {
+    const {feedbackData, loading, sumOfSquare, standardDeviation} = props;
+
     const columns = useMemo(() => ([
         {
             Header: _('Surveys'),
@@ -49,38 +51,25 @@ const OptionsTable = props => {
             accessor: 'expectedScore',
         }, {
             Header: _('Current'),
-            accessor: 'currentScore',
+            accessor: 'actualScore',
         },
     ]), []);
 
-    const data = useMemo(() => ([
-        {
-            id: 1,
-            surveyTitle: 'Test Survey 1',
-            expectedScore: 0.85,
-            currentScore: 0.7,
-        },
-        {
-            id: 2,
-            surveyTitle: 'Test Survey 2',
-            expectedScore: 0.55,
-            currentScore: 0.4,
-        },
-        {
-            id: 3,
-            surveyTitle: 'Test Survey 3',
-            expectedScore: 0.95,
-            currentScore: 0.6,
-        },
-    ]), []);
-
+    
     return (
         <div className={styles.insightsTableContainer}>
             <Table 
-                className={styles.table} 
-                data={data} 
-                columns={columns} 
-                maxRows={data?.length}
+                loading={loading}
+                LoadingComponent={<p className={styles.statusInfo}>
+                    <Localize>Loading baseline surveys...</Localize>
+                </p>}
+                EmptyComponent={<p className={styles.statusInfo}>
+                    <Localize>No baseline surveys found for the selected module!</Localize>
+                </p>}
+                className={styles.table}
+                data={feedbackData}
+                columns={columns}
+                maxRows={5}
                 renderDataItem={DataItem}
                 headerClassName={styles.tableHeader}
                 headerRowClassName={styles.headerRow}
@@ -89,10 +78,10 @@ const OptionsTable = props => {
             />
             <div className={styles.insightsSummary}>
                 <div className={styles.summaryItem}>
-                    <Localize>Variance:</Localize> <span className={styles.summaryValue}>0.3</span>
+                    <Localize>Standard deviation:</Localize> <span className={styles.summaryValue}>{standardDeviation}</span>
                 </div>
                 <div className={styles.summaryItem}>
-                    <Localize>Sum of squares:</Localize> <span className={styles.summaryValue}>0.5</span>
+                    <Localize>Sum of squares:</Localize> <span className={styles.summaryValue}>{sumOfSquare}</span>
                 </div>
             </div>
         </div> 
