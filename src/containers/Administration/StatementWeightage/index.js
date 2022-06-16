@@ -16,11 +16,12 @@ import {getErrorMessage} from '@ra/utils/error';
 import Api from 'services/api';
 import {_} from 'services/i18n';
 import Toast from 'services/toast';
-import {setChangedOptions, setChangedQuestions} from 'store/actions/admin';
+import {resetWeightages} from 'store/actions/admin';
 
 import QuestionsTable from './QuestionsTable';
 import OptionsTable from './OptionsTable';
 import InsightsTable from './InsightsTable';
+import FeedbackList from './FeedbackList';
 import styles from './styles.scss';
 
 const StatementWeightage = props => {
@@ -40,13 +41,47 @@ const StatementWeightage = props => {
     }, [statementId, statements]);
 
     const {options} = useSelector(state => state.question);
-    const {status, questionStatements, optionStatements} = useSelector(state => state.weightage);
+    
+    const [{
+        loading: loadingQuestionStatements,
+        result: questionStatementsResult,
+    }, loadQuestionStatements] = usePromise(Api.getQuestionStatements);
+    const [{
+        loading: loadingOptionStatements,
+        result: optionStatementsResult,
+    }, loadOptionStatements] = usePromise(Api.getOptionStatements);
+
+    const questionStatements = useMemo(() => {
+        return questionStatementsResult?.results ?? [];
+    }, [questionStatementsResult]);
+    const optionStatements = useMemo(() => {
+        return optionStatementsResult?.results ?? [];
+    }, [optionStatementsResult]);
+
+    const loadWeightages = useCallback(() => {
+        loadQuestionStatements({
+            version: 'latest',
+            statement: statementId,
+            limit: -1,
+        });
+        loadOptionStatements({
+            version: 'latest',
+            statement: statementId,
+            limit: -1,
+        });
+    }, [statementId, loadOptionStatements, loadQuestionStatements]);
+
+    useEffect(() => {
+        loadWeightages();
+    }, [loadWeightages]);
 
     const selectedQuestions = useMemo(() => {
         return location?.state?.selectedQuestions?.map(ques => {
             return {
                 ...ques,
-                weightage: questionStatements.find(quesSt => quesSt.question === ques.id && quesSt.statement === +statementId)?.weightage,
+                weightage: questionStatements.find(quesSt => {
+                    return quesSt.question === ques.id && quesSt.statement === +statementId;
+                })?.weightage,
             };
         }) || [];
     }, [location, questionStatements, statementId]);
@@ -55,21 +90,22 @@ const StatementWeightage = props => {
         if(!selectedQuestions?.length > 0) {
             history.push(`/administration/statements/${statementId}/`);
         }
-        dispatch(setChangedOptions([]));
-        dispatch(setChangedQuestions([]));
+        return () => {
+            dispatch(resetWeightages());
+        };
     }, [dispatch, history, selectedQuestions, statementId]);
 
     const [activeTab, setActiveTab] = useState('current');
 
     const [activeQuestion, setActiveQuestion] = useState(selectedQuestions[0]);
     const activeOptions = useMemo(() => {
-        return options.filter(opt => opt.question === activeQuestion?.id)?.map(opt => {
+        return options.filter(opt => opt.question === activeQuestion?.id).map(opt => {
             return {
                 ...opt,
-                weightage: optionStatements.find(optSt => optSt.option === opt.id && optSt.statement === +statementId)?.weightage,
+                weightage: optionStatements.find(optSt => optSt.option === opt.id)?.weightage,
             };
         });
-    }, [options, activeQuestion, optionStatements, statementId]);
+    }, [options, activeQuestion, optionStatements]);
 
     const handleTabChange = useCallback(payload => {
         setActiveTab(payload.activeTab);
@@ -87,19 +123,35 @@ const StatementWeightage = props => {
     const {changedQuestions, changedOptions} = useSelector(state => state.admin); 
     const handleSaveClick = useCallback(async () => {
         try {
+            const newQuestionStatements = questionStatements.reduce((acc, cur) => {
+                const changedQuestion = changedQuestions.find(chQues => chQues.question === cur.question);
+                if(changedQuestion) {
+                    return [...acc, changedQuestion];
+                }
+                return [...acc, {question: cur.question, weightage: cur.weightage}];
+            }, []);
+            const newOptionStatements = optionStatements.reduce((acc, cur) => {
+                const changedOption = changedOptions.find(chOpt => chOpt.option === cur.option);
+                if(changedOption) {
+                    return [...acc, changedOption];
+                }
+                return [...acc, {option: cur.option, weightage: cur.weightage}];
+            }, []);
+
             await uploadWeightages(statementId, {
                 version: 'initial',
-                questions: changedQuestions,
-                options: changedOptions,
+                questions: newQuestionStatements,
+                options: newOptionStatements,
             });
             Toast.show(_('Weightages have been successfully updated!'), Toast.SUCCESS);
+            dispatch(resetWeightages());
+            loadWeightages();
         } catch(error) {
             Toast.show(getErrorMessage(error) ?? _('An error occured'), Toast.DANGER);
             console.log(error);
         }
-    }, [changedQuestions, changedOptions, uploadWeightages, statementId]);
+    }, [changedQuestions, changedOptions, uploadWeightages, statementId, dispatch, loadWeightages, questionStatements, optionStatements]);
 
-    
     const renderHeaderControls = useCallback(() => {
         return (
             <div className={styles.addButton}>
@@ -140,7 +192,7 @@ const StatementWeightage = props => {
                         className={styles.headerButton}
                         onClick={handleSaveClick}
                         loading={loading}
-                        disabled={selectedQuestions?.length===0}
+                        disabled={changedQuestions?.length === 0 && changedOptions?.length===0}
                     >
                         <Localize>Save</Localize>
                     </Button>
@@ -157,17 +209,16 @@ const StatementWeightage = props => {
                             tabItemClassName={styles.headerItem}
                             contentContainerClassName={styles.tabContent}
                             onChange={handleTabChange}
-
                         >
                             <Tab label="current" title={_('Current')}>
                                 <div className={styles.tablesContainer}>
                                     <QuestionsTable
+                                        loading={loadingQuestionStatements}
                                         selectedQuestions={selectedQuestions}
-                                        handleQuestionClick={handleQuestionClick}
+                                        onQuestionClick={handleQuestionClick}
                                         activeQuestion={activeQuestion}
-                                        setActiveQuestion={setActiveQuestion} 
                                     />
-                                    <OptionsTable activeOptions={activeOptions} loading={status==='loading'} />
+                                    <OptionsTable activeOptions={activeOptions} loading={loadingOptionStatements} />
                                 </div>
                             </Tab>
                         </Tabs>
@@ -209,9 +260,15 @@ const StatementWeightage = props => {
                             </div>
                         )}
                         <div className={styles.bottomGroup}>
-                            <h5 className={styles.bottomGroupTitle}>
-                                <Localize>User feedbacks</Localize>
-                            </h5>
+                            <div className={styles.bottomGroupHeader}>
+                                <h5 className={styles.bottomGroupTitle}>
+                                    <Localize>User feedbacks</Localize>
+                                </h5>
+                                <p className={styles.bottomGroupLink}>
+                                    <Localize>See all feedbacks</Localize>
+                                </p>
+                            </div>
+                            <FeedbackList statementId={activeStatement?.id} moduleId={activeModule?.id} contextId={activeContext?.id} />
                         </div>
                     </div>
                 </div>

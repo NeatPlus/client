@@ -174,7 +174,7 @@ const StatementDetails = props => {
                                 </Localize>
                             </p>
                             <p className={styles.infoSelected}>
-                                {selectedQuestions?.length} <Localize>items selected.</Localize>
+                                {selectedQuestions?.length} <Localize>item(s) selected.</Localize>
                             </p>
                         </div>
                         <div className={styles.tableContainer}>

@@ -33,11 +33,11 @@
                     &:first-child {
                         width: 30%;
                     }
-                    
+
                     &:last-child {
                         width: 6%;
                     }
-                    
+
                     &:nth-child(n):not(:first-child):not(:last-child) {
                         width: 16%;
                     }
@@ -101,7 +101,7 @@
             .select {
                 color: var(--color-dark);
                 font-size: var(--font-size-small);
-                background-color: var(--color-white);
+                background-color: var(--color-background);
                 margin: 0 6px;
 
                 &__control {

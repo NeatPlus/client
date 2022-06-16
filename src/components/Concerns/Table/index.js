@@ -1,7 +1,11 @@
+import SVG from 'react-inlinesvg';
+
 import {NeatLoader} from 'components/Loader';
 
 import Table from '@ra/components/Table';
 import cs from '@ra/cs';
+
+import topicIconPlaceholder from 'assets/icons/topic-icon-placeholder.svg';
 
 import styles from './styles.scss';
 
@@ -44,12 +48,20 @@ const HeaderItem = ({column}) => {
 export const DataItem = ({item, column}) => {
     if(column.Header==='Topic') {
         return (
-            <span
-                className={styles.nameItem}
-                title={item[column.accessor]}
-            >
-                {item[column.accessor]}
-            </span>
+            <div className={styles.nameContainer}>
+                <SVG 
+                    className={styles.nameIcon}
+                    src={item.icon ?? topicIconPlaceholder}
+                    width={20} 
+                    title={item[column.accessor]}
+                />
+                <span
+                    className={styles.nameItem}
+                    title={item[column.accessor]}
+                >
+                    {item[column.accessor]}
+                </span>
+            </div>
         );
     }
     return item[column.accessor];

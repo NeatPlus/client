@@ -11,6 +11,8 @@ const contextReducer = (state = initialState, action) => {
         return {...state, changedOptions: action.options};
     case actions.SET_CHANGED_QUESTIONS:
         return {...state, changedQuestions: action.questions};
+    case actions.RESET_WEIGHTAGES:
+        return {...state, changedOptions: [], changedQuestions: []};
     default:
         return state;
     }

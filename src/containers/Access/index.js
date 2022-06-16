@@ -27,12 +27,20 @@ const NeatCard = ({title, description, image, fileImage, buttonTitle, toDashboar
             <h4 className={styles.cardTitle}>{title}</h4>
             <p className={styles.cardDesc}>{description}</p>
             {toDashboard ? (
-                <Link to="/projects">
-                    <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
+                <Link to="/projects" className={styles.buttonLink}>
+                    <Button className={styles.button}>
+                        {buttonTitle}<BsArrowRight className={styles.buttonIcon} />
+                    </Button>
                 </Link>
             ) : (
-                <a href="https://eecentre.org/resources/neat/" target="_blank" rel="noreferrer">
-                    <Button className={styles.button}>{buttonTitle}<BsArrowRight className={styles.buttonIcon} /></Button>
+                <a
+                    href="https://eecentre.org/resources/neat/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.buttonLink}>
+                    <Button className={styles.button}>
+                        {buttonTitle}<BsArrowRight className={styles.buttonIcon} />
+                    </Button>
                 </a>
             )} 
             <img className={styles.fileImage} src={fileImage} alt="file-icon" />

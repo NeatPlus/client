@@ -73,6 +73,7 @@
                 }
 
                 .statement-title {
+                    padding-right: 1.5em;
                     margin-top: 0.5em;
                     font-size: var(--font-size-normal);
                 }
@@ -81,7 +82,7 @@
             .header-button {
                 display: flex;
                 align-items: center;
-                align-self: flex-start;
+                align-self: flex-end;
                 font-weight: 500;
             }
         }
@@ -207,6 +208,26 @@
                     font-weight: 600;
                     font-size: var(--font-size-base);
                     margin-bottom: 1em;
+                }
+
+                .bottom-group__header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .bottom-group__link {
+                        color: var(--color-primary);
+                        font-weight: 500;
+                        font-size: var(--font-size-small);
+                        line-height: 1.375em;
+                        cursor: pointer;
+                        margin-bottom: 1em;
+                        transition: filter 0.3s ease;
+
+                        &:hover {
+                            filter: saturate(175%);
+                        }
+                    }
                 }
 
                 .function-input-container {

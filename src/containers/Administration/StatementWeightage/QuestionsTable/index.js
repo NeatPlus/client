@@ -1,7 +1,11 @@
 import {useMemo, useCallback, useEffect, useRef} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {MdRefresh} from 'react-icons/md';
 
 import WeightageInput from 'components/WeightageInput';
 import Table from '@ra/components/Table';
+
+import {setChangedQuestions} from 'store/actions/admin';
 
 import {_} from 'services/i18n';
 import cs from '@ra/cs';
@@ -16,11 +20,26 @@ const HeaderItem = ({column}) => {
             </div>
         );
     }
+    if(column.Header === 'Undo') {
+        return null;
+    }
     return column.Header;
 };
 
 const DataItem = props => {
     const {item, index, column, isActive} = props;
+
+    const dispatch = useDispatch();
+    const {changedQuestions} = useSelector(state => state.admin);
+
+    const isWeightageChanged = useMemo(() => {
+        return changedQuestions.some(ques => ques.question === item.id);
+    }, [changedQuestions, item]);
+
+    const handleUndoClick = useCallback(e => {
+        const newChangedQuestions = changedQuestions.filter(ques => ques.question !== item.id);
+        dispatch(setChangedQuestions(newChangedQuestions));
+    }, [dispatch, changedQuestions, item]);
 
     const inputRef = useRef();
 
@@ -32,25 +51,33 @@ const DataItem = props => {
 
     if(column.Header === _('Questions')) {
         return (
-            <div className={cs(styles.nameItem, {[styles.nameItemActive]: isActive})}>
+            <div className={cs(styles.nameItem, {
+                [styles.nameItemActive]: isActive,
+                [styles.nameItemEmpty]: !item.weightage,
+            })}>
                 {item?.[column.accessor]}
             </div>
         );
     }
     if(column.Header === _('S.N.')) {
-        return `${index+1}.`;
+        return <span className={cs({[styles.numberEmpty]: !item.weightage})}>{index + 1}.</span>;
     }
     if(column.Header === _('Weightage')) {
         return (
             <WeightageInput ref={inputRef} {...props} />
         );
     }
-    return item?.[column.accessor] ?? '-';
+    if(column.Header === 'Undo' && isWeightageChanged) {
+        return (
+            <MdRefresh className={styles.undoIcon} size={18} onClick={handleUndoClick} />
+        );
+    }
+    return item?.[column.accessor] ?? ' ';
 };
 
 
 const QuestionRow = (props) => {
-    const {columns, activeQuestion, setActiveQuestion, ...otherProps} = props;
+    const {columns, activeQuestion, onQuestionClick, ...otherProps} = props;
     const {item} = props;
 
     const isActive = useMemo(() => {
@@ -58,8 +85,8 @@ const QuestionRow = (props) => {
     }, [activeQuestion, item]);
 
     const handleQuestionClick = useCallback(() => {
-        setActiveQuestion(item);
-    }, [setActiveQuestion, item]);
+        onQuestionClick?.(item);
+    }, [onQuestionClick, item]);
 
     return (
         <tr 
@@ -82,8 +109,11 @@ const QuestionsTable = props => {
     const {
         selectedQuestions,
         activeQuestion,
-        setActiveQuestion,
+        onQuestionClick,
+        ...tableProps
     } = props;
+
+    const {changedQuestions} = useSelector(state => state.admin);
 
     const columns = useMemo(() => ([
         {
@@ -95,18 +125,34 @@ const QuestionsTable = props => {
         }, {
             Header: _('Weightage'),
             accessor: 'weightage',
+        }, {
+            Header: 'Undo',
+            accessor: '',
         },
     ]), []);
+
+    const editedSelectedQuestions = useMemo(() => {
+        return selectedQuestions?.map(ques => {
+            const changedWeightageQuestion = changedQuestions.find(chQues => chQues.question === ques.id);
+            if(changedWeightageQuestion) {
+                return {
+                    ...ques,
+                    weightage: changedWeightageQuestion.weightage,
+                };
+            }
+            return ques;
+        }, []);
+    }, [changedQuestions, selectedQuestions]);
 
     const renderQuestionRow = useCallback(tableProps => {
         return (
             <QuestionRow
                 {...tableProps}
                 activeQuestion={activeQuestion}
-                setActiveQuestion={setActiveQuestion}
+                onQuestionClick={onQuestionClick}
             />
         );
-    }, [activeQuestion, setActiveQuestion]);
+    }, [activeQuestion, onQuestionClick]);
 
     const renderQuestionDataItem = useCallback(tableProps => {
         return (
@@ -118,7 +164,7 @@ const QuestionsTable = props => {
         <div className={styles.questionsTableContainer}>
             <Table 
                 className={styles.table} 
-                data={selectedQuestions} 
+                data={editedSelectedQuestions} 
                 columns={columns} 
                 maxRows={selectedQuestions?.length}
                 renderDataItem={renderQuestionDataItem}
@@ -127,6 +173,7 @@ const QuestionsTable = props => {
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
                 rowRenderer={renderQuestionRow}
+                {...tableProps}
             />
         </div> 
     );

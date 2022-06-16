@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    
+
     @media screen and  (max-width: 920px) {
         width: 70%;
     }
@@ -17,7 +17,7 @@
     @media screen and  (max-width: 767px) {
         width: 100%;
     }
-    
+
     .card-image {
         height: 6.2em;
     }
@@ -36,14 +36,17 @@
         color: #292929;
     }
 
-    .button {
+    .button-link {
         margin-top: 1.5em;
-        display: flex;
-        align-items: center;
 
-        .button-icon {
-            margin-left: 0.5em;
-            font-size: var(--font-size-medium-lg);
+        .button {
+            display: flex;
+            align-items: center;
+
+            .button-icon {
+                margin-left: 0.5em;
+                font-size: var(--font-size-medium-lg);
+            }
         }
     }
 
