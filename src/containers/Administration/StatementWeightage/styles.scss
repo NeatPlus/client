@@ -10,6 +10,7 @@
         .content-header {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
             margin-bottom: 20px;
 
             @media screen and (max-width: 567px) {
@@ -104,14 +105,15 @@
                         height: 42px;
                         overflow-x: auto;
 
-
                         .add-button {
                             display: flex;
                             align-items: center;
                             color: var(--color-grey-light);
-                            padding: 0 0.75em;
+                            padding: 0 1.5em;
                             cursor: pointer;
                             transition: 0.3s ease-out;
+                            font-size: var(--font-size-small);
+                            font-weight: 500;
 
                             .add-icon {
                                 margin-right: 0.25em;
@@ -127,7 +129,7 @@
                             margin-bottom: 0;
 
                             .header-item {
-                                padding: 0.625em 1.5em;
+                                padding: 0.625em 2em;
                                 font-size: var(--font-size-small);
                             }
                         }

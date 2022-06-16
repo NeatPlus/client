@@ -491,6 +491,10 @@ class Api {
     getOptionStatements = query => {
         return this.get('/option-statement/', {query});
     }
+
+    getInsights = query => {
+        return this.get('/survey-insight/', {query});
+    }
 }
 
 const ApiService = new Api();

@@ -13,7 +13,7 @@ const valueExtractor = item => item?.title;
 const keyExtractor = item => item.id;
 
 const Statements = props => {
-    const {contexts, modules, onContextChange, onModuleChange, defaultContext, defaultModule} = props;
+    const {contexts, modules, onContextChange, onModuleChange, activeContext, activeModule} = props;
 
     return (
         <div className={styles.container}>
@@ -30,7 +30,7 @@ const Statements = props => {
                             clearable={false}
                             searchable={false}
                             placeholder={_('Context')}
-                            defaultValue={defaultContext}
+                            defaultValue={activeContext}
                             onChange={onContextChange}
                         />
                         <SelectInput
@@ -42,7 +42,7 @@ const Statements = props => {
                             clearable={false}
                             searchable={false}
                             placeholder={_('Module')}
-                            defaultValue={defaultModule}
+                            defaultValue={activeModule}
                             onChange={onModuleChange}
                         />
                     </div>
@@ -53,7 +53,7 @@ const Statements = props => {
                         <Localize>Add statements</Localize>
                     </Button>
                 </header>
-                <StatementsTable />
+                <StatementsTable activeContext={activeContext} activeModule={activeModule} />
             </div>
         </div>
     );

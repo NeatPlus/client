@@ -34,6 +34,41 @@ const StatementWeightage = props => {
     const dispatch = useDispatch();
 
     const [{loading}, uploadWeightages] = usePromise(Api.uploadWeightages);
+    const [{result, loading: loadingBaselineFeedbacks}, loadFeedbacks] = usePromise(Api.getFeedbacks);
+    const [{result: insightsResult}, loadInsights] = usePromise(Api.getInsights);
+
+    useEffect(() => {
+        if(statementId && activeModule?.id && activeContext?.id) {
+            loadFeedbacks({
+                survey_result__statement: statementId,
+                survey_result__module: activeModule.id,
+                survey_result__module__context: activeContext.id,
+                is_baseline: true,
+            });
+            loadInsights({
+                module: activeModule.id,
+                statement: statementId,
+            });
+        }
+    }, [statementId, activeModule, activeContext, loadFeedbacks, loadInsights]);
+
+    const baselineFeedbackData = useMemo(() => {
+        return result?.results?.map(baselineFeedback => ({
+            ...baselineFeedback,
+            actualScore: Number(baselineFeedback.actualScore)?.toFixed(2) || '-',
+            expectedScore: Number(baselineFeedback.expectedScore)?.toFixed(2) || '-',
+        })) || [];
+    }, [result]);
+
+    const {sumOfSquare = '-', standardDeviation = '-'} = useMemo(() => {
+        if(insightsResult?.[0]) {
+            return {
+                sumOfSquare: Number(insightsResult[0].sumOfSquare).toFixed(2),
+                standardDeviation: Number(insightsResult[0].standardDeviation).toFixed(2),
+            };
+        }
+        return {};
+    }, [insightsResult]);
 
     const {statements} = useSelector(state => state.statement);
     const activeStatement = useMemo(() => {
@@ -247,7 +282,12 @@ const StatementWeightage = props => {
                                     <h5 className={styles.insightsGroupTitle}>
                                         <Localize>Insights</Localize>
                                     </h5>
-                                    <InsightsTable />
+                                    <InsightsTable
+                                        loading={loadingBaselineFeedbacks}
+                                        feedbackData={baselineFeedbackData}
+                                        sumOfSquare={sumOfSquare}
+                                        standardDeviation={standardDeviation}
+                                    />
                                 </div>
                             )}
                         </div>
@@ -256,7 +296,12 @@ const StatementWeightage = props => {
                                 <h5 className={styles.bottomGroupTitle}>
                                     <Localize>Insights</Localize>
                                 </h5>
-                                <InsightsTable />
+                                <InsightsTable
+                                    loading={loadingBaselineFeedbacks}
+                                    feedbackData={baselineFeedbackData}
+                                    sumOfSquare={sumOfSquare}
+                                    standardDeviation={standardDeviation}
+                                />
                             </div>
                         )}
                         <div className={styles.bottomGroup}>

@@ -4,6 +4,7 @@ import {MdRefresh} from 'react-icons/md';
 
 import WeightageInput from 'components/WeightageInput';
 import Table from '@ra/components/Table';
+import {Localize} from '@ra/components/I18n';
 
 import {setChangedQuestions} from 'store/actions/admin';
 
@@ -141,7 +142,7 @@ const QuestionsTable = props => {
                 };
             }
             return ques;
-        }, []);
+        }) || [];
     }, [changedQuestions, selectedQuestions]);
 
     const renderQuestionRow = useCallback(tableProps => {
@@ -173,6 +174,12 @@ const QuestionsTable = props => {
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
                 rowRenderer={renderQuestionRow}
+                LoadingComponent={<p className={styles.statusMessage}>
+                    <Localize>Loading...</Localize>
+                </p>}
+                EmptyComponent={<p className={styles.statusMessage}>
+                    <Localize>No questions selected.</Localize>
+                </p>}
                 {...tableProps}
             />
         </div> 

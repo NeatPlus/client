@@ -49,8 +49,8 @@ const Projects = () => {
                     <Statements 
                         contexts={contexts}
                         modules={modules}
-                        defaultContext={defaultContext}
-                        defaultModule={defaultModule}
+                        activeContext={activeContext ?? defaultContext}
+                        activeModule={activeModule ?? defaultModule}
                         onContextChange={handleContextChange}
                         onModuleChange={handleModuleChange}
                     />

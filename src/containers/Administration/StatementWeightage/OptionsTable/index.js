@@ -4,6 +4,7 @@ import {MdRefresh} from 'react-icons/md';
 
 import WeightageInput from 'components/WeightageInput';
 import Table from '@ra/components/Table';
+import {Localize} from '@ra/components/I18n';
 
 import {setChangedOptions} from 'store/actions/admin';
 
@@ -116,6 +117,12 @@ const OptionsTable = props => {
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}
                 bodyRowClassName={styles.bodyRow}
+                LoadingComponent={<p className={styles.statusMessage}>
+                    <Localize>Loading options...</Localize>
+                </p>}
+                EmptyComponent={<p className={styles.statusMessage}>
+                    <Localize>No options found.</Localize>
+                </p>}
                 {...tableProps}
             />
         </div> 

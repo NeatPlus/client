@@ -17,13 +17,21 @@
         width: 100%;
         margin: 12px 0;
 
+        .status-message {
+            font-size: var(--font-size-small);
+            font-weight: 500;
+            color: var(--color-dark);
+            margin: 1em 0;
+            padding-left: 12px;
+        }
+
         .table-header {
             background-color: var(--color-background);
 
             .header__row {
                 th {
                     border: none;
-                    padding: 12px 20px;
+                    padding: 0.75em 1.25em;
                     text-align: left;
                     line-height: 2em;
                     font-size: var(--font-size-small);
@@ -39,10 +47,12 @@
 
                     &:last-child {
                         width: 16%;
+                        text-align: left;
                     }
 
                     &:nth-child(n):not(:first-child):not(:last-child) {
                         width: 8%;
+                        text-align: right;
                     }
 
                     @media screen and (max-width: 767px) {
@@ -76,11 +86,15 @@
 
                 td {
                     border: none;
-                    padding: 14px 12px;
+                    padding: 0.875em 1.25em;
                     font-size: var(--font-size-small);
                     line-height: 2em;
                     color: var(--color-dark-alt);
-                    text-align: center;
+                    text-align: right;
+
+                    &:last-child {
+                        text-align: left;
+                    }
                 }
             }
         }

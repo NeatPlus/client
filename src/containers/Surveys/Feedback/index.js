@@ -132,7 +132,6 @@ const SurveyFeedback = props => {
                 >
                     <Localize>Submit</Localize>
                 </Button>
-
             </div>
             <List
                 keyExtractor={keyExtractor}
