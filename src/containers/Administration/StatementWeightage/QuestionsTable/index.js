@@ -1,6 +1,6 @@
 import {useMemo, useCallback, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {MdRefresh} from 'react-icons/md';
+import {CgUndo} from 'react-icons/cg';
 
 import WeightageInput from 'components/WeightageInput';
 import Table from '@ra/components/Table';
@@ -70,7 +70,7 @@ const DataItem = props => {
     }
     if(column.Header === 'Undo' && isWeightageChanged) {
         return (
-            <MdRefresh className={styles.undoIcon} size={18} onClick={handleUndoClick} />
+            <CgUndo className={styles.undoIcon} size={20} onClick={handleUndoClick} />
         );
     }
     return item?.[column.accessor] ?? ' ';
@@ -94,9 +94,9 @@ const QuestionRow = (props) => {
             className={cs(styles.row, {[styles.rowActive]: isActive})}
             onClick={handleQuestionClick}
         >
-            {columns.map(col => {
+            {columns.map((col, idx)=> {
                 return (
-                    <td key={col.accessor}>
+                    <td key={idx}>
                         <DataItem column={col} isActive={isActive} {...otherProps} />
                     </td>
                 );

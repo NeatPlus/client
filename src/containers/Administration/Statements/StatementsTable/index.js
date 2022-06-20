@@ -93,7 +93,7 @@ const StatementsTable = props => {
             const {difference, sumOfSquare, standardDeviation} = statementInsight;
             return {
                 ...st,
-                difference: Number(difference).toFixed(2),
+                difference: Math.abs(Number(difference)).toFixed(2),
                 sumOfSquare: Number(sumOfSquare).toFixed(2),
                 standardDeviation: Number(standardDeviation).toFixed(2),
             };

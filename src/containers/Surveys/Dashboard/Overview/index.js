@@ -147,7 +147,6 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
-            
             <SummaryModal 
                 isVisible={showSummaryModal} 
                 onClose={handleCloseSummaryModal}

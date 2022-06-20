@@ -79,10 +79,6 @@ $color-error: #fe625e;
                     text-decoration: none;
                     color: var(--color-dark);
                     text-align: left;
-
-                    &:hover {
-                        filter: opacity(80%);
-                    }
                 }
 
                 .name-item__active {
@@ -106,12 +102,11 @@ $color-error: #fe625e;
 
                     .undo-icon {
                         margin-top: 0.1em;
-                        transform: scaleX(-1);
                         color: var(--color-grey-dark-alt);
                         font-size: var(--font-size-header);
 
                         &:hover {
-                            filter: opacity(60%);
+                            opacity: 0.8;
                         }
                     }
                 }

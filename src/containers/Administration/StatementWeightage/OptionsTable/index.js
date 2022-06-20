@@ -1,6 +1,6 @@
 import {useMemo, useRef, useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {MdRefresh} from 'react-icons/md';
+import {CgUndo} from 'react-icons/cg';
 
 import WeightageInput from 'components/WeightageInput';
 import Table from '@ra/components/Table';
@@ -61,7 +61,7 @@ const DataItem = props => {
     }
     if(column.Header === 'Undo' && isWeightageChanged) {
         return (
-            <MdRefresh className={styles.undoIcon} size={18} onClick={handleUndoClick} />
+            <CgUndo className={styles.undoIcon} size={20} onClick={handleUndoClick} />
         );
     }
     return item?.[column.accessor] ?? ' ';

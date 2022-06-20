@@ -84,7 +84,7 @@ const StatementAccordion = ({item, isExpanded}) => {
                                     )}>
                                     {item.severity} <Localize>concern</Localize>
                                 </span>
-                                <div className={styles.feedbackControl}>
+                                <div className={cs(styles.feedbackControl, 'no-print')}>
                                     <FiAlertTriangle className={styles.feedbackIcon} />
                                     <Localize>Conflicting score?</Localize>
                                     <span className={styles.link} onClick={handleShowFeedbackModal}>

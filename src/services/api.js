@@ -495,6 +495,10 @@ class Api {
     getInsights = query => {
         return this.get('/survey-insight/', {query});
     }
+
+    getSurveyAnswers = query => {
+        return this.get('/survey-answer/', {query});
+    }
 }
 
 const ApiService = new Api();
