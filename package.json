@@ -6,7 +6,7 @@
         "d3": "^6.7.0",
         "html-react-parser": "^1.4.9",
         "postcss": "^8.4.14",
-        "react": "^17.0.2",
+        "react": "^18.2.0",
         "react-dom": "^17.0.2",
         "react-focus-lock": "^2.8.1",
         "react-ga": "^3.3.0",
