@@ -9,7 +9,7 @@ import {setAdvancedFeedbacks} from 'store/actions/survey';
 import styles from './styles.scss';
 
 const FeedbackInput = props => {
-    const {name: inputName, item} = props;
+    const {name: inputName, item, isBaselineFeedback} = props;
 
     const dispatch = useDispatch();
 
@@ -28,16 +28,24 @@ const FeedbackInput = props => {
             return dispatch(setAdvancedFeedbacks(newFeedbacks));
         }
         if(target.name==='comment') {
-            return dispatch(setAdvancedFeedbacks([...newFeedbacks, {
+            const newFeedbackObject = {
                 surveyResult: item.result.id,
                 comment: target.value,
-            }]));
+            };
+            if(isBaselineFeedback) {
+                newFeedbackObject.actualScore = item.result.score;
+            }
+            return dispatch(setAdvancedFeedbacks([...newFeedbacks, newFeedbackObject]));
         }
-        dispatch(setAdvancedFeedbacks([...newFeedbacks, {
+        const newFeedbackObject = {
             surveyResult: item.result.id,
             expectedScore: target.value,
-        }]));
-    }, [advancedFeedbacks, item, dispatch]);
+        };
+        if(isBaselineFeedback) {
+            newFeedbackObject.actualScore = item.result.score;
+        }
+        dispatch(setAdvancedFeedbacks([...newFeedbacks, newFeedbackObject]));
+    }, [advancedFeedbacks, item, dispatch, isBaselineFeedback]);
 
     if(inputName==='comment') {
         return (
@@ -108,7 +116,7 @@ const DataItem = props => {
 
 
 const FeedbackTopicTable = props => {
-    const {topicStatementResults, activeModule} = props;
+    const {topicStatementResults, activeModule, isBaselineFeedback} = props;
 
     const columns = useMemo(() => ([
         {
@@ -130,8 +138,8 @@ const FeedbackTopicTable = props => {
     ]), []);
 
     const renderDataItem = useCallback(tableProps => (
-        <DataItem {...tableProps} activeModule={activeModule} />
-    ), [activeModule]);
+        <DataItem {...tableProps} activeModule={activeModule} isBaselineFeedback={isBaselineFeedback} />
+    ), [activeModule, isBaselineFeedback]);
 
     return (
         <div className={styles.feedbackTableContainer}>

@@ -25,8 +25,7 @@ const WeightageInput = forwardRef((props, ref) => {
     const handleChangeWeightage = useCallback(e => {
         const {value} = e.target;
         if (isOption) {
-            const updatedOption = {option: item.id, weightage: value || null};
-
+            const updatedOption = {option: item.id, weightage: value ? Number(value) : null};
             const newChangedOptions = [...changedOptions];
             const optIdx = newChangedOptions.findIndex(opt => opt.option === item.id);
             if (optIdx > -1) {
@@ -35,8 +34,7 @@ const WeightageInput = forwardRef((props, ref) => {
             }
             return dispatch(setChangedOptions([...newChangedOptions, updatedOption]));
         }
-        const updatedQuestion = {question: item.id, weightage: value || null};
-
+        const updatedQuestion = {question: item.id, weightage: value ? Number(value) : null};
         const newChangedQuestions = [...changedQuestions];
         const quesIdx = newChangedQuestions.findIndex(ques => ques.question === item.id);
         if (quesIdx > -1) {
@@ -51,6 +49,12 @@ const WeightageInput = forwardRef((props, ref) => {
             ref.current.value = item[column.accessor] ?? '';
         }
     }, [ref, item, column]);
+
+    const handleFocus = useCallback(() => {
+        if(isOption) {
+            ref.current.select();
+        }
+    }, [ref, isOption]);
 
     return (
         <div className={styles.weightageItem}>
@@ -68,10 +72,11 @@ const WeightageInput = forwardRef((props, ref) => {
                 key={isOption ? `optionWght-${item.id}` : `questionWght-${item.id}`}
                 className={cs(styles.weightageInput, {
                     [styles.weightageInputActive]: isActive,
-                    [styles.weightageInputEmpty]: !item[column.accessor],
+                    [styles.weightageInputEmpty]: item[column.accessor] === null,
                 })}
                 defaultValue={item[column.accessor] ?? ''}
                 onChange={handleChangeWeightage}
+                onFocus={handleFocus}
             />
         </div>
     );

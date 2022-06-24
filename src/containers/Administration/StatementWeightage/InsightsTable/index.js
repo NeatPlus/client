@@ -6,6 +6,7 @@ import {Localize} from '@ra/components/I18n';
 import cs from '@ra/cs';
 import {_} from 'services/i18n';
 import {getSeverityFromScore} from 'utils/severity';
+import useLoadBaselineSurveyAnswers from 'hooks/useLoadBaselineSurveyAnswers';
 
 import styles from './styles.scss';
 
@@ -39,6 +40,25 @@ const DataItem = props => {
     );
 };
 
+const InsightRow = (props) => {
+    const {columns, ...otherProps} = props;
+
+    useLoadBaselineSurveyAnswers(props.item.surveyId);
+
+    return (
+        <tr className={styles.bodyRow}>
+            {columns.map(col => {
+                return (
+                    <td key={col.accessor}>
+                        <DataItem column={col} {...otherProps} />
+                    </td>
+                );
+            })}
+        </tr>
+    );
+};
+
+
 const OptionsTable = props => {
     const {feedbackData, loading, sumOfSquare, standardDeviation} = props;
 
@@ -70,7 +90,7 @@ const OptionsTable = props => {
                 data={feedbackData}
                 columns={columns}
                 maxRows={5}
-                renderDataItem={DataItem}
+                rowRenderer={InsightRow}
                 headerClassName={styles.tableHeader}
                 headerRowClassName={styles.headerRow}
                 bodyClassName={styles.tableBody}

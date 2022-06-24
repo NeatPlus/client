@@ -4,7 +4,7 @@ name: Gitleaks
 on:
   push:
   pull_request:
-    branches: 
+    branches:
       - develop
 
 
@@ -16,5 +16,4 @@ jobs:
         with:
           fetch-depth: '0'
       - name: Gitleaks Action
-        uses: zricethezav/gitleaks-action@master
-
+        uses: zricethezav/gitleaks-action@v1.6.0

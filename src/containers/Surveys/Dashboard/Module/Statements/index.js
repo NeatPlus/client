@@ -114,7 +114,7 @@ const StatementsContent = ({
             <div className={styles.sectionHeader}>
                 <h3 className={styles.title}>{topic.title}</h3>
                 {index === 0 && (
-                    <div className={styles.headerButtons}>
+                    <div className={cs(styles.headerButtons, 'no-print')}>
                         <TakeSurveyModal 
                             isVisible={showQuestionnaire} 
                             editable={false}

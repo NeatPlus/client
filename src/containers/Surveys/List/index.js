@@ -77,7 +77,6 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
         setShowDeleteModal(false);
     }, []);
 
-
     const handleShowSurveyModal = useCallback(() => {
         dispatch(questionActions.setAnswers(itemAnswers.filter(ans => {
             return questions['sens'].some(ques => ques.id === ans.question);

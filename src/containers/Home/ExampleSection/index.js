@@ -89,27 +89,17 @@ const ExampleSection = () => {
                         <div>
                             <h1 className={styles.subTitle}>
                                 <Localize>
-                                    Examples of the NEAT+ in action by
-                                    humanitarian organizations
+                                    Examples of the NEAT+ in action by humanitarian organizations
                                 </Localize>
                             </h1>
                             <p className={styles.infoDesc}>
                                 <Localize>
-                                    The NEAT+ has been successfully used and
-                                    applied by over fifteen humanitarian
-                                    organizations in over 30 field operations
-                                    worldwide. With the latest update, the Rural
-                                    NEAT+ will now be expanding into French- and
-                                    Spanish-speaking operations in 2021.
+                                    The NEAT+ has been successfully used and applied by over fifteen humanitarian organizations in over 30 field operations worldwide. With the latest update, the Rural NEAT+ will now be expanding into French- and Spanish-speaking operations in 2021.
                                 </Localize>
                             </p>
                             <p className={styles.infoDesc}>
                                 <Localize>
-                                    See examples and findings of previous NEAT+
-                                    pilots and environmental scoping missions.
-                                    If you have a report to submit, please
-                                    contact the UNEP/OCHA Joint Environment Unit
-                                    (JEU) (ochaunep@un.org).
+                                    See examples and findings of previous NEAT+ pilots and environmental scoping missions. If you have a report to submit, please contact the UNEP/OCHA Joint Environment Unit (JEU) (ochaunep@un.org).
                                 </Localize>
                             </p>
                         </div>

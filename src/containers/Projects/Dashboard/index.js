@@ -93,7 +93,7 @@ const ProjectDashboard = withNoSurvey(() => {
             <Tabs 
                 activeTab={location.pathname.includes('surveys') ? 'surveys' : 'summary'}
                 secondary 
-                className={styles.tabs} 
+                className={styles.tabs}
                 headerClassName={styles.tabsHeader}
                 onChange={handleTabChange}
             >
@@ -107,7 +107,7 @@ const ProjectDashboard = withNoSurvey(() => {
                                     <h4 className={styles.concernsTitle}><Localize>Top concerns topics</Localize></h4>
                                     <div className={styles.concernsTable}>
                                         <ConcernsTable 
-                                            concerns={topConcerns} 
+                                            concerns={topConcerns}
                                         />
                                     </div>
                                     <div className={styles.concernsChart}>

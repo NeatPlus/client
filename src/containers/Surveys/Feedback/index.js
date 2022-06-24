@@ -26,7 +26,7 @@ import styles from './styles.scss';
 
 const keyExtractor = item => item.id;
 
-const TopicItem  = ({item, activeModule}) => {
+const TopicItem  = ({item, activeModule, isBaselineFeedback}) => {
     const {statements} = useSelector(state => state.statement);
     const {activeSurvey} = useSelector(state => state.survey);
 
@@ -50,7 +50,11 @@ const TopicItem  = ({item, activeModule}) => {
                 />
                 <span className={styles.topicTitle}>{item.title}</span>
             </div>
-            <FeedbackTopicTable topicStatementResults={topicStatementResults} activeModule={activeModule} />
+            <FeedbackTopicTable
+                topicStatementResults={topicStatementResults}
+                activeModule={activeModule}
+                isBaselineFeedback={isBaselineFeedback}
+            />
         </div>
     );
 };
@@ -103,8 +107,8 @@ const SurveyFeedback = props => {
     }, [submitFeedbacks, advancedFeedbacks, dispatch, isBaselineFeedback, submitBaselineFeedbacks]);
 
     const renderTopicItem = useCallback(listProps => (
-        <TopicItem {...listProps} activeModule={activeModule} />
-    ), [activeModule]);
+        <TopicItem {...listProps} activeModule={activeModule} isBaselineFeedback={isBaselineFeedback} />
+    ), [activeModule, isBaselineFeedback]);
 
     return (
         <div className={styles.container}>
