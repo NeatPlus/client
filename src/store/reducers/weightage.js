@@ -4,6 +4,7 @@ const initialState = {
     status: 'idle',
     questionStatements: [],
     optionStatements: [],
+    statementFunctions: [],
 };
 
 const weightageReducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const weightageReducer = (state = initialState, action) => {
         return {...state, questionStatements: action.questionStatements};
     case actions.SET_OPTION_STATEMENTS:
         return {...state, optionStatements: action.optionStatements};
+    case actions.SET_STATEMENT_FUNCTIONS:
+        return {...state, statementFunctions: action.statementFunctions};
     default:
         return state;
     }

@@ -307,12 +307,14 @@ class Api {
     async getSurveyWeightages() {
         dispatch(weightageActions.setStatus('loading'));
         try {
-            const [questionStatements, optionStatements] = await Promise.all([
+            const [questionStatements, optionStatements, statementFunctions] = await Promise.all([
                 this.get('/question-statement/?limit=-1'), 
-                this.get('/option-statement/?limit=-1')
+                this.get('/option-statement/?limit=-1'),
+                this.get('/statement-formula/?limit=-1&is_active=true'),
             ]);
             dispatch(weightageActions.setQuestionStatements(questionStatements?.results || []));
             dispatch(weightageActions.setOptionStatements(optionStatements?.results || []));
+            dispatch(weightageActions.setStatementFunctions(statementFunctions?.results || []));
             dispatch(weightageActions.setStatus('complete'));
         } catch(error) {
             dispatch(weightageActions.setStatus('failed'));
@@ -498,6 +500,10 @@ class Api {
 
     getSurveyAnswers = query => {
         return this.get('/survey-answer/', {query});
+    }
+
+    getStatementFormula = query => {
+        return this.get('/statement-formula/', {query});
     }
 }
 

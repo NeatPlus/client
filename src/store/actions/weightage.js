@@ -1,6 +1,7 @@
 export const SET_STATUS = 'SET_STATUS';
 export const SET_QUESTION_STATEMENTS = 'SET_QUESTION_STATEMENTS';
 export const SET_OPTION_STATEMENTS = 'SET_OPTION_STATEMENTS';
+export const SET_STATEMENT_FUNCTIONS = 'SET_STATEMENT_FUNCTIONS';
 
 export function setStatus(status) {
     return {type: SET_STATUS, status};
@@ -12,4 +13,8 @@ export function setQuestionStatements(questionStatements) {
 
 export function setOptionStatements(optionStatements) {
     return {type: SET_OPTION_STATEMENTS, optionStatements};
+}
+
+export function setStatementFunctions(statementFunctions) {
+    return {type: SET_STATEMENT_FUNCTIONS, statementFunctions};
 }

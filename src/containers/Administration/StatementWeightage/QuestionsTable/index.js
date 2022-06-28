@@ -91,10 +91,11 @@ const QuestionRow = (props) => {
 
     return (
         <tr 
+            key={item.id}
             className={cs(styles.row, {[styles.rowActive]: isActive})}
             onClick={handleQuestionClick}
         >
-            {columns.map((col, idx)=> {
+            {columns.map((col, idx) => {
                 return (
                     <td key={idx}>
                         <DataItem column={col} isActive={isActive} {...otherProps} />

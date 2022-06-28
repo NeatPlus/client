@@ -56,6 +56,10 @@ const WeightageInput = forwardRef((props, ref) => {
         }
     }, [ref, isOption]);
 
+    const handleWheel = useCallback(e => {
+        e.target.blur();
+    }, []);
+
     return (
         <div className={styles.weightageItem}>
             {!item[column.accessor] && (
@@ -77,6 +81,7 @@ const WeightageInput = forwardRef((props, ref) => {
                 defaultValue={item[column.accessor] ?? ''}
                 onChange={handleChangeWeightage}
                 onFocus={handleFocus}
+                onWheel={handleWheel}
             />
         </div>
     );

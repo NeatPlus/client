@@ -3,6 +3,8 @@ import {useLocation, useParams, useHistory, Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {BiChevronLeft, BiPlusCircle} from 'react-icons/bi';
 import {BsChevronRight} from 'react-icons/bs';
+import {RiTerminalBoxLine} from 'react-icons/ri';
+import CodeEditor from '@uiw/react-textarea-code-editor';
 
 import Button from 'components/Button';
 import Tabs, {Tab} from 'components/Tabs';
@@ -25,6 +27,37 @@ import InsightsTable from './InsightsTable';
 import FeedbackList from './FeedbackList';
 import styles from './styles.scss';
 
+const initialFunctionCode = `/**
+ * Returns the calculated score of
+ * a statement based on related questions,
+ * and answers.
+ * params - {questions}
+ * Each question consists of:
+     {code} - Code of the question.
+     {title} - Title of question.
+     {weightage} - Weight assigned to question.
+     {answerType} - AnswerType of the question.
+       - 'single_option' or 'multiple_option'
+     {options} - All options of the question.
+ * Each option consists of:
+     {code} - Code of the option.
+     {title} - Title of the option.
+     {weightage} - Weight assigned to option.
+     {isSelected} - Whether or not the option
+       has been selected as the answer.
+ */
+function calculateScore(questions) {
+  let score=0;
+
+  // Place your code here
+
+  return score;
+}
+
+// DO NOT CHANGE OR REMOVE THE FOLLOWING LINE
+return calculateScore(questions);
+`;
+
 const StatementWeightage = props => {
     const {activeModule, activeContext} = props;
 
@@ -38,6 +71,24 @@ const StatementWeightage = props => {
     const [{result, loading: loadingBaselineFeedbacks}, loadFeedbacks] = usePromise(Api.getFeedbacks);
 
     const [{loading: baselineSubmitting}, submitBaselineFeedbacks] = usePromise(Api.addBaselineFeedback);
+    
+    const [runningFunctionCode, setRunningFunctionCode] = useState(null);
+    const [functionCode, setFunctionCode] = useState(initialFunctionCode);
+    const handleFunctionChange = useCallback(e => {
+        setFunctionCode(e.target.value);
+    }, []);
+
+    const [showFunctionInput, setShowFunctionInput] = useState(false);
+    const handleFunctionToggle = useCallback(({value}) => {
+        setShowFunctionInput(value);
+        if(!value) {
+            setRunningFunctionCode(null);
+        }
+    }, []);
+
+    const handleRunFunctionCode = useCallback(() => {
+        setRunningFunctionCode(functionCode);
+    }, [functionCode]);
 
     const [{
         loading: loadingQuestionStatements,
@@ -47,6 +98,21 @@ const StatementWeightage = props => {
         loading: loadingOptionStatements,
         result: optionStatementsResult,
     }, loadOptionStatements] = usePromise(Api.getOptionStatements);
+    const [{
+        result: statementFunctions,
+    }, loadStatementFunctions] = usePromise(Api.getStatementFormula);
+
+    useEffect(() => {
+        if(statementFunctions?.results?.length > 0) {
+            const functionFormulaObj = statementFunctions.results[0];
+            if(functionFormulaObj) {
+                const statementFunctionCode = functionFormulaObj.formula;
+                setRunningFunctionCode(statementFunctionCode);
+                setFunctionCode(statementFunctionCode);
+                setShowFunctionInput(true);
+            }
+        }
+    }, [statementFunctions, activeModule]);
 
     const loadWeightages = useCallback(() => {
         loadQuestionStatements({
@@ -59,11 +125,19 @@ const StatementWeightage = props => {
             statement: statementId,
             limit: -1,
         });
-    }, [statementId, loadOptionStatements, loadQuestionStatements]);
+        loadStatementFunctions({
+            version: 'latest',
+            statement: statementId,
+            limit: -1,
+            module: activeModule?.id,
+        });
+    }, [statementId, loadOptionStatements, loadQuestionStatements, loadStatementFunctions, activeModule]);
 
     useEffect(() => {
-        loadWeightages();
-    }, [loadWeightages]);
+        if(activeModule) {
+            loadWeightages();
+        }
+    }, [loadWeightages, activeModule]);
 
     const questionStatements = useMemo(() => {
         return questionStatementsResult?.results ?? [];
@@ -77,7 +151,7 @@ const StatementWeightage = props => {
 
     const newQuestionStatements = useMemo(() => {
         if(changedQuestions.length < 1) {
-            return questionStatements;
+            return questionStatements?.map(qst => ({question: qst.question, weightage: qst.weightage})) || [];
         }
         const unchangedQuestionStatements = questionStatements.reduce((acc, cur) => {
             if(changedQuestions.some(chQues => chQues.question === cur.question)) {
@@ -90,7 +164,7 @@ const StatementWeightage = props => {
 
     const newOptionStatements = useMemo(() => {
         if(changedOptions.length < 1) {
-            return optionStatements;
+            return optionStatements?.map(optst => ({option: optst.option, weightage: optst.weightage})) || [];
         }
         const unchangedOptionStatements = optionStatements.reduce((acc, cur) => {
             if(changedOptions.some(chOpt => chOpt.option === cur.option)) {
@@ -100,6 +174,14 @@ const StatementWeightage = props => {
         }, []);
         return [...changedOptions, ...unchangedOptionStatements];
     }, [optionStatements, changedOptions]);
+
+    const hasChangedFunction = useMemo(() => {
+        const currentStatementObj = statementFunctions?.results?.[0];
+        if(!currentStatementObj) {
+            return !!runningFunctionCode;
+        }
+        return currentStatementObj.formula !== runningFunctionCode;
+    }, [runningFunctionCode, statementFunctions]);
 
     useEffect(() => {
         if(statementId && activeModule?.id && activeContext?.id) {
@@ -112,35 +194,40 @@ const StatementWeightage = props => {
         }
     }, [statementId, activeModule, activeContext, loadFeedbacks]);
 
-    const baselineFeedbackData = useMemo(() => {
-        return result?.results?.map(baselineFeedback => {
-            const baselineAnswers = baselineSurveyAnswers.find(ans => ans.survey === baselineFeedback.surveyId)?.surveyAnswers || [];
-            let actualScore = baselineFeedback.actualScore;
-            if(questions?.[activeModule.code]?.length > 0) {
-                actualScore = calculateStatementScore({
-                    surveyAnswers: baselineAnswers,
-                    relevantQuestionStatements: newQuestionStatements,
-                    relevantOptionStatements: newOptionStatements,
-                    questions,
-                    options,
-                    moduleCode: activeModule.code,
-                });
-            }
-            return {
-                ...baselineFeedback,
-                actualScore: Number(actualScore)?.toFixed(2) || '-',
-                expectedScore: Number(baselineFeedback.expectedScore)?.toFixed(2) || '-',
-            };
-        }) || [];
-    }, [
-        result,
-        activeModule,
-        baselineSurveyAnswers,
-        newOptionStatements,
-        newQuestionStatements,
-        options,
-        questions,
-    ]);
+    const [baselineFeedbackData, setBaselineFeedbackData] = useState([]);
+    const loadBaselineFeedbackData = useCallback(async () => {
+        try {
+            const data = await Promise.all(result?.results?.map(async baselineFeedback => {
+                const baselineAnswers = baselineSurveyAnswers.find(ans => ans.survey === baselineFeedback.surveyId)?.surveyAnswers || [];
+                let actualScore = baselineFeedback.actualScore;
+                if(questions?.[activeModule.code]?.length > 0) {
+                    actualScore = await calculateStatementScore({
+                        surveyAnswers: baselineAnswers,
+                        relevantQuestionStatements: newQuestionStatements,
+                        relevantOptionStatements: newOptionStatements,
+                        questions,
+                        options,
+                        moduleCode: activeModule.code,
+                        customFunction: runningFunctionCode,
+                    });
+                }
+                return {
+                    ...baselineFeedback,
+                    actualScore: Number(actualScore)?.toFixed(2) || '-',
+                    expectedScore: Number(baselineFeedback.expectedScore)?.toFixed(2) || '-',
+                };
+            }) || []);
+            setBaselineFeedbackData(data);
+        } catch(err) {
+            console.log(err);
+        }
+    }, [activeModule, baselineSurveyAnswers, runningFunctionCode, result, newOptionStatements, newQuestionStatements, options, questions]);
+
+    useEffect(() => {
+        if(options.length > 0) {
+            loadBaselineFeedbackData();
+        }
+    }, [loadBaselineFeedbackData, options]);
 
     const {sumOfSquare = '-', standardDeviation = '-'} = useMemo(() => {
         if(baselineFeedbackData?.length > 0) {
@@ -203,26 +290,29 @@ const StatementWeightage = props => {
         setActiveQuestion(question);
     }, []);
 
-    const [showFunctionInput, setShowFunctionInput] = useState(false);
-    const handleFunctionToggle = useCallback(({value}) => {
-        setShowFunctionInput(value);
-    }, []);
-
     const handleSaveClick = useCallback(async () => {
         try {
-            await uploadWeightages(statementId, {
-                version: 'initial',
-                questions: newQuestionStatements,
-                options: newOptionStatements,
-            });
-            Toast.show(_('Weightages have been successfully updated!'), Toast.SUCCESS);
+            let formData = {module: activeModule?.id, questionGroup: null};
+            const hasChangedWeightage = changedQuestions?.length > 0 || changedOptions?.length > 0;
+            if(hasChangedFunction) {
+                formData.formula = runningFunctionCode;
+                formData.questions = newQuestionStatements;
+                formData.options = newOptionStatements;
+            } else if(hasChangedWeightage) {
+                formData.questions = newQuestionStatements;
+                formData.options = newOptionStatements;
+            } else {
+                return Toast.show(_('No changes to save!'), Toast.DANGER);
+            }
+            await uploadWeightages(statementId, formData);
+            Toast.show(_('Your changes have been successfully updated!'), Toast.SUCCESS);
             dispatch(resetWeightages());
             const newFeedbacks = baselineFeedbackData?.map(feedback => ({
                 actualScore: feedback.actualScore,
                 comment: feedback.comment,
                 expectedScore: feedback.expectedScore,
                 surveyResult: feedback.surveyResult,
-            }));
+            })) || [];
             await submitBaselineFeedbacks(newFeedbacks);
             loadWeightages();
         } catch(error) {
@@ -230,6 +320,8 @@ const StatementWeightage = props => {
             console.log(error);
         }
     }, [
+        hasChangedFunction,
+        runningFunctionCode,
         newQuestionStatements,
         newOptionStatements,
         uploadWeightages,
@@ -238,6 +330,9 @@ const StatementWeightage = props => {
         loadWeightages,
         baselineFeedbackData,
         submitBaselineFeedbacks,
+        activeModule,
+        changedQuestions,
+        changedOptions,
     ]);
 
     const renderHeaderControls = useCallback(() => {
@@ -259,7 +354,7 @@ const StatementWeightage = props => {
                     >
                         <BiChevronLeft 
                             size={22} 
-                            className={styles.backIcon} 
+                            className={styles.backIcon}
                         />
                     </Link>
                     <div className={styles.titleContainer}>
@@ -280,7 +375,6 @@ const StatementWeightage = props => {
                         className={styles.headerButton}
                         onClick={handleSaveClick}
                         loading={loading || baselineSubmitting}
-                        disabled={changedQuestions?.length === 0 && changedOptions?.length===0}
                     >
                         <Localize>Save</Localize>
                     </Button>
@@ -324,11 +418,43 @@ const StatementWeightage = props => {
                                         </p>
                                     )}
                                 </div>
-                                <ToggleSwitch size={48} onChange={handleFunctionToggle} />
+                                <ToggleSwitch value={showFunctionInput} size={48} onChange={handleFunctionToggle} />
                             </div>
                             {showFunctionInput ? (
                                 <div className={styles.functionInputContainer}>
-                                    <textarea className={styles.functionInput} />
+                                    <div className={cs(styles.runButtonContainer, {[styles.runButtonContainerWarning]: runningFunctionCode !== functionCode})}>
+                                        <RiTerminalBoxLine className={styles.terminalIcon} size={18} />
+                                        {runningFunctionCode !== functionCode && (
+                                            <span className={styles.warningText}>
+                                                <Localize>
+                                                    Unapplied changes!
+                                                </Localize>
+                                            </span>
+                                        )}
+                                        <Button
+                                            onClick={handleRunFunctionCode}
+                                            className={cs(styles.runButton, {
+                                                [styles.runButtonWarning]: runningFunctionCode !== functionCode,
+                                                [styles.runButtonDisabled]: runningFunctionCode === functionCode,
+                                            })}
+                                        >
+                                            <Localize>APPLY</Localize>
+                                        </Button>
+                                    </div>
+                                    <CodeEditor
+                                        value={functionCode}
+                                        onChange={handleFunctionChange}
+                                        prefixCls="light-mode"
+                                        language="js"
+                                        className={styles.functionInput}
+                                        minHeight={360}
+                                        padding={20}
+                                        style={{
+                                            backgroundColor: '#eff3f5',
+                                            fontFamily: 'monospace',
+                                            fontSize: 14,
+                                        }}
+                                    />
                                 </div>
                             ) : (
                                 <div className={styles.insightsGroup}>
@@ -366,7 +492,11 @@ const StatementWeightage = props => {
                                     <Localize>See all feedbacks</Localize>
                                 </p>
                             </div>
-                            <FeedbackList statementId={activeStatement?.id} moduleId={activeModule?.id} contextId={activeContext?.id} />
+                            <FeedbackList
+                                statementId={activeStatement?.id}
+                                moduleId={activeModule?.id}
+                                contextId={activeContext?.id}
+                            />
                         </div>
                     </div>
                 </div>

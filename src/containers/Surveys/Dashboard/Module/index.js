@@ -60,7 +60,7 @@ const UnderDevelopment = props => {
 };
 
 const Module = props => {
-    const {code} = props;
+    const {code, publicMode} = props;
 
     const [expanded, setExpanded] = useState(false);
     
@@ -147,10 +147,11 @@ const Module = props => {
                     topic={topic}
                     index={idx}
                     moduleCode={code}
+                    publicMode={publicMode}
                 />
             </Tab>
         );
-    }, [getStatementData, toggleExpand, expanded, code]);
+    }, [getStatementData, toggleExpand, expanded, code, publicMode]);
 
     if(!topics?.length) {
         return <NeatLoader />;
