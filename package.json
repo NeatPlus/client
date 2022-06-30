@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@uiw/react-textarea-code-editor": "^2.0.2",
         "d3": "^6.7.0",
         "html-react-parser": "^2.0.0",
         "postcss": "^8.4.14",
@@ -78,7 +79,11 @@
             "src/vendor"
         ],
         "moduleNameMapper": {
-            "@ra/(.*)": "<rootDir>/src/vendor/react-arsenal/$1"
-        }
+            "@ra/(.*)": "<rootDir>/src/vendor/react-arsenal/$1",
+            "@uiw/react-textarea-code-editor": "<rootDir>/node_modules/@uiw/react-textarea-code-editor/dist/editor.js"
+        },
+        "transformIgnorePatterns": [
+            "<rootDir>/node_modules/rehype"
+        ]
     }
 }

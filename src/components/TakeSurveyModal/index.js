@@ -314,7 +314,7 @@ const TakeSurveyModal = (props) => {
     const handleValidate = useCallback(async () => {
         setError(null);
         try {
-            const results = calculateSurveyResults(answers, moduleCode);
+            const results = await calculateSurveyResults(answers, moduleCode);
             const project = draftProjectId;
             const submissionAnswers = answers.map(ans => {
                 if(ans.formattedAnswer) {

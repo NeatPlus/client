@@ -43,6 +43,7 @@ const StatementsContent = ({
     toggleExpand,
     expanded,
     moduleCode,
+    publicMode,
 }) => {
     const dispatch = useDispatch();
     const {questions} = useSelector(state => state.question);
@@ -134,29 +135,37 @@ const StatementsContent = ({
                             <FiUpload />
                             <span className={styles.exportsTitle}><Localize>Export PDF</Localize></span>
                         </div>
-                        <Dropdown
-                            labelContainerClassName={styles.optionsLabel}
-                            renderLabel={renderOptionsLabel}
-                            align='right'
-                        >
-                            <div className={styles.dropdownOptions}>
-                                <div className={styles.optionItem} onClick={handleFeedbacksClick}>
-                                    <BiMessageDots size={20} className={styles.optionIcon} />
-                                    <span className={styles.optionText}>Feedbacks</span>
-                                </div>
-                                {user.permissions?.some(per => per === 'summary.add_baseline_feedback') && (
-                                    <div className={styles.optionItem} onClick={handleBaselineFeedbacksClick}>
-                                        <BiMessageAltAdd size={32} className={styles.optionIcon} />
-                                        <span className={styles.optionText}>Add Baseline Feedbacks</span>
+                        {!publicMode && (
+                            <Dropdown
+                                labelContainerClassName={styles.optionsLabel}
+                                renderLabel={renderOptionsLabel}
+                                align='right'
+                            >
+                                <div className={styles.dropdownOptions}>
+                                    <div className={styles.optionItem} onClick={handleFeedbacksClick}>
+                                        <BiMessageDots size={20} className={styles.optionIcon} />
+                                        <span className={styles.optionText}>
+                                            <Localize>Feedbacks</Localize>
+                                        </span>
                                     </div>
-                                )}
-                                <div className={styles.optionItem}>
-                                    <BsQuestionCircle size={18} className={styles.optionIcon} />
-                                    <span className={styles.optionText}>Help</span>
-                                </div>
+                                    {user.permissions?.some(per => per === 'summary.add_baseline_feedback') && (
+                                        <div className={styles.optionItem} onClick={handleBaselineFeedbacksClick}>
+                                            <BiMessageAltAdd size={32} className={styles.optionIcon} />
+                                            <span className={styles.optionText}>
+                                                <Localize>Add Baseline Feedbacks</Localize>
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className={styles.optionItem}>
+                                        <BsQuestionCircle size={18} className={styles.optionIcon} />
+                                        <span className={styles.optionText}>
+                                            <Localize>Help</Localize>
+                                        </span>
+                                    </div>
 
-                            </div>
-                        </Dropdown>
+                                </div>
+                            </Dropdown>
+                        )}
                     </div>
                 )}
             </div>

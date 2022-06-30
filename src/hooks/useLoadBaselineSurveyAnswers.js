@@ -17,7 +17,7 @@ const useLoadBaselineSurveyAnswers = (surveyId) => {
 
     const handleLoadData = useCallback(async () => {
         try {
-            const surveyAnswersResponse = await loadBaselineSurveyAnswers({survey: surveyId});
+            const surveyAnswersResponse = await loadBaselineSurveyAnswers({survey: surveyId, limit: -1});
             if(surveyAnswersResponse?.results?.length > 0) {
                 dispatch(addBaselineSurveyAnswers(surveyId, surveyAnswersResponse.results));
             }

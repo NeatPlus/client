@@ -42,7 +42,7 @@ const SurveyTabs = props => {
 
         return (
             <Tab key={module.id} label={label} title={module.title}>
-                <Module code={module.code} />
+                <Module code={module.code} publicMode={publicMode} />
             </Tab>
         );
     }, [publicMode, availablePublicModules]);
