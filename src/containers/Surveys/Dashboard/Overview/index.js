@@ -4,14 +4,21 @@ import {IoIosArrowRoundForward} from 'react-icons/io';
 
 import Map from 'components/Map';
 import SummaryModal from 'components/SummaryModal';
+import ImageViewerModal from 'components/ImageViewerModal';
+
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
+import Image from '@ra/components/Image';
+
 import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import {getSeverityCounts} from 'utils/severity';
 
 import styles from './styles.scss';
+
+const keyExtractor = item => item;
+const severityExtractor = item => item.severity;
 
 const getLocaleDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -51,6 +58,19 @@ const ConcernItem = ({item, onClick}) => {
     );
 };
 
+const ImageItem = ({item, index, onClick}) => {
+    const handleClick = useCallback(() => onClick?.(index), [index, onClick]);
+
+    return (
+        <Image
+            className={styles.mediaItem}
+            src={item}
+            alt={`Survey Media ${index + 1}`}
+            onClick={handleClick}
+        />
+    );
+};
+
 const Overview = () => {
     const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
@@ -67,8 +87,19 @@ const Overview = () => {
         setShowSummaryModal(false);
     }, []);
 
-    const getSurveyAnswerFromCode = useCallback(code => {
-        const answer = activeSurvey?.answers?.find(ans => ans.question.code === code)?.answer;
+    const [initialImageIndex, setInitialImageIndex] = useState(0);
+    const [showImageViewer, setShowImageViewer] = useState(false);
+
+    const handleImageClick = useCallback(index => {
+        if(index > -1) {
+            setInitialImageIndex(index);
+        }
+        setShowImageViewer(true);
+    }, []);
+    const handleCloseImageViewer = useCallback(() => setShowImageViewer(false), []);
+
+    const getSurveyAnswerFromCode = useCallback((code, formatted) => {
+        const answer = activeSurvey?.answers?.find(ans => ans.question.code === code)?.[formatted ? 'formattedAnswer' : 'answer'];
         if(answer) {
             return answer;
         }
@@ -82,9 +113,30 @@ const Overview = () => {
         }) || []);
     }, [activeSurvey, modules]);
 
+    const [mediaData, moreMediaCount, allMedia] = useMemo(() => {
+        const images = getSurveyAnswerFromCode('media', true);
+        if(images?.length > 5) {
+            return [images.slice(0, 5), images.length - 5, images];
+        }
+        return [images, 0];
+    }, [getSurveyAnswerFromCode]);
+
     const renderConcernItem = useCallback(listProps => (
         <ConcernItem {...listProps} onClick={handleShowSummary} />
     ), [handleShowSummary]);
+
+    const renderMedia = useCallback(listProps => {
+        return (
+            <ImageItem {...listProps} onClick={handleImageClick} />
+        );
+    }, [handleImageClick]);
+
+    const MediaCount = useMemo(() => {
+        if(moreMediaCount > 0) {
+            return <span className={styles.moreMediaCount} onClick={handleImageClick}>+{moreMediaCount}</span>;
+        }
+        return null;
+    }, [moreMediaCount, handleImageClick]);
 
     return (
         <div className={styles.container}>
@@ -115,16 +167,37 @@ const Overview = () => {
                             />
                             <InfoItem 
                                 title={_('Programme Scale')}
-                                value={getSurveyAnswerFromCode('scale')} 
+                                value={getSurveyAnswerFromCode('scale')}
                             />
                             <InfoItem 
                                 title={_('Created on')}
-                                value={getLocaleDate(activeSurvey?.createdAt)} 
+                                value={getLocaleDate(activeSurvey?.createdAt)}
                             />
                             <InfoItem 
                                 title={_('Modified on')}
                                 value={getLocaleDate(activeSurvey?.modifiedAt)}
                             />
+                            {mediaData?.length > 0 && (
+                                <>
+                                    <p className={cs(styles.infoTitle, styles.infoTitleMedia)}>
+                                        <Localize>Media</Localize>
+                                    </p>
+                                    <List
+                                        className={styles.mediaList}
+                                        data={mediaData}
+                                        keyExtractor={keyExtractor}
+                                        renderItem={renderMedia}
+                                        FooterComponent={MediaCount}
+                                        contentContainerClassName={styles.mediaListContainer}
+                                    />
+                                    <ImageViewerModal
+                                        images={allMedia ?? mediaData}
+                                        initialIndex={initialImageIndex}
+                                        isVisible={showImageViewer}
+                                        onClose={handleCloseImageViewer}
+                                    />
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -135,7 +208,7 @@ const Overview = () => {
                     <List 
                         className={styles.concerns}
                         data={severityCounts}
-                        keyExtractor={item => item.severity}
+                        keyExtractor={severityExtractor}
                         renderItem={renderConcernItem}
                     />
                     <h4 className={styles.statementTitle}><Localize>Location of Assessment</Localize></h4>

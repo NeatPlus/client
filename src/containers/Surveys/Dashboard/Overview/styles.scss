@@ -52,6 +52,10 @@
                     .info-title {
                         font-size: 0.8rem;
                         color: var(--color-grey);
+
+                        &__media {
+                            align-self: flex-start;
+                        }
                     }
 
                     .info-value {
@@ -60,6 +64,43 @@
                         line-height: 1.5em;
                         font-weight: 500;
                         max-width: 14.5em;
+                    }
+
+                    .media-list-container {
+                        display: flex;
+                        align-items: center;
+
+                        .media-list {
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: wrap;
+
+                            .media-item {
+                                width: 49px;
+                                height: 49px;
+                                border-radius: 4px;
+                                margin-right: 5px;
+                                transition: 0.3s ease;
+                                cursor: pointer;
+
+                                &:hover {
+                                    filter: brightness(90%);
+                                }
+                            }
+                        }
+
+                        .more-media-count {
+                            color: var(--color-primary);
+                            font-size: var(--font-size-base);
+                            font-weight: 500;
+                            margin-left: 4px;
+                            cursor: pointer;
+                            transition: 0.3s ease;
+
+                            &:hover {
+                                filter: brightness(85%);
+                            }
+                        }
                     }
                 }
             }
@@ -99,6 +140,10 @@
                     position: relative;
                     cursor: pointer;
                     transition: all 0.2s ease-out;
+
+                    @media screen and (max-width: 992px) {
+                        padding-bottom: 24px;
+                    }
 
                     @media screen and (max-width: 767px) {
                         padding: 13px 10px 4px;
@@ -155,7 +200,8 @@
                         bottom: 14px;
                         right: 10px;
 
-                        @media screen and (max-width: 767px) {
+                        @media screen and (max-width: 992px) {
+                            right: 4px;
                             bottom: 4px;
                         }
 
