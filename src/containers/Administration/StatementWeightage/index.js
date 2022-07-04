@@ -1,7 +1,10 @@
 import React, {useEffect, useMemo, useState, useCallback} from 'react';
 import {useLocation, useParams, useHistory, Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {BiChevronLeft, BiPlusCircle} from 'react-icons/bi';
+import {
+    BiChevronLeft,
+    //BiPlusCircle,
+} from 'react-icons/bi';
 import {BsChevronRight} from 'react-icons/bs';
 import {RiTerminalBoxLine} from 'react-icons/ri';
 import CodeEditor from '@uiw/react-textarea-code-editor';
@@ -72,7 +75,7 @@ const StatementWeightage = props => {
 
     const [{loading: baselineSubmitting}, submitBaselineFeedbacks] = usePromise(Api.addBaselineFeedback);
     
-    const [runningFunctionCode, setRunningFunctionCode] = useState(null);
+    const [runningFunctionCode, setRunningFunctionCode] = useState('');
     const [functionCode, setFunctionCode] = useState(initialFunctionCode);
     const handleFunctionChange = useCallback(e => {
         setFunctionCode(e.target.value);
@@ -82,7 +85,7 @@ const StatementWeightage = props => {
     const handleFunctionToggle = useCallback(({value}) => {
         setShowFunctionInput(value);
         if(!value) {
-            setRunningFunctionCode(null);
+            setRunningFunctionCode('');
         }
     }, []);
 
@@ -105,7 +108,7 @@ const StatementWeightage = props => {
     useEffect(() => {
         if(statementFunctions?.results?.length > 0) {
             const functionFormulaObj = statementFunctions.results[0];
-            if(functionFormulaObj) {
+            if(functionFormulaObj?.formula) {
                 const statementFunctionCode = functionFormulaObj.formula;
                 setRunningFunctionCode(statementFunctionCode);
                 setFunctionCode(statementFunctionCode);
@@ -336,12 +339,15 @@ const StatementWeightage = props => {
     ]);
 
     const renderHeaderControls = useCallback(() => {
+        return null;
+        /* TODO: Weightage variants
         return (
             <div className={styles.addButton}>
                 <BiPlusCircle className={styles.addIcon} />
                 <Localize>Add variant</Localize>
             </div>
         );
+        */
     }, []);
 
     return (
@@ -488,9 +494,11 @@ const StatementWeightage = props => {
                                 <h5 className={styles.bottomGroupTitle}>
                                     <Localize>User feedbacks</Localize>
                                 </h5>
-                                <p className={styles.bottomGroupLink}>
-                                    <Localize>See all feedbacks</Localize>
-                                </p>
+                                {/* TODO:- All Feedbacks page
+                                    <p className={styles.bottomGroupLink}>
+                                        <Localize>See all feedbacks</Localize>
+                                    </p>
+                                */}
                             </div>
                             <FeedbackList
                                 statementId={activeStatement?.id}

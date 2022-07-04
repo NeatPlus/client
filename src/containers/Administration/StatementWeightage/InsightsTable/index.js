@@ -89,7 +89,6 @@ const OptionsTable = props => {
                 className={styles.table}
                 data={feedbackData}
                 columns={columns}
-                maxRows={5}
                 rowRenderer={InsightRow}
                 headerClassName={styles.tableHeader}
                 headerRowClassName={styles.headerRow}

@@ -308,8 +308,8 @@ class Api {
         dispatch(weightageActions.setStatus('loading'));
         try {
             const [questionStatements, optionStatements, statementFunctions] = await Promise.all([
-                this.get('/question-statement/?limit=-1'), 
-                this.get('/option-statement/?limit=-1'),
+                this.get('/question-statement/?limit=-1&is_active=true'),
+                this.get('/option-statement/?limit=-1&is_active=true'),
                 this.get('/statement-formula/?limit=-1&is_active=true'),
             ]);
             dispatch(weightageActions.setQuestionStatements(questionStatements?.results || []));
@@ -504,6 +504,10 @@ class Api {
 
     getStatementFormula = query => {
         return this.get('/statement-formula/', {query});
+    }
+
+    activateDraftWeightages = (statementId, body) => {
+        return this.post(`/statement/${statementId}/activate_draft_version/`, body);
     }
 }
 

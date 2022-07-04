@@ -1,6 +1,3 @@
-import {BsPlus} from 'react-icons/bs';
-
-import Button from 'components/Button';
 import {Localize} from '@ra/components/I18n';
 import SelectInput from '@ra/components/Form/SelectInput';
 
@@ -46,12 +43,6 @@ const Statements = props => {
                             onChange={onModuleChange}
                         />
                     </div>
-                    <Button 
-                        className={styles.button}
-                    >
-                        <BsPlus size={24} className={styles.buttonIcon} />
-                        <Localize>Add statements</Localize>
-                    </Button>
                 </header>
                 <StatementsTable activeContext={activeContext} activeModule={activeModule} />
             </div>

@@ -41,6 +41,18 @@ export const DataItem = ({item, column, contextId, moduleId}) => {
             </div>
         );
     }
+    if(column.Header === _('Okay / Need correction')) {
+        if(item.sumOfSquare <= 0.2) {
+            return _('Okay');
+        }
+        if(item.standardDeviation <= 0.2 && item.sumOfSquare > 0.2) {
+            return _('May need correction');
+        }
+        if(item.standardDeviation > 0.2 && item.sumOfSquare > 0.2) {
+            return _('Need correction');
+        }
+        return '-';
+    }
     return item?.[column.accessor] ?? '-';
 };
 
@@ -73,7 +85,7 @@ const StatementsTable = props => {
             Header: _('Difference'),
             accessor: 'difference',
         }, {
-            Header: _('Okay / Need Correction'),
+            Header: _('Okay / Need correction'),
             accessor: '',
         }
     ]), []); 
