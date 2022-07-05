@@ -114,7 +114,10 @@ const Overview = () => {
     }, [activeSurvey, modules]);
 
     const [mediaData, moreMediaCount, allMedia] = useMemo(() => {
-        const images = getSurveyAnswerFromCode('media', true);
+        let images = getSurveyAnswerFromCode('media', true);
+        if(typeof images === 'string') {
+            images = [images];
+        }
         if(images?.length > 5) {
             return [images.slice(0, 5), images.length - 5, images];
         }
