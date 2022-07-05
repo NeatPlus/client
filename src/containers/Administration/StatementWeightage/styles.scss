@@ -105,6 +105,7 @@
                         height: 42px;
                         overflow-x: auto;
 
+                        /* FIXME:- Weightage variants
                         .add-button {
                             display: flex;
                             align-items: center;
@@ -123,6 +124,7 @@
                                 filter: brightness(75%);
                             }
                         }
+                        */
 
                         .tabs-header {
                             display: flex;
@@ -225,6 +227,7 @@
                     justify-content: space-between;
                     align-items: center;
 
+                    /* FIXME:- All feedbacks link
                     .bottom-group__link {
                         color: var(--color-primary);
                         font-weight: 500;
@@ -238,6 +241,7 @@
                             filter: saturate(175%);
                         }
                     }
+                    */
                 }
 
                 .function-input-container {

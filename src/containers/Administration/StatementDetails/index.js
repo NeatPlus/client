@@ -1,4 +1,4 @@
-import {useMemo, useState, useCallback} from 'react';
+import {useMemo, useState, useCallback, useEffect} from 'react';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {
@@ -14,9 +14,14 @@ import Button from 'components/Button';
 import {Localize} from '@ra/components/I18n';
 import Table from '@ra/components/Table';
 import {NeatLoader} from 'components/Loader';
+import ConfirmationModal from 'components/ConfirmationModal';
 
 import cs from '@ra/cs';
 import {_} from 'services/i18n';
+import Api from 'services/api';
+import Toast from 'services/toast';
+import {getErrorMessage} from '@ra/utils/error';
+import usePromise from '@ra/hooks/usePromise';
 
 import styles from './styles.scss';
 
@@ -91,12 +96,30 @@ const StatementDetails = props => {
     const history = useHistory();
     const {statementId} = useParams();
 
+    const [showConfirmPublish, setShowConfirmPublish]= useState(false);
+
+    const handleShowPublish = useCallback(() => setShowConfirmPublish(true), []);
+    const handleCancelPublish = useCallback(() => setShowConfirmPublish(false), []);
+
     const {questionGroups, questions, status} = useSelector(state => state.question);
 
     const {statements} = useSelector(state => state.statement);
     const activeStatement = useMemo(() => {
         return statements.find(st => st.id === +statementId);
     }, [statementId, statements]);
+
+    const [{result}, loadQuestionStatement] = usePromise(Api.getQuestionStatements);
+    const [{loading: publishing}, publishDraft] = usePromise(Api.activateDraftWeightages);
+
+    useEffect(() => {
+        if(activeStatement) {
+            loadQuestionStatement({
+                statement: activeStatement?.id,
+                version: 'draft',
+                limit: 1,
+            });
+        }
+    }, [loadQuestionStatement, activeStatement]);
 
     const moduleQuestions = useMemo(() => {
         return questions[activeModule?.code]?.map(ques => ({
@@ -130,6 +153,24 @@ const StatementDetails = props => {
     const handleNextClick = useCallback(() => {
         history.push(`/administration/statements/${statementId}/weightage/`, {selectedQuestions});
     }, [statementId, selectedQuestions, history]);
+
+    const handleConfirmPublish = useCallback(async () => {
+        if(!activeStatement?.id) {
+            return Toast.show(_('Please wait until the statement changes are loaded'), Toast.DANGER);
+        }
+        try {
+            await publishDraft(activeStatement.id);
+            Toast.show(_('Your changes have been successfully published!'), Toast.SUCCESS);
+            loadQuestionStatement({
+                statement: activeStatement.id,
+                version: 'draft',
+                limit: 1,
+            });
+        } catch(error) {
+            Toast.show(getErrorMessage(error) || _('An error occured while publishing your changes!'), Toast.DANGER);
+        }
+        setShowConfirmPublish(false);
+    }, [activeStatement, publishDraft, loadQuestionStatement]);
 
     const renderHeaderItem = useCallback(tableProps => {
         return (
@@ -175,10 +216,11 @@ const StatementDetails = props => {
                             {activeStatement?.title}
                         </h2>
                     </div>
-                    <Button className={styles.headerButton} onClick={handleNextClick} disabled={selectedQuestions?.length===0}>
-                        <Localize>Next</Localize>
-                        <BiRightArrowAlt size={24} className={styles.buttonIcon} />
-                    </Button>
+                    {result?.results?.length > 0 && (
+                        <Button className={styles.headerButton} onClick={handleShowPublish}>
+                            <Localize>Publish</Localize>
+                        </Button>
+                    )}
                 </div>
                 <div className={styles.contentBody}>
                     <section className={styles.selectSection}>
@@ -188,9 +230,22 @@ const StatementDetails = props => {
                                     Select all relevant questions related to the above statement
                                 </Localize>
                             </p>
-                            <p className={styles.infoSelected}>
-                                {selectedQuestions?.length} <Localize>item(s) selected.</Localize>
-                            </p>
+                            <div className={styles.infoRight}>
+                                <p className={styles.infoSelected}>
+                                    {selectedQuestions?.length} <Localize>item(s) selected.</Localize>
+                                </p>
+                                <Button
+                                    onClick={handleNextClick}
+                                    className={styles.nextButton}
+                                    disabled={selectedQuestions?.length===0}
+                                >
+                                    <Localize>Next</Localize>
+                                    <BiRightArrowAlt
+                                        size={22}
+                                        className={styles.nextButtonIcon}
+                                    />
+                                </Button>
+                            </div>
                         </div>
                         <div className={styles.tableContainer}>
                             <Table 
@@ -222,6 +277,28 @@ const StatementDetails = props => {
                     </section>
                 </div>
             </div>
+            <ConfirmationModal
+                isVisible={showConfirmPublish}
+                onClose={handleCancelPublish}
+                onConfirm={handleConfirmPublish}
+                confirmButtonText={_('Publish')}
+                titleText={_('Publish changes?')}
+                confirmButtonProps={{loading: publishing}}
+                DescriptionComponent={
+                    <>
+                        <p className={styles.modalText}>
+                            <Localize>
+                                If you publish the changes, all further calculations will use the new configuration.
+                            </Localize>
+                        </p>
+                        <p className={styles.modalText}>
+                            <Localize>
+                                Are you sure you want to publish these changes?
+                            </Localize>
+                        </p>
+                    </>
+                }
+            />
         </div>
     );
 };

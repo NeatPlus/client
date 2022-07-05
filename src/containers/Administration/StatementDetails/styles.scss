@@ -77,10 +77,6 @@
                 align-items: center;
                 align-self: flex-end;
                 font-weight: 500;
-
-                .button-icon {
-                    margin-left: 0.5em;
-                }
             }
         }
 
@@ -108,10 +104,28 @@
                         font-size: var(--font-size-base);
                     }
 
-                    .info-selected {
-                        color: var(--color-tertiary-alt);
-                        font-size: var(--font-size-small);
-                        font-weight: 500;
+                    .info-right {
+                        display: flex;
+                        align-items: center;
+
+                        .info-selected {
+                            color: var(--color-tertiary-alt);
+                            font-size: var(--font-size-small);
+                            font-weight: 500;
+                        }
+
+                        .next-button {
+                            display: flex;
+                            align-items: center;
+                            margin-left: 1em;
+                            font-weight: 500;
+                            padding: 0.6em 1.5em;
+                            font-size: var(--font-size-small);
+
+                            &__icon {
+                                margin-left: 0.5em;
+                            }
+                        }
                     }
                 }
 
@@ -256,4 +270,8 @@
             }
         }
     }
+}
+
+.modal-text {
+    margin-top: 1em;
 }

@@ -1,0 +1,73 @@
+.modal {
+    border-radius: 8px;
+    width: 32em;
+    max-width: 80vw;
+    background-color: var(--color-light-alt);
+
+    .header {
+        padding: 20px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+            color: var(--color-tertiary);
+            font-size: var(--font-size-medium);
+            font-family: var(--font-family-header);
+            font-weight: 600;
+            line-height: 1.75em;
+        }
+
+        .close-container {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .close-icon {
+                color: var(--color-grey-dark-alt);
+            }
+        }
+    }
+
+    .content {
+        padding: 30px 25px;
+        background-color: var(--color-white);
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        border-radius: 0 0 8px 8px;
+        overflow-y: auto;
+
+        .content-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+
+            .image {
+                width: 77px;
+                height: 77px;
+            }
+
+            .description {
+                font-size: var(--font-size-base);
+                color: var(--color-dark);
+                line-height: 1.5em;
+                text-align: center;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+    }
+}
