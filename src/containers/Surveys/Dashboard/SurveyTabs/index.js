@@ -38,7 +38,7 @@ const SurveyTabs = props => {
             return null;
         }
 
-        const label = module.code==='sens' ? _('sensitivity') : module.code;
+        const label = module.code==='sens' ? 'sensitivity' : module.code;
 
         return (
             <Tab key={module.id} label={label} title={module.title}>

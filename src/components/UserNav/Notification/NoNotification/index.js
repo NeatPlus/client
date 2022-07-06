@@ -1,5 +1,8 @@
 import {memo} from 'react';
+
+import {_} from 'services/i18n';
 import notification from 'assets/images/notification.png';
+
 import styles from './styles.scss';
 
 const NoNotificationComponent = ({placeholder}) => {
@@ -7,7 +10,7 @@ const NoNotificationComponent = ({placeholder}) => {
         <div className={styles.container}>
             <img
                 src={notification}
-                alt='notification'
+                alt={_('Notification')}
                 className={styles.image}
             />
             <div className={styles.text}>{placeholder}</div>

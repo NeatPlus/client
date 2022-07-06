@@ -7,6 +7,8 @@ import Modal from '@ra/components/Modal';
 import Tabs, {Tab} from 'components/Tabs';
 import {Localize} from '@ra/components/I18n';
 
+import {_} from 'services/i18n';
+
 import cs from '@ra/cs';
 
 // eslint-disable-next-line css-modules/no-unused-class
@@ -48,9 +50,9 @@ const SummaryModal = props => {
         return (
             <div className={cs(styles.headerItem, {
                 [styles.headerItemInactive]: !active,
-                [styles.headerItemHigh]: active && title==='High',
-                [styles.headerItemMedium]: active && title === 'Medium',
-                [styles.headerItemLow]: active && title==='Low'
+                [styles.headerItemHigh]: active && title === _('High'),
+                [styles.headerItemMedium]: active && title === _('Medium'),
+                [styles.headerItemLow]: active && title === _('Low')
             })} {...rest}>
                 {title}
             </div>
@@ -94,22 +96,22 @@ const SummaryModal = props => {
                     activeTab={activeSeverity}
                     onChange={handleChangeTab}
                 >
-                    <Tab label="High" title="High">
+                    <Tab label={_('High')} title={_('High')}>
                         <StatementList 
                             statements={statementData} 
-                            severity="High" 
+                            severity={_('High')} 
                         />
                     </Tab>
-                    <Tab label="Medium" title="Medium">
+                    <Tab label={_('Medium')} title={_('Medium')}>
                         <StatementList 
                             statements={statementData} 
-                            severity="Medium" 
+                            severity={_('Medium')} 
                         />
                     </Tab>
-                    <Tab label="Low" title="Low">
+                    <Tab label={_('Low')} title={_('Low')}>
                         <StatementList 
                             statements={statementData} 
-                            severity="Low" 
+                            severity={_('Low')} 
                         />
                     </Tab>
                 </Tabs>

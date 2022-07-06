@@ -14,21 +14,11 @@ import usePromise from '@ra/hooks/usePromise';
 import {getErrorMessage} from '@ra/utils/error';
 
 import Api from 'services/api';
+import {_} from 'services/i18n';
 import Toast from 'services/toast';
 import * as dashboardActions from 'store/actions/dashboard';
 
 import styles from './styles.scss';
-
-const REMOVABLE_TYPES = [
-    {
-        title: 'Topics',
-        type: 'topic',
-    },
-    {
-        title: 'Statements',
-        type: 'statement',
-    },
-];
 
 const typeExtractor = item => item.type;
 const keyExtractor = item => item.id;
@@ -128,6 +118,17 @@ const RestoreType = ({item, onInputChange}) => {
 const RestoreItemsModal = props => {
     const dispatch = useDispatch();
 
+    const REMOVABLE_TYPES = useMemo(() => ([
+        {
+            title: _('Topics'),
+            type: 'topic',
+        },
+        {
+            title: _('Statements'),
+            type: 'statement',
+        },
+    ]), []);
+
     const {removedItems, itemsToRestore} = useSelector(state => state.dashboard);
     const {activeSurvey} = useSelector(state => state.survey);
         
@@ -183,7 +184,6 @@ const RestoreItemsModal = props => {
                     renderItem={RestoreType}
                     keyExtractor={typeExtractor}
                 />
-
             </div>
             <div className={styles.buttons}>
                 <Button

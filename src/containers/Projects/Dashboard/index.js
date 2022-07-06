@@ -54,13 +54,13 @@ const ProjectDashboard = withNoSurvey(() => {
         return topics.map(topic => {
             const topicResults = projectResults.filter(res => res.topic === topic.id);
             const highCount = topicResults.filter(res => 
-                res.severity==='High'
+                res.severity===_('High')
             ).length;
             const mediumCount = topicResults.filter(res => 
-                res.severity === 'Medium'
+                res.severity === _('Medium')
             ).length;
             const lowCount = topicResults.filter(res => 
-                res.severity === 'Low'
+                res.severity === _('Low')
             ).length; 
             const totalCount = highCount + mediumCount + lowCount;
             return {

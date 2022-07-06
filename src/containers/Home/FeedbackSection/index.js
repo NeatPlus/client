@@ -17,7 +17,7 @@ const FeedbackSection = () => {
                         <a className={styles.descLink} target="_blank" rel="noreferrer" href="https://forms.gle/tAQshsUyCHxtweGQ8"> <Localize>NEAT+ user feedback form</Localize></a>. <Localize>All responses are confidential and anonymous.</Localize>
                     </p>
                     <p className={styles.desc}>
-                        <Localize>If you have any further questions, comment or feedback, please contact the OCHA/UNEP Joint Environment Unit (JEU)]</Localize> (
+                        <Localize>If you have any further questions, comment or feedback, please contact the OCHA/UNEP Joint Environment Unit (JEU)</Localize> (
                         <a className={styles.descLink} href="mailto:ochaunep@un.org">ochaunep@un.org</a>).
                     </p>
                 </div>

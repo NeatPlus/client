@@ -37,7 +37,7 @@ const ConfirmationModal = (props) => {
                     <img
                         className={styles.image}
                         src={confirmImg}
-                        alt='Confirm action'
+                        alt={_('Confirm action')}
                     />
                     <p className={styles.description}>
                         {DescriptionComponent

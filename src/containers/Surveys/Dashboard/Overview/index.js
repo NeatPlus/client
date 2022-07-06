@@ -45,9 +45,9 @@ const ConcernItem = ({item, onClick}) => {
     return (
         <div 
             className={cs(styles.concernsItem, {
-                [styles.concernsItemHigh]: item.severity==='High',
-                [styles.concernsItemMedium]: item.severity==='Medium',
-                [styles.concernsItemLow]: item.severity==='Low',
+                [styles.concernsItemHigh]: item.severity===_('High'),
+                [styles.concernsItemMedium]: item.severity===_('Medium'),
+                [styles.concernsItemLow]: item.severity===_('Low'),
             })}
             onClick={handleClick}
         >
@@ -115,7 +115,7 @@ const Overview = () => {
 
     const [mediaData, moreMediaCount, allMedia] = useMemo(() => {
         let images = getSurveyAnswerFromCode('media', true);
-        if(typeof images === 'string') {
+        if(images && typeof images === 'string') {
             images = [images];
         }
         if(images?.length > 5) {

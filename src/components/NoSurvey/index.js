@@ -11,6 +11,7 @@ import Button from 'components/Button';
 import SurveyModals from 'components/SurveyModals';
 import {Localize} from '@ra/components/I18n';
 
+import {_} from 'services/i18n';
 import useInitActiveProject from 'hooks/useInitActiveProject';
 import useSurveyModals from 'hooks/useSurveyModals';
 import {checkEditAccess} from 'utils/permission';
@@ -34,7 +35,7 @@ const NoSurveys = () => {
             </Link>
             <main className={styles.content}>
                 <div className={styles.takeSurveyBox}>
-                    <img src={noSurveyImage} alt="No Surveys" className={styles.infoImage} />
+                    <img src={noSurveyImage} alt={_('No Surveys')} className={styles.infoImage} />
                     <p className={styles.infoText}><Localize>No surveys found</Localize></p>
                     {hasEditAccess && (
                         <Button 

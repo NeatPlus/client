@@ -7,6 +7,7 @@ import withVisibleCheck from '@ra/components/WithVisibleCheck';
 import Modal from '@ra/components/Modal';
 import {Localize} from '@ra/components/I18n';
 
+import {_} from 'services/i18n';
 import {hideExpiryModal} from 'store/actions/ui';
 import expireIcon from 'assets/images/no-project.svg';
 
@@ -32,7 +33,7 @@ const LoggedOutModal = (props) => {
                     <img
                         className={styles.deleteImage}
                         src={expireIcon}
-                        alt='Session Expired'
+                        alt={_('Session Expired')}
                     />
                     <p className={styles.deleteText}>
                         <Localize>Your session has expired, and you have been logged out.</Localize>

@@ -102,9 +102,9 @@ const FeedbackModal = (props) => {
                         <Label className={styles.inputLabel}>Current severity</Label>
                         <div className={styles.input}>
                             <div className={cs(styles.severityItem, {
-                                [styles.severityItemHigh]: currentSeverity === 'High',
-                                [styles.severityItemMedium]: currentSeverity === 'Medium',
-                                [styles.severityItemLow]: currentSeverity === 'Low',
+                                [styles.severityItemHigh]: currentSeverity === _('High'),
+                                [styles.severityItemMedium]: currentSeverity === _('Medium'),
+                                [styles.severityItemLow]: currentSeverity === _('Low'),
                             })}>
                                 {currentSeverity}
                             </div>

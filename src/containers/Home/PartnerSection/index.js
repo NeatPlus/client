@@ -31,7 +31,7 @@ const PartnerSection = () => {
                     <h1 className={styles.title}>
                         <Localize>NEAT+ was developed with the support of</Localize>
                         <a className={styles.joinLink} href="https://eecentre.org/2017/01/01/the-joint-initiative/" target="_blank" rel="noreferrer"> <Localize>Joint Initiative</Localize></a>
-                        * <Localize>partners:</Localize>
+                        * <Localize>partners</Localize>:
                     </h1>
                     <div className={styles.partnersWrapper}>
                         {partners.map(item =>
