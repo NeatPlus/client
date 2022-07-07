@@ -54,6 +54,7 @@ const TopicItem  = ({item, activeModule, isBaselineFeedback}) => {
                 topicStatementResults={topicStatementResults}
                 activeModule={activeModule}
                 isBaselineFeedback={isBaselineFeedback}
+                activeSurvey={activeSurvey}
             />
         </div>
     );
@@ -83,7 +84,7 @@ const SurveyFeedback = props => {
             }
             return history.push('/projects/');
         }
-        dispatch(setAdvancedFeedbacks([]));
+        return () => dispatch(setAdvancedFeedbacks([]));
     }, [location, history, dispatch, projectId, surveyId]);
 
     const isBaselineFeedback = useMemo(() => location?.state?.isBaseline, [location]);
@@ -91,6 +92,32 @@ const SurveyFeedback = props => {
     const activeModule = useMemo(() => {
         return modules?.find(mod => mod.code === location?.state?.moduleCode);
     }, [modules, location]);
+
+    const [{loading: loadingFeedbacks}, loadBaselineFeedbacks] = usePromise(Api.getFeedbacks);
+    const initializeFeedbackData = useCallback(async () => {
+        try {
+            const feedbackResponse = await loadBaselineFeedbacks({
+                survey_result__module: activeModule?.id,
+                survey_result__survey: +surveyId,
+                is_baseline: true,
+            });
+            if(feedbackResponse?.count > 0) {
+                dispatch(setAdvancedFeedbacks(feedbackResponse.results.map(fdback => ({
+                    surveyResult: fdback.surveyResult,
+                    expectedScore: fdback.expectedScore,
+                    comment: fdback.comment,
+                }))));
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }, [loadBaselineFeedbacks, dispatch, activeModule, surveyId]);
+
+    useEffect(() => {
+        if(isBaselineFeedback && activeModule && surveyId && advancedFeedbacks?.length === 0) {
+            initializeFeedbackData();
+        }
+    }, [initializeFeedbackData, activeModule, surveyId, isBaselineFeedback, advancedFeedbacks]);
 
     const handleSubmit = useCallback(async () => {
         try {
@@ -138,6 +165,7 @@ const SurveyFeedback = props => {
                 </Button>
             </div>
             <List
+                loading={loadingFeedbacks}
                 keyExtractor={keyExtractor}
                 data={topics}
                 renderItem={renderTopicItem}

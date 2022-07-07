@@ -15,6 +15,11 @@ const FeedbackInput = props => {
 
     const {advancedFeedbacks} = useSelector(state => state.survey);
 
+    const [initialScore, initialComment] = useMemo(() => {
+        const activeSurveyFeedback = advancedFeedbacks?.find(fdbck => fdbck.surveyResult === item.result?.id);
+        return [activeSurveyFeedback?.expectedScore, activeSurveyFeedback?.comment];
+    }, [advancedFeedbacks, item]);
+
     const handleChangeFeedback = useCallback(({target}) => {
         const newFeedbacks = [...advancedFeedbacks];
         const feedbackItem = advancedFeedbacks.find(feedback => feedback.surveyResult === item.result.id);
@@ -55,6 +60,7 @@ const FeedbackInput = props => {
                 onChange={handleChangeFeedback}
                 className={styles.commentInput}
                 placeholder={_('Write a comment')}
+                defaultValue={initialComment}
             />
         );
     }
@@ -65,6 +71,7 @@ const FeedbackInput = props => {
             step="0.01"
             className={styles.scoreInput}
             onChange={handleChangeFeedback}
+            defaultValue={initialScore}
         />
     );
 };
