@@ -2,6 +2,7 @@ import Container from 'components/Container';
 import {Localize} from '@ra/components/I18n';
 
 import measure from 'assets/images/measure.webp';
+import {_} from 'services/i18n';
 
 import styles from './styles.scss';
 
@@ -23,7 +24,7 @@ const MeasureSection = () => {
                         </p>
                     </div>
                     <div className={styles.measureImageWrapper}>
-                        <img className={styles.measureImage} src={measure} alt="measure" />
+                        <img className={styles.measureImage} src={measure} alt={_('Measure')} />
                     </div>
                 </div> 
             </Container>

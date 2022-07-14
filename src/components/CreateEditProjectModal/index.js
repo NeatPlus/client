@@ -224,7 +224,9 @@ const CreateEditProjectModal = (props) => {
                 />
                 <div className={styles.inputGroup}>
                     {/* TODO: Info Icon */}
-                    <Label className={styles.inputLabel}>Visibility</Label>
+                    <Label className={styles.inputLabel}>
+                        <Localize>Visibility</Localize>
+                    </Label>
                     <div className={styles.radioInputs}>
                         <RadioInput
                             onCheck={handleVisibilitySelect}

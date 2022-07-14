@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Wed Jun 29 2022 13:58:18 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Thu Jul 07 2022 16:32:16 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -17,7 +17,8 @@ msgstr ""
 
 #: src/components/AuthModals/ConfirmPasswordModal/index.js:59
 #: src/components/CloneProjectModal/index.js:98
-#: src/components/CreateEditProjectModal/index.js:280
+#: src/components/ConfirmationModal/index.js:51
+#: src/components/CreateEditProjectModal/index.js:282
 #: src/components/DeleteDraftModal/index.js:51
 #: src/components/DeleteProjectModal/index.js:64
 #: src/components/DeleteSurveyModal/index.js:63
@@ -160,6 +161,109 @@ msgstr ""
 msgid "Clone"
 msgstr ""
 
+#: src/components/Concerns/Chart/index.js:37
+msgid "High Concerns"
+msgstr ""
+
+#: src/components/Concerns/Chart/index.js:43
+#: src/components/Concerns/Table/index.js:16
+#: src/components/Concerns/Table/index.js:57
+#: src/components/FeedbackModal/index.js:66
+#: src/components/FeedbackModal/index.js:105
+#: src/components/FeedbackModal/index.js:120
+#: src/components/SummaryModal/index.js:53
+#: src/components/SummaryModal/index.js:99
+#: src/components/SummaryModal/index.js:99
+#: src/components/SummaryModal/index.js:102
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:46
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:56
+#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:34
+#: src/containers/Projects/Dashboard/index.js:57
+#: src/containers/Surveys/Dashboard/Overview/index.js:48
+#: src/utils/severity.js:11
+#: src/utils/severity.js:19
+msgid "High"
+msgstr ""
+
+#: src/components/Concerns/Chart/index.js:46
+msgid "Concern"
+msgstr ""
+
+#: src/components/Concerns/Chart/index.js:54
+msgid "High Concern"
+msgstr ""
+
+#: src/components/Concerns/Chart/index.js:55
+msgid "Medium Concern"
+msgstr ""
+
+#: src/components/Concerns/Chart/index.js:56
+msgid "Low Concern"
+msgstr ""
+
+#: src/components/Concerns/Table/index.js:19
+#: src/components/Concerns/Table/index.js:61
+#: src/components/FeedbackModal/index.js:65
+#: src/components/FeedbackModal/index.js:106
+#: src/components/FeedbackModal/index.js:120
+#: src/components/SummaryModal/index.js:54
+#: src/components/SummaryModal/index.js:105
+#: src/components/SummaryModal/index.js:105
+#: src/components/SummaryModal/index.js:108
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:47
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:57
+#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:35
+#: src/containers/Projects/Dashboard/index.js:60
+#: src/containers/Surveys/Dashboard/Overview/index.js:49
+#: src/utils/severity.js:12
+#: src/utils/severity.js:20
+msgid "Medium"
+msgstr ""
+
+#: src/components/Concerns/Table/index.js:22
+#: src/components/Concerns/Table/index.js:65
+#: src/components/FeedbackModal/index.js:64
+#: src/components/FeedbackModal/index.js:107
+#: src/components/FeedbackModal/index.js:120
+#: src/components/SummaryModal/index.js:55
+#: src/components/SummaryModal/index.js:111
+#: src/components/SummaryModal/index.js:111
+#: src/components/SummaryModal/index.js:114
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:48
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:58
+#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:36
+#: src/containers/Projects/Dashboard/index.js:63
+#: src/containers/Surveys/Dashboard/Overview/index.js:50
+#: src/utils/severity.js:13
+#: src/utils/severity.js:21
+msgid "Low"
+msgstr ""
+
+#: src/components/Concerns/Table/index.js:29
+#: src/components/Concerns/Table/index.js:53
+msgid "Topic"
+msgstr ""
+
+#: src/components/Concerns/Table/index.js:69
+msgid "Total"
+msgstr ""
+
+#: src/components/ConfirmationModal/index.js:29
+msgid "Are you sure?"
+msgstr ""
+
+#: src/components/ConfirmationModal/index.js:40
+msgid "Confirm action"
+msgstr ""
+
+#: src/components/ConfirmationModal/index.js:45
+msgid "Please confirm that you want to carry out this action."
+msgstr ""
+
+#: src/components/ConfirmationModal/index.js:54
+msgid "Confirm"
+msgstr ""
+
 #: src/components/CreateEditProjectModal/index.js:68
 msgid "Create a project"
 msgstr ""
@@ -199,7 +303,7 @@ msgstr ""
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:120
 #: src/containers/Projects/List/index.js:56
 #: src/containers/Projects/List/TableItems/index.js:68
-#: src/containers/Surveys/Dashboard/Overview/index.js:101
+#: src/containers/Surveys/Dashboard/Overview/index.js:156
 #: src/containers/Surveys/List/index.js:102
 #: src/containers/Surveys/List/index.js:157
 msgid "Name"
@@ -211,7 +315,7 @@ msgstr ""
 #: src/containers/Projects/List/index.js:59
 #: src/containers/Projects/List/TableItems/index.js:75
 #: src/containers/Register/index.js:190
-#: src/containers/Surveys/Dashboard/Overview/index.js:109
+#: src/containers/Surveys/Dashboard/Overview/index.js:164
 msgid "Organization"
 msgstr ""
 
@@ -224,38 +328,44 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:233
+#: src/components/CreateEditProjectModal/index.js:228
+#: src/containers/Projects/List/index.js:68
+#: src/containers/Projects/List/TableItems/index.js:121
+msgid "Visibility"
+msgstr ""
+
+#: src/components/CreateEditProjectModal/index.js:235
 #: src/containers/Projects/List/index.js:165
 msgid "Public"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:240
+#: src/components/CreateEditProjectModal/index.js:242
 #: src/containers/Projects/List/TableItems/index.js:133
 msgid "Public within organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:249
+#: src/components/CreateEditProjectModal/index.js:251
 #: src/containers/Projects/List/TableItems/index.js:139
 msgid "Private"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:260
+#: src/components/CreateEditProjectModal/index.js:262
 #: src/components/OrganizationModals/ManageMembers/index.js:332
 msgid "Select Users"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:265
+#: src/components/CreateEditProjectModal/index.js:267
 msgid "Users"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:283
+#: src/components/CreateEditProjectModal/index.js:285
 #: src/components/OptionsDropdown/index.js:19
 #: src/containers/Organizations/OrganizationCard/index.js:52
 #: src/containers/Surveys/Dashboard/index.js:211
 msgid "Edit"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:283
+#: src/components/CreateEditProjectModal/index.js:285
 #: src/components/NoProject/index.js:47
 #: src/containers/Projects/List/index.js:219
 msgid "Create"
@@ -307,21 +417,6 @@ msgstr ""
 
 #: src/components/FeedbackModal/index.js:49
 msgid "Something went wrong!"
-msgstr ""
-
-#: src/components/FeedbackModal/index.js:64
-#: src/components/FeedbackModal/index.js:120
-msgid "Low"
-msgstr ""
-
-#: src/components/FeedbackModal/index.js:65
-#: src/components/FeedbackModal/index.js:120
-msgid "Medium"
-msgstr ""
-
-#: src/components/FeedbackModal/index.js:66
-#: src/components/FeedbackModal/index.js:120
-msgid "High"
 msgstr ""
 
 #: src/components/FeedbackModal/index.js:91
@@ -441,15 +536,20 @@ msgstr ""
 msgid "Search places"
 msgstr ""
 
-#: src/components/LoggedOutModal/index.js:25
+#: src/components/Loader/index.js:23
+msgid "Loading"
+msgstr ""
+
+#: src/components/LoggedOutModal/index.js:26
+#: src/components/LoggedOutModal/index.js:36
 msgid "Session Expired"
 msgstr ""
 
-#: src/components/LoggedOutModal/index.js:38
+#: src/components/LoggedOutModal/index.js:39
 msgid "Your session has expired, and you have been logged out."
 msgstr ""
 
-#: src/components/LoggedOutModal/index.js:43
+#: src/components/LoggedOutModal/index.js:44
 msgid "OK"
 msgstr ""
 
@@ -485,8 +585,8 @@ msgstr ""
 #: src/components/NavBar/index.js:69
 #: src/containers/About/WorkSection/index.js:58
 #: src/containers/About/WorkSection/index.js:64
-#: src/containers/About/WorkSection/index.js:68
-#: src/containers/Home/index.js:33
+#: src/containers/About/WorkSection/index.js:71
+#: src/containers/Home/index.js:37
 msgid "Access the NEAT+"
 msgstr ""
 
@@ -511,16 +611,20 @@ msgstr ""
 msgid "Let's get started by creating a new project"
 msgstr ""
 
-#: src/components/NoSurvey/index.js:33
+#: src/components/NoSurvey/index.js:34
 #: src/containers/Projects/Dashboard/index.js:91
 msgid "Back to Projects"
 msgstr ""
 
 #: src/components/NoSurvey/index.js:38
+msgid "No Surveys"
+msgstr ""
+
+#: src/components/NoSurvey/index.js:39
 msgid "No surveys found"
 msgstr ""
 
-#: src/components/NoSurvey/index.js:44
+#: src/components/NoSurvey/index.js:45
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:161
 #: src/containers/Surveys/Dashboard/Module/index.js:44
 msgid "Take Survey"
@@ -552,13 +656,17 @@ msgstr ""
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:110
 #: src/components/OrganizationModals/ManageMembers/index.js:347
-#: src/containers/Administration/StatementWeightage/index.js:375
+#: src/containers/Administration/StatementWeightage/index.js:385
 #: src/containers/Surveys/Dashboard/index.js:201
 msgid "Save"
 msgstr ""
 
+#: src/components/OrganizationModals/JoinOrganization/index.js:59
+msgid "Logo"
+msgstr ""
+
 #: src/components/OrganizationModals/JoinOrganization/index.js:70
-#: src/containers/Organizations/index.js:65
+#: src/containers/Organizations/index.js:67
 msgid "Join"
 msgstr ""
 
@@ -654,7 +762,19 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
-#: src/components/RestoreItemsModal/index.js:175
+#: src/components/RestoreItemsModal/index.js:123
+msgid "Topics"
+msgstr ""
+
+#: src/components/RestoreItemsModal/index.js:127
+#: src/containers/Administration/Statements/index.js:19
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:185
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:86
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:123
+msgid "Statements"
+msgstr ""
+
+#: src/components/RestoreItemsModal/index.js:176
 msgid "Restore Items"
 msgstr ""
 
@@ -664,7 +784,7 @@ msgid "Restore"
 msgstr ""
 
 #: src/components/ShareSurvey/index.js:46
-#: src/containers/Administration/StatementWeightage/index.js:315
+#: src/containers/Administration/StatementWeightage/index.js:322
 msgid "An error occured"
 msgstr ""
 
@@ -742,8 +862,8 @@ msgstr ""
 msgid "OPPORTUNITY"
 msgstr ""
 
-#: src/components/SummaryModal/index.js:81
-#: src/containers/Surveys/Dashboard/Overview/index.js:133
+#: src/components/SummaryModal/index.js:83
+#: src/containers/Surveys/Dashboard/Overview/index.js:209
 msgid "Sensitivity Statements Severity Summary"
 msgstr ""
 
@@ -753,7 +873,7 @@ msgid "Previous"
 msgstr ""
 
 #: src/components/TakeSurveyModal/index.js:136
-#: src/containers/Administration/StatementDetails/index.js:179
+#: src/containers/Administration/StatementDetails/index.js:242
 msgid "Next"
 msgstr ""
 
@@ -896,6 +1016,10 @@ msgstr ""
 msgid "No Invitations"
 msgstr ""
 
+#: src/components/UserNav/Notification/NoNotification/index.js:13
+msgid "Notification"
+msgstr ""
+
 #: src/components/UserNav/Notification/Notification/index.js:39
 msgid "No Notifications"
 msgstr ""
@@ -941,17 +1065,21 @@ msgid ""
 "plans to migrate the R-NEAT to this format at a later stage."
 msgstr ""
 
-#: src/containers/About/MeasureSection/index.js:15
+#: src/containers/About/MeasureSection/index.js:16
 msgid "What does the NEAT+ measure?"
 msgstr ""
 
-#: src/containers/About/MeasureSection/index.js:20
+#: src/containers/About/MeasureSection/index.js:21
 msgid ""
 "The NEAT+ assists in flagging environmental issues of high, medium, and low "
 "concern based on project-level information, and provides subsequent "
 "mitigation tips for addressing these issues. It is not a carbon footprint "
 "tool and does not replace the need for a full project environmental impact "
 "assessment."
+msgstr ""
+
+#: src/containers/About/MeasureSection/index.js:27
+msgid "Measure"
 msgstr ""
 
 #: src/containers/About/ResultSection/index.js:34
@@ -1083,25 +1211,25 @@ msgid ""
 "can be downloaded on this page. Kobo Toolbox can be optionally used to more "
 "easily collect data offline and to aggregate data at a project or "
 "organizational level. The Urban NEAT+ can be accessed directly from this "
-"site on the “"
+"site on"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:68
+#: src/containers/About/WorkSection/index.js:73
 msgid ""
-"” page. Currently, only the Environmental Sensitivity module is available "
-"for the U-NEAT+ users."
+"Currently, only the Environmental Sensitivity module is available for the "
+"U-NEAT+ users."
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:76
 #: src/containers/About/WorkSection/index.js:82
+#: src/containers/About/WorkSection/index.js:88
 msgid "Complete Environmental Sensitivity Module"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:79
+#: src/containers/About/WorkSection/index.js:85
 msgid "STEP 2"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:85
+#: src/containers/About/WorkSection/index.js:91
 msgid ""
 "The Environmental Sensitivity Module consists of questions about the "
 "activity area, and should take 30 minutes - 1 hour to complete. It must be "
@@ -1111,21 +1239,21 @@ msgid ""
 "linked potential development opportunities."
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:94
+#: src/containers/About/WorkSection/index.js:100
 msgid "Complete Activity Module(s)"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:97
+#: src/containers/About/WorkSection/index.js:103
 msgid "STEP 3"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:100
+#: src/containers/About/WorkSection/index.js:106
 msgid ""
 "Complete Activity Module(s) (optional and currently only available for "
 "R-NEAT+)"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:105
+#: src/containers/About/WorkSection/index.js:111
 msgid ""
 "Rural NEAT+ currently has activity modules for Shelter, WASH and Food "
 "Security. For Urban NEAT+ additional Livelihoods and Health activity "
@@ -1299,155 +1427,180 @@ msgstr ""
 msgid "You do not have administration access!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:49
-#: src/containers/Administration/StatementDetails/index.js:69
-#: src/containers/Administration/StatementDetails/index.js:80
+#: src/containers/Administration/StatementDetails/index.js:54
+#: src/containers/Administration/StatementDetails/index.js:74
+#: src/containers/Administration/StatementDetails/index.js:85
 msgid "Select"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:62
-#: src/containers/Administration/StatementDetails/index.js:86
+#: src/containers/Administration/StatementDetails/index.js:67
+#: src/containers/Administration/StatementDetails/index.js:91
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:53
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:125
 msgid "Questions"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:83
+#: src/containers/Administration/StatementDetails/index.js:88
 msgid "Categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:187
+#: src/containers/Administration/StatementDetails/index.js:159
+msgid "Please wait until the statement changes are loaded"
+msgstr ""
+
+#: src/containers/Administration/StatementDetails/index.js:163
+msgid "Your changes have been successfully published!"
+msgstr ""
+
+#: src/containers/Administration/StatementDetails/index.js:170
+msgid "An error occured while publishing your changes!"
+msgstr ""
+
+#: src/containers/Administration/StatementDetails/index.js:221
+#: src/containers/Administration/StatementDetails/index.js:284
+msgid "Publish"
+msgstr ""
+
+#: src/containers/Administration/StatementDetails/index.js:229
 msgid "Select all relevant questions related to the above statement"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:192
+#: src/containers/Administration/StatementDetails/index.js:235
 msgid "item(s) selected."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:200
+#: src/containers/Administration/StatementDetails/index.js:255
 msgid "No questions found! Please wait..."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:218
+#: src/containers/Administration/StatementDetails/index.js:273
 msgid "Insights on correlation of categories"
 msgstr ""
 
-#: src/containers/Administration/Statements/index.js:22
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:185
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:86
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:123
-msgid "Statements"
+#: src/containers/Administration/StatementDetails/index.js:285
+msgid "Publish changes?"
 msgstr ""
 
-#: src/containers/Administration/Statements/index.js:32
+#: src/containers/Administration/StatementDetails/index.js:290
+msgid ""
+"If you publish the changes, all further calculations will use the new "
+"configuration."
+msgstr ""
+
+#: src/containers/Administration/StatementDetails/index.js:295
+msgid "Are you sure you want to publish these changes?"
+msgstr ""
+
+#: src/containers/Administration/Statements/index.js:29
 msgid "Context"
 msgstr ""
 
-#: src/containers/Administration/Statements/index.js:44
+#: src/containers/Administration/Statements/index.js:41
 msgid "Module"
 msgstr ""
 
-#: src/containers/Administration/Statements/index.js:53
-msgid "Add statements"
-msgstr ""
-
 #: src/containers/Administration/Statements/StatementsTable/index.js:37
-#: src/containers/Administration/Statements/StatementsTable/index.js:64
+#: src/containers/Administration/Statements/StatementsTable/index.js:76
 msgid "Title"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:67
+#: src/containers/Administration/Statements/StatementsTable/index.js:44
+#: src/containers/Administration/Statements/StatementsTable/index.js:88
+msgid "Okay / Need correction"
+msgstr ""
+
+#: src/containers/Administration/Statements/StatementsTable/index.js:46
+msgid "Okay"
+msgstr ""
+
+#: src/containers/Administration/Statements/StatementsTable/index.js:49
+msgid "May need correction"
+msgstr ""
+
+#: src/containers/Administration/Statements/StatementsTable/index.js:52
+msgid "Need correction"
+msgstr ""
+
+#: src/containers/Administration/Statements/StatementsTable/index.js:79
 msgid "Standard deviation"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:70
+#: src/containers/Administration/Statements/StatementsTable/index.js:82
 msgid "Sum of squares"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:73
+#: src/containers/Administration/Statements/StatementsTable/index.js:85
 msgid "Difference"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:76
-msgid "Okay / Need Correction"
-msgstr ""
-
-#: src/containers/Administration/Statements/StatementsTable/index.js:119
+#: src/containers/Administration/Statements/StatementsTable/index.js:131
 msgid "No statements found. Please wait..."
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:135
+#: src/containers/Administration/Statements/StatementsTable/index.js:147
 #: src/containers/Projects/List/index.js:117
 #: src/containers/Surveys/List/index.js:218
 msgid "Show"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:149
+#: src/containers/Administration/Statements/StatementsTable/index.js:161
 #: src/containers/Projects/List/index.js:131
 #: src/containers/Surveys/List/index.js:231
 msgid "Rows"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:42
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:44
 msgid "Expected score"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:52
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:54
 msgid "Current score"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:94
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:96
 msgid "Loading feedbacks..."
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:97
+#: src/containers/Administration/StatementWeightage/FeedbackList/index.js:99
 msgid "No feedbacks have been received."
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:301
+#: src/containers/Administration/StatementWeightage/index.js:308
 msgid "No changes to save!"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:304
+#: src/containers/Administration/StatementWeightage/index.js:311
 msgid "Your changes have been successfully updated!"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:338
-msgid "Add variant"
-msgstr ""
-
-#: src/containers/Administration/StatementWeightage/index.js:391
+#: src/containers/Administration/StatementWeightage/index.js:401
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:73
 msgid "Current"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:409
+#: src/containers/Administration/StatementWeightage/index.js:419
 msgid "Enter your function"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:413
+#: src/containers/Administration/StatementWeightage/index.js:423
 msgid "Write your custom function to manage weightage"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:425
+#: src/containers/Administration/StatementWeightage/index.js:435
 msgid "Unapplied changes!"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:437
+#: src/containers/Administration/StatementWeightage/index.js:447
 msgid "APPLY"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:458
-#: src/containers/Administration/StatementWeightage/index.js:472
+#: src/containers/Administration/StatementWeightage/index.js:468
+#: src/containers/Administration/StatementWeightage/index.js:482
 msgid "Insights"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:485
+#: src/containers/Administration/StatementWeightage/index.js:495
 msgid "User feedbacks"
-msgstr ""
-
-#: src/containers/Administration/StatementWeightage/index.js:488
-msgid "See all feedbacks"
 msgstr ""
 
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:24
@@ -1471,11 +1624,11 @@ msgstr ""
 msgid "No baseline surveys found for the selected module!"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:101
+#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:100
 msgid "Standard deviation:"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:104
+#: src/containers/Administration/StatementWeightage/InsightsTable/index.js:103
 msgid "Sum of squares:"
 msgstr ""
 
@@ -1540,22 +1693,22 @@ msgid ""
 "you used the tool in. Take 10 minutes to fill out"
 msgstr ""
 
-#: src/containers/Contact/index.js:27
+#: src/containers/Contact/index.js:29
 msgid "this NEAT+ user feedback form."
 msgstr ""
 
-#: src/containers/Contact/index.js:27
+#: src/containers/Contact/index.js:30
 #: src/containers/Home/FeedbackSection/index.js:17
 msgid "All responses are confidential and anonymous."
 msgstr ""
 
-#: src/containers/Contact/index.js:30
+#: src/containers/Contact/index.js:35
 msgid ""
 "If you have any further questions, comment or feedback, please contact the "
 "JEU"
 msgstr ""
 
-#: src/containers/Contact/index.js:35
+#: src/containers/Contact/index.js:41
 msgid "Contact Visual Chat Display"
 msgstr ""
 
@@ -1704,16 +1857,16 @@ msgstr ""
 #: src/containers/Home/FeedbackSection/index.js:20
 msgid ""
 "If you have any further questions, comment or feedback, please contact the "
-"OCHA/UNEP Joint Environment Unit (JEU)]"
+"OCHA/UNEP Joint Environment Unit (JEU)"
 msgstr ""
 
-#: src/containers/Home/index.js:26
+#: src/containers/Home/index.js:27
 msgid ""
 "Rapid and simple project-level environmental screening for humanitarian "
 "operations"
 msgstr ""
 
-#: src/containers/Home/index.js:28
+#: src/containers/Home/index.js:32
 #: src/containers/Register/index.js:116
 msgid ""
 "Free and open-source, the Nexus Environmental Assessment Tool (NEAT+) has "
@@ -1731,7 +1884,7 @@ msgid "Joint Initiative"
 msgstr ""
 
 #: src/containers/Home/PartnerSection/index.js:34
-msgid "partners:"
+msgid "partners"
 msgstr ""
 
 #: src/containers/Home/PartnerSection/index.js:43
@@ -1781,7 +1934,7 @@ msgstr ""
 msgid "Terms of Use"
 msgstr ""
 
-#: src/containers/Organizations/index.js:57
+#: src/containers/Organizations/index.js:58
 #: src/containers/Projects/List/index.js:161
 msgid "My Organizations"
 msgstr ""
@@ -1811,7 +1964,7 @@ msgstr ""
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:124
 #: src/containers/Projects/List/index.js:65
 #: src/containers/Projects/List/TableItems/index.js:85
-#: src/containers/Surveys/Dashboard/Overview/index.js:121
+#: src/containers/Surveys/Dashboard/Overview/index.js:176
 #: src/containers/Surveys/List/index.js:113
 #: src/containers/Surveys/List/index.js:169
 msgid "Created on"
@@ -1828,11 +1981,6 @@ msgstr ""
 #: src/containers/Projects/List/index.js:62
 #: src/containers/Projects/List/TableItems/index.js:78
 msgid "Created by"
-msgstr ""
-
-#: src/containers/Projects/List/index.js:68
-#: src/containers/Projects/List/TableItems/index.js:121
-msgid "Visibility"
 msgstr ""
 
 #: src/containers/Projects/List/index.js:157
@@ -1990,7 +2138,7 @@ msgid "This module is under development. Please check back later."
 msgstr ""
 
 #: src/containers/Surveys/Dashboard/Module/Statements/index.js:33
-#: src/containers/Surveys/Dashboard/Overview/index.js:48
+#: src/containers/Surveys/Dashboard/Overview/index.js:55
 msgid "Concerns"
 msgstr ""
 
@@ -2018,38 +2166,38 @@ msgstr ""
 msgid "Expand All"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:98
+#: src/containers/Surveys/Dashboard/Overview/index.js:153
 msgid "Survey Information"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:105
+#: src/containers/Surveys/Dashboard/Overview/index.js:160
 #: src/containers/Surveys/List/index.js:109
 #: src/containers/Surveys/List/index.js:161
 msgid "Location"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:113
+#: src/containers/Surveys/Dashboard/Overview/index.js:168
 #: src/containers/Surveys/List/index.js:117
 #: src/containers/Surveys/List/index.js:165
 msgid "Surveyed by"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:117
+#: src/containers/Surveys/Dashboard/Overview/index.js:172
 msgid "Programme Scale"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:125
+#: src/containers/Surveys/Dashboard/Overview/index.js:180
 #: src/containers/Surveys/List/index.js:113
 #: src/containers/Surveys/List/index.js:173
 msgid "Modified on"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:141
-msgid "Location of Assessment"
+#: src/containers/Surveys/Dashboard/Overview/index.js:186
+msgid "Media"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/SurveyTabs/index.js:41
-msgid "sensitivity"
+#: src/containers/Surveys/Dashboard/Overview/index.js:217
+msgid "Location of Assessment"
 msgstr ""
 
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:73

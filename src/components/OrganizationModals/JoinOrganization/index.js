@@ -56,7 +56,7 @@ const OrganizationItem = ({item}) => {
 
     return (
         <div className={styles.organizationItem}>
-            {item.logo && <img src={item.logo} alt="Logo" className={styles.logo} />}
+            {item.logo && <img src={item.logo} alt={_('Logo')} className={styles.logo} />}
             <p className={styles.organizationTitle}>{item.title}</p>
             <Button 
                 outline={!memberRequest}

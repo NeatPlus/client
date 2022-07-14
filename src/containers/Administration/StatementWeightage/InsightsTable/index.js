@@ -31,9 +31,9 @@ const DataItem = props => {
 
     return (
         <span className={cs(styles.scoreItem, {
-            [styles.scoreItemHigh]: getSeverityFromScore(item?.[column.accessor]) === 'High',
-            [styles.scoreItemMedium]: getSeverityFromScore(item?.[column.accessor]) === 'Medium',
-            [styles.scoreItemLow]: getSeverityFromScore(item?.[column.accessor]) === 'Low',
+            [styles.scoreItemHigh]: getSeverityFromScore(item?.[column.accessor]) === _('High'),
+            [styles.scoreItemMedium]: getSeverityFromScore(item?.[column.accessor]) === _('Medium'),
+            [styles.scoreItemLow]: getSeverityFromScore(item?.[column.accessor]) === _('Low'),
         })}>
             {item?.[column.accessor] ?? '-'}
         </span>

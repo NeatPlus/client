@@ -9,15 +9,12 @@ import {
     Tooltip,
 } from 'recharts';
 
+import {Localize} from '@ra/components/I18n';
+import {_} from 'services/i18n';
+
 import styles from './styles.scss';
 
 const COLORS = ['#fe625e', '#f8b535', '#f8e9a1'];
-
-const initialData = [
-    { name: 'High Concern', accessor: 'highCount', value: 0},
-    { name: 'Medium Concern', accessor: 'mediumCount', value: 0},
-    { name: 'Low Concern', accessor: 'lowCount', value: 0},
-];
 
 const LabelContent = ({viewBox, data}) => {
     const {cx, cy, innerRadius} = viewBox;
@@ -33,25 +30,35 @@ const LabelContent = ({viewBox, data}) => {
 
     return (
         <g>
-            <text x={5} y={cy} className={styles.descriptionValue} fill="#292929" textAnchor="left" dominantBaseline="left">{numHighConcerns}</text>
-            <text x={5} y={cy+20} className={styles.descriptionText} fill="#292929" textAnchor="left" dominantBaseline="left">High Concerns</text>
+            <text x={5} y={cy} className={styles.descriptionValue} fill="#292929" textAnchor="left" dominantBaseline="left">
+                {numHighConcerns}
+            </text>
+            <text x={5} y={cy+20} className={styles.descriptionText} fill="#292929" textAnchor="left" dominantBaseline="left">
+                <Localize>High Concerns</Localize>
+            </text>
             <text x={cx} y={cy-innerRadius/4} className={styles.labelPercent} fill="#292929" textAnchor="middle" dominantBaseline="middle">
                 {percentage}%
             </text>
             <text x={cx} y={cy+12} className={styles.labelText} fill="#292929" textAnchor="middle" dominantBaseline="middle">
-                High
+                <Localize>High</Localize>
             </text>
             <text x={cx} y={cy+28} className={styles.labelText} fill="#292929" textAnchor="middle" dominantBaseline="middle">
-                Concern
+                <Localize>Concern</Localize>
             </text> 
         </g>
     ); 
 };
 
 const ConcernsChart = ({concerns}) => {
+    const initialData = useMemo(() => ([
+        { name: _('High Concern'), accessor: 'highCount', value: 0},
+        { name: _('Medium Concern'), accessor: 'mediumCount', value: 0},
+        { name: _('Low Concern'), accessor: 'lowCount', value: 0},
+    ]), []);
+
     const data = useMemo(() => {
         return initialData.map(d => ({...d, value: concerns.reduce((acc, cur) => acc + cur[d.accessor], 0)}));
-    }, [concerns]);
+    }, [concerns, initialData]);
 
     const renderLegend = useCallback(({payload}) => {
         return (
@@ -70,7 +77,9 @@ const ConcernsChart = ({concerns}) => {
         if (active && payload && payload.length) {
             return (
                 <div className={styles.tooltip}>
-                    <p className={styles.tooltipLabel}>{`${payload[0].name}s : ${payload[0].value}`}</p>
+                    <p className={styles.tooltipLabel}>
+                        {`${payload[0].name}s : ${payload[0].value}`}
+                    </p>
                 </div>
             );
         }

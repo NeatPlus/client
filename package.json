@@ -6,6 +6,7 @@
         "@uiw/react-textarea-code-editor": "^2.0.2",
         "d3": "^6.7.0",
         "html-react-parser": "^3.0.0",
+        "po2json": "^0.4.5",
         "postcss": "^8.4.14",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
@@ -35,7 +36,7 @@
         "eject": "react-app-rewired eject",
         "lint": "eslint --fix --ext .js,.jsx . && stylelint '**/*.{css,scss}'",
         "generate:po": "react-gettext-parser --config translation.config.js --output src/po/locale_fr.po 'src/**/{*.js,*.jsx,*.ts,*.tsx}' '!src/vendor'",
-        "prepare": "husky install"
+        "prepare": "husky install && sh scripts/prepare_translations.sh"
     },
     "eslintConfig": {
         "extends": [

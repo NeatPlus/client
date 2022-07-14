@@ -23,7 +23,11 @@ const Home = () => {
                     <NavBar />
                     <div className={styles.hero}>
                         <div className={styles.heroInfo}>
-                            <h1 className={styles.heroTitle}><Localize>Rapid and simple project-level environmental screening for humanitarian operations</Localize></h1>
+                            <h1 className={styles.heroTitle}>
+                                <Localize>
+                                    Rapid and simple project-level environmental screening for humanitarian operations
+                                </Localize>
+                            </h1>
                             <p className={styles.heroDesc}>
                                 <Localize>
                                     Free and open-source, the Nexus Environmental Assessment Tool (NEAT+) has been specifically designed for humanitarian actors to quickly identify issues of environmental concern to make emergency and recovery interventions more sustainable.

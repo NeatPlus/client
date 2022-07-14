@@ -1,6 +1,7 @@
 import NeatLoaderImage from 'assets/images/NEATLoader.svg';
 
 import cs from '@ra/cs';
+import {_} from 'services/i18n';
 
 import styles from './styles.scss';
 
@@ -19,7 +20,7 @@ export const NeatLoader = ({
                     [styles.loaderSmall]: small,
                 })} 
                 src={NeatLoaderImage} 
-                alt="Loading"
+                alt={_('Loading')}
                 {...otherProps}
             />
         </div>

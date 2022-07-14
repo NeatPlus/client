@@ -65,7 +65,13 @@ const WorkSection = () => {
                             </h2>
                             <p className={styles.accessDesc}>
                                 <Localize>
-                                Decide whether you wish to use the Urban or Rural version of the NEAT+. You can decide using the “Access the NEAT+” page of this website. The analysis of the Rural NEAT+ is completely performed in Excel, the files for which can be downloaded on this page. Kobo Toolbox can be optionally used to more easily collect data offline and to aggregate data at a project or organizational level. The Urban NEAT+ can be accessed directly from this site on the “<Link className={styles.links} to="/access"><Localize>Access the NEAT+</Localize></Link>” page. Currently, only the Environmental Sensitivity module is available for the U-NEAT+ users.
+                                    Decide whether you wish to use the Urban or Rural version of the NEAT+. You can decide using the “Access the NEAT+” page of this website. The analysis of the Rural NEAT+ is completely performed in Excel, the files for which can be downloaded on this page. Kobo Toolbox can be optionally used to more easily collect data offline and to aggregate data at a project or organizational level. The Urban NEAT+ can be accessed directly from this site on
+                                </Localize>
+                                <Link className={styles.links} to="/access">
+                                    "<Localize>Access the NEAT+</Localize>".
+                                </Link>
+                                <Localize>
+                                    Currently, only the Environmental Sensitivity module is available for the U-NEAT+ users.
                                 </Localize>
                             </p>
                         </div>

@@ -54,7 +54,9 @@ const Organizations = () => {
                     <BiChevronLeft size={22} className={styles.backIcon} /> <Localize>BACK</Localize>
                 </div>
                 <header className={styles.header}>
-                    <h1 className={styles.title}><Localize>My Organizations</Localize></h1>
+                    <h1 className={styles.title}>
+                        <Localize>My Organizations</Localize>
+                    </h1>
                     {!!myOrganizations.length && (
                         <Button 
                             outline 

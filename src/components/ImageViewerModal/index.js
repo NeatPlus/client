@@ -30,7 +30,7 @@ const ThumbnailImage = props => {
                 [styles.thumbnailImageActive]: index === activeImageIdx,
             })}
             onClick={handleClick}
-            alt={`mediaImg-${index}`}
+            alt={`Media ${index}`}
         />
     );
 };

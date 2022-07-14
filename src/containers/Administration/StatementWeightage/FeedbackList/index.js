@@ -6,6 +6,8 @@ import {Localize} from '@ra/components/I18n';
 import cs from '@ra/cs';
 import Api from 'services/api';
 import usePromise from '@ra/hooks/usePromise';
+
+import {_} from 'services/i18n';
 import {getSeverityFromScore} from 'utils/severity';
 
 import styles from './styles.scss';
@@ -41,9 +43,9 @@ const FeedbackItem = ({item}) => {
                     <div className={styles.scoreItem}>
                         <Localize>Expected score</Localize>
                         <div className={cs(styles.scoreValue, {
-                            [styles.scoreValueHigh]: getSeverityFromScore(expectedScore) === 'High',
-                            [styles.scoreValueMedium]: getSeverityFromScore(expectedScore) === 'Medium',
-                            [styles.scoreValueLow]: getSeverityFromScore(expectedScore) === 'Low',
+                            [styles.scoreValueHigh]: getSeverityFromScore(expectedScore) === _('High'),
+                            [styles.scoreValueMedium]: getSeverityFromScore(expectedScore) === _('Medium'),
+                            [styles.scoreValueLow]: getSeverityFromScore(expectedScore) === _('Low'),
                         })}>
                             {expectedScore}
                         </div>
@@ -51,9 +53,9 @@ const FeedbackItem = ({item}) => {
                     <div className={styles.scoreItem}>
                         <Localize>Current score</Localize>
                         <div className={cs(styles.scoreValue, {
-                            [styles.scoreValueHigh]: getSeverityFromScore(actualScore) === 'High',
-                            [styles.scoreValueMedium]: getSeverityFromScore(actualScore) === 'Medium',
-                            [styles.scoreValueLow]: getSeverityFromScore(actualScore) === 'Low',
+                            [styles.scoreValueHigh]: getSeverityFromScore(actualScore) === _('High'),
+                            [styles.scoreValueMedium]: getSeverityFromScore(actualScore) === _('Medium'),
+                            [styles.scoreValueLow]: getSeverityFromScore(actualScore) === _('Low'),
                         })}>
                             {actualScore}
                         </div>
