@@ -62,7 +62,7 @@
         "react-error-overlay": "6.0.9"
     },
     "devDependencies": {
-        "@testing-library/jest-dom": "^5.16.3",
+        "@testing-library/jest-dom": "^5.16.5",
         "babel-plugin-transform-remove-console": "^6.9.4",
         "customize-cra": "^1.0.0",
         "eslint-plugin-css-modules": "^2.11.0",
