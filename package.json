@@ -81,10 +81,12 @@
         ],
         "moduleNameMapper": {
             "@ra/(.*)": "<rootDir>/src/vendor/react-arsenal/$1",
-            "@uiw/react-textarea-code-editor": "<rootDir>/node_modules/@uiw/react-textarea-code-editor/dist/editor.js"
+            "@uiw/react-textarea-code-editor": "<rootDir>/node_modules/@uiw/react-textarea-code-editor/dist/editor.js",
+            "^d3-(.*)$": "d3-$1/dist/d3-$1"
         },
         "transformIgnorePatterns": [
-            "<rootDir>/node_modules/rehype"
+            "<rootDir>/node_modules/rehype",
+            "node_modules/(?!d3|d3-array|internmap|delaunator|robust-predicates)"
         ]
     }
 }

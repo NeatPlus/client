@@ -2,28 +2,31 @@ import {sleep} from '@ra/utils';
 
 import store from 'store';
 import * as authActions from 'store/actions/auth';
-import * as uiActions from 'store/actions/ui';
-import Api from './api';
+import Api, {request} from './api';
 
+export const checkSession = async () => {
+    let {
+        auth: {isAuthenticated}
+    } = store.getState();
+
+    try {
+        const {data} = await request('/api/v1/user/is_authenticated/', {method: 'GET', credentials: 'include'});
+        if(!isAuthenticated && data?.isAuthenticated) {
+            dispatch(authActions.login());
+            const user = await Api.getUser();
+            dispatch(authActions.setUser(user));
+        }
+    } catch(error) {
+        console.log(error);
+    }
+};
 
 const dispatch = store.dispatch;
 
 export default async function initStore() {
-    let {
-        auth: {isAuthenticated, refreshToken}
-    } = store.getState();
+    await checkSession();
 
-    if(isAuthenticated) {
-        if(refreshToken) {
-            await Api.refreshToken(refreshToken);
-        } else {
-            dispatch(authActions.logout());
-            dispatch(uiActions.showExpiryModal());
-        }
-        const user = await Api.getUser();
-        dispatch(authActions.setUser(user));
-        loadUserData(user.id);
-    }
+    loadUserData();
 
     await Api.getLegislations();
 
@@ -42,11 +45,17 @@ export default async function initStore() {
     await Api.getOrganizationMemberRequests();
 }
 
-export const loadUserData = async (userId) => {
-    //To wait for the user value to be reflected
-    //TODO: bit dirty use some hook/event
+export const loadUserData = async () => {
+    // To wait for the user value to be reflected
+    // TODO: bit dirty use some hook/event
     await sleep(500);
-    await Api.getOrganizations();
-    await Api.getMyOrganizations();
+    let {
+        auth: {user}
+    } = store.getState();
+
+    if(user?.id) {
+        await Api.getOrganizations();
+        await Api.getMyOrganizations();
+    }
 };
 

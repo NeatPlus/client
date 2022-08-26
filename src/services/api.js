@@ -3,6 +3,8 @@ import RequestBuilder from '@ra/services/request';
 import {_} from './i18n';
 import store from 'store';
 
+import {dispatchLogout} from 'utils/dispatch';
+
 import * as authActions from 'store/actions/auth';
 import * as contextActions from 'store/actions/context';
 import * as organizationActions from 'store/actions/organization';
@@ -12,42 +14,30 @@ import * as statementActions from 'store/actions/statement';
 import * as weightageActions from 'store/actions/weightage';
 import * as notificationActions from 'store/actions/notification';
 import * as legislationActions from 'store/actions/legislation';
-import * as uiActions from 'store/actions/ui';
 
 const dispatch = store.dispatch;
-
-const TokenInterceptor = req => {
-    let {
-        auth: {token},
-    } = store.getState();
-    if(token && !req.url.includes('jwt/refresh')) {
-        req.headers.append('Authorization', `Bearer ${token}`);
-    }
-};
-
-const RefreshTokenInterceptor = async res => {
-    let {
-        auth: {isAuthenticated, refreshToken}
-    } = store.getState();
-    if(isAuthenticated && refreshToken && res.status === 403) {
-        await ApiService.refreshToken(refreshToken);
-    }
-};
 
 let apiVersion = process.env.REACT_APP_API_VERSION || 'v1';
 
 export const request = new RequestBuilder(process.env.REACT_APP_API_BASE_URL)
-    .setRequestInterceptors([TokenInterceptor, console.log])
-    .setResponseInterceptors([RefreshTokenInterceptor, console.log])
+    .setRequestInterceptors([console.log])
+    .setResponseInterceptors([console.log])
     .setRetryConfig({backoffFactor: 0, maxRetries: 2})
     .build();
 
 class Api {
-    async get(url, options) {
-        const {error, data, response} = await request(`/api/${apiVersion}${url}`, options);
+    async get(url, options={}) {
+        const {error, data, response} = await request(`/api/${apiVersion}${url}`, {
+            ...options,
+            credentials: 'include',
+        });
         if(error) {
             if(response.status === 500) {
                 throw new Error(_('500 Internal Server Error'));
+            }
+            if (response.status === 403) {
+                dispatchLogout();
+                throw data || new Error(_('Error 403: Not allowed'));
             }
             console.log(data);
             throw data || _('Request Error');
@@ -64,10 +54,15 @@ class Api {
                 method: 'POST',
                 headers,
                 body: options?.headers ? body : JSON.stringify(body),
+                credentials: 'include',
             });
         if(error) {
             if(response.status === 500) {
                 throw new Error(_('500 Internal Server Error'));
+            }
+            if (response.status === 403) {
+                dispatchLogout();
+                throw data || new Error(_('Error 403: Not allowed'));
             }
             console.log(data);
             throw data || 'Request Error';
@@ -83,10 +78,15 @@ class Api {
             method: 'PATCH',
             headers,
             body: options?.headers ? body : JSON.stringify(body),
+            credentials: 'include',
         });
         if(error) {
             if(response.status === 500) {
                 throw new Error(_('500 Internal Server Error'));
+            }
+            if (response.status === 403) {
+                dispatchLogout();
+                throw data || new Error(_('Error 403: Not allowed'));
             }
             console.log(data);
             throw data || _('Request Error');
@@ -101,10 +101,15 @@ class Api {
                 'content-type': 'application/json',
             },
             body: JSON.stringify(body),
+            credentials: 'include',
         });
         if(error) {
             if(response.status === 500) {
                 throw new Error(_('500 Internal Server Error'));
+            }
+            if (response.status === 403) {
+                dispatchLogout();
+                throw data || new Error(_('Error 403: Not allowed'));
             }
             console.log(data);
             throw data || _('Request Error');
@@ -115,33 +120,20 @@ class Api {
     async delete(url) {
         const {error, data, response} = await request(`/api/${apiVersion}${url}`, {
             method: 'DELETE',
+            credentials: 'include',
         });
         if(error) {
             if(response.status === 500) {
                 throw new Error(_('500 Internal Server Error'));
             }
+            if (response.status === 403) {
+                dispatchLogout();
+                throw data || new Error(_('Error 403: Not allowed'));
+            }
             console.log(data);
             throw data || _('Request Error');
         }
         return data;
-    }
-
-    async refreshToken(refresh) {
-        try {
-            const data = await this.post('/jwt/refresh/', {
-                refresh
-            });
-            if(data?.access) {
-                return dispatch(authActions.setToken(data.access));
-            }
-            dispatch(uiActions.showExpiryModal());
-            dispatch(authActions.logout());
-        }
-        catch(error) {
-            dispatch(uiActions.showExpiryModal());
-            dispatch(authActions.logout());
-            console.log(error);
-        }
     }
 
     async getUser() {
@@ -372,9 +364,14 @@ class Api {
         const {
             auth: {user={}}
         } = store.getState();
-
-        const data = await this.get(`/organization/?admins=${user.id}`);
-        dispatch(authActions.setAdminOrganizations(data?.results || []));
+        try {
+            if(user.id) {
+                const data = await this.get(`/organization/?admins=${user.id}`);
+                dispatch(authActions.setAdminOrganizations(data?.results || []));
+            }
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     removeUsers = (projectId, body) => {
@@ -447,7 +444,7 @@ class Api {
 
     async getLegislations() {
         try {
-            const data = await this.get('/legal-document');
+            const data = await this.get('/legal-document/');
             dispatch(legislationActions.setLegislations(data?.results || []));
         } catch(error) {
             console.log(error);
@@ -509,6 +506,10 @@ class Api {
     activateDraftWeightages = (statementId, body) => {
         return this.post(`/statement/${statementId}/activate_draft_version/`, body);
     }
+
+    logout = () => {
+        return this.post('/user/logout/');
+    };
 }
 
 const ApiService = new Api();

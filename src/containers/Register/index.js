@@ -31,7 +31,7 @@ const Register = () => {
     const [recaptchaToken, setRecaptchaToken] = useState(null);
     
     const [{loading}, registerUser] = useRequest('/user/register/', {method: 'POST'});
-    const [, loginUser] = useRequest('/jwt/create/', {method: 'POST'});
+    const [, loginUser] = useRequest('/user/login/', {method: 'POST'});
 
     const handleCheck = useCallback(({checked}) => setAcceptTerms(checked), []);
     
@@ -87,8 +87,7 @@ const Register = () => {
         try {
             const result = await loginUser({username, password});
             if (result) {
-                const {access, refresh} = result;
-                await dispatchLogin(access, refresh);
+                await dispatchLogin();
                 history.push('/projects/');
             }
         } catch (err) {

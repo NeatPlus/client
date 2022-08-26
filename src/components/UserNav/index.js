@@ -21,7 +21,9 @@ import logo from 'assets/images/logo-dark.svg';
 import cs from '@ra/cs';
 import {logout} from 'store/actions/auth';
 import usePermissions from 'hooks/usePermissions';
+import useRequest from 'hooks/useRequest';
 import {weightagePermissions} from 'utils/permission';
+import Toast from 'services/toast';
 
 import Notification from './Notification';
 
@@ -36,6 +38,8 @@ const UserNav = (props) => {
 
     const {user} = useSelector(state => state.auth);
     const {activeSurvey} = useSelector(state => state.survey);
+
+    const [, logoutUser] = useRequest('/user/logout/', {method: 'POST'});
 
     const match = useRouteMatch({
         path: '/projects/:projectId/surveys/:surveyId/',
@@ -64,10 +68,19 @@ const UserNav = (props) => {
         openNotification ? hideNotification() : showNotification();
     }, [hideNotification, openNotification, showNotification]);
 
-    const handleLogOut = useCallback(() => {
-        dispatch(logout());
-        history.push('/');
-    }, [dispatch, history]);
+    const handleLogOut = useCallback(async () => {
+        try {
+            const result = await logoutUser();
+            if(result) {
+                dispatch(logout());
+                return history.push('/');
+            }
+            throw new Error('logout failed');
+        } catch(error) {
+            Toast.show(_('Failed to logout. Please try again!'), Toast.DANGER);
+            console.log(error);
+        }
+    }, [dispatch, history, logoutUser]);
 
     const getInitial = useCallback(() => user?.firstName?.[0], [user]);
 
