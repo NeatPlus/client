@@ -5,7 +5,7 @@
     "dependencies": {
         "@uiw/react-textarea-code-editor": "^2.0.3",
         "d3": "^6.7.0",
-        "html-react-parser": "^3.0.1",
+        "html-react-parser": "^3.0.4",
         "po2json": "^0.4.5",
         "postcss": "^8.4.14",
         "react": "^17.0.2",
