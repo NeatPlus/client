@@ -16,9 +16,17 @@ import styles from './styles.scss';
 const Notice = () => {
     const [{result}, getNotice] = usePromise(Api.getNotice);
 
-    useEffect(() => {
-        getNotice();
+    const fetchNoticeData = useCallback(async () => {
+        try {
+            await getNotice();
+        } catch(error) {
+            console.log(error);
+        }
     }, [getNotice]);
+
+    useEffect(() => {
+        fetchNoticeData();
+    }, [fetchNoticeData]);
 
     const notice = useMemo(() => result?.results?.find(el => el.isActive), [result]);
 

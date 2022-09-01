@@ -1,17 +1,16 @@
-import {useCallback, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
-
+import { useCallback, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import useRequest from 'hooks/useRequest';
-import {dispatchLogin} from 'utils/dispatch';
+import { dispatchLogin } from 'utils/dispatch';
 
 import Container from 'components/Container';
 import AuthModals from 'components/AuthModals';
 import Button from 'components/Button';
-import Form, {InputField} from '@ra/components/Form';
+import Form, { InputField } from '@ra/components/Form';
 import TextInput from '@ra/components/Form/TextInput';
 import SecureTextInput from '@ra/components/Form/SecureTextInput';
-import {Localize} from '@ra/components/I18n';
-import {_} from 'services/i18n';
+import { Localize } from '@ra/components/I18n';
+import { _ } from 'services/i18n';
 
 import initStore from 'services/initStore';
 import useAuthModals from 'hooks/useAuthModals';
@@ -27,20 +26,19 @@ const Login = () => {
     const [error, setError] = useState(null);
     const [email, setEmail] = useState('');
 
-    const [{loading}, loginUser] = useRequest('/jwt/create/', {
+    const [{ loading }, loginUser] = useRequest('/user/login/', {
         method: 'POST',
     });
 
     const handleLogin = useCallback(
         async (formData) => {
-            const {username, password} = formData;
+            const { username, password } = formData;
             setEmail(username);
             setError(null);
             try {
-                const result = await loginUser({username, password});
+                const result = await loginUser({ username, password });
                 if (result) {
-                    const {access, refresh} = result;
-                    await dispatchLogin(access, refresh);
+                    await dispatchLogin();
                     history.push('/projects/');
                     initStore();
                 }
@@ -57,7 +55,7 @@ const Login = () => {
             <Container>
                 <div className={styles.loginContent}>
                     <div className={styles.nav}>
-                        <Link to='/' className={styles.navLink}>
+                        <Link to="/" className={styles.navLink}>
                             <img
                                 className={styles.logo}
                                 src={logo}
@@ -66,8 +64,12 @@ const Login = () => {
                         </Link>
                     </div>
                     <main className={styles.content}>
-                        <h2 className={styles.subTitle}><Localize>Welcome back!</Localize></h2>
-                        <h1 className={styles.title}><Localize>Log in to NEAT+</Localize></h1>
+                        <h2 className={styles.subTitle}>
+                            <Localize>Welcome back!</Localize>
+                        </h2>
+                        <h1 className={styles.title}>
+                            <Localize>Log in to NEAT+</Localize>
+                        </h1>
                         <div className={styles.loginContainer}>
                             <Form
                                 error={error}
@@ -78,7 +80,7 @@ const Login = () => {
                                 <InputField
                                     label={_('Email or Username')}
                                     component={TextInput}
-                                    name='username'
+                                    name="username"
                                     required
                                     className={styles.input}
                                     labelClassName={styles.inputLabel}
@@ -87,29 +89,36 @@ const Login = () => {
                                 <InputField
                                     label={_('Password')}
                                     component={SecureTextInput}
-                                    name='password'
+                                    name="password"
                                     required
                                     className={styles.input}
                                     labelClassName={styles.inputLabel}
                                     containerClassName={styles.inputGroup}
                                 />
-                                <Button loading={loading} className={styles.button}>
+                                <Button
+                                    loading={loading}
+                                    className={styles.button}
+                                >
                                     <Localize>Log in</Localize>
                                 </Button>
                             </Form>
                             <div className={styles.links}>
                                 <Link
                                     className={styles.linkItem}
-                                    to='#'
-                                    onClick={authModalsConfig.handleShowForgotPassword}
+                                    to="#"
+                                    onClick={
+                                        authModalsConfig.handleShowForgotPassword
+                                    }
                                 >
                                     <Localize>Forgot Password?</Localize>
                                 </Link>
                                 {!!error && (
-                                    <Link 
-                                        className={styles.linkItem} 
-                                        to="#" 
-                                        onClick={authModalsConfig.handleShowVerifyEmail}
+                                    <Link
+                                        className={styles.linkItem}
+                                        to="#"
+                                        onClick={
+                                            authModalsConfig.handleShowVerifyEmail
+                                        }
                                     >
                                         <Localize>Activate account?</Localize>
                                     </Link>
@@ -117,7 +126,7 @@ const Login = () => {
                             </div>
                             <p className={styles.text}>
                                 <Localize>Don't have an account?</Localize>{' '}
-                                <Link className={styles.link} to='/register'>
+                                <Link className={styles.link} to="/register">
                                     <Localize>Register Now</Localize>
                                 </Link>
                             </p>
@@ -126,8 +135,8 @@ const Login = () => {
                             <Link
                                 className={styles.link}
                                 to={{
-                                    pathname: '/legal-document', 
-                                    title: 'privacy-policy'
+                                    pathname: '/legal-document',
+                                    title: 'privacy-policy',
                                 }}
                             >
                                 <Localize>Privacy Policy</Localize>
@@ -135,8 +144,8 @@ const Login = () => {
                             <Link
                                 className={styles.link}
                                 to={{
-                                    pathname: '/legal-document', 
-                                    title: 'terms-and-conditions'
+                                    pathname: '/legal-document',
+                                    title: 'terms-and-conditions',
                                 }}
                             >
                                 <Localize>Terms of Use</Localize>
@@ -144,10 +153,10 @@ const Login = () => {
                         </div>
                     </main>
                 </div>
-                <AuthModals 
-                    username={email} 
-                    onRegisterComplete={authModalsConfig.hideModals} 
-                    {...authModalsConfig} 
+                <AuthModals
+                    username={email}
+                    onRegisterComplete={authModalsConfig.hideModals}
+                    {...authModalsConfig}
                 />
             </Container>
         </div>

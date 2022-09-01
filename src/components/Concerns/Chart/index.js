@@ -78,7 +78,7 @@ const ConcernsChart = ({concerns}) => {
             return (
                 <div className={styles.tooltip}>
                     <p className={styles.tooltipLabel}>
-                        {`${payload[0].name}s : ${payload[0].value}`}
+                        {`${payload[0].name} : ${payload[0].value}`}
                     </p>
                 </div>
             );
