@@ -1,6 +1,6 @@
-import {useMemo, useState, useCallback, useEffect} from 'react';
-import {Link, useParams, useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import { useMemo, useState, useCallback, useEffect } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
     BiRightArrowAlt,
     BiCheckbox,
@@ -8,111 +8,150 @@ import {
     BiCheckboxSquare,
     BiChevronLeft,
 } from 'react-icons/bi';
-import {BsChevronRight} from 'react-icons/bs';
+import { BsChevronRight } from 'react-icons/bs';
 
 import Button from 'components/Button';
-import {Localize} from '@ra/components/I18n';
+import { Localize } from '@ra/components/I18n';
 import Table from '@ra/components/Table';
-import {NeatLoader} from 'components/Loader';
+import { NeatLoader } from 'components/Loader';
 import ConfirmationModal from 'components/ConfirmationModal';
 
 import cs from '@ra/cs';
-import {_} from 'services/i18n';
+import { _ } from 'services/i18n';
 import Api from 'services/api';
 import Toast from 'services/toast';
-import {getErrorMessage} from '@ra/utils/error';
+import { getErrorMessage } from '@ra/utils/error';
 import usePromise from '@ra/hooks/usePromise';
 
 import styles from './styles.scss';
 
-const SelectIcon = ({selected, intermediate, onClick}) => {
-    if(selected) {
+const SelectIcon = ({ selected, intermediate, onClick }) => {
+    if (selected) {
         return (
             <BiCheckboxChecked
-                className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected})}
+                className={cs(styles.selectIcon, {
+                    [styles.selectIconSelected]: selected,
+                })}
                 onClick={onClick}
             />
         );
     }
-    if(intermediate) {
+    if (intermediate) {
         return (
             <BiCheckboxSquare
-                className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected || intermediate})}
+                className={cs(styles.selectIcon, {
+                    [styles.selectIconSelected]: selected || intermediate,
+                })}
                 onClick={onClick}
             />
         );
-    } 
+    }
     return (
         <BiCheckbox
-            className={cs(styles.selectIcon, {[styles.selectIconSelected]: selected})}
+            className={cs(styles.selectIcon, {
+                [styles.selectIconSelected]: selected,
+            })}
             onClick={onClick}
         />
-    ); 
+    );
 };
 
-const HeaderItem =  ({column, selectedQuestions, moduleQuestions, onClick}) => {
-    if(column.Header === _('Select')) {
+const HeaderItem = ({
+    column,
+    selectedQuestions,
+    moduleQuestions,
+    onClick,
+}) => {
+    if (column.Header === _('Select')) {
         return (
             <SelectIcon
-                selected={selectedQuestions?.length && selectedQuestions?.length === moduleQuestions?.length}
+                selected={
+                    selectedQuestions?.length &&
+                    selectedQuestions?.length === moduleQuestions?.length
+                }
                 intermediate={selectedQuestions?.length > 0}
                 onClick={onClick}
             />
         );
     }
     return column.Header;
-}; 
+};
 
-const DataItem = ({item, column, selectedQuestions}) => {
-    if(column.Header===_('Questions')) {
+const DataItem = ({ item, column, selectedQuestions }) => {
+    if (column.Header === _('Questions')) {
         return (
             <div className={styles.nameItem}>
                 {item?.[column.accessor] ?? '-'}
             </div>
         );
     }
-    if(column.Header===_('Select')) {
-        return <SelectIcon selected={selectedQuestions?.some(ques => ques.id === item.id)} />;
+    if (column.Header === _('Select')) {
+        return (
+            <SelectIcon
+                selected={selectedQuestions?.some(
+                    (ques) => ques.id === item.id
+                )}
+            />
+        );
     }
     return item?.[column.accessor] ?? '-';
-}; 
+};
 
-const StatementDetails = props => {
-    const {activeContext, activeModule} = props;
+const StatementDetails = (props) => {
+    const { activeContext, activeModule } = props;
 
-    const columns = useMemo(() => ([
-        {
-            Header: _('Select'),
-            accessor: '',
-        }, {
-            Header: _('Categories'),
-            accessor: 'groupTitle',
-        },  {
-            Header: _('Questions'),
-            accessor: 'title',
-        }
-    ]), []);
+    const { questionStatements = [] } = useSelector((state) => state.weightage);
+
+    const columns = useMemo(
+        () => [
+            {
+                Header: _('Select'),
+                accessor: '',
+            },
+            {
+                Header: _('Categories'),
+                accessor: 'groupTitle',
+            },
+            {
+                Header: _('Questions'),
+                accessor: 'title',
+            },
+        ],
+        []
+    );
 
     const history = useHistory();
-    const {statementId} = useParams();
+    const { statementId } = useParams();
 
-    const [showConfirmPublish, setShowConfirmPublish]= useState(false);
+    const [showConfirmPublish, setShowConfirmPublish] = useState(false);
 
-    const handleShowPublish = useCallback(() => setShowConfirmPublish(true), []);
-    const handleCancelPublish = useCallback(() => setShowConfirmPublish(false), []);
+    const handleShowPublish = useCallback(
+        () => setShowConfirmPublish(true),
+        []
+    );
+    const handleCancelPublish = useCallback(
+        () => setShowConfirmPublish(false),
+        []
+    );
 
-    const {questionGroups, questions, status} = useSelector(state => state.question);
+    const { questionGroups, questions, status } = useSelector(
+        (state) => state.question
+    );
 
-    const {statements} = useSelector(state => state.statement);
+    const { statements } = useSelector((state) => state.statement);
     const activeStatement = useMemo(() => {
-        return statements.find(st => st.id === +statementId);
+        return statements.find((st) => st.id === +statementId);
     }, [statementId, statements]);
 
-    const [{result}, loadQuestionStatement] = usePromise(Api.getQuestionStatements);
-    const [{loading: publishing}, publishDraft] = usePromise(Api.activateDraftWeightages);
+    const [{ result }, loadQuestionStatement] = usePromise(
+        Api.getQuestionStatements
+    );
+    const [{ loading: publishing }, publishDraft] = usePromise(
+        Api.activateDraftWeightages
+    );
 
     useEffect(() => {
-        if(activeStatement) {
+        if (activeStatement) {
             loadQuestionStatement({
                 statement: activeStatement?.id,
                 version: 'draft',
@@ -122,85 +161,135 @@ const StatementDetails = props => {
     }, [loadQuestionStatement, activeStatement]);
 
     const moduleQuestions = useMemo(() => {
-        return questions[activeModule?.code]?.map(ques => ({
-            ...ques,
-            groupTitle: questionGroups?.find(grp => grp.id === ques.group)?.title || '',
-        })) || [];
+        return (
+            questions[activeModule?.code]?.map((ques) => ({
+                ...ques,
+                groupTitle:
+                    questionGroups?.find((grp) => grp.id === ques.group)
+                        ?.title || '',
+            })) || []
+        );
     }, [questions, activeModule, questionGroups]);
 
-    const [selectedQuestions, setSelectedQuestions] = useState([]);
+    const initialSelectedQuestions = useMemo(() => {
+        return moduleQuestions.filter(
+            (mq) =>
+                questionStatements.some((qs) => {
+                    return (
+                        qs.statement === activeStatement?.id &&
+                        qs.question === mq.id
+                    );
+                }) ||
+                result?.results.some((qs) => {
+                    return qs.question === mq.id;
+                })
+        );
+    }, [moduleQuestions, questionStatements, activeStatement, result]);
+
+    const [selectedQuestions, setSelectedQuestions] = useState(
+        initialSelectedQuestions
+    );
+
+    useEffect(() => {
+        if (result?.results) {
+            setSelectedQuestions(initialSelectedQuestions);
+        }
+    }, [result, initialSelectedQuestions]);
 
     const handleSelectAllToggle = useCallback(() => {
-        if(selectedQuestions?.length === moduleQuestions?.length) {
+        if (selectedQuestions?.length === moduleQuestions?.length) {
             return setSelectedQuestions([]);
         }
         setSelectedQuestions(moduleQuestions);
     }, [selectedQuestions, moduleQuestions]);
 
-    const handleRowClick = useCallback(item => {
-        if(!item) {
-            return;
-        }
-        const newSelectedQuestions = [...selectedQuestions];
-        const questionIdx = selectedQuestions?.findIndex(ques => ques.id === item.id);
-        if(questionIdx > -1) {
-            newSelectedQuestions.splice(questionIdx, 1);
-            return setSelectedQuestions(newSelectedQuestions);
-        }
-        return setSelectedQuestions([...selectedQuestions, item]); 
-    }, [selectedQuestions]);
+    const handleRowClick = useCallback(
+        (item) => {
+            if (!item) {
+                return;
+            }
+            const newSelectedQuestions = [...selectedQuestions];
+            const questionIdx = selectedQuestions?.findIndex(
+                (ques) => ques.id === item.id
+            );
+            if (questionIdx > -1) {
+                newSelectedQuestions.splice(questionIdx, 1);
+                return setSelectedQuestions(newSelectedQuestions);
+            }
+            return setSelectedQuestions([...selectedQuestions, item]);
+        },
+        [selectedQuestions]
+    );
 
     const handleNextClick = useCallback(() => {
-        history.push(`/administration/statements/${statementId}/weightage/`, {selectedQuestions});
+        history.push(`/administration/statements/${statementId}/weightage/`, {
+            selectedQuestions,
+        });
     }, [statementId, selectedQuestions, history]);
 
     const handleConfirmPublish = useCallback(async () => {
-        if(!activeStatement?.id) {
-            return Toast.show(_('Please wait until the statement changes are loaded'), Toast.DANGER);
+        if (!activeStatement?.id) {
+            return Toast.show(
+                _('Please wait until the statement changes are loaded'),
+                Toast.DANGER
+            );
         }
         try {
             await publishDraft(activeStatement.id);
-            Toast.show(_('Your changes have been successfully published!'), Toast.SUCCESS);
+            Toast.show(
+                _('Your changes have been successfully published!'),
+                Toast.SUCCESS
+            );
             loadQuestionStatement({
                 statement: activeStatement.id,
                 version: 'draft',
                 limit: 1,
             });
-        } catch(error) {
-            Toast.show(getErrorMessage(error) || _('An error occured while publishing your changes!'), Toast.DANGER);
+        } catch (error) {
+            Toast.show(
+                getErrorMessage(error) ||
+                    _('An error occured while publishing your changes!'),
+                Toast.DANGER
+            );
         }
         setShowConfirmPublish(false);
     }, [activeStatement, publishDraft, loadQuestionStatement]);
 
-    const renderHeaderItem = useCallback(tableProps => {
-        return (
-            <HeaderItem
-                {...tableProps}
-                selectedQuestions={selectedQuestions}
-                moduleQuestions={moduleQuestions}
-                onClick={handleSelectAllToggle}
-            />
-        );
-    }, [selectedQuestions, moduleQuestions, handleSelectAllToggle]);
+    const renderHeaderItem = useCallback(
+        (tableProps) => {
+            return (
+                <HeaderItem
+                    {...tableProps}
+                    selectedQuestions={selectedQuestions}
+                    moduleQuestions={moduleQuestions}
+                    onClick={handleSelectAllToggle}
+                />
+            );
+        },
+        [selectedQuestions, moduleQuestions, handleSelectAllToggle]
+    );
 
-    const renderDataItem = useCallback(tableProps => {
-        return (
-            <DataItem {...tableProps} selectedQuestions={selectedQuestions} />
-        );
-    }, [selectedQuestions]);
+    const renderDataItem = useCallback(
+        (tableProps) => {
+            return (
+                <DataItem
+                    {...tableProps}
+                    selectedQuestions={selectedQuestions}
+                />
+            );
+        },
+        [selectedQuestions]
+    );
 
     return (
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.contentHeader}>
-                    <Link 
-                        to="/administration/statements/" 
+                    <Link
+                        to="/administration/statements/"
                         className={styles.backLink}
                     >
-                        <BiChevronLeft 
-                            size={22} 
-                            className={styles.backIcon} 
-                        />
+                        <BiChevronLeft size={22} className={styles.backIcon} />
                     </Link>
                     <div className={styles.titleContainer}>
                         <div className={styles.tagsContainer}>
@@ -217,7 +306,10 @@ const StatementDetails = props => {
                         </h2>
                     </div>
                     {result?.results?.length > 0 && (
-                        <Button className={styles.headerButton} onClick={handleShowPublish}>
+                        <Button
+                            className={styles.headerButton}
+                            onClick={handleShowPublish}
+                        >
                             <Localize>Publish</Localize>
                         </Button>
                     )}
@@ -227,17 +319,19 @@ const StatementDetails = props => {
                         <div className={styles.infoContainer}>
                             <p className={styles.infoText}>
                                 <Localize>
-                                    Select all relevant questions related to the above statement
+                                    Select all relevant questions related to the
+                                    above statement
                                 </Localize>
                             </p>
                             <div className={styles.infoRight}>
                                 <p className={styles.infoSelected}>
-                                    {selectedQuestions?.length} <Localize>item(s) selected.</Localize>
+                                    {selectedQuestions?.length}{' '}
+                                    <Localize>item(s) selected.</Localize>
                                 </p>
                                 <Button
                                     onClick={handleNextClick}
                                     className={styles.nextButton}
-                                    disabled={selectedQuestions?.length===0}
+                                    disabled={selectedQuestions?.length === 0}
                                 >
                                     <Localize>Next</Localize>
                                     <BiRightArrowAlt
@@ -248,15 +342,19 @@ const StatementDetails = props => {
                             </div>
                         </div>
                         <div className={styles.tableContainer}>
-                            <Table 
-                                loading={status!=='complete'}
+                            <Table
+                                loading={status !== 'complete'}
                                 LoadingComponent={<NeatLoader medium />}
-                                EmptyComponent={<p className={styles.statusMessage}>
-                                    <Localize>No questions found! Please wait...</Localize>
-                                </p>}
-                                className={styles.table} 
-                                data={moduleQuestions} 
-                                columns={columns} 
+                                EmptyComponent={
+                                    <p className={styles.statusMessage}>
+                                        <Localize>
+                                            No questions found! Please wait...
+                                        </Localize>
+                                    </p>
+                                }
+                                className={styles.table}
+                                data={moduleQuestions}
+                                columns={columns}
                                 maxRows={moduleQuestions?.length}
                                 renderDataItem={renderDataItem}
                                 renderHeaderItem={renderHeaderItem}
@@ -283,12 +381,13 @@ const StatementDetails = props => {
                 onConfirm={handleConfirmPublish}
                 confirmButtonText={_('Publish')}
                 titleText={_('Publish changes?')}
-                confirmButtonProps={{loading: publishing}}
+                confirmButtonProps={{ loading: publishing }}
                 DescriptionComponent={
                     <>
                         <p className={styles.modalText}>
                             <Localize>
-                                If you publish the changes, all further calculations will use the new configuration.
+                                If you publish the changes, all further
+                                calculations will use the new configuration.
                             </Localize>
                         </p>
                         <p className={styles.modalText}>
