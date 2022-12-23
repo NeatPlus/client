@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {IoClose} from 'react-icons/io5';
 import {MdClose} from 'react-icons/md';
+import parse from 'html-react-parser'; 
 
 import Container from 'components/Container';
 
@@ -65,7 +66,9 @@ const Notice = () => {
                         </button>
                     </div>
                     <div className={styles.content}>
-                        <p className={styles.description}>{notice.description}</p>
+                        <p className={styles.description}>
+                            {parse(notice.description || '')} 
+                        </p>
                     </div>
                 </Modal>
             )}
