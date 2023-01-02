@@ -104,6 +104,7 @@ const SurveyFeedback = props => {
             if(feedbackResponse?.count > 0) {
                 dispatch(setAdvancedFeedbacks(feedbackResponse.results.map(fdback => ({
                     surveyResult: fdback.surveyResult,
+                    actualScore: fdback.actualScore,
                     expectedScore: fdback.expectedScore,
                     comment: fdback.comment,
                 }))));
