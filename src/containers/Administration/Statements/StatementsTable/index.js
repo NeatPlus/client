@@ -102,7 +102,9 @@ const StatementsTable = props => {
         }
         return statements.map(st => {
             const statementInsight = insightsResult.find(res => res.surveyResult_Statement === st.id);
-            const {difference, sumOfSquare, standardDeviation} = statementInsight;
+            const difference = statementInsight?.difference;
+            const sumOfSquare = statementInsight?.sumOfSquare;
+            const standardDeviation = statementInsight?.standardDeviation;
             return {
                 ...st,
                 difference: Math.abs(Number(difference)).toFixed(2),
