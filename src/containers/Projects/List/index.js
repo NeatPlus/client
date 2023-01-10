@@ -82,8 +82,9 @@ const ProjectTable = withNoProject(props => {
         setPage(currentPage);
     }, [setPage]);
     const handleMaxRowsChange = useCallback(({option}) => {
+        setPage(1);
         setMaxRows(option);
-    }, [setMaxRows]);
+    }, [setMaxRows, setPage]);
 
     const handleRowClick = useCallback(project => {
         history.push(`/projects/${project.id}/`); 

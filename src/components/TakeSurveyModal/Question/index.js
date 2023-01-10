@@ -108,9 +108,10 @@ const Question = forwardRef((props, ref) => {
         <>
             <div ref={ref} className={cs(styles.contentBlock, {
                 [styles.contentBlockRequired]: showRequiredMessage,
+                [styles.contentBlockFocusable]: !['single_option', 'multiple-option'].includes(item.answerType),
                 [styles.contentBlockBoolean]: item.answerType==='boolean',
                 [styles.contentBlockDisabled]: !editable,
-            })}>
+            })} tabIndex={-1}>
                 <p className={cs(styles.contentBlockTitle, {
                     [styles.descriptionTitle]: item.answerType==='description',
                     [styles.inputTitle]: item.answerType!=='description',
