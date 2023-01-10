@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@craco/craco": "^7.0.0",
         "@uiw/react-textarea-code-editor": "^2.0.6",
         "d3": "^6.7.0",
         "html-react-parser": "^3.0.7",
@@ -15,10 +16,10 @@
         "react-google-recaptcha-v3": "^1.10.1",
         "react-icons": "^4.7.1",
         "react-inlinesvg": "^3.0.1",
-        "react-map-gl": "^6.1.19",
+        "react-map-gl": "^6.1.21",
         "react-redux": "^8.0.5",
         "react-router-dom": "^5.3.0",
-        "react-scripts": "^4",
+        "react-scripts": "^5",
         "recharts": "^2.2.0",
         "redux": "^4.1.1",
         "redux-logger": "^3.0.6",
@@ -31,10 +32,10 @@
         "yet-another-abortcontroller-polyfill": "^0.0.4"
     },
     "scripts": {
-        "start": "react-app-rewired start",
-        "build": "react-app-rewired build",
-        "test": "react-app-rewired test",
-        "eject": "react-app-rewired eject",
+        "start": "craco start",
+        "build": "craco build",
+        "test": "craco test --testPathIgnorePatterns=src/vendor/",
+        "eject": "react-scripts eject",
         "lint": "eslint --fix --ext .js,.jsx . && stylelint '**/*.{css,scss}'",
         "generate:po": "react-gettext-parser --config translation.config.js --output src/po/locale_fr.po 'src/**/{*.js,*.jsx,*.ts,*.tsx}' '!src/vendor'",
         "prepare": "husky install && sh scripts/prepare_translations.sh"
@@ -60,26 +61,25 @@
         ]
     },
     "resolutions": {
-        "react-error-overlay": "6.0.9"
+        "react-error-overlay": "6.0.11",
+        "@svgr/webpack": "6.5.1"
     },
     "devDependencies": {
+        "@babel/eslint-parser": "^7.19.1",
         "@testing-library/jest-dom": "^5.16.5",
+        "babel-eslint": "^10.1.0",
         "babel-plugin-transform-remove-console": "^6.9.4",
         "customize-cra": "^1.0.0",
         "eslint-plugin-css-modules": "^2.11.0",
         "eslint-plugin-react": "^7.31.11",
         "husky": "^8.0.3",
         "lint-staged": "^13.1.0",
-        "react-app-rewired": "^2.2.1",
         "react-gettext-parser": "^1.16.0",
         "stylelint": "^14.16.1",
         "stylelint-config-standard": "^26.0.0",
         "stylelint-config-standard-scss": "^4.0.0"
     },
     "jest": {
-        "testPathIgnorePatterns": [
-            "src/vendor"
-        ],
         "moduleNameMapper": {
             "@ra/(.*)": "<rootDir>/src/vendor/react-arsenal/$1",
             "@uiw/react-textarea-code-editor": "<rootDir>/node_modules/@uiw/react-textarea-code-editor/dist/editor.js"

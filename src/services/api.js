@@ -150,23 +150,23 @@ class Api {
 
     patchUser = body => {
         return this.patch('/user/me/', body);
-    }
+    };
 
     resendConfirmEmail = body => {
         return this.post('/user/email_confirm/', body);
-    }
+    };
 
     verifyEmail = body => {
         return this.post('/user/email_confirm/verify/', body);
-    }
+    };
 
     requestEmailChange = body => {
         return this.post('/user/email_change/', body);
-    }
+    };
 
     verifyEmailChange = body => {
         return this.post('/user/email_change/verify/', body);
-    }
+    };
 
     async getOrganizations() {
         dispatch(organizationActions.setStatus('loading'));
@@ -182,7 +182,7 @@ class Api {
 
     getOrganizationUsers = (orgId) => {
         return this.get(`/organization/${orgId}/users`);
-    }
+    };
 
     async getContextsModules() {
         try {
@@ -339,7 +339,7 @@ class Api {
 
     getProjects = async query => {
         return this.get('/project/', {query});
-    }
+    };
 
     getUsers = async (searchValue) => {
         return this.get('/user/',
@@ -348,7 +348,7 @@ class Api {
                     search: searchValue
                 }
             });
-    }
+    };
 
     getNotifications = async () => {
         try {
@@ -366,7 +366,7 @@ class Api {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     getMyOrganizations = async () => {
         const {
@@ -375,75 +375,75 @@ class Api {
 
         const data = await this.get(`/organization/?admins=${user.id}`);
         dispatch(authActions.setAdminOrganizations(data?.results || []));
-    }
+    };
 
     removeUsers = (projectId, body) => {
         return this.post(`/project/${projectId}/remove_users/`, body);
-    }
+    };
 
     upsertUsers = (projectId, body) => {
         return this.post(`/project/${projectId}/update_or_add_users/`, body);
-    }
+    };
 
     approveProject = (projectId) => {
         return this.post(`/project/${projectId}/accept/`);
-    }
+    };
 
     rejectProject = (projectId) => {
         return this.post(`/project/${projectId}/reject/`);
-    }
+    };
 
     markAllAsRead = () => {
         return this.post('/notification/mark_all_as_read/');
-    }
+    };
 
     getProject = projectId => {
         return this.get(`/project/${projectId}/`);
-    }
+    };
 
     getProjectAccessLevel = (projectId) => {
         return this.get(`/project/${projectId}/access_level/`);
-    }
+    };
 
     createOrganization = body => {
         return this.post('/organization/', body);
-    }
+    };
 
     editOrganization = (body, organizationId) => {
         return this.patch(`/organization/${organizationId}/`, body);
-    }
+    };
 
     upsertOrganizationUsers = (organizationId, body) => {
         return this.post(`/organization/${organizationId}/update_or_add_users/`, body);
-    }
+    };
 
     removeOrganizationUsers = (organizationId, body) => {
         return this.post(`/organization/${organizationId}/remove_users/`, body);
-    }
+    };
 
     requestOrganizationMember = organizationId => {
         return this.post(`/organization/${organizationId}/member_request/`);
-    }
+    };
 
     approveOrganizationMember = memberRequestId => {
         return this.post(`/organization-member-request/${memberRequestId}/accept/`);
-    }
+    };
 
     rejectOrganizationMember = memberRequestId => {
         return this.post(`/organization-member-request/${memberRequestId}/reject`);
-    }
+    };
 
     revokeMemberRequest = memberRequestId => {
         return this.delete(`/organization-member-request/${memberRequestId}/`);
-    }
+    };
 
     patchSurvey = (surveyId, body) => {
         return this.patch(`/survey/${surveyId}/`, body);
-    }
+    };
 
     getNotice = () => {
         return this.get('/notice/?ordering=-created_at');
-    }
+    };
 
     async getLegislations() {
         try {
@@ -456,59 +456,59 @@ class Api {
 
     shareSurveyLink = surveyId => {
         return this.post(`/survey/${surveyId}/share_link/`);
-    }
+    };
 
     unshareSurveyLink = surveyId => {
         return this.post(`/survey/${surveyId}/unshare_link/`);
-    }
+    };
 
     updateSurveyLink = surveyId => {
         return this.post(`/survey/${surveyId}/update_link/`);
-    }
+    };
 
     getPublicSurvey = identifier => {
         return this.get(`/survey/identifier/${identifier}/`);
-    }
+    };
 
     uploadWeightages = (statementId, body) => {
         return this.post(`/statement/${statementId}/upload_weightage/`, body);
-    }
+    };
 
     postFeedback = (body) => {
         return this.post('/survey-result/add_feedback/', body);
-    }
+    };
 
     addBaselineFeedback = body => {
         return this.post('/survey-result/add_baseline_feedback/', body);
-    }
+    };
 
     getFeedbacks = query => {
         return this.get('/survey-result-feedback/', {query});
-    }
+    };
 
     getQuestionStatements = query => {
         return this.get('/question-statement/', {query});
-    }
+    };
 
     getOptionStatements = query => {
         return this.get('/option-statement/', {query});
-    }
+    };
 
     getInsights = query => {
         return this.get('/survey-insight/', {query});
-    }
+    };
 
     getSurveyAnswers = query => {
         return this.get('/survey-answer/', {query});
-    }
+    };
 
     getStatementFormula = query => {
         return this.get('/statement-formula/', {query});
-    }
+    };
 
     activateDraftWeightages = (statementId, body) => {
         return this.post(`/statement/${statementId}/activate_draft_version/`, body);
-    }
+    };
 }
 
 const ApiService = new Api();
