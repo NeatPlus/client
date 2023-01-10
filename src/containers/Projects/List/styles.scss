@@ -45,6 +45,7 @@
             .header-item {
                 padding: 0.625em 2.5em;
                 min-width: 120px;
+                user-select: none;
 
                 @media screen and (max-width: 767px) {
                     text-align: center;

@@ -189,7 +189,10 @@ const SurveyList = () => {
     const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
-    const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
+    const handleMaxRowsChange = useCallback(({option}) => {
+        setPage(1);
+        setMaxRows(option);
+    }, []);
 
     const handleRowClick = useCallback(survey => {
         history.push(`${survey.id}/`);

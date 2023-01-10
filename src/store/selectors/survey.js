@@ -26,6 +26,9 @@ export const getFormattedSurveys = createSelector([
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {
                 const que = allQuestions.find(q => q.id === srv.question);
+                if(!que) {
+                    return undefined;
+                }
                 return {
                     ...srv,
                     question: {
@@ -33,16 +36,19 @@ export const getFormattedSurveys = createSelector([
                         code: que.code,
                     },
                 };
-            }),
+            }).filter(srvey => Boolean(srvey)),
         results: surveyResults
             .filter(sur => survey && sur.survey === survey?.id)
             .map(res => {
                 const statement = statements.find(st => st.id === res.statement);
+                if(!statement) {
+                    return undefined;
+                }
                 return {
                     ...res,
                     topic: statement.topic,
                     severity: getSeverityFromScore(res.score)
                 };
-            }),
+            }).filter(result => Boolean(result)),
     })) || [];
 });

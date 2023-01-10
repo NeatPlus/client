@@ -66,6 +66,7 @@
             color: var(--color-dark);
             font-weight: 600;
             cursor: pointer;
+            user-select: none;
 
             @media screen and (max-width: 767px) {
                 padding: 10px 12px;

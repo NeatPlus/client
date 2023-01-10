@@ -208,7 +208,7 @@ const CreateEditProjectModal = (props) => {
                     valueExtractor={orgValueExtractor}
                     keyExtractor={orgKeyExtractor}
                     controlClassName={styles.selectControl}
-                    defaultValue={mode === 'edit' ? orgObj : {}}
+                    defaultValue={mode === 'edit' ? orgObj : undefined}
                 />
                 <InputField
                     name='description'

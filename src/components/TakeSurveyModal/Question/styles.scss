@@ -4,8 +4,20 @@
     border: solid 1px #e2e2e2;
     margin: 10px 0;
     background-color: #fafafa;
+    outline-color: var(--color-primary);
+    transition: border 0.2s ease-out;
 
-    &__required {
+    &:hover {
+        border: 1px solid var(--color-primary);
+    }
+
+    &__focusable:focus-within {
+        border: 1px solid var(--color-primary);
+    }
+
+    &__required,
+    &__required:focus-within,
+    &__required:hover {
         border: solid 1px var(--color-warning);
         margin-bottom: 0;
     }
@@ -57,10 +69,15 @@
     .input {
         font-size: var(--font-size-base);
         width: 100%;
-        border: transparent;
+        border: 1px solid transparent;
         outline: none;
         padding: 0;
         color: var(--color-dark-alt);
+
+        &:hover,
+        &:focus {
+            border: 1px solid transparent;
+        }
 
         &::placeholder {
             color: var(--color-grey-light-alt);
