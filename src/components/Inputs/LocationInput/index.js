@@ -55,7 +55,7 @@ const LocationInput = props => {
             return null;
         }
         const point = JSON.parse(answer);
-        const [lng, lat] = point?.coordinates;
+        const [lng, lat] = point.coordinates;
         return ({
             longitude: lng,
             latitude: lat,
