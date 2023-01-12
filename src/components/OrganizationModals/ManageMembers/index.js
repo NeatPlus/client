@@ -148,6 +148,7 @@ const RequestItem = ({item}) => {
             Api.getOrganizationMemberRequests();
             Api.getOrganizations();
         } catch(error) {
+            Toast.show(getErrorMessage(error), Toast.DANGER);
             console.log(error);
         }
     }, [item, approveRequest]);
@@ -157,6 +158,7 @@ const RequestItem = ({item}) => {
             Toast.show(_('Request rejected!'), Toast.SUCCESS);
             Api.getOrganizationMemberRequests();
         } catch(error) {
+            Toast.show(getErrorMessage(error), Toast.DANGER);
             console.log(error);
         }
     }, [item, rejectRequest]);
@@ -196,6 +198,7 @@ const ManageMembersModal = (props) => {
 
     const {onClose, organization} = props;
     const {memberRequests} = useSelector(state => state.organization);
+    const {user} = useSelector(state => state.auth);
 
     const [{loading: loadingUsers, result: users}, getUsers] = usePromise(Api.getUsers);
     const [{loading: saving}, upsertUsers] = usePromise(Api.upsertOrganizationUsers);
@@ -222,11 +225,9 @@ const ManageMembersModal = (props) => {
     }, [getOrgUsers, organization]);
 
     const organizationUsers = useMemo(() => {
-
         if(!orgUsers?.length) {
             return [];
         }
-
         return orgUsers.map(user => {
             return {
                 ...user.user,
@@ -329,6 +330,7 @@ const ManageMembersModal = (props) => {
                             component={MultiSelectInput}
                             containerClassName={styles.inputContainer}
                             controlClassName={styles.multiSelect}
+                            optionsWrapperClassName={styles.multiSelectOptionsWrapper}
                             placeholder={_('Select Users')}
                             anchorOrigin='bottom left'
                             transformOrigin='bottom left'
@@ -339,7 +341,7 @@ const ManageMembersModal = (props) => {
                             loading={loadingUsers}
                             renderOptionLabel={renderOptionsLabel}
                             renderControlLabel={UserIcon}
-                            options={users?.results}
+                            options={users?.results?.filter(usr => usr.username !== user.username) || []}
                             onInputChange={setSearchvalue}
                             FilterEmptyComponent={FilterEmptyComponent}
                             EmptyComponent={FilterEmptyComponent}

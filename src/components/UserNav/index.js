@@ -37,6 +37,11 @@ const UserNav = (props) => {
     const {user} = useSelector(state => state.auth);
     const {activeSurvey} = useSelector(state => state.survey);
 
+    const {notifications=[], invitations=[]} = useSelector(state => state.notification);
+    const hasUnreadNotifications = useMemo(() => {
+        return notifications.some(noti => !noti.hasRead) || invitations.some(inv => inv.status === 'pending');
+    }, [notifications, invitations]);
+
     const match = useRouteMatch({
         path: '/projects/:projectId/surveys/:surveyId/',
     });
@@ -60,7 +65,7 @@ const UserNav = (props) => {
         }, 50);
     }, [hideNotification]);
 
-    const onClick = useCallback(() => {
+    const handleNotificationClick = useCallback(() => {
         openNotification ? hideNotification() : showNotification();
     }, [hideNotification, openNotification, showNotification]);
 
@@ -112,11 +117,15 @@ const UserNav = (props) => {
                     openNotification={openNotification}
                     ref={notificationsRef}
                 />
-                <IoNotificationsOutline
-                    size={20}
-                    className={cs(styles.actionIcon, styles.notificationIcon)}
-                    onClick={onClick}
-                />
+                <div className={styles.notificationsContainer} onClick={handleNotificationClick}>
+                    <IoNotificationsOutline
+                        size={20}
+                        className={cs(styles.actionIcon, styles.notificationIcon)}
+                    />
+                    {hasUnreadNotifications && (
+                        <div className={styles.notificationsIndicator} />
+                    )}
+                </div>
                 <Dropdown
                     labelContainerClassName={styles.userAvatar}
                     renderLabel={getInitial}

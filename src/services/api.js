@@ -350,9 +350,9 @@ class Api {
             });
     };
 
-    getNotifications = async () => {
+    getNotifications = async query => {
         try {
-            const data = await this.get('/notification?limit=10');
+            const data = await this.get('/notification/');
             dispatch(notificationActions.setNotifications(data?.results || []));
         } catch(error) {
             console.log(error);
@@ -361,7 +361,7 @@ class Api {
 
     getProjectInvitations = async () => {
         try {
-            const data = await this.get('/project/pending_requests/');
+            const data = await this.get('/project/pending_requests/', {query: {ordering: '-created_at'}});
             dispatch(notificationActions.setInvitations(data || []));
         } catch (error) {
             console.log(error);
@@ -430,7 +430,7 @@ class Api {
     };
 
     rejectOrganizationMember = memberRequestId => {
-        return this.post(`/organization-member-request/${memberRequestId}/reject`);
+        return this.post(`/organization-member-request/${memberRequestId}/reject/`);
     };
 
     revokeMemberRequest = memberRequestId => {

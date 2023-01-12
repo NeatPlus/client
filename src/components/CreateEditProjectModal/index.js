@@ -44,6 +44,7 @@ const CreateEditProjectModal = (props) => {
 
     const {organizations} = useSelector(state => state.organization);
     const {contexts} = useSelector(state => state.context);
+    const {user} = useSelector(state => state.auth);
 
     const [{loading}, createOrEditProject] = useRequest(url, {
         method: method,
@@ -259,6 +260,7 @@ const CreateEditProjectModal = (props) => {
                     containerClassName={styles.inputGroup}
                     component={MultiSelectInput}
                     controlClassName={styles.multiSelect}
+                    optionsWrapperClassName={styles.multiSelectOptionsWrapper}
                     placeholder={_('Select Users')}
                     keyExtractor={userKeyExtractor}
                     valueExtractor={userValueExtractor}
@@ -267,7 +269,7 @@ const CreateEditProjectModal = (props) => {
                     label={_('Users')}
                     renderOptionLabel={UserOptionLabel}
                     renderControlLabel={UserIcon}
-                    options={users?.results}
+                    options={users?.results?.filter(usr => usr.username !== user.username) || []}
                     onInputChange={setSearchvalue}
                     FilterEmptyComponent={FilterEmptyComponent}
                     EmptyComponent={FilterEmptyComponent}

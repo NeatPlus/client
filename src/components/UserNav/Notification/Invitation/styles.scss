@@ -42,11 +42,30 @@
                 gap: 0.6em;
 
                 .button {
+                    font-size: var(--font-size-small);
                     width: 5.5em;
                     height: 2.1em;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                }
+            }
+
+            .status-indicator {
+                font-size: var(--font-size-tiny);
+                text-transform: capitalize;
+                max-width: fit-content;
+                padding: 0.25rem 0.75rem;
+                border-radius: 1em;
+
+                &__accepted {
+                    border: 1px solid var(--color-primary);
+                    color: var(--color-primary);
+                }
+
+                &__declined {
+                    border: 1px solid var(--color-severity-high);
+                    color: var(--color-severity-high);
                 }
             }
         }

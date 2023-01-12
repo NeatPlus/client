@@ -1,7 +1,10 @@
-import React, {useCallback} from 'react';
-import SelectInput from '@ra/components/Form/SelectInput';
+import React, {useCallback, useState, useEffect, useRef} from 'react';
+import {useSelector} from 'react-redux';
+
+import Options from '@ra/components/Form/SelectInput/Options';
 
 import {IoMdCloseCircle} from 'react-icons/io';
+import {FiChevronDown} from 'react-icons/fi';
 
 import cs from '@ra/cs';
 
@@ -37,6 +40,8 @@ export const UserIcon = ({
     onRemove,
     className,
 }) => {
+    const {user} = useSelector(state => state.auth);
+
     const initials = `${item.firstName?.[0] || ''}${item.lastName?.[0] || ''}`.toUpperCase();
 
     const backgroundColor = stringToHslColor(`${item.id}${item.firstName}${item.lastName}`);
@@ -53,7 +58,7 @@ export const UserIcon = ({
             title={item.value}
         >
             {initials}
-            {editable && 
+            {editable && user.username !== item.username && 
             <IoMdCloseCircle
                 className={styles.closeIcon}
                 onClick={onCloseClick} 
@@ -63,9 +68,15 @@ export const UserIcon = ({
 };
 
 const UserOptionLabel = ({item, selected, onStateChange, userOptions}) => {
-    const handleChange = useCallback(({option}) => {
+    const handleChange = useCallback(({item: option}) => {
         onStateChange({item: {...item, mode: option.id}}); 
     }, [item, onStateChange]);
+
+    const [expanded, setExpanded] = useState(false);
+    const handleToggleSelect = useCallback((event) => {
+        event.stopPropagation();
+        setExpanded(e => !e);
+    }, []);
 
     const valueOptions = userOptions ?? options;
 
@@ -75,25 +86,51 @@ const UserOptionLabel = ({item, selected, onStateChange, userOptions}) => {
         onStateChange({item: {...item, mode: value.id}});
     }
 
+    const selectRef = useRef(null);
+    const handleOutsideClick = useCallback(event => {
+        if(!selectRef?.current?.contains(event.target)) {
+            setExpanded(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => document.removeEventListener('mousedown', handleOutsideClick);
+    }, [handleOutsideClick]);
+
     return (
         <div className={styles.optionLabel}>
             <div className={styles.userInfo}>
                 <UserIcon item={item} />
                 <div className={styles.name}>{item.firstName} {item.lastName}</div>
             </div>
-            {selected && (
-                <SelectInput
-                    className={styles.select}
-                    controlClassName={styles.selectControl}
-                    searchable={false}
-                    clearable={false}
-                    defaultValue={value}
-                    keyExtractor={keyExtractor}
-                    valueExtractor={valueExtractor}
-                    onChange={handleChange}
-                    options={valueOptions}
-                />
-            )}
+            <div ref={selectRef} className={styles.select}>
+                {selected && (
+                    <div className={styles.selectControl} onClick={handleToggleSelect}>
+                        <div className={styles.selectValue}>
+                            {value?.title}
+                        </div>
+                        <div className={styles.selectIndicator}>
+                            <FiChevronDown
+                                size={16}
+                                onClick={handleToggleSelect}
+                            />
+                        </div>
+                    </div>
+                )}
+                {expanded && (
+                    <div className={styles.selectOptionsWrapper}>
+                        <Options
+                            className={styles.selectOptions}
+                            data={valueOptions}
+                            keyExtractor={keyExtractor}
+                            valueExtractor={valueExtractor}
+                            selectedItem={value}
+                            onItemClick={handleChange}
+                        />
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
