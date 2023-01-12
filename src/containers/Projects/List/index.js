@@ -181,7 +181,14 @@ const ProjectList = () => {
         return Math.floor(offset / maxRows.value);
     }, [result, maxRows]);
 
-    const [tab, setTab] = useState(tabs[0].label);
+    const initialTab = useMemo(() => {
+        if(tabs.map(tb => tb.label).includes(localStorage.getItem('activeProjectsTab'))) {
+            return localStorage.getItem('activeProjectsTab');
+        }
+        return tabs[0].label;
+    }, [tabs]);
+
+    const [tab, setTab] = useState(initialTab);
     const [page, setPage] = useState(initialPageValue);
 
     const fetchProjects = useCallback(() => {
@@ -198,6 +205,7 @@ const ProjectList = () => {
 
     const handleTabChange = useCallback(({activeTab}) => {
         setPage(1);
+        localStorage.setItem('activeProjectsTab', activeTab);
         setTab(activeTab);
     }, []);
 

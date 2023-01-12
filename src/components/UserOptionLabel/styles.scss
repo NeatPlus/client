@@ -19,10 +19,45 @@
     .select {
         font-size: 14px;
         color: var(--color-grey);
+        display: flex;
+        position: relative;
 
         .select-control {
             padding: 0;
             border: none;
+            display: flex;
+            flex: 1;
+
+            .select-value {
+                display: flex;
+                flex: 1;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .select-indicator {
+                margin-left: 0.5em;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .select-options-wrapper {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            background-color: var(--color-background-alt);
+            box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px, rgba(0, 0, 0, 0.1) 0 4px 11px;
+            border-radius: var(--border-radius-small);
+            z-index: 1;
+
+            .select-options {
+                max-height: 12em;
+                overflow-y: scroll;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                min-width: fit-content;
+            }
         }
     }
 }

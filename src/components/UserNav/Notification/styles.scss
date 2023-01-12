@@ -7,12 +7,12 @@
         top: 1.25em;
         right: -0.6em;
         z-index: 1000;
-        box-shadow: -2px 30px 50px 0 rgba(0, 0, 0, 0.06);
 
         .tabs {
             background-color: var(--color-white);
             width: 23em;
             border-radius: 8px;
+            box-shadow: -2px 30px 50px 0 rgba(0, 0, 0, 0.06);
 
             .tabs-header {
                 display: flex;

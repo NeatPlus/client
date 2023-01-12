@@ -31,7 +31,7 @@ const Notification = ({notifications, handleMarkAllAsRead}) => {
                 <div className={styles.iconContainer}>
                     {icon}
                 </div>
-                <p className={styles.description}>{item.description}</p>
+                <p className={cs(styles.description, {[styles.descriptionUnread]: !item.hasRead})}>{item.description}</p>
             </div>
         );
     }, []);

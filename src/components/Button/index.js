@@ -24,7 +24,7 @@ const _Button = props => {
                 {[styles.buttonSecondary]: secondary},
                 {[styles.buttonOutline]: outline},
             )} 
-            disabled={disabled}
+            disabled={disabled || loading}
             {...buttonProps} 
         >
             {children}

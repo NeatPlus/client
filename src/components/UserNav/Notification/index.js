@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 
 import Tabs, {Tab} from '@ra/components/Tabs';
@@ -45,6 +45,10 @@ const NotificationCard = React.forwardRef(({openNotification}, ref) => {
         );
     }, []);
 
+    const pendingInvitationCount = useMemo(() => {
+        return invitations?.filter(inv => inv.status === 'pending')?.length ?? 0;
+    }, [invitations]);
+
     return (
         <div
             className={cs(styles.container, {
@@ -66,7 +70,7 @@ const NotificationCard = React.forwardRef(({openNotification}, ref) => {
                     </Tab>
                     <Tab
                         label='invitation'
-                        title={`${_('Invitations')} (${invitations?.length})`}
+                        title={`${_('Invitations') + (pendingInvitationCount ? ` (${pendingInvitationCount})` : '')}`}
                     >
                         <Invitation invitations={invitations} />
                     </Tab>

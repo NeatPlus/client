@@ -39,6 +39,10 @@
             font-size: var(--font-size-small);
             line-height: 1.43;
             color: var(--color-dark);
+
+            &__unread {
+                font-weight: 500;
+            }
         }
     }
 }
