@@ -132,3 +132,32 @@
         }
     }
 }
+
+.password-input-container {
+    position: relative;
+    width: 100%;
+
+    .password-input {
+        width: 100%;
+        padding-right: 2.5rem;
+    }
+
+    .password-input-icon {
+        position: absolute;
+        right: 1rem;
+        top: 0.65rem;
+        width: 1rem;
+        height: 1rem;
+        color: var(--color-grey-light);
+        cursor: pointer;
+        transition: filter 0.2s ease-out;
+
+        &:hover {
+            filter: brightness(90%);
+        }
+
+        @media screen and (max-width: 480px) {
+            top: 12px;
+        }
+    }
+}

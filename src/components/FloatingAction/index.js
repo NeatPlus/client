@@ -22,6 +22,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
 
     const surveyModalsConfig = useSurveyModals(moduleCode, surveyId);
 
+    const [expanded, setExpanded] = useState(true);
     const [actionVisible, setActionVisible] = useState(false);
 
     const hideAction = useCallback((event) => {
@@ -36,6 +37,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
             return;
         }
         setActionVisible(true);
+        setExpanded(false);
         setTimeout(() => {
             document.addEventListener('click', hideAction);
         }, 50);
@@ -52,12 +54,39 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
         Toast.show(`${surveyTitle} ${_('draft has been deleted')}`, Toast.SUCCESS);
     }, [surveyTitle]);
     useEffect(() => () => hideAction(), [hideAction]);
+    
+    const collapseAction = useCallback(() => setExpanded(false), []);
+    const expandAction = useCallback(() => {
+        setExpanded(true);
+        setTimeout(collapseAction, 6000);
+    }, [collapseAction]);
+
+    useEffect(() => {
+        if(draftAnswers.length > 0) {
+            expandAction();
+            return () => {
+                clearTimeout(collapseAction);
+            };
+        }
+    }, [draftAnswers, expandAction, collapseAction]);
+
+    useEffect(() => {
+        setTimeout(collapseAction, 6000);
+        return () => {
+            clearTimeout(collapseAction);
+        };
+    }, [collapseAction]);
 
     return (
         <div className='no-print'>
-            <div onClick={showAction} className={styles.actionButton}>
+            <div onClick={showAction} className={cs(styles.actionButton, {[styles.actionButtonExpanded]: expanded})}>
                 {Icon && <Icon className={styles.icon} />}
             </div>
+            {expanded && (
+                <div className={styles.actionInfo}>
+                    <Localize>Survey exists as draft.</Localize>
+                </div>
+            )}
             <div ref={actionRef} className={cs(styles.draftAction, {
                 [styles.draftActionVisible]: actionVisible,
             })}>
