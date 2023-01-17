@@ -6,6 +6,7 @@
     margin-bottom: 4px;
     border-radius: 5px;
     transition: all 0.2s;
+    user-select: none;
 
     .left-icon {
         color: #9aa0ac;
@@ -19,8 +20,9 @@
         align-items: center;
         padding: 12px;
         border-radius: 0.3125em;
-        
+
         .option {
+            user-select: text;
             color: var(--color-dark);
             font-size: var(--font-size-small);
         }

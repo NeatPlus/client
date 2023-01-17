@@ -98,6 +98,7 @@ export const DataItem = ({item, column, onAction}) => {
                     isVisible={showCreateEditProjectModal}
                     onClose={handleHideCreateEditProjectModal}
                     project={item}
+                    onComplete={onAction}
                     mode='edit'
                 />
                 <CloneProjectModal

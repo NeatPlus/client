@@ -5,6 +5,7 @@ import {MdClose} from 'react-icons/md';
 
 import Button from 'components/Button';
 import RadioInput from 'components/Inputs/RadioInput';
+import TextareaInput from 'components/Inputs/TextAreaInput';
 import UserOptionLabel, {UserIcon} from 'components/UserOptionLabel';
 
 import Modal from '@ra/components/Modal';
@@ -32,7 +33,7 @@ const userValueExtractor = (item) => `${item.firstName} ${item.lastName}`;
 const fieldValueExtractor = (val) => val.option;
 
 const CreateEditProjectModal = (props) => {
-    const {onClose, project, mode} = props;
+    const {onClose, onComplete, project, mode} = props;
     const [error, setError] = useState(null);
     const [searchValue, setSearchvalue] = useState('');
     const [visibility, setVisibility] = useState('');
@@ -145,14 +146,14 @@ const CreateEditProjectModal = (props) => {
                 }
                 if (result && mode === 'create') {
                     Toast.show(_('Project successfully Created!'), Toast.SUCCESS);
-                    Api.getProjects();
+                    onComplete();
                     history.push(`/projects/${result.id}/`);
                 }
 
                 if (result && mode === 'edit') {
+                    onComplete();
                     onClose();
                     Toast.show(_('Project successfully Edited!'), Toast.SUCCESS);
-                    Api.getProjects();
                 }
             } catch (err) {
                 setError(err);
@@ -168,6 +169,7 @@ const CreateEditProjectModal = (props) => {
             initialUsers, 
             project?.id,
             contexts,
+            onComplete
         ]
     );
 
@@ -214,14 +216,12 @@ const CreateEditProjectModal = (props) => {
                 <InputField
                     name='description'
                     required
-                    component='textarea'
+                    component={TextareaInput}
                     className={cs(styles.input, styles.inputArea)}
-                    rows={4}
-                    cols={5}
                     label={_('Description')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
-                    defaultValue={mode === 'edit' ? project.description : ''}
+                    defaultValue={mode === 'edit' ? project.description : undefined}
                 />
                 <div className={styles.inputGroup}>
                     {/* TODO: Info Icon */}

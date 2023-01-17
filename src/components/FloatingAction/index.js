@@ -84,7 +84,7 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
             </div>
             {expanded && (
                 <div className={styles.actionInfo}>
-                    <Localize>Survey exists as draft.</Localize>
+                    <Localize>You have got a draft survey.</Localize>
                 </div>
             )}
             <div ref={actionRef} className={cs(styles.draftAction, {
