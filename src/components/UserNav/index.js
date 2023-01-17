@@ -35,6 +35,7 @@ const UserNav = (props) => {
     const dispatch = useDispatch();
 
     const {user} = useSelector(state => state.auth);
+    const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
 
     const {notifications=[], invitations=[]} = useSelector(state => state.notification);
@@ -42,8 +43,12 @@ const UserNav = (props) => {
         return notifications.some(noti => !noti.hasRead) || invitations.some(inv => inv.status === 'pending');
     }, [notifications, invitations]);
 
+    const projectMatch = useRouteMatch({path: '/projects/:projectId/'});
+    const isProjectPath = useMemo(() => projectMatch && activeProject, [projectMatch, activeProject]);
+
     const match = useRouteMatch({
         path: '/projects/:projectId/surveys/:surveyId/',
+        strict: true
     });
     const isSurveyPath = useMemo(() => match && activeSurvey, [activeSurvey, match]);
 
@@ -100,7 +105,15 @@ const UserNav = (props) => {
             <Link to='/'>
                 <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
             </Link>
-            {isSurveyPath && <h1 className={styles.title}>{activeSurvey?.title}</h1>}
+            {isSurveyPath ? (
+                <h1 className={styles.title}>
+                    {activeSurvey?.title}
+                </h1>
+            ) : isProjectPath ? (
+                <h1 className={styles.title}>
+                    {activeProject?.title}
+                </h1>
+            ) : null}
             <div className={cs(styles.rightContent, 'no-print')}>
                 {isSurveyPath && (
                     <Dropdown 

@@ -263,6 +263,7 @@ const ProjectList = () => {
             <CreateEditProjectModal
                 isVisible={showCreateModal}
                 onClose={handleHideCreateModal}
+                onComplete={fetchProjects}
                 mode='create'
             />
         </div>

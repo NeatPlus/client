@@ -47,7 +47,7 @@ const Notification = ({notifications, handleMarkAllAsRead}) => {
                 className={styles.container}
                 EmptyComponent={EmptyComponent}
             />
-            {notifications.length > 1 && (
+            {notifications.length > 0 && (
                 <div className={styles.footer}>
                     <p className={styles.footerText} onClick={handleMarkAllAsRead}>
                         <Localize>Mark all as read</Localize>

@@ -149,6 +149,7 @@
                 align-items: center;
                 font-size: var(--font-size-small);
                 color: var(--color-grey);
+                user-select: none;
 
                 .select {
                     color: var(--color-dark);
