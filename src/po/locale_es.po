@@ -1,24 +1,24 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Thu Jul 07 2022 16:32:16 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Wed Jan 18 2023 15:36:42 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/components/AuthModals/ConfirmPasswordModal/index.js:36
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:39
 msgid "Confirm your password"
 msgstr ""
 
-#: src/components/AuthModals/ConfirmPasswordModal/index.js:48
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:51
 #: src/containers/Account/index.js:53
-#: src/containers/Login/index.js:88
+#: src/containers/Login/index.js:104
 msgid "Password"
 msgstr ""
 
-#: src/components/AuthModals/ConfirmPasswordModal/index.js:59
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:62
 #: src/components/CloneProjectModal/index.js:98
 #: src/components/ConfirmationModal/index.js:51
-#: src/components/CreateEditProjectModal/index.js:282
+#: src/components/CreateEditProjectModal/index.js:284
 #: src/components/DeleteDraftModal/index.js:51
 #: src/components/DeleteProjectModal/index.js:64
 #: src/components/DeleteSurveyModal/index.js:63
@@ -29,8 +29,8 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/components/AuthModals/ConfirmPasswordModal/index.js:65
-#: src/components/AuthModals/ForgotPasswordModal/index.js:82
+#: src/components/AuthModals/ConfirmPasswordModal/index.js:68
+#: src/components/AuthModals/ForgotPasswordModal/index.js:91
 #: src/components/TakeSurveyModal/InitSurvey/index.js:69
 msgid "Continue"
 msgstr ""
@@ -79,21 +79,25 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: src/components/AuthModals/ForgotPasswordModal/index.js:48
+#: src/components/AuthModals/ForgotPasswordModal/index.js:44
+msgid "Email is required!"
+msgstr ""
+
+#: src/components/AuthModals/ForgotPasswordModal/index.js:55
 msgid "Invalid Email!"
 msgstr ""
 
-#: src/components/AuthModals/ForgotPasswordModal/index.js:61
+#: src/components/AuthModals/ForgotPasswordModal/index.js:68
 #: src/containers/Account/UpdatePassword/index.js:86
-#: src/containers/Login/index.js:106
+#: src/containers/Login/index.js:122
 msgid "Forgot Password?"
 msgstr ""
 
-#: src/components/AuthModals/ForgotPasswordModal/index.js:67
+#: src/components/AuthModals/ForgotPasswordModal/index.js:74
 msgid "We will send a code to your email to reset your password."
 msgstr ""
 
-#: src/components/AuthModals/ForgotPasswordModal/index.js:79
+#: src/components/AuthModals/ForgotPasswordModal/index.js:87
 msgid "Return to Log in"
 msgstr ""
 
@@ -264,39 +268,39 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:68
+#: src/components/CreateEditProjectModal/index.js:70
 msgid "Create a project"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:70
+#: src/components/CreateEditProjectModal/index.js:72
 msgid "Edit project"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:106
-#: src/components/OrganizationModals/ManageMembers/index.js:208
+#: src/components/CreateEditProjectModal/index.js:108
+#: src/components/OrganizationModals/ManageMembers/index.js:211
 msgid "Please enter more than 3 characters to search"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:109
-#: src/components/OrganizationModals/ManageMembers/index.js:211
+#: src/components/CreateEditProjectModal/index.js:111
+#: src/components/OrganizationModals/ManageMembers/index.js:214
 msgid "No result found for given input"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:119
+#: src/components/CreateEditProjectModal/index.js:121
 msgid ""
 "Visibility cannot be 'Public within organization' with no organization "
 "selected"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:146
+#: src/components/CreateEditProjectModal/index.js:148
 msgid "Project successfully Created!"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:153
+#: src/components/CreateEditProjectModal/index.js:156
 msgid "Project successfully Edited!"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:192
+#: src/components/CreateEditProjectModal/index.js:195
 #: src/components/OrganizationModals/AddEditOrganization/index.js:74
 #: src/components/TakeSurveyModal/InitSurvey/index.js:51
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:79
@@ -309,7 +313,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:202
+#: src/components/CreateEditProjectModal/index.js:205
 #: src/components/Map/Popup/index.js:21
 #: src/containers/Account/UpdateInfo/index.js:109
 #: src/containers/Projects/List/index.js:59
@@ -319,55 +323,55 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:207
+#: src/components/CreateEditProjectModal/index.js:210
 msgid "Select An Organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:220
+#: src/components/CreateEditProjectModal/index.js:221
 #: src/components/OrganizationModals/AddEditOrganization/index.js:85
 msgid "Description"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:228
+#: src/components/CreateEditProjectModal/index.js:229
 #: src/containers/Projects/List/index.js:68
-#: src/containers/Projects/List/TableItems/index.js:121
+#: src/containers/Projects/List/TableItems/index.js:122
 msgid "Visibility"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:235
-#: src/containers/Projects/List/index.js:165
+#: src/components/CreateEditProjectModal/index.js:236
+#: src/containers/Projects/List/index.js:166
 msgid "Public"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:242
-#: src/containers/Projects/List/TableItems/index.js:133
+#: src/components/CreateEditProjectModal/index.js:243
+#: src/containers/Projects/List/TableItems/index.js:134
 msgid "Public within organization"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:251
-#: src/containers/Projects/List/TableItems/index.js:139
+#: src/components/CreateEditProjectModal/index.js:252
+#: src/containers/Projects/List/TableItems/index.js:140
 msgid "Private"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:262
-#: src/components/OrganizationModals/ManageMembers/index.js:332
+#: src/components/CreateEditProjectModal/index.js:264
+#: src/components/OrganizationModals/ManageMembers/index.js:334
 msgid "Select Users"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:267
+#: src/components/CreateEditProjectModal/index.js:269
 msgid "Users"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:285
+#: src/components/CreateEditProjectModal/index.js:287
 #: src/components/OptionsDropdown/index.js:19
 #: src/containers/Organizations/OrganizationCard/index.js:52
 #: src/containers/Surveys/Dashboard/index.js:211
 msgid "Edit"
 msgstr ""
 
-#: src/components/CreateEditProjectModal/index.js:285
+#: src/components/CreateEditProjectModal/index.js:287
 #: src/components/NoProject/index.js:47
-#: src/containers/Projects/List/index.js:219
+#: src/containers/Projects/List/index.js:228
 msgid "Create"
 msgstr ""
 
@@ -382,7 +386,7 @@ msgstr ""
 #: src/components/DeleteDraftModal/index.js:54
 #: src/components/DeleteProjectModal/index.js:67
 #: src/components/DeleteSurveyModal/index.js:66
-#: src/components/FloatingAction/index.js:79
+#: src/components/FloatingAction/index.js:108
 #: src/components/OptionsDropdown/index.js:29
 msgid "Delete"
 msgstr ""
@@ -428,25 +432,29 @@ msgid "Explain why you think this should have different severity score."
 msgstr ""
 
 #: src/components/FeedbackModal/index.js:134
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:57
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:75
 msgid "Write a comment"
 msgstr ""
 
 #: src/components/FeedbackModal/index.js:143
 #: src/components/OrganizationModals/AddEditOrganization/index.js:110
-#: src/containers/Surveys/Feedback/index.js:137
+#: src/containers/Surveys/Feedback/index.js:173
 msgid "Submit"
 msgstr ""
 
-#: src/components/FloatingAction/index.js:52
+#: src/components/FloatingAction/index.js:54
 msgid "draft has been deleted"
 msgstr ""
 
-#: src/components/FloatingAction/index.js:67
+#: src/components/FloatingAction/index.js:87
+msgid "You have got a draft survey."
+msgstr ""
+
+#: src/components/FloatingAction/index.js:96
 msgid "survey has been saved in draft"
 msgstr ""
 
-#: src/components/FloatingAction/index.js:71
+#: src/components/FloatingAction/index.js:100
 msgid "Resume"
 msgstr ""
 
@@ -630,7 +638,7 @@ msgstr ""
 msgid "Take Survey"
 msgstr ""
 
-#: src/components/Notice/index.js:48
+#: src/components/Notice/index.js:49
 msgid "Learn more"
 msgstr ""
 
@@ -655,7 +663,7 @@ msgid "Point of Contact"
 msgstr ""
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:110
-#: src/components/OrganizationModals/ManageMembers/index.js:347
+#: src/components/OrganizationModals/ManageMembers/index.js:349
 #: src/containers/Administration/StatementWeightage/index.js:385
 #: src/containers/Surveys/Dashboard/index.js:201
 msgid "Save"
@@ -713,52 +721,52 @@ msgstr ""
 msgid "Request approved!"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:157
+#: src/components/OrganizationModals/ManageMembers/index.js:158
 msgid "Request rejected!"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:170
+#: src/components/OrganizationModals/ManageMembers/index.js:172
 msgid "wants to join this organization."
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:177
+#: src/components/OrganizationModals/ManageMembers/index.js:179
 msgid "Approve"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:185
-#: src/components/UserNav/Notification/Invitation/index.js:52
+#: src/components/OrganizationModals/ManageMembers/index.js:187
+#: src/components/UserNav/Notification/Invitation/index.js:75
 msgid "Decline"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:259
+#: src/components/OrganizationModals/ManageMembers/index.js:260
 msgid "Changes saved!"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:289
+#: src/components/OrganizationModals/ManageMembers/index.js:290
 msgid "Respond to requests"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:289
+#: src/components/OrganizationModals/ManageMembers/index.js:290
 msgid "Manage Members"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:308
+#: src/components/OrganizationModals/ManageMembers/index.js:309
 msgid "Member Requests"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:315
+#: src/components/OrganizationModals/ManageMembers/index.js:316
 msgid "Respond to all requests"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:321
+#: src/components/OrganizationModals/ManageMembers/index.js:322
 msgid "Add New Members"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:351
+#: src/components/OrganizationModals/ManageMembers/index.js:353
 msgid "Admins"
 msgstr ""
 
-#: src/components/OrganizationModals/ManageMembers/index.js:363
+#: src/components/OrganizationModals/ManageMembers/index.js:365
 msgid "Members"
 msgstr ""
 
@@ -768,9 +776,9 @@ msgstr ""
 
 #: src/components/RestoreItemsModal/index.js:127
 #: src/containers/Administration/Statements/index.js:19
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:185
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:86
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:123
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:186
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:106
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:143
 msgid "Statements"
 msgstr ""
 
@@ -867,70 +875,70 @@ msgstr ""
 msgid "Sensitivity Statements Severity Summary"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:128
-#: src/components/TakeSurveyModal/index.js:514
+#: src/components/TakeSurveyModal/index.js:129
+#: src/components/TakeSurveyModal/index.js:526
 msgid "Previous"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:136
-#: src/containers/Administration/StatementDetails/index.js:242
+#: src/components/TakeSurveyModal/index.js:137
+#: src/containers/Administration/StatementDetails/index.js:335
 msgid "Next"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:335
-#: src/components/TakeSurveyModal/index.js:339
+#: src/components/TakeSurveyModal/index.js:346
+#: src/components/TakeSurveyModal/index.js:350
 msgid "Survey complete!"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:433
+#: src/components/TakeSurveyModal/index.js:445
 msgid "Enable Edit"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:437
+#: src/components/TakeSurveyModal/index.js:449
 msgid "Editing..."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:469
+#: src/components/TakeSurveyModal/index.js:481
 msgid "QUESTION GROUPS"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:483
+#: src/components/TakeSurveyModal/index.js:495
 msgid "Task Incomplete"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:483
+#: src/components/TakeSurveyModal/index.js:495
 msgid "Task Complete"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:488
+#: src/components/TakeSurveyModal/index.js:500
 msgid "You have not filled in all the required fields in the form."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:489
+#: src/components/TakeSurveyModal/index.js:501
 msgid ""
 "You have now completed all modules and sub-modules that you previously "
 "selected in the initial NEAT+ survey page."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:496
+#: src/components/TakeSurveyModal/index.js:508
 msgid "Please go back and complete the form in order to continue."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:497
+#: src/components/TakeSurveyModal/index.js:509
 msgid ""
 "Please follow the provided instructions for how to download and analyse "
 "this information."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:529
+#: src/components/TakeSurveyModal/index.js:541
 msgid "Calculate"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:552
+#: src/components/TakeSurveyModal/index.js:564
 msgid "Back to the beginning"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:556
+#: src/components/TakeSurveyModal/index.js:568
 msgid "Go to the end"
 msgstr ""
 
@@ -942,77 +950,84 @@ msgstr ""
 msgid "Take a survey"
 msgstr ""
 
-#: src/components/TakeSurveyModal/Question/index.js:127
+#: src/components/TakeSurveyModal/Question/index.js:128
 msgid "Add Answer..."
 msgstr ""
 
-#: src/components/TakeSurveyModal/Question/index.js:143
+#: src/components/TakeSurveyModal/Question/index.js:144
 msgid "Required"
 msgstr ""
 
-#: src/components/UserNav/index.js:86
+#: src/components/UserNav/index.js:95
 msgid "PUBLIC"
 msgstr ""
 
-#: src/components/UserNav/index.js:96
-#: src/containers/Login/index.js:64
+#: src/components/UserNav/index.js:105
+#: src/containers/Login/index.js:80
 #: src/containers/PublicSurvey/index.js:99
 #: src/containers/Register/index.js:106
 msgid "Neat+ Logo"
 msgstr ""
 
-#: src/components/UserNav/index.js:140
+#: src/components/UserNav/index.js:161
 msgid "Administration"
 msgstr ""
 
-#: src/components/UserNav/index.js:146
-#: src/containers/Projects/List/index.js:209
+#: src/components/UserNav/index.js:167
+#: src/containers/Projects/List/index.js:218
 msgid "Projects"
 msgstr ""
 
-#: src/components/UserNav/index.js:155
+#: src/components/UserNav/index.js:176
 msgid "Organizations"
 msgstr ""
 
-#: src/components/UserNav/index.js:159
+#: src/components/UserNav/index.js:180
 #: src/containers/Account/index.js:34
 msgid "Account Settings"
 msgstr ""
 
-#: src/components/UserNav/index.js:163
-msgid "Language"
-msgstr ""
-
-#: src/components/UserNav/index.js:167
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:162
-msgid "Help"
-msgstr ""
-
-#: src/components/UserNav/index.js:174
+#: src/components/UserNav/index.js:199
 msgid "Log out"
 msgstr ""
 
-#: src/components/UserNav/Notification/index.js:61
+#: src/components/UserNav/Notification/index.js:65
 msgid "Notifications"
 msgstr ""
 
-#: src/components/UserNav/Notification/index.js:69
+#: src/components/UserNav/Notification/index.js:73
 msgid "Invitations"
 msgstr ""
 
-#: src/components/UserNav/Notification/Invitation/index.js:36
+#: src/components/UserNav/Notification/Invitation/index.js:28
+msgid "Project successfully approved!"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:39
+msgid "Project invitation declined!"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:56
 msgid "Project"
 msgstr ""
 
-#: src/components/UserNav/Notification/Invitation/index.js:36
+#: src/components/UserNav/Notification/Invitation/index.js:56
 msgid "wants to join organization"
 msgstr ""
 
-#: src/components/UserNav/Notification/Invitation/index.js:44
+#: src/components/UserNav/Notification/Invitation/index.js:66
 msgid "Accept"
 msgstr ""
 
-#: src/components/UserNav/Notification/Invitation/index.js:63
+#: src/components/UserNav/Notification/Invitation/index.js:83
+msgid "Accepted"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:83
+msgid "Declined"
+msgstr ""
+
+#: src/components/UserNav/Notification/Invitation/index.js:94
 msgid "No Invitations"
 msgstr ""
 
@@ -1427,67 +1442,67 @@ msgstr ""
 msgid "You do not have administration access!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:54
-#: src/containers/Administration/StatementDetails/index.js:74
-#: src/containers/Administration/StatementDetails/index.js:85
+#: src/containers/Administration/StatementDetails/index.js:65
+#: src/containers/Administration/StatementDetails/index.js:88
+#: src/containers/Administration/StatementDetails/index.js:108
 msgid "Select"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:67
-#: src/containers/Administration/StatementDetails/index.js:91
+#: src/containers/Administration/StatementDetails/index.js:81
+#: src/containers/Administration/StatementDetails/index.js:116
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:53
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:125
 msgid "Questions"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:88
+#: src/containers/Administration/StatementDetails/index.js:112
 msgid "Categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:159
+#: src/containers/Administration/StatementDetails/index.js:233
 msgid "Please wait until the statement changes are loaded"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:163
+#: src/containers/Administration/StatementDetails/index.js:240
 msgid "Your changes have been successfully published!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:170
+#: src/containers/Administration/StatementDetails/index.js:251
 msgid "An error occured while publishing your changes!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:221
-#: src/containers/Administration/StatementDetails/index.js:284
+#: src/containers/Administration/StatementDetails/index.js:313
+#: src/containers/Administration/StatementDetails/index.js:381
 msgid "Publish"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:229
+#: src/containers/Administration/StatementDetails/index.js:321
 msgid "Select all relevant questions related to the above statement"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:235
+#: src/containers/Administration/StatementDetails/index.js:328
 msgid "item(s) selected."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:255
+#: src/containers/Administration/StatementDetails/index.js:349
 msgid "No questions found! Please wait..."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:273
+#: src/containers/Administration/StatementDetails/index.js:370
 msgid "Insights on correlation of categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:285
+#: src/containers/Administration/StatementDetails/index.js:382
 msgid "Publish changes?"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:290
+#: src/containers/Administration/StatementDetails/index.js:387
 msgid ""
 "If you publish the changes, all further calculations will use the new "
 "configuration."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:295
+#: src/containers/Administration/StatementDetails/index.js:392
 msgid "Are you sure you want to publish these changes?"
 msgstr ""
 
@@ -1533,19 +1548,19 @@ msgstr ""
 msgid "Difference"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:131
+#: src/containers/Administration/Statements/StatementsTable/index.js:133
 msgid "No statements found. Please wait..."
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:147
-#: src/containers/Projects/List/index.js:117
-#: src/containers/Surveys/List/index.js:218
+#: src/containers/Administration/Statements/StatementsTable/index.js:149
+#: src/containers/Projects/List/index.js:118
+#: src/containers/Surveys/List/index.js:221
 msgid "Show"
 msgstr ""
 
-#: src/containers/Administration/Statements/StatementsTable/index.js:161
-#: src/containers/Projects/List/index.js:131
-#: src/containers/Surveys/List/index.js:231
+#: src/containers/Administration/Statements/StatementsTable/index.js:163
+#: src/containers/Projects/List/index.js:132
+#: src/containers/Surveys/List/index.js:234
 msgid "Rows"
 msgstr ""
 
@@ -1608,7 +1623,7 @@ msgstr ""
 #: src/containers/Projects/Dashboard/index.js:133
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:154
 #: src/containers/Projects/List/index.js:71
-#: src/containers/Projects/List/TableItems/index.js:118
+#: src/containers/Projects/List/TableItems/index.js:119
 msgid "Surveys"
 msgstr ""
 
@@ -1893,49 +1908,49 @@ msgid ""
 "environmental and humanitarian actors"
 msgstr ""
 
-#: src/containers/Login/index.js:69
+#: src/containers/Login/index.js:85
 msgid "Welcome back!"
 msgstr ""
 
-#: src/containers/Login/index.js:70
+#: src/containers/Login/index.js:86
 msgid "Log in to NEAT+"
 msgstr ""
 
-#: src/containers/Login/index.js:79
+#: src/containers/Login/index.js:95
 msgid "Email or Username"
 msgstr ""
 
-#: src/containers/Login/index.js:97
+#: src/containers/Login/index.js:113
 #: src/containers/Register/index.js:235
 msgid "Log in"
 msgstr ""
 
-#: src/containers/Login/index.js:114
+#: src/containers/Login/index.js:130
 msgid "Activate account?"
 msgstr ""
 
-#: src/containers/Login/index.js:119
+#: src/containers/Login/index.js:135
 msgid "Don't have an account?"
 msgstr ""
 
-#: src/containers/Login/index.js:121
+#: src/containers/Login/index.js:137
 msgid "Register Now"
 msgstr ""
 
-#: src/containers/Login/index.js:133
+#: src/containers/Login/index.js:149
 #: src/containers/Register/index.js:127
 #: src/containers/Register/index.js:224
 msgid "Privacy Policy"
 msgstr ""
 
-#: src/containers/Login/index.js:142
+#: src/containers/Login/index.js:158
 #: src/containers/Register/index.js:135
 #: src/containers/Register/index.js:214
 msgid "Terms of Use"
 msgstr ""
 
 #: src/containers/Organizations/index.js:58
-#: src/containers/Projects/List/index.js:161
+#: src/containers/Projects/List/index.js:162
 msgid "My Organizations"
 msgstr ""
 
@@ -1983,7 +1998,7 @@ msgstr ""
 msgid "Created by"
 msgstr ""
 
-#: src/containers/Projects/List/index.js:157
+#: src/containers/Projects/List/index.js:158
 msgid "My Projects"
 msgstr ""
 
@@ -2158,11 +2173,11 @@ msgstr ""
 msgid "Add Baseline Feedbacks"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:188
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:189
 msgid "Collapse All"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:188
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:189
 msgid "Expand All"
 msgstr ""
 
@@ -2200,43 +2215,58 @@ msgstr ""
 msgid "Location of Assessment"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:73
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:93
 msgid "Current Value"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:73
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:93
 msgid "Expected Value"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:93
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:127
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:113
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:147
 msgid "Current value"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:100
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:131
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:120
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:151
 msgid "Expected value"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:107
-#: src/containers/Surveys/Feedback/FeedbackTable/index.js:135
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:127
+#: src/containers/Surveys/Feedback/FeedbackTable/index.js:155
 msgid "Comments"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/index.js:102
+#: src/containers/Surveys/Feedback/index.js:127
+msgid ""
+"Feedback with comments only are not valid. Please make sure that all "
+"changed rows have expected value filled!"
+msgstr ""
+
+#: src/containers/Surveys/Feedback/index.js:134
 msgid "Your feedback has been successfully submitted"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/index.js:105
+#: src/containers/Surveys/Feedback/index.js:137
 msgid "An error occurred while submitting your feedbacks!"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/index.js:125
+#: src/containers/Surveys/Feedback/index.js:157
 msgid "Baseline Feedbacks"
 msgstr ""
 
-#: src/containers/Surveys/Feedback/index.js:127
+#: src/containers/Surveys/Feedback/index.js:159
 msgid "Advanced feedbacks"
+msgstr ""
+
+#: src/containers/Surveys/Feedback/index.js:165
+msgid ""
+"Advanced feedbacks are supposed to be provided by environmental experts and "
+"helps on improving the NEAT+ weightage system. The score of the statements "
+"ranges from 0 to 1 with 0 as the lowest impact and 1 as the highest impact. "
+"Current values are scores generated by the system and expected values are "
+"scores the user expected to see."
 msgstr ""
 
 #: src/hooks/useRequest.js:52

@@ -162,7 +162,7 @@ const Overview = () => {
                             />
                             <InfoItem 
                                 title={_('Organization')}
-                                value={activeProject?.organizationTitle} 
+                                value={getSurveyAnswerFromCode('org') || activeProject?.organizationTitle} 
                             />
                             <InfoItem 
                                 title={_('Surveyed by')}

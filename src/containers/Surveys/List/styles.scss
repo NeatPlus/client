@@ -38,7 +38,7 @@
                         width: 6%;
                     }
 
-                    &:nth-child(n):not(:first-child):not(:last-child) {
+                    &:nth-child(n):not(:first-child, :last-child) {
                         width: 16%;
                     }
 
@@ -54,6 +54,7 @@
                 border: none;
                 border-bottom: 1px solid #e2e2e2;
                 cursor: pointer;
+                user-select: none;
 
                 &:hover {
                     background-color: var(--color-table-active-row);

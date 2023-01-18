@@ -82,13 +82,13 @@ const ImageInput = ({
 
     const handleClear = useCallback(() => {
         formRef.current.reset();
-        return onChange && onChange({value: ''});
+        return onChange && onChange({value: '', formattedValue: []});
     }, [onChange]);
 
     const handleImageRemove = useCallback(imgIdx => {
         const newImages = [...images];
         newImages.splice(imgIdx, 1);
-        onChange && onChange({value: newImages.join(',')});
+        onChange && onChange({value: newImages.join(','), formattedValue: newImages});
     }, [onChange, images]);
 
     const renderImage = useCallback(listProps => {

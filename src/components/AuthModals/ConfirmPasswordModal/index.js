@@ -25,6 +25,9 @@ const ConfirmPasswordModal = props => {
             if(error.password?.[0]) {
                 return Toast.show(error.password[0], Toast.DANGER);
             }
+            if(error.newEmail?.[0]) {
+                return Toast.show(error.newEmail[0], Toast.DANGER);
+            }
             Toast.show(getErrorMessage(error), Toast.DANGER);
         }
     }, [onSubmit]);

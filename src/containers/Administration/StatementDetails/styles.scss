@@ -30,6 +30,7 @@
                 width: 24px;
                 height: 24px;
                 border-radius: 4px;
+                user-select: none;
 
                 &:hover {
                     filter: opacity(80%);
@@ -193,7 +194,7 @@
                                         width: 75%;
                                     }
 
-                                    &:nth-child(n):not(:first-child):not(:last-child) {
+                                    &:nth-child(n):not(:first-child, :last-child) {
                                         width: 20%;
                                     }
 

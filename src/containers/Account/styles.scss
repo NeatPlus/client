@@ -21,6 +21,7 @@
                 margin-bottom: 1em;
                 font-weight: 500;
                 cursor: pointer;
+                user-select: none;
 
                 &:hover {
                     filter: opacity(60%);

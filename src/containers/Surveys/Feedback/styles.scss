@@ -32,6 +32,7 @@
                 height: 24px;
                 border-radius: 4px;
                 cursor: pointer;
+                user-select: none;
 
                 &:hover {
                     filter: opacity(80%);

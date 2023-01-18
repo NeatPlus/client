@@ -2,6 +2,7 @@
     padding: 12px 32px;
     border-width: 1.2px;
     font-size: var(--font-size-base);
+    user-select: none;
 
     &:hover {
         background-color: var(--color-primary);
@@ -56,4 +57,3 @@
         color: var(--color-white);
     }
 }
-

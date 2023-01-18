@@ -1,0 +1,38 @@
+.container {
+    margin: 0 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .tooltip-content {
+        position: absolute;
+        width: max-content;
+        max-width: 45vw;
+        top: calc(100% + 0.5rem);
+        left: 0;
+        background-color: rgba(#000, 0.7);
+        color: white;
+        padding: 10px 12px;
+        border-radius: 8px;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.2s;
+        font-size: var(--font-size-small);
+    }
+
+    .icon {
+        cursor: pointer;
+        font-size: var(--font-size-normal);
+        color: #8a898b;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #666;
+
+            & + .tooltip-content {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}

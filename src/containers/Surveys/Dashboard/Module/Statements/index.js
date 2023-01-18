@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
 import {RiFileList3Line} from 'react-icons/ri';
-import {BsThreeDots, BsQuestionCircle} from 'react-icons/bs';
+import {BsThreeDots} from 'react-icons/bs';
 import {BiMessageDots, BiMessageAltAdd} from 'react-icons/bi';
 
 import TakeSurveyModal from 'components/TakeSurveyModal';
@@ -156,13 +156,14 @@ const StatementsContent = ({
                                             </span>
                                         </div>
                                     )}
+                                    {/* TODO: Help action
                                     <div className={styles.optionItem}>
                                         <BsQuestionCircle size={18} className={styles.optionIcon} />
                                         <span className={styles.optionText}>
                                             <Localize>Help</Localize>
                                         </span>
                                     </div>
-
+                                    */}
                                 </div>
                             </Dropdown>
                         )}
