@@ -319,8 +319,7 @@ const StatementDetails = (props) => {
                         <div className={styles.infoContainer}>
                             <p className={styles.infoText}>
                                 <Localize>
-                                    Select all relevant questions related to the
-                                    above statement
+                                    Select all relevant questions related to the above statement
                                 </Localize>
                             </p>
                             <div className={styles.infoRight}>
@@ -386,8 +385,7 @@ const StatementDetails = (props) => {
                     <>
                         <p className={styles.modalText}>
                             <Localize>
-                                If you publish the changes, all further
-                                calculations will use the new configuration.
+                                If you publish the changes, all further calculations will use the new configuration.
                             </Localize>
                         </p>
                         <p className={styles.modalText}>

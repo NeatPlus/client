@@ -145,7 +145,7 @@ const SurveyTable = ({onTakeSurveyClick}) => {
 
     const handleMoreClick = useCallback(() => history.push('surveys/'), [history]);
     const handleSurveyClick = useCallback(survey => {
-        history.push(`surveys/${survey.id}`);
+        history.push(`surveys/${survey.id}/`);
     }, [history]);
         
     return (

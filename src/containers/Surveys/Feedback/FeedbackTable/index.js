@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Table from '@ra/components/Table';
 
+import cs from '@ra/cs';
 import {_} from 'services/i18n';
 import {setAdvancedFeedbacks} from 'store/actions/survey';
 
@@ -20,16 +21,28 @@ const FeedbackInput = props => {
         return [activeSurveyFeedback?.expectedScore, activeSurveyFeedback?.comment];
     }, [advancedFeedbacks, item]);
 
+    const isInvalid = useMemo(() => {
+        return advancedFeedbacks.some(fdback => fdback.surveyResult === item.result.id && !fdback.expectedScore);
+    }, [advancedFeedbacks, item]);
+
     const handleChangeFeedback = useCallback(({target}) => {
         const newFeedbacks = [...advancedFeedbacks];
         const feedbackItem = advancedFeedbacks.find(feedback => feedback.surveyResult === item.result.id);
         const feedbackIdx = advancedFeedbacks.findIndex(feedback => feedback.surveyResult === item.result.id);
         if(feedbackIdx > -1) {
             if(target.name==='comment') {
-                newFeedbacks.splice(feedbackIdx, 1, {...feedbackItem, comment: target.value});
+                if(!feedbackItem.expectedScore && !target.value) {
+                    newFeedbacks.splice(feedbackIdx, 1);
+                } else {
+                    newFeedbacks.splice(feedbackIdx, 1, {...feedbackItem, comment: target.value});
+                }
                 return dispatch(setAdvancedFeedbacks(newFeedbacks));
             }
-            newFeedbacks.splice(feedbackIdx, 1, {...feedbackItem, expectedScore: target.value});
+            if(!feedbackItem.comment && !target.value) {
+                newFeedbacks.splice(feedbackIdx, 1);
+            } else {
+                newFeedbacks.splice(feedbackIdx, 1, {...feedbackItem, expectedScore: target.value});
+            }
             return dispatch(setAdvancedFeedbacks(newFeedbacks));
         }
         if(target.name==='comment') {
@@ -69,7 +82,7 @@ const FeedbackInput = props => {
             name={inputName}
             type="number"
             step="0.01"
-            className={styles.scoreInput}
+            className={cs(styles.scoreInput, {[styles.scoreInputInvalid]: isInvalid})}
             onChange={handleChangeFeedback}
             defaultValue={initialScore}
         />

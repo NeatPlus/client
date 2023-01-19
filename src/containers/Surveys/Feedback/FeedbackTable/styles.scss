@@ -38,7 +38,7 @@
                         width: 35%;
                     }
 
-                    &:nth-child(n):not(:first-child):not(:last-child) {
+                    &:nth-child(n):not(:first-child, :last-child) {
                         width: 10%;
                     }
 
@@ -100,6 +100,11 @@
                         &:hover {
                             border: 1px solid var(--color-input-outline);
                             outline-color: var(--color-input-outline);
+                        }
+
+                        &__invalid {
+                            border: 1px solid var(--color-severity-high);
+                            background-color: var(--color-severity-high-bg);
                         }
                     }
                 }

@@ -26,6 +26,7 @@ import {getErrorMessage} from '@ra/utils/error';
 import {calculateSurveyResults} from 'utils/calculation';
 import {initDraftAnswers} from 'utils/dispatch';
 import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
+import {parseSkipLogic} from 'utils/skipLogic';
 
 import Api from 'services/api';
 import Toast from 'services/toast';
@@ -147,6 +148,7 @@ const TakeSurveyModal = (props) => {
 
     const dispatch = useDispatch();
     const {activeSurvey} = useSelector(state => state.survey);
+    const {modules = []} = useSelector(state => state.context);
     const {
         title: surveyTitle, 
         projectId: draftProjectId,
@@ -206,6 +208,7 @@ const TakeSurveyModal = (props) => {
     }, [doesDraftExist, initializeNewDraft]);
 
     const moduleCode = useMemo(() => !editable ? code : draftCode ?? code, [editable, draftCode, code]);
+    const activeModule = useMemo(() => modules.find(mod => mod.code === moduleCode), [modules, moduleCode]);
 
     useEffect(() => {
         if(!surveyTitle && moduleCode!=='sens') {
@@ -228,9 +231,12 @@ const TakeSurveyModal = (props) => {
 
     const questionGroups = useMemo(() => {
         return allQuestionGroups.filter(group => {
-            return questions[moduleCode]?.some(que => que.group === group.id);
+            if(group.module === activeModule?.id && group.skipLogic) {
+                return !parseSkipLogic(group.skipLogic, {questions: questions[moduleCode], answers});
+            }
+            return group.module === activeModule?.id;
         });
-    }, [moduleCode, allQuestionGroups, questions]);
+    }, [moduleCode, allQuestionGroups, questions, answers, activeModule]);
 
     const [activeGroupIndex, setActiveGroupIndex] = useState(0);
     const [showRequired, setShowRequired] = useState(false);
@@ -285,9 +291,10 @@ const TakeSurveyModal = (props) => {
         }
         return questions[moduleCode]?.some(ques =>
             ques.isRequired &&
+            questionGroups.map(grp => grp.id).includes(ques.group) &&
             answers &&
             !answers?.some(ans => ans.question === ques.id));
-    }, [questions, answers, editable, moduleCode]);
+    }, [questions, answers, editable, moduleCode, questionGroups]);
 
     const handleFirstIndex = useCallback(() => setActiveGroupIndex(0), []);
     const handleLastIndex = useCallback(() => 
@@ -314,9 +321,13 @@ const TakeSurveyModal = (props) => {
     const handleValidate = useCallback(async () => {
         setError(null);
         try {
-            const results = await calculateSurveyResults(answers, moduleCode);
+            const filteredAnswers = answers.filter(ans => {
+                const questionItem = (questions[moduleCode] || []).find(ques => ques.id === ans.question);
+                return questionGroups.some(grp => questionItem && grp.id === questionItem.group);
+            });
+            const results = await calculateSurveyResults(filteredAnswers, moduleCode);
             const project = draftProjectId;
-            const submissionAnswers = answers.map(ans => {
+            const submissionAnswers = filteredAnswers.map(ans => {
                 if(ans.formattedAnswer) {
                     delete ans.formattedAnswer;
                 }
@@ -324,7 +335,7 @@ const TakeSurveyModal = (props) => {
                     return {...ans, answer: null};
                 }
                 return ans;
-            }, []);
+            });
             if(moduleCode==='sens' && !draftSurveyId) {
                 const response  = await createSurvey({
                     title: surveyTitle,
@@ -334,7 +345,7 @@ const TakeSurveyModal = (props) => {
                 });
                 Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
             } else {
-                await addSurveyAnswers(answers);
+                await addSurveyAnswers(filteredAnswers);
                 const response = await addSurveyResults(results);
                 Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
             }
@@ -349,6 +360,8 @@ const TakeSurveyModal = (props) => {
         }
     }, [
         answers, 
+        questions,
+        questionGroups,
         createSurvey, 
         handleClose, 
         dispatch,
@@ -381,13 +394,12 @@ const TakeSurveyModal = (props) => {
     }, [editable, answers, moduleCode, questions, questionGroups]);
 
     const maxTouchedGroupIndex = useMemo(() => {
-        const answeredGroupIds = answeredGroups.map(item => item.id);
-        if(answeredGroupIds.length > 0) {
-            const maxAnsweredGroupId = Math.max(...answeredGroupIds);
-            return questionGroups.findIndex(grp => grp.id === maxAnsweredGroupId);
+        const answeredGroupIndexes = answeredGroups.map((_, idx) => idx);
+        if(answeredGroupIndexes.length > 0) {
+            return Math.max(...answeredGroupIndexes);
         }
         return 0;
-    }, [answeredGroups, questionGroups]);
+    }, [answeredGroups]);
 
     const touchedGroupIndexes = useRef([...Array(maxTouchedGroupIndex + 1).keys()]);
 

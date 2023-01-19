@@ -16,6 +16,7 @@
         align-items: center;
         transition: all 0.2s ease;
         cursor: pointer;
+        user-select: none;
 
         &:hover {
             filter: opacity(80%);

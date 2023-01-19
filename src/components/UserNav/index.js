@@ -7,8 +7,8 @@ import {
     IoSettingsOutline, 
 } from 'react-icons/io5';
 import {IoMdLogOut} from 'react-icons/io';
-import {MdLanguage, MdOutlineAdminPanelSettings, MdOutlineListAlt} from 'react-icons/md';
-import {BiHelpCircle, BiShareAlt} from 'react-icons/bi';
+import {MdOutlineAdminPanelSettings, MdOutlineListAlt} from 'react-icons/md';
+import {BiShareAlt} from 'react-icons/bi';
 
 import ShareSurvey from 'components/ShareSurvey';
 import Dropdown from '@ra/components/Dropdown';
@@ -43,12 +43,11 @@ const UserNav = (props) => {
         return notifications.some(noti => !noti.hasRead) || invitations.some(inv => inv.status === 'pending');
     }, [notifications, invitations]);
 
-    const projectMatch = useRouteMatch({path: '/projects/:projectId/'});
+    const projectMatch = useRouteMatch({path: '/projects/:projectId/', strict: true});
     const isProjectPath = useMemo(() => projectMatch && activeProject, [projectMatch, activeProject]);
 
     const match = useRouteMatch({
         path: '/projects/:projectId/surveys/:surveyId/',
-        strict: true
     });
     const isSurveyPath = useMemo(() => match && activeSurvey, [activeSurvey, match]);
 
@@ -180,14 +179,18 @@ const UserNav = (props) => {
                             <IoSettingsOutline className={styles.userIcon} />
                             <Localize>Account Settings</Localize>
                         </Link>
+                        {/* TODO: Language action
                         <div className={styles.userOption}>
                             <MdLanguage className={styles.userIcon} />
                             <Localize>Language</Localize>
                         </div>
+                        */}
+                        {/* TODO: Help action
                         <div className={styles.userOption}>
                             <BiHelpCircle className={styles.userIcon} />
                             <Localize>Help</Localize>
                         </div>
+                        */}
                         <div
                             className={styles.userOption}
                             onClick={handleLogOut}

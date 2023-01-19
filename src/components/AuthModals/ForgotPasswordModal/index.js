@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
 
@@ -13,6 +14,7 @@ import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
 import Toast from 'services/toast';
+import {getErrorMessage} from '@ra/utils/error';
 
 import styles from './styles.scss';
 
@@ -25,6 +27,8 @@ const ForgotPasswordModal = (props) => {
         method: 'POST',
     });
 
+    const {isAuthenticated} = useSelector(state => state.auth);
+
     const handleChange = useCallback(
         ({name, value}) =>
             setInputData({
@@ -36,6 +40,9 @@ const ForgotPasswordModal = (props) => {
 
     const handleSumbitEmail = useCallback(async () => {
         try {
+            if(!inputData.email) {
+                return Toast.show(_('Email is required!'), Toast.DANGER);
+            }
             const result = await resetPassword({
                 username: inputData.email,
             });
@@ -45,7 +52,7 @@ const ForgotPasswordModal = (props) => {
                 handleShowCode();
             }
         } catch (err) {
-            Toast.show(err?.error || _('Invalid Email!'), Toast.DANGER);
+            Toast.show(getErrorMessage(err) || _('Invalid Email!'), Toast.DANGER);
         }
     }, [
         onClose,
@@ -75,10 +82,12 @@ const ForgotPasswordModal = (props) => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <Link to='#' onClick={onClose}>
-                        <Localize>Return to Log in</Localize>
-                    </Link>
-                    <Button loading={loading} onClick={handleSumbitEmail}>
+                    {!isAuthenticated && (
+                        <Link to='#' onClick={onClose}>
+                            <Localize>Return to Log in</Localize>
+                        </Link>
+                    )}
+                    <Button className={styles.continueButton} loading={loading} onClick={handleSumbitEmail}>
                         <Localize>Continue</Localize>
                     </Button>
                 </div>

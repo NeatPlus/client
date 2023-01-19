@@ -17,6 +17,7 @@
         cursor: pointer;
         font-weight: 500;
         color: var(--color-dark-alt);
+        user-select: none;
 
         &:hover {
             background-color: var(--color-background);
