@@ -1,8 +1,10 @@
 .container {
     display: flex;
+    flex-flow: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 17px 25px;
+    gap: 1rem;
     border-bottom: 1px solid var(--color-light);
 
     .logo {
@@ -22,6 +24,10 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+
+        @media screen and (max-width: 767px) {
+            margin-left: auto;
+        }
 
         .share-dropdown {
             display: flex;

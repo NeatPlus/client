@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {BiChevronLeft} from 'react-icons/bi';
@@ -35,7 +35,8 @@ const OrganizationsContent = withNoOrganization(() => {
 const Organizations = () => {
     const myOrganizations = useSelector(selectMyOrganizations);
 
-    const history = useHistory();
+    const navigate = useNavigate();
+    const handleBackClick = useCallback(() => navigate(-1), [navigate]);
 
     const [showJoinModal, setShowJoinModal] = useState(false);
 
@@ -50,7 +51,7 @@ const Organizations = () => {
         <div className={styles.container}>
             <UserNav />
             <div className={styles.content}>
-                <div onClick={history.goBack} className={styles.backLink}>
+                <div onClick={handleBackClick} className={styles.backLink}>
                     <BiChevronLeft size={22} className={styles.backIcon} /> <Localize>BACK</Localize>
                 </div>
                 <header className={styles.header}>

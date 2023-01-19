@@ -197,10 +197,10 @@ class Api {
         }
     }
 
-    async getSurveys() {
+    async getSurveys(query) {
         dispatch(surveyActions.setStatus('loading'));
         try {
-            const data = await this.get('/survey/');
+            const data = await this.get('/survey/', {query});
             dispatch(surveyActions.setSurveys(data?.results || []));
             dispatch(surveyActions.setStatus('complete'));
         } catch(error) {
@@ -226,14 +226,14 @@ class Api {
         }
     }
 
-    async getQuestionGroups() {
+    getQuestionGroups = async () => {
         try {
             const data = await this.get('/question-group/?limit=-1');
             dispatch(questionActions.setQuestionGroups(data?.results || []));
         } catch(error) {
             console.log(error);
         }
-    }
+    };
 
     async getQuestions() {
         dispatch(questionActions.setStatus('loading'));
@@ -339,6 +339,10 @@ class Api {
 
     getProjects = async query => {
         return this.get('/project/', {query});
+    };
+
+    getSurvey = async surveyId => {
+        return this.get(`/survey/${surveyId}/`);  
     };
 
     getUsers = async (searchValue) => {

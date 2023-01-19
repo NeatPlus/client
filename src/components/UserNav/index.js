@@ -1,5 +1,5 @@
 import {useCallback, useRef, useState, useMemo} from 'react';
-import {Link, useHistory, useRouteMatch} from 'react-router-dom';
+import {Link, useNavigate, useMatch, useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {
@@ -24,15 +24,18 @@ import usePermissions from 'hooks/usePermissions';
 import {weightagePermissions} from 'utils/permission';
 
 import Notification from './Notification';
+import ProjectSearch from './ProjectSearch';
 
 import styles from './styles.scss';
 
-const UserNav = (props) => {
+const UserNav = ({searchQuery, onSearchQueryChange}) => {
     const [openNotification, setOpenNotification] = useState(false);
     const notificationsRef = useRef(null);
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const {projectId, surveyId} = useParams();
 
     const {user} = useSelector(state => state.auth);
     const {activeProject} = useSelector(state => state.project);
@@ -43,15 +46,18 @@ const UserNav = (props) => {
         return notifications.some(noti => !noti.hasRead) || invitations.some(inv => inv.status === 'pending');
     }, [notifications, invitations]);
 
-    const projectMatch = useRouteMatch({path: '/projects/:projectId/', strict: true});
-    const isProjectPath = useMemo(() => projectMatch && activeProject, [projectMatch, activeProject]);
+    const projectTableMatch = useMatch({path: '/projects/', end: true});
 
-    const match = useRouteMatch({
+    const projectMatch = useMatch({path: '/projects/:projectId/', end: true});
+    const projectSurveysMatch = useMatch({path: '/projects/:projectId/surveys/', end: true});
+    const isProjectPath = useMemo(() => (projectSurveysMatch || projectMatch) && activeProject && activeProject.id === +projectId, [projectSurveysMatch, projectId, projectMatch, activeProject]);
+
+    const match = useMatch({
         path: '/projects/:projectId/surveys/:surveyId/',
     });
-    const isSurveyPath = useMemo(() => match && activeSurvey, [activeSurvey, match]);
+    const isSurveyPath = useMemo(() => match && activeSurvey && activeSurvey.id === +surveyId, [surveyId, activeSurvey, match]);
 
-    const isAdminRoute = useRouteMatch({
+    const isAdminRoute = useMatch({
         path: '/administration/',
     });
 
@@ -75,8 +81,8 @@ const UserNav = (props) => {
 
     const handleLogOut = useCallback(() => {
         dispatch(logout());
-        history.push('/');
-    }, [dispatch, history]);
+        navigate('/');
+    }, [dispatch, navigate]);
 
     const getInitial = useCallback(() => user?.firstName?.[0], [user]);
 
@@ -112,6 +118,8 @@ const UserNav = (props) => {
                 <h1 className={styles.title}>
                     {activeProject?.title}
                 </h1>
+            ) : projectTableMatch ? (
+                <ProjectSearch query={searchQuery} onChange={onSearchQueryChange} />
             ) : null}
             <div className={cs(styles.rightContent, 'no-print')}>
                 {isSurveyPath && (

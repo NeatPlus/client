@@ -1,5 +1,5 @@
 import {useCallback, useState, useMemo} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {BsEyeFill, BsEyeSlashFill} from 'react-icons/bs';
 
 import useRequest from 'hooks/useRequest';
@@ -38,7 +38,7 @@ export const PasswordInput = props => {
 
 const Login = () => {
     const authModalsConfig = useAuthModals();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [error, setError] = useState(null);
     const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ const Login = () => {
                 if (result) {
                     const {access, refresh} = result;
                     await dispatchLogin(access, refresh);
-                    history.push('/projects/');
+                    navigate('/projects/');
                     initStore();
                 }
             } catch (err) {
@@ -65,7 +65,7 @@ const Login = () => {
                 console.log(err);
             }
         },
-        [history, loginUser]
+        [navigate, loginUser]
     );
 
     return (
@@ -143,8 +143,8 @@ const Login = () => {
                                 className={styles.link}
                                 to={{
                                     pathname: '/legal-document', 
-                                    title: 'privacy-policy'
                                 }}
+                                state={{title: 'privacy-policy'}}
                             >
                                 <Localize>Privacy Policy</Localize>
                             </Link>
@@ -152,7 +152,6 @@ const Login = () => {
                                 className={styles.link}
                                 to={{
                                     pathname: '/legal-document', 
-                                    title: 'terms-and-conditions'
                                 }}
                             >
                                 <Localize>Terms of Use</Localize>
@@ -163,7 +162,7 @@ const Login = () => {
                 <AuthModals 
                     username={email} 
                     onRegisterComplete={authModalsConfig.hideModals} 
-                    {...authModalsConfig} 
+                    {...authModalsConfig}
                 />
             </Container>
         </div>

@@ -1,5 +1,5 @@
 import {useMemo, useState, useCallback, useEffect} from 'react';
-import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
+import {useNavigate, Outlet} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import UserNav from 'components/UserNav';
@@ -10,17 +10,13 @@ import usePermissions from 'hooks/usePermissions';
 import Toast from 'services/toast';
 import {_} from 'services/i18n';
 
-import Statements from './Statements';
-import StatementDetails from './StatementDetails';
-import StatementWeightage from './StatementWeightage';
-
 import styles from './styles.scss';
 
-const Projects = () => {
+const Administration = () => {
     const {contexts, modules} = useSelector(state => state.context);
     const {user} = useSelector(state => state.auth);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const defaultContext = useMemo(() => contexts.find(ctx => ctx?.code === 'urban'), [contexts]);
     const defaultModule = useMemo(() => modules.find(mod => mod?.code === 'sens'), [modules]);
@@ -37,40 +33,21 @@ const Projects = () => {
     useEffect(() => {
         if(user && !hasAccess) {
             Toast.show(_('You do not have administration access!'), Toast.DANGER);
-            return history.push('/projects/');
+            return navigate('/projects/');
         }
-    }, [history, user, hasAccess]);
+    }, [navigate, user, hasAccess]);
 
     return (
         <div className={cs(styles.container, 'no-bgcolor')}>
             <UserNav />
-            <Switch>
-                <Route exact path='/administration/statements/'>
-                    <Statements 
-                        contexts={contexts}
-                        modules={modules}
-                        activeContext={activeContext ?? defaultContext}
-                        activeModule={activeModule ?? defaultModule}
-                        onContextChange={handleContextChange}
-                        onModuleChange={handleModuleChange}
-                    />
-                </Route>
-                <Route exact path='/administration/statements/:statementId'>
-                    <StatementDetails
-                        activeContext={activeContext ?? defaultContext}
-                        activeModule={activeModule ?? defaultModule}
-                    />
-                </Route>
-                <Route exact path='/administration/statements/:statementId/weightage'>
-                    <StatementWeightage
-                        activeContext={activeContext ?? defaultContext}
-                        activeModule={activeModule ?? defaultModule}
-                    />
-                </Route>
-                <Redirect from='/administration' to='/administration/statements' />
-            </Switch>
+            <Outlet context={{
+                activeContext: activeContext ?? defaultContext,
+                activeModule: activeModule ?? defaultModule,
+                onContextChange: handleContextChange,
+                onModuleChange: handleModuleChange
+            }} />
         </div>
     );
 };
 
-export default Projects;
+export default Administration;

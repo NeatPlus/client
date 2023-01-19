@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import {MdClose} from 'react-icons/md';
 
@@ -26,7 +26,7 @@ const VerifyEmailModal = (props) => {
         mode='confirm',
     } = props;
     
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [otpData, setOtpData] = useState({otpCode: ''});
     const [info, setInfo] = useState(null);
@@ -72,12 +72,12 @@ const VerifyEmailModal = (props) => {
             await verifyEmail(params);
             await onComplete();
             setError(null);
-            history.push('/projects/');
+            navigate('/projects/');
         } catch(err) {
             setError(err?.error || _('Could not verify email!'));
             console.log(err);
         }
-    }, [verifyEmail, otpData, username, history, onComplete, mode]);
+    }, [verifyEmail, otpData, username, navigate, onComplete, mode]);
 
     const closeThisModal = useCallback(() => {
         setOtpData({

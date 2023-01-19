@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
 import AuthModals from 'components/AuthModals';
@@ -20,7 +20,7 @@ import styles from './styles.scss';
 
 const UpdatePassword = () => {
     const authModalsConfig = useAuthModals();
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [{loading}, updatePassword] = useRequest(
@@ -50,7 +50,7 @@ const UpdatePassword = () => {
                     if (result) {
                         Toast.show(result.detail, Toast.SUCCESS);
                         dispatch(logout());
-                        history.push('/login');
+                        navigate('/login');
                     }
                 }
             } catch (err) {
@@ -62,7 +62,7 @@ const UpdatePassword = () => {
                 console.log(err);
             }
         },
-        [dispatch, history, updatePassword]
+        [dispatch, navigate, updatePassword]
     );
 
     return (

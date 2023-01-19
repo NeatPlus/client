@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {useParams, useHistory, Link} from 'react-router-dom';
+import {useParams, useNavigate, Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Button from 'components/Button';
@@ -18,7 +18,7 @@ import logo from 'assets/images/logo-dark.svg';
 import styles from './styles.scss';
 
 const PublicSurvey = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const {identifier} = useParams();
     
     const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const PublicSurvey = () => {
             }));
             dispatch(setRemovedItems(config?.removedItems || []));
         } catch(error) {
-            history.push('/404');
+            navigate('/404');
             console.log(error);
         }
     }, [
@@ -80,7 +80,7 @@ const PublicSurvey = () => {
         dispatch, 
         allQuestions, 
         statements, 
-        history, 
+        navigate, 
         isDataReady,
     ]); 
 
@@ -89,8 +89,8 @@ const PublicSurvey = () => {
     }, [getSurvey]);
 
     const handleNavButtonClick = useCallback(() => {
-        history.push(isAuthenticated ? '/projects/' : '/login/');
-    }, [history, isAuthenticated]);
+        navigate(isAuthenticated ? '/projects/' : '/login/');
+    }, [navigate, isAuthenticated]);
 
     return (
         <div className={styles.container}>

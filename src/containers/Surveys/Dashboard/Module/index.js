@@ -90,7 +90,8 @@ const Module = props => {
             })} {...rest}>
                 <Editable 
                     type="topic" 
-                    accessor="code" 
+                    accessor="code"
+                    module={code}
                     identifier={tabHeaderProps.label}
                 >
                     <div className={styles.headerTitle}>
@@ -105,10 +106,10 @@ const Module = props => {
                 </Editable>
             </div>
         );
-    }, [isEditMode]);
+    }, [isEditMode, code]);
 
-    const filteredTopics = useFilterItems(topics, 'topic');
-    const filteredStatements = useFilterItems(statements, 'statement');
+    const filteredTopics = useFilterItems(topics, 'topic', code);
+    const filteredStatements = useFilterItems(statements, 'statement', code);
 
     const activeModule = useMemo(() => modules.find(mod => mod.code === code), [code, modules]);
 

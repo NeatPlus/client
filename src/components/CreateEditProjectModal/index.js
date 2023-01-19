@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState, useMemo} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {MdClose} from 'react-icons/md';
 
@@ -41,7 +41,7 @@ const CreateEditProjectModal = (props) => {
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('');
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const {organizations} = useSelector(state => state.organization);
     const {contexts} = useSelector(state => state.context);
@@ -147,7 +147,7 @@ const CreateEditProjectModal = (props) => {
                 if (result && mode === 'create') {
                     Toast.show(_('Project successfully Created!'), Toast.SUCCESS);
                     onComplete();
-                    history.push(`/projects/${result.id}/`);
+                    navigate(`/projects/${result.id}/`);
                 }
 
                 if (result && mode === 'edit') {
@@ -164,7 +164,7 @@ const CreateEditProjectModal = (props) => {
             visibility, 
             createOrEditProject, 
             onClose, 
-            history, 
+            navigate, 
             mode, 
             initialUsers, 
             project?.id,

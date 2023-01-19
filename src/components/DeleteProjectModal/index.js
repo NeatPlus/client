@@ -9,7 +9,6 @@ import {_} from 'services/i18n';
 
 import trash from 'assets/images/trash.png';
 import useRequest from 'hooks/useRequest';
-import Api from 'services/api';
 import Toast from 'services/toast';
 
 import styles from './styles.scss';
@@ -25,7 +24,6 @@ const DeleteProjectModal = (props) => {
             const result = await deleteProject();
             if (result) {
                 onDelete && onDelete();
-                Api.getSurveys();
                 onClose();
                 Toast.show(_('Project successfully Deleted!'), Toast.SUCCESS);
             }

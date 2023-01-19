@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
     BiRightArrowAlt,
@@ -98,7 +98,7 @@ const DataItem = ({ item, column, selectedQuestions }) => {
 };
 
 const StatementDetails = (props) => {
-    const { activeContext, activeModule } = props;
+    const {activeContext, activeModule} = useOutletContext();
 
     const { questionStatements = [] } = useSelector((state) => state.weightage);
 
@@ -120,7 +120,7 @@ const StatementDetails = (props) => {
         []
     );
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const { statementId } = useParams();
 
     const [showConfirmPublish, setShowConfirmPublish] = useState(false);
@@ -222,10 +222,10 @@ const StatementDetails = (props) => {
     );
 
     const handleNextClick = useCallback(() => {
-        history.push(`/administration/statements/${statementId}/weightage/`, {
-            selectedQuestions,
+        navigate(`/administration/statements/${statementId}/weightage/`, {
+            state: {selectedQuestions},
         });
-    }, [statementId, selectedQuestions, history]);
+    }, [statementId, selectedQuestions, navigate]);
 
     const handleConfirmPublish = useCallback(async () => {
         if (!activeStatement?.id) {

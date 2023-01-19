@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState, useCallback} from 'react';
-import {useLocation, useParams, useHistory, Link} from 'react-router-dom';
+import {useLocation, useParams, useNavigate, Link, useOutletContext} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {
     BiChevronLeft,
@@ -62,9 +62,9 @@ return calculateScore(questions);
 `;
 
 const StatementWeightage = props => {
-    const {activeModule, activeContext} = props;
+    const {activeModule, activeContext} = useOutletContext();
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const {statementId} = useParams();
 
@@ -266,12 +266,12 @@ const StatementWeightage = props => {
 
     useEffect(() => {
         if(!selectedQuestions?.length > 0) {
-            history.push(`/administration/statements/${statementId}/`);
+            navigate(`/administration/statements/${statementId}/`);
         }
         return () => {
             dispatch(resetWeightages());
         };
-    }, [dispatch, history, selectedQuestions, statementId]);
+    }, [dispatch, navigate, selectedQuestions, statementId]);
 
     const [activeTab, setActiveTab] = useState('current');
 

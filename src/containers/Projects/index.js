@@ -1,42 +1,30 @@
-import {useEffect} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {useState, useCallback} from 'react';
+import {Outlet} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {AiOutlineFileText} from 'react-icons/ai';
 
 import FloatingAction from 'components/FloatingAction';
 import UserNav from 'components/UserNav';
-import SurveyDashboard from 'containers/Surveys/Dashboard';
-import SurveyFeedback from 'containers/Surveys/Feedback';
 
-import Api from 'services/api';
 import cs from '@ra/cs';
-
-import List from './List';
-import Dashboard from './Dashboard';
 
 import styles from './styles.scss';
 
 const Projects = () => {
-    useEffect(() => {
-        Api.getSurveys();
-    }, []);
-
     const {projectId, title} = useSelector(state => state.draft);
-    const {status} = useSelector(state => state.question);
+
+    const [projectSearchQuery, setProjectSearchQuery] = useState('');
+    const handleSearchQueryChange = useCallback(query => {
+        setProjectSearchQuery(query);
+    }, []);
 
     return (
         <div className={cs(styles.container, 'no-bgcolor')}>
-            <UserNav />
+            <UserNav searchQuery={projectSearchQuery} onSearchQueryChange={handleSearchQueryChange} />
             <div className={styles.content}>
-                <Switch>
-                    <Route exact path='/projects/' component={List} />
-                    <Route exact path='/projects/:projectId/surveys/:surveyId' component={SurveyDashboard} />
-                    <Route exact path='/projects/:projectId/surveys' component={Dashboard} />
-                    <Route exact path='/projects/:projectId/surveys/:surveyId/feedback/' component={SurveyFeedback} />
-                    <Route path='/projects/:projectId' component={Dashboard} />
-                </Switch>
+                <Outlet context={{projectSearchQuery}} />
             </div>
-            {projectId && !!title && status==='complete' && (
+            {projectId && !!title && (
                 <FloatingAction surveyTitle={title} icon={AiOutlineFileText} />
             )}
         </div>
