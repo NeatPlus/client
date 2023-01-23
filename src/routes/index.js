@@ -68,7 +68,7 @@ const AppRoutes = () => {
                     <Route path="account" element={<PrivateRoute><Account /></PrivateRoute>} />
                     <Route path="organizations" element={<PrivateRoute><Organizations /></PrivateRoute>} />
                     <Route path="administration" element={<PrivateRoute><Administration /></PrivateRoute>}>
-                        <Route path="" element={<Navigate to="/administration/statements" />} />
+                        <Route path="" element={<Navigate to="/administration/statements" replace />} />
                         <Route exact path="statements">
                             <Route path="" element={<AdministrationStatements />} />
                             <Route path=":statementId">

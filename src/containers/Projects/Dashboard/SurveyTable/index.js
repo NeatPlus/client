@@ -134,10 +134,9 @@ const SurveyTable = ({onTakeSurveyClick}) => {
     const navigate = useNavigate();
 
     const {activeProject} = useSelector(state => state.project);
-    const {status} = useSelector(state => state.survey);
 
     const surveys = useSelector(getFormattedSurveys);
-    const surveyData = surveys.filter(el => el.project === +projectId);
+    const surveyData = useMemo(() => surveys.filter(el => el.project === +projectId), [surveys, projectId]);
 
     const hasEditAccess = useMemo(() => 
         checkEditAccess(activeProject?.accessLevel), 
@@ -165,11 +164,11 @@ const SurveyTable = ({onTakeSurveyClick}) => {
             <p className={styles.subTitle}>{surveyData.length} <Localize>surveys</Localize></p>
             <div className={styles.surveyTable}>
                 <Table 
-                    loading={status==='loading'}
+                    loading={!activeProject || (activeProject.surveysCount > 0 && !surveyData.length)}
                     LoadingComponent={<NeatLoader medium />}
                     className={styles.table} 
                     data={surveyData} 
-                    columns={surveyColumns} 
+                    columns={surveyColumns}
                     maxRows={10}
                     renderHeaderItem={HeaderItem}
                     renderDataItem={DataItem}

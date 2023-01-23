@@ -15,13 +15,23 @@ export const checkEditAccess = accessLevel => {
 };
 
 export const weightagePermissions = [
-    'summary.add_optionstatement',
-    'summary.change_optionstatement',
-    'summary.delete_optionstatement',
-    'summary.add_questionstatement',
-    'summary.change_questionstatement',
-    'summary.delete_questionstatement',
-    'summary.add_statement',
-    'summary.change_statement',
-    'summary.delete_statement',
+    'statement.view_statement',
+    'statement.add_statement',
+    'statement.change_statement',
+    'statement.delete_statement',
+
+    'statement.view_questionstatement',
+    'statement.add_questionstatement',
+    'statement.change_questionstatement',
+    'statement.delete_questionstatement',
+
+    'statement.view_optionstatement',
+    'statement.add_optionstatement',
+    'statement.change_optionstatement',
+    'statement.delete_optionstatement',
+
+    'statement.view_statementformula',
+    'statement.add_statementformula',
+    'statement.change_statementformula',
+    'statement.delete_statementformula',
 ];

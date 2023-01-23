@@ -100,7 +100,9 @@ const Module = props => {
                             src={iconSrc || topicIconPlaceholder}
                             width={20} 
                             title={title}
-                        />
+                        >
+                            <SVG className={styles.tabIcon} width={20}  src={topicIconPlaceholder} title={title} />
+                        </SVG>
                         <span className={styles.tabLabel}>{title}</span>
                     </div>
                 </Editable>

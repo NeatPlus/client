@@ -34,7 +34,9 @@ export const DataItem = ({item, column}) => {
                     src={item.icon ?? topicIconPlaceholder}
                     width={20} 
                     title={item[column.accessor]}
-                />
+                >
+                    <SVG className={styles.nameIcon} src={topicIconPlaceholder} width={20} title={item[column.accessor]} />
+                </SVG>
                 <span
                     className={styles.nameItem}
                     title={item[column.accessor]}

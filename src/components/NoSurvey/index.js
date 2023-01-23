@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
@@ -21,7 +21,6 @@ import noSurveyImage from 'assets/images/no-survey.svg';
 import styles from './styles.scss';
 
 const NoSurveys = () => {
-    useInitActiveProject();
     const surveyModalsConfig = useSurveyModals('sens');
 
     const {activeProject} = useSelector(state => state.project);
@@ -56,15 +55,15 @@ export default NoSurveys;
 
 export const withNoSurvey = WrappedComponent => {
     const WithNoSurvey = (props) => {
-        const {projectId} = useParams();
+        useInitActiveProject();
 
-        const {surveys, status} = useSelector(state => state.survey);
-        const surveyData = surveys.filter(el => el.project === +projectId);
+        const {activeProject} = useSelector(state => state.project);
+        const {status, surveys} = useSelector(state => state.survey);
 
-        if(surveyData.length){
+        if(activeProject && surveys.some(sur => sur.project === activeProject.id)) {
             return <WrappedComponent {...props} />;
         }
-        if(status!=='complete') {
+        if(status !== 'complete') {
             return <NeatLoader containerClassName={styles.loaderContainer} />;
         }
         return <NoSurveys />;
