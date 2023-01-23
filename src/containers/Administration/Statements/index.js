@@ -1,3 +1,6 @@
+import {useOutletContext} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+
 import {Localize} from '@ra/components/I18n';
 import SelectInput from '@ra/components/Form/SelectInput';
 
@@ -9,8 +12,10 @@ import styles from './styles.scss';
 const valueExtractor = item => item?.title;
 const keyExtractor = item => item.id;
 
-const Statements = props => {
-    const {contexts, modules, onContextChange, onModuleChange, activeContext, activeModule} = props;
+const Statements = () => {
+    const {contexts, modules} = useSelector(state => state.context);
+
+    const {activeContext, activeModule, onContextChange, onModuleChange} = useOutletContext();
 
     return (
         <div className={styles.container}>

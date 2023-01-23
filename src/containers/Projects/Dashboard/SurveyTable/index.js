@@ -1,5 +1,5 @@
 import {useCallback, useState, useMemo} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {BsPlus, BsArrowRight} from 'react-icons/bs';
 
@@ -131,7 +131,7 @@ const SurveyTable = ({onTakeSurveyClick}) => {
     ]), []);
 
     const {projectId} = useParams();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const {activeProject} = useSelector(state => state.project);
     const {status} = useSelector(state => state.survey);
@@ -143,10 +143,10 @@ const SurveyTable = ({onTakeSurveyClick}) => {
         checkEditAccess(activeProject?.accessLevel), 
     [activeProject]);
 
-    const handleMoreClick = useCallback(() => history.push('surveys/'), [history]);
+    const handleMoreClick = useCallback(() => navigate('surveys/'), [navigate]);
     const handleSurveyClick = useCallback(survey => {
-        history.push(`surveys/${survey.id}/`);
-    }, [history]);
+        navigate(`surveys/${survey.id}/`);
+    }, [navigate]);
         
     return (
         <div className={styles.surveys}>

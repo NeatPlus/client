@@ -1,5 +1,5 @@
 import {useCallback, useMemo, useEffect} from 'react';
-import {useHistory, useLocation, useParams} from 'react-router-dom';
+import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BiChevronLeft} from 'react-icons/bi';
@@ -72,8 +72,10 @@ const SurveyFeedback = props => {
     const {modules} = useSelector(state => state.context);
     const {advancedFeedbacks} = useSelector(state => state.survey);
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
+
+    const handleGoBack = useCallback(() => navigate(-1), [navigate]);
 
     const [{loading}, submitFeedbacks] = usePromise(Api.postFeedback);
     const [{loading: baselineLoading}, submitBaselineFeedbacks] = usePromise(Api.addBaselineFeedback);
@@ -81,12 +83,12 @@ const SurveyFeedback = props => {
     useEffect(() => {
         if(!location?.state?.moduleCode) {
             if(projectId && surveyId) {
-                return history.push(`/projects/${projectId}/surveys/${surveyId}/`);
+                return navigate(`/projects/${projectId}/surveys/${surveyId}/`);
             }
-            return history.push('/projects/');
+            return navigate('/projects/');
         }
         return () => dispatch(setAdvancedFeedbacks([]));
-    }, [location, history, dispatch, projectId, surveyId]);
+    }, [location, navigate, dispatch, projectId, surveyId]);
 
     const isBaselineFeedback = useMemo(() => location?.state?.isBaseline, [location]);
 
@@ -133,10 +135,11 @@ const SurveyFeedback = props => {
             }
             Toast.show(_('Your feedback has been successfully submitted'), Toast.SUCCESS);
             dispatch(setAdvancedFeedbacks([]));
+            navigate('..');
         } catch(error) {
             Toast.show(getErrorMessage(error) ?? _('An error occurred while submitting your feedbacks!'), Toast.DANGER);
         }
-    }, [submitFeedbacks, advancedFeedbacks, dispatch, isBaselineFeedback, submitBaselineFeedbacks]);
+    }, [submitFeedbacks, advancedFeedbacks, dispatch, isBaselineFeedback, submitBaselineFeedbacks, navigate]);
 
     const renderTopicItem = useCallback(listProps => (
         <TopicItem {...listProps} activeModule={activeModule} isBaselineFeedback={isBaselineFeedback} />
@@ -146,7 +149,7 @@ const SurveyFeedback = props => {
         <div className={styles.container}>
             <div className={styles.header}>
                 <div className={styles.titleContainer}>
-                    <div className={styles.backLink} onClick={history.goBack}>
+                    <div className={styles.backLink} onClick={handleGoBack}>
                         <BiChevronLeft 
                             size={22} 
                             className={styles.backIcon}

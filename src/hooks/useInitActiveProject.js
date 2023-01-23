@@ -1,5 +1,5 @@
 import {useEffect, useCallback, useMemo} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
 import usePromise from '@ra/hooks/usePromise';
@@ -9,6 +9,7 @@ import {setActiveProject} from 'store/actions/project';
 
 const useInitActiveProject = (id) => {
     const {projectId: fallbackId} = useParams();
+    const {state} = useLocation();
 
     const projectId = useMemo(() => id ?? +fallbackId, [id, fallbackId]);
 
@@ -43,16 +44,29 @@ const useInitActiveProject = (id) => {
 
     const addActiveProject = useCallback(async id => {
         try {
-            const project = await Api.getProject(id);
-            dispatch(setActiveProject(project));
+            const projectSurveys = surveys.filter(srv => srv.project === +id);
+            if(state?.project?.id === +id) {
+                dispatch(setActiveProject(state.project));
+                if(state.project.surveysCount !== projectSurveys.length) {
+                    Api.getSurveys({project: id});
+                }
+            } else {
+                const project = await Api.getProject(id);
+                if(project.surveysCount !== projectSurveys.length) {
+                    Api.getSurveys({project: id});
+                }
+                dispatch(setActiveProject(project));
+            }
         } catch(error) {
             console.log(error);
         }
-    }, [dispatch]);
+    }, [dispatch, state, surveys]);
 
     useEffect(() => {
-        addActiveProject(projectId);
-    }, [projectId, addActiveProject]);
+        if(!activeProject || activeProject?.id !== +projectId) {
+            addActiveProject(projectId);
+        }
+    }, [activeProject, projectId, addActiveProject]);
 
     const hasSurveys = useMemo(() => surveys.some(el => el.project === +projectId), [surveys, projectId]); 
 

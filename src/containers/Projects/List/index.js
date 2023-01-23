@@ -1,5 +1,6 @@
 import {useState, useCallback, useMemo, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate, useOutletContext} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {BsPlus} from 'react-icons/bs';
 
 import {NeatLoader} from 'components/Loader';
@@ -51,6 +52,8 @@ const ProjectTable = withNoProject(props => {
         onAction,
     } = props;
 
+    const {surveys} = useSelector(state => state.survey);
+
     const columns = useMemo(() => ([
         {
             Header: _('Name'),
@@ -76,7 +79,7 @@ const ProjectTable = withNoProject(props => {
         }
     ]), []); 
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handlePageChange = useCallback(({currentPage}) => {
         setPage(currentPage);
@@ -87,8 +90,12 @@ const ProjectTable = withNoProject(props => {
     }, [setMaxRows, setPage]);
 
     const handleRowClick = useCallback(project => {
-        history.push(`/projects/${project.id}/`); 
-    }, [history]);
+        const projectSurveys = surveys.filter(srv => srv.project === project.id);
+        if(project.surveysCount !== projectSurveys.length) {
+            Api.getSurveys({project: project.id});
+        }
+        navigate(`/projects/${project.id}/`, {state: {project}}); 
+    }, [navigate, surveys]);
 
     const renderDataItem = useCallback(otherProps => (
         <DataItem {...otherProps} onAction={onAction} />
@@ -147,6 +154,8 @@ const ProjectTable = withNoProject(props => {
 });
 
 const ProjectList = () => {
+    const {projectSearchQuery} = useOutletContext();
+
     const [{loading, result}, getProjects] = usePromise(Api.getProjects);
 
     const totalProjects = useMemo(() => result?.count || 0, [result]);
@@ -196,8 +205,13 @@ const ProjectList = () => {
             tab,
             limit: maxRows.value, 
             offset: (page - 1) * maxRows.value,
+            search: projectSearchQuery
         });
-    }, [getProjects, page, maxRows, tab]); 
+    }, [getProjects, page, maxRows, tab, projectSearchQuery]); 
+
+    useEffect(() => {
+        setPage(1);
+    }, [projectSearchQuery]);
 
     useEffect(() => {
         fetchProjects();

@@ -47,7 +47,7 @@ export const DataItem = ({item, column}) => {
     return item[column.accessor];
 };
 
-const ConcernsTable = ({onTakeSurveyClick, concerns}) => {
+const ConcernsTable = ({onTakeSurveyClick, concerns, loading}) => {
     const columns = useMemo(() => ([
         {
             Header: _('Topic'),
@@ -73,7 +73,7 @@ const ConcernsTable = ({onTakeSurveyClick, concerns}) => {
 
     return (
         <Table 
-            loading={!concerns?.length}
+            loading={loading || !concerns?.length}
             LoadingComponent={<NeatLoader medium />}
             className={styles.table} 
             data={concerns} 

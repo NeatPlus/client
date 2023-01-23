@@ -1,5 +1,5 @@
 import {useCallback, useMemo} from 'react';
-import {Link, useLocation, useParams, useHistory} from 'react-router-dom';
+import {Link, useLocation, useParams, useNavigate} from 'react-router-dom';
 
 import {useSelector} from 'react-redux';
 import {BiChevronLeft} from 'react-icons/bi';
@@ -23,7 +23,7 @@ import SurveyTable from './SurveyTable';
 import styles from './styles.scss';
 
 const ProjectDashboard = withNoSurvey(() => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const {projectId} = useParams();
 
@@ -80,10 +80,10 @@ const ProjectDashboard = withNoSurvey(() => {
 
     const handleTabChange = useCallback(({activeTab}) => {
         if(activeTab === 'summary') {
-            return history.push(`/projects/${projectId}/`);
+            return navigate(`/projects/${projectId}/`);
         }
-        return history.push(`/projects/${projectId}/surveys/`);
-    }, [projectId, history]);
+        return navigate(`/projects/${projectId}/surveys/`);
+    }, [projectId, navigate]);
 
     return (
         <div className={styles.container}>
@@ -107,6 +107,7 @@ const ProjectDashboard = withNoSurvey(() => {
                                     <h4 className={styles.concernsTitle}><Localize>Top concerns topics</Localize></h4>
                                     <div className={styles.concernsTable}>
                                         <ConcernsTable 
+                                            loading={!projectResults.length}
                                             concerns={topConcerns}
                                         />
                                     </div>

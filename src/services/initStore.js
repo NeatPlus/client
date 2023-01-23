@@ -8,7 +8,7 @@ import Api from './api';
 
 const dispatch = store.dispatch;
 
-export default async function initStore() {
+async function initUser() {
     let {
         auth: {isAuthenticated, refreshToken}
     } = store.getState();
@@ -25,21 +25,23 @@ export default async function initStore() {
         loadUserData(user.id);
     }
 
-    await Api.getLegislations();
+}
+
+export default async function initStore() {
+    await initUser();
+    Api.getLegislations();
 
     await Api.getContextsModules();
 
-    await Promise.all([
-        Api.getQuestionGroups(),
-        Api.getQuestions(),
-        Api.getStatements(),
-        Api.getMitigations(),
-        Api.getOpportunities(),
-    ]);
+    Api.getQuestionGroups();
+    Api.getQuestions('sens');
+    Api.getStatements();
+    Api.getMitigations();
+    Api.getOpportunities();
 
-    await Api.getStatementTags();
-    await Api.getSurveyWeightages();
-    await Api.getOrganizationMemberRequests();
+    Api.getStatementTags();
+    Api.getSurveyWeightages();
+    Api.getOrganizationMemberRequests();
 }
 
 export const loadUserData = async (userId) => {

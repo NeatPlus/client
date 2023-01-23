@@ -1,5 +1,5 @@
 import {useState, useCallback, useMemo} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {NeatLoader} from 'components/Loader';
@@ -180,7 +180,7 @@ const SurveyList = () => {
     ]), []);
 
     const {projectId} = useParams();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const surveys = useSelector(state => getFormattedSurveys(state));
     const surveyData = surveys.filter(el => el.project === +projectId);
@@ -195,8 +195,8 @@ const SurveyList = () => {
     }, []);
 
     const handleRowClick = useCallback(survey => {
-        history.push(`${survey.id}/`);
-    }, [history]);
+        navigate(`${survey.id}/`);
+    }, [navigate]);
 
     return (
         <div className={styles.container}>

@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {FiUpload, FiChevronRight} from 'react-icons/fi';
 import {RiFileList3Line} from 'react-icons/ri';
@@ -53,7 +53,7 @@ const StatementsContent = ({
     
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
 
@@ -70,15 +70,15 @@ const StatementsContent = ({
     }, [dispatch]);
 
     const handleFeedbacksClick = useCallback(() => {
-        history.push(`/projects/${activeProject?.id}/surveys/${activeSurvey?.id}/feedback/`, {moduleCode});
-    }, [history, activeProject, activeSurvey, moduleCode]);
+        navigate(`/projects/${activeProject?.id}/surveys/${activeSurvey?.id}/feedback/`, {state: {moduleCode}});
+    }, [navigate, activeProject, activeSurvey, moduleCode]);
 
     const handleBaselineFeedbacksClick = useCallback(() => {
-        history.push(`/projects/${activeProject.id}/surveys/${activeSurvey?.id}/feedback/`, {
+        navigate(`/projects/${activeProject.id}/surveys/${activeSurvey?.id}/feedback/`, {state: {
             moduleCode,
             isBaseline: true,
-        });
-    }, [history, activeProject, activeSurvey, moduleCode]);
+        }});
+    }, [navigate, activeProject, activeSurvey, moduleCode]);
 
     const renderConcernItem = useCallback(listProps => {
         const total = severityCounts.reduce((acc, cur) => acc + cur.count, 0);
@@ -91,10 +91,11 @@ const StatementsContent = ({
         return (
             <StatementAccordion 
                 {...listProps} 
+                module={moduleCode}
                 isExpanded={expanded} 
             />
         );
-    }, [expanded]);
+    }, [expanded, moduleCode]);
 
     const handleExportPDF = useCallback(async () => {
         if(!expanded) {

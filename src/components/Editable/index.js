@@ -6,27 +6,31 @@ import {setItemsToRemove} from 'store/actions/dashboard';
 
 import styles from './styles.scss';
 
-const Editable = ({children, type, identifier, accessor}) => {
+const Editable = ({children, type, identifier, accessor, module}) => {
     const dispatch = useDispatch();
 
     const {isEditMode, itemsToRemove} = useSelector(state => state.dashboard);
     
     const isItemToRemove = useMemo(() => 
-        itemsToRemove.some(el => el.type === type && el.identifier === identifier), 
-    [itemsToRemove, type, identifier]);
+        itemsToRemove.some(el => el.type === type && el.identifier === identifier && (el.module === module || (!el.module && module === 'sens'))), 
+    [itemsToRemove, type, identifier, module]);
 
     const handleRemoveItem = useCallback(e => {
         e.stopPropagation();
         if(isItemToRemove) {
             return dispatch(setItemsToRemove(
                 itemsToRemove.filter(
-                    el => el.type !== type || el.identifier !== identifier
+                    el => {
+                        if(module === 'sens') {
+                            return el.type !== type || el.identifier !== identifier;
+                        } 
+                        return el.type !== type || el.identifier !== identifier || el.module !== module;
+                    }
                 )
             ));
         }
-        dispatch(setItemsToRemove([...itemsToRemove, {type, identifier, accessor}]));
-    }, [dispatch, type, identifier, accessor, itemsToRemove, isItemToRemove]);
-
+        dispatch(setItemsToRemove([...itemsToRemove, {type, identifier, accessor, module}]));
+    }, [dispatch, type, identifier, accessor, itemsToRemove, isItemToRemove, module]);
 
     if(!isEditMode) {
         return children;

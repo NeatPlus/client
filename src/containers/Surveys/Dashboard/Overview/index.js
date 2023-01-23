@@ -74,7 +74,6 @@ const ImageItem = ({item, index, onClick}) => {
 const Overview = () => {
     const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
-    const {activeProject} = useSelector(state => state.project);
 
     const [showSummaryModal, setShowSummaryModal] = useState(false);
     const [activeSeverity, setActiveSeverity] = useState('high');
@@ -162,7 +161,7 @@ const Overview = () => {
                             />
                             <InfoItem 
                                 title={_('Organization')}
-                                value={getSurveyAnswerFromCode('org') || activeProject?.organizationTitle} 
+                                value={getSurveyAnswerFromCode('org') } 
                             />
                             <InfoItem 
                                 title={_('Surveyed by')}

@@ -1,5 +1,5 @@
 import {useState, useCallback, useMemo} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {BiChevronLeft, BiEditAlt} from 'react-icons/bi';
 import {BsArrowCounterclockwise} from 'react-icons/bs';
@@ -117,7 +117,7 @@ const IssuesBox = ({showIssues, onClose}) => {
 
 const SurveyDashboard = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useInitActiveProject();
     useInitActiveSurvey();
@@ -138,9 +138,9 @@ const SurveyDashboard = () => {
     const [showIssues, setShowIssues] = useState(false);
 
     const handleTabChange = useCallback(payload => {
-        history.push(`#${payload.activeTab}`);
+        navigate(`#${payload.activeTab}`);
         deactivateEditMode();
-    }, [deactivateEditMode, history]);
+    }, [deactivateEditMode, navigate]);
 
     const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
@@ -273,8 +273,9 @@ const SurveyDashboard = () => {
                 renderHeaderControls={renderHeaderControls}
             />
             <RestoreItemsModal 
+                module={activeTab === 'sensitivity' ? 'sens' : activeTab}
                 isVisible={showRestoreModal} 
-                onClose={toggleRestoreModal} 
+                onClose={toggleRestoreModal}
             />
         </div>
     ); 

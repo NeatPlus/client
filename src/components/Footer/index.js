@@ -22,8 +22,8 @@ const Footer = () => {
                 className={styles.policyLink}
                 to={{
                     pathname: '/legal-document', 
-                    title: item?.documentType
                 }}
+                state={{title: item?.documentType}}
             >
                 {item?.documentType.split('-').join(' ')}
             </Link>

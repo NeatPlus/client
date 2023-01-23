@@ -18,6 +18,8 @@ import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
 import useSize from '@ra/hooks/useSize';
+import usePromise from '@ra/hooks/usePromise';
+
 import CompletedTaskImage from 'assets/images/completed-task.svg';
 import NoSurveyImage from 'assets/images/no-survey.svg';
 
@@ -179,6 +181,14 @@ const TakeSurveyModal = (props) => {
         answers
     } = useSelector(state => state.question);
 
+    const [{loading: loadingQuestionGroups}, getQuestionGroups] = usePromise(Api.getQuestionGroups);
+    useEffect(() => {
+        if(!allQuestionGroups.length) {
+            getQuestionGroups();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getQuestionGroups]);
+
     const [showDeleteDraftModal, setShowDeleteDraftModal] = useState(false);
 
     const handleCloseDeleteDraftModal = useCallback(() => {
@@ -284,7 +294,6 @@ const TakeSurveyModal = (props) => {
         clone,
     ]);
 
-
     const isFormIncomplete = useMemo(() => {
         if(!editable) {
             return false;
@@ -293,7 +302,8 @@ const TakeSurveyModal = (props) => {
             ques.isRequired &&
             questionGroups.map(grp => grp.id).includes(ques.group) &&
             answers &&
-            !answers?.some(ans => ans.question === ques.id));
+            !answers?.some(ans => ans.question === ques.id)
+        );
     }, [questions, answers, editable, moduleCode, questionGroups]);
 
     const handleFirstIndex = useCallback(() => setActiveGroupIndex(0), []);
@@ -351,8 +361,10 @@ const TakeSurveyModal = (props) => {
             }
             dispatch(questionActions.setAnswers([]));
             handleClose();
-            Api.getSurveys();
-            Api.getSurveyDetails(+params.projectId);
+            if(params.projectId) {
+                Api.getSurveys({project: params.projectId});
+                Api.getSurveyDetails(+params.projectId);
+            }
             initDraftAnswers(null);
         } catch(err) {
             setError(err);
@@ -371,7 +383,7 @@ const TakeSurveyModal = (props) => {
         params,
         moduleCode,
         addSurveyAnswers,
-        addSurveyResults,
+        addSurveyResults
     ]);
 
     const incompleteQuestionGroups = useMemo(() => {
@@ -389,25 +401,31 @@ const TakeSurveyModal = (props) => {
             return questionGroups;
         }
         return questionGroups.filter(grp => {
-            return questions[moduleCode]?.some(ques => ques && ques.group === grp.id && answers?.some(ans => ans.question === ques.id));
+            const groupQuestions = (questions[moduleCode] || []).filter(q => q && q.group === grp.id);
+            if(groupQuestions.every(gq => gq.answerType === 'description')) {
+                return true;
+            }
+            return groupQuestions.some(ques => {
+                return answers?.some(ans => ans.question === ques.id);
+            });
         });
     }, [editable, answers, moduleCode, questions, questionGroups]);
 
     const maxTouchedGroupIndex = useMemo(() => {
         const answeredGroupIndexes = answeredGroups.map((_, idx) => idx);
         if(answeredGroupIndexes.length > 0) {
-            return Math.max(...answeredGroupIndexes);
+            const maxIdx = Math.max(...answeredGroupIndexes);
+            if(activeGroupIndex > maxIdx) {
+                return activeGroupIndex;
+            }
+            return maxIdx;
         }
         return 0;
-    }, [answeredGroups]);
-
-    const touchedGroupIndexes = useRef([...Array(maxTouchedGroupIndex + 1).keys()]);
-
-    useEffect(() => {
-        if(activeGroupIndex && !touchedGroupIndexes.current.some(el => el === activeGroupIndex)) {
-            touchedGroupIndexes.current.push(activeGroupIndex);
-        }
-    }, [activeGroupIndex]);
+    }, [answeredGroups, activeGroupIndex]);
+    
+    const touchedGroupIndexes = useMemo(() => {
+        return [...Array(maxTouchedGroupIndex + 1).keys()];
+    }, [maxTouchedGroupIndex]);
 
     const renderQuestionGroupItem = useCallback(listProps => (
         <QuestionGroupItem 
@@ -415,10 +433,10 @@ const TakeSurveyModal = (props) => {
             activeGroupId={activeGroup?.id}
             incompleteQuestionGroups={incompleteQuestionGroups}
             onItemClick={handleQuestionGroupClick}
-            isTouched={touchedGroupIndexes.current?.some(grpIdx => grpIdx === listProps.index)}
+            isTouched={touchedGroupIndexes.some(grpIdx => grpIdx === listProps.index)}
             showRequiredError={listProps.index !== maxTouchedGroupIndex}
         />
-    ), [activeGroup, incompleteQuestionGroups, handleQuestionGroupClick, maxTouchedGroupIndex]);
+    ), [touchedGroupIndexes, activeGroup, incompleteQuestionGroups, handleQuestionGroupClick, maxTouchedGroupIndex]);
 
     if(!surveyTitle && editable && moduleCode==='sens') {
         return (
@@ -472,6 +490,7 @@ const TakeSurveyModal = (props) => {
                     [styles.groupListCollapsed]: collapsed
                 })}>
                     <List
+                        loading={loadingQuestionGroups}
                         data={questionGroups}
                         keyExtractor={keyExtractor}
                         renderItem={renderQuestionGroupItem}
@@ -563,7 +582,7 @@ const TakeSurveyModal = (props) => {
                     <RiSkipBackLine size={20} className={styles.footerLinkIconLeft} />
                     <Localize>Back to the beginning</Localize>
                 </div>
-                {questionGroups?.length <= touchedGroupIndexes.current.length && (
+                {questionGroups?.length <= touchedGroupIndexes.length && (
                     <div className={styles.footerLink} onClick={handleLastIndex}>
                         <Localize>Go to the end</Localize>
                         <RiSkipForwardLine size={20} className={styles.footerLinkIconRight} />

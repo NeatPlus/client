@@ -14,7 +14,7 @@ import styles from './styles.scss';
 
 const keyExtractor = item => item.id;
 
-const StatementAccordion = ({item, isExpanded}) => {
+const StatementAccordion = ({item, isExpanded, module}) => {
     const [open, setOpen] = useState(isExpanded);
     const [contentHeight, setContentHeight] = useState(isExpanded?'none':'0px');
     
@@ -65,6 +65,7 @@ const StatementAccordion = ({item, isExpanded}) => {
         <React.Fragment>
             <div className={styles.accordionContainer}>
                 <Editable 
+                    module={module}
                     type="statement" 
                     accessor="id" 
                     identifier={item.statement.id}

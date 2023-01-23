@@ -1,5 +1,5 @@
 import {useMemo, useEffect, useCallback, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {BiDotsHorizontalRounded} from 'react-icons/bi';
 import {IoMdInformationCircle} from 'react-icons/io';
 
@@ -14,10 +14,12 @@ import Toast from 'services/toast';
 import {_} from 'services/i18n';
 import usePromise from '@ra/hooks/usePromise';
 import {getErrorMessage} from '@ra/utils/error';
+import * as surveyActions from 'store/actions/survey';
 
 import styles from './styles.scss';
 
 const ShareSurvey = props => {
+    const dispatch = useDispatch();
     const {activeSurvey} = useSelector(state => state.survey);
 
     const [linkIdentifier, setLinkIdentifier] = useState(null);
@@ -41,24 +43,26 @@ const ShareSurvey = props => {
     const handleGetShareLink = useCallback(async () => {
         try {
             await getShareLink(activeSurvey?.id);
-            Api.getSurveys();
+            const changedSurvey = await Api.getSurvey(activeSurvey?.id);
+            dispatch(surveyActions.updateSurvey(changedSurvey));
         } catch(error) {
             Toast.show(getErrorMessage(error) || _('An error occured'), Toast.DANGER);
             console.log(error);
         }
-    }, [activeSurvey, getShareLink]);
+    }, [activeSurvey, getShareLink, dispatch]);
 
     const handleUnshareLink = useCallback(async () => {
         try {
             await unshareLink(activeSurvey?.id);
             setLinkIdentifier(null);
-            Api.getSurveys();
+            const changedSurvey = await Api.getSurvey(activeSurvey?.id);
+            dispatch(surveyActions.updateSurvey(changedSurvey));
             Toast.show(_('The survey can no longer be accessed publicly'), Toast.SUCCESS);
         } catch(error) {
             Toast.show(_('An error occured!'), Toast.DANGER);
             console.log(error);
         }
-    }, [unshareLink, activeSurvey]);
+    }, [unshareLink, activeSurvey, dispatch]);
 
     const handleCopyLink = useCallback(async () => {
         try {

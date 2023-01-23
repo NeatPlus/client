@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import {IoIosArrowBack} from 'react-icons/io';
 import {BiUser} from 'react-icons/bi';
@@ -16,11 +16,11 @@ import styles from './styles.scss';
 
 const Account = () => {
     const [route, setRoute] = useState('account');
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleAccountClick = useCallback(() => setRoute('account'), []);
     const handlePasswordClick = useCallback(() => setRoute('password'), []);
-    const handleGoBack = useCallback(() => history.goBack(), [history]);
+    const handleGoBack = useCallback(() => navigate(-1), [navigate]);
 
     return (
         <div className={styles.container}>

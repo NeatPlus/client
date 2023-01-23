@@ -1,5 +1,5 @@
 import {useMemo, useCallback, useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {NeatLoader} from 'components/Loader';
@@ -114,11 +114,11 @@ const StatementsTable = props => {
         });
     }, [statements, insightsResult]);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleRowClick = useCallback(statement => {
-        history.push(`/administration/statements/${statement.id}/`);
-    }, [history]);
+        navigate(`/administration/statements/${statement.id}/`);
+    }, [navigate]);
 
     const renderDataItem = useCallback(otherProps => (
         <DataItem contextId={activeContext?.id} moduleId={activeModule?.id} {...otherProps} />

@@ -1,4 +1,5 @@
 import {useCallback} from 'react';
+import {useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import parse from 'html-react-parser';
@@ -12,21 +13,24 @@ import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
-const LegalDocument = (props) => {
+const LegalDocument = () => {
+    const location = useLocation();
+
     const {legislations} = useSelector((state) => state.legislation);
     const renderTabsHeader = useCallback(tabHeaderProps => {
-        const {title, active, ...rest} = tabHeaderProps;
+        const {title: tabTitle, active, ...rest} = tabHeaderProps;
 
         return (
             <div className={cs(styles.headerItem, {
                 [styles.headerItemActive]: active,
             })} {...rest}>
                 <div className={styles.headerTitle}>
-                    <span className={styles.tabLabel}>{title}</span>
+                    <span className={styles.tabLabel}>{tabTitle}</span>
                 </div>
             </div>
         );
     }, []);
+
     return (
         <section>
             <NavBar dark />
@@ -36,7 +40,7 @@ const LegalDocument = (props) => {
                     renderHeader={renderTabsHeader}
                     headerClassName={styles.tabsHeader}
                     contentContainerClassName={styles.contentContainer}
-                    defaultActiveTab={props.location.title || 'terms-and-conditions'}
+                    defaultActiveTab={location.state?.title || 'terms-and-conditions'}
                 >
                     {legislations.map(item =>
                         <Tab

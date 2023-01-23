@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {GoogleReCaptchaProvider, GoogleReCaptcha} from 'react-google-recaptcha-v3';
 
 import Container from 'components/Container';
@@ -19,7 +19,7 @@ import {dispatchLogin} from 'utils/dispatch';
 import styles from './styles.scss';
 
 const Register = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const authModalsConfig = useAuthModals();
     
     const [acceptTerms, setAcceptTerms] = useState(false);
@@ -89,13 +89,13 @@ const Register = () => {
             if (result) {
                 const {access, refresh} = result;
                 await dispatchLogin(access, refresh);
-                history.push('/projects/');
+                navigate('/projects/');
             }
         } catch (err) {
             setError(err);
             console.log(err);
         }
-    }, [history, loginData, loginUser]);
+    }, [navigate, loginData, loginUser]);
 
     return (
         <div className={styles.registerContainer}>
@@ -122,14 +122,15 @@ const Register = () => {
                                         className={styles.link}
                                         to={{
                                             pathname: '/legal-document', 
-                                            title: 'privacy-policy'
                                         }}
-                                    ><Localize>Privacy Policy</Localize></Link>
+                                        state={{title: 'privacy-policy'}}
+                                    >
+                                        <Localize>Privacy Policy</Localize>
+                                    </Link>
                                     <Link
                                         className={styles.link}
                                         to={{
                                             pathname: '/legal-document', 
-                                            title: 'terms-and-conditions'
                                         }}
                                     >
                                         <Localize>Terms of Use</Localize>
@@ -208,7 +209,6 @@ const Register = () => {
                                             className={styles.termsInputLabelLink}
                                             to={{
                                                 pathname: '/legal-document', 
-                                                title: 'terms-and-conditions'
                                             }}
                                         >
                                             <Localize>Terms of Use</Localize>
@@ -218,8 +218,8 @@ const Register = () => {
                                             className={styles.termsInputLabelLink}
                                             to={{
                                                 pathname: '/legal-document', 
-                                                title: 'privacy-policy'
                                             }}
+                                            state={{title: 'privacy-policy'}}
                                         >
                                             <Localize>Privacy Policy</Localize>
                                         </Link>

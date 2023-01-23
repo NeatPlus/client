@@ -1,10 +1,7 @@
 import React, {useEffect} from 'react';
 
-import {Route, Switch, useLocation} from 'react-router-dom';
+import {Route, Routes, useLocation, Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-
-import {PrivateRoute} from '@ra/auth/PrivateRoute';
-import {AuthRoute} from '@ra/auth/AuthRoute';
 
 import Toast from 'components/Toast';
 import Notice from 'components/Notice';
@@ -13,7 +10,6 @@ import LoggedOutModal from 'components/LoggedOutModal';
 import Home from 'containers/Home';
 import Login from 'containers/Login';
 import Register from 'containers/Register';
-import Projects from 'containers/Projects';
 import About from 'containers/About';
 import Access from 'containers/Access';
 import Action from 'containers/Action';
@@ -21,16 +17,29 @@ import Contact from 'containers/Contact';
 import Resources from 'containers/Resources';
 import Account from 'containers/Account';
 import Organizations from 'containers/Organizations';
-import Administration from 'containers/Administration';
 import Error404 from 'containers/Error404';
 import LegalDocument from 'containers/LegalDocument';
 import PublicSurvey from 'containers/PublicSurvey';
 
+import Administration from 'containers/Administration';
+import AdministrationStatements from 'containers/Administration/Statements';
+import AdministrationStatementDetails from 'containers/Administration/StatementDetails';
+import AdministrationStatementWeightage from 'containers/Administration/StatementWeightage';
+
+import Projects from 'containers/Projects';
+import ProjectDashboard from 'containers/Projects/Dashboard';
+import ProjectList from 'containers/Projects/List';
+
+import SurveyDashboard from 'containers/Surveys/Dashboard';
+import SurveyFeedback from 'containers/Surveys/Feedback';
+
 import usePageViews from 'hooks/usePageViews';
 
-const Routes = () => {
+import AuthRoute from './AuthRoute';
+import PrivateRoute from './PrivateRoute';
+
+const AppRoutes = () => {
     const {pathname} = useLocation();
-    const {isAuthenticated} = useSelector(state => state.auth);
     const {showExpiryModal} = useSelector(state => state.ui);
 
     usePageViews();
@@ -42,27 +51,46 @@ const Routes = () => {
     return (
         <>
             <Notice />
-            <Switch>
-                <AuthRoute isAuthenticated={isAuthenticated} exact path="/login" component={Login} />
-                <AuthRoute isAuthenticated={isAuthenticated} exact path="/register" component={Register} />
-                <PrivateRoute path="/projects" component={Projects} isAuthenticated={isAuthenticated} />
-                <PrivateRoute path="/account" component={Account} isAuthenticated={isAuthenticated} />
-                <PrivateRoute path="/organizations" component={Organizations} isAuthenticated={isAuthenticated} />
-                <PrivateRoute path="/administration" component={Administration} isAuthenticated={isAuthenticated} />
-                <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/contact" component={Contact} />
-                <Route exact path="/access" component={Access} />
-                <Route exact path="/action" component={Action} />
-                <Route exact path="/resource" component={Resources} />
-                <Route exact path="/legal-document" component={LegalDocument} />
-                <Route exact path="/survey/:identifier" component={PublicSurvey} />
-                <Route component={Error404} />
-            </Switch>
+            <Routes>
+                <Route path="/">
+                    <Route index element={<Home />} />
+                    <Route path="login" element={<AuthRoute><Login /></AuthRoute>} />
+                    <Route path="register" element={<AuthRoute><Register /></AuthRoute>} />
+                    <Route path="projects" element={<PrivateRoute><Projects /></PrivateRoute>}>
+                        <Route path="" element={<ProjectList />} />
+                        <Route path=":projectId" element={<ProjectDashboard />} />
+                        <Route path=":projectId/surveys" element={<ProjectDashboard />} />
+                        <Route path=":projectId/surveys/:surveyId">
+                            <Route index element={<SurveyDashboard />} />
+                            <Route path="feedback" element={<SurveyFeedback />} />
+                        </Route>
+                    </Route>
+                    <Route path="account" element={<PrivateRoute><Account /></PrivateRoute>} />
+                    <Route path="organizations" element={<PrivateRoute><Organizations /></PrivateRoute>} />
+                    <Route path="administration" element={<PrivateRoute><Administration /></PrivateRoute>}>
+                        <Route path="" element={<Navigate to="/administration/statements" />} />
+                        <Route exact path="statements">
+                            <Route path="" element={<AdministrationStatements />} />
+                            <Route path=":statementId">
+                                <Route index element={<AdministrationStatementDetails />} />
+                                <Route path="weightage" element={<AdministrationStatementWeightage />} />
+                            </Route>
+                        </Route>
+                    </Route>
+                    <Route path="about" element={<About />} />
+                    <Route path="contact" element={<Contact />} />
+                    <Route path="access" element={<Access />} />
+                    <Route path="action" element={<Action />} />
+                    <Route path="resource" element={<Resources />} />
+                    <Route path="legal-document" element={<LegalDocument />} />
+                    <Route path="survey/:identifier" element={<PublicSurvey />} />
+                </Route>
+                <Route path="*" element={<Error404 />} />
+            </Routes>
             <Toast />
             <LoggedOutModal isVisible={showExpiryModal} />
         </>
     );
 };
 
-export default Routes;
+export default AppRoutes;

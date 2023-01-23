@@ -26,14 +26,11 @@ export const getFormattedSurveys = createSelector([
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {
                 const que = allQuestions.find(q => q.id === srv.question);
-                if(!que) {
-                    return undefined;
-                }
                 return {
                     ...srv,
                     question: {
-                        id: que.id,
-                        code: que.code,
+                        id: srv.question,
+                        code: que?.code,
                     },
                 };
             }).filter(srvey => Boolean(srvey)),

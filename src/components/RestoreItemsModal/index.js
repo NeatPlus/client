@@ -50,7 +50,7 @@ const CheckboxItem = ({item}) => {
     );
 };
 
-const RestoreType = ({item, onInputChange}) => {
+const RestoreType = ({item, onInputChange, module}) => {
     const content = useRef();
 
     const {removedItems} = useSelector(state => state.dashboard);
@@ -64,14 +64,19 @@ const RestoreType = ({item, onInputChange}) => {
             data = statements;
         }
 
-        return removedItems?.filter(el => el.type===item.type)?.map(
+        return removedItems?.filter(el => {
+            if(module === 'sens') {
+                return (el.module === module || !el.module) && el.type === item.type;
+            }
+            return el.module === module && el.type===item.type;
+        })?.map(
             el => ({
                 ...el, 
                 title: data.find(dt => 
                     dt[el.accessor] === el.identifier
                 )?.title,
             }));
-    }, [item, topics, statements, removedItems]);
+    }, [item, topics, statements, removedItems, module]);
 
     const [open, setOpen] = useState(false);
     const [contentHeight, setContentHeight] = useState('0px');
@@ -132,7 +137,7 @@ const RestoreItemsModal = props => {
     const {removedItems, itemsToRestore} = useSelector(state => state.dashboard);
     const {activeSurvey} = useSelector(state => state.survey);
         
-    const {isVisible, onClose} = props;
+    const {isVisible, onClose, module} = props;
 
     const [{loading}, saveSurveyConfig] = usePromise(Api.patchSurvey);
 
@@ -166,6 +171,10 @@ const RestoreItemsModal = props => {
         activeSurvey
     ]);
 
+    const renderRestoreType = useCallback(listProps => (
+        <RestoreType {...listProps} module={module} />
+    ), [module]);
+
     if(!isVisible) {
         return null;
     }
@@ -181,7 +190,7 @@ const RestoreItemsModal = props => {
             <div className={styles.content}>
                 <List
                     data={REMOVABLE_TYPES}
-                    renderItem={RestoreType}
+                    renderItem={renderRestoreType}
                     keyExtractor={typeExtractor}
                 />
             </div>

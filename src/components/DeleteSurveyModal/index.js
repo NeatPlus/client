@@ -1,4 +1,5 @@
 import {useCallback} from 'react';
+import {useDispatch} from 'react-redux';
 
 import {MdClose} from 'react-icons/md';
 
@@ -9,8 +10,8 @@ import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
 
 import useRequest from 'hooks/useRequest';
-import Api from 'services/api';
 import Toast from 'services/toast';
+import * as surveyActions from 'store/actions/survey';
 
 import styles from './styles.scss';
 
@@ -20,11 +21,13 @@ const DeleteSurveyModal = (props) => {
         method: 'DELETE',
     });
 
-    const handleDeleteProject = useCallback(async () => {
+    const dispatch = useDispatch();
+
+    const handleDeleteSurvey = useCallback(async () => {
         try {
             const result = await deleteSurvey();
             if (result) {
-                Api.getSurveys();
+                dispatch(surveyActions.removeSurvey(surveyId));
                 onClose();
                 Toast.show(_('Survey successfully deleted!'), Toast.SUCCESS);
             }
@@ -33,7 +36,7 @@ const DeleteSurveyModal = (props) => {
             onClose();
             Toast.show(error?.detail || _('Something Went Wrong!'), Toast.DANGER);
         }
-    }, [deleteSurvey, onClose]);
+    }, [deleteSurvey, onClose,  surveyId, dispatch]);
 
     if (!isVisible) {
         return null;
@@ -62,7 +65,7 @@ const DeleteSurveyModal = (props) => {
                     <Button onClick={onClose} type='button' secondary>
                         <Localize>Cancel</Localize>
                     </Button>
-                    <Button loading={loading} onClick={handleDeleteProject}>
+                    <Button loading={loading} onClick={handleDeleteSurvey}>
                         <Localize>Delete</Localize>
                     </Button>
                 </div>
