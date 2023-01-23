@@ -31,6 +31,10 @@ const maxRowsOptions = [
         label: '50',
         value: 50,
     },
+    {
+        label: '100',
+        value: 100,
+    }
 ];
 
 export const DataItem = ({item, column, contextId, moduleId}) => {
@@ -64,10 +68,13 @@ const StatementsTable = props => {
     const totalStatements = useMemo(() => statements?.length, [statements]);
 
     const [page, setPage] = useState(1);
-    const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
+    const [maxRows, setMaxRows] = useState(maxRowsOptions[maxRowsOptions.length - 1]);
 
     const handlePageChange = useCallback(({currentPage}) => setPage(currentPage), []);
-    const handleMaxRowsChange = useCallback(({option}) => setMaxRows(option), []);
+    const handleMaxRowsChange = useCallback(({option}) => {
+        setPage(1);
+        setMaxRows(option);
+    }, []);
 
     const [{result: insightsResult}, loadInsights] = usePromise(Api.getInsights);
 
@@ -155,7 +162,7 @@ const StatementsTable = props => {
                         valueExtractor={labelExtractor}
                         onChange={handleMaxRowsChange}
                         value={maxRows}
-                        defaultValue={maxRowsOptions[0]}
+                        defaultValue={maxRowsOptions[maxRowsOptions.length - 1]}
                         clearable={false}
                         searchable={false}
                         optionsDirection="up"
@@ -169,7 +176,7 @@ const StatementsTable = props => {
                     onChange={handlePageChange} 
                     totalRecords={totalStatements}
                     pageNeighbours={1}
-                    pageLimit={maxRows.value} 
+                    pageLimit={maxRows.value}
                     pageNum={page}
                 />
             </div>

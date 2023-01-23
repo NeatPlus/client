@@ -107,6 +107,7 @@ const ShareSurvey = props => {
                             </Dropdown>
                         </div>
                         <Button 
+                            loading={unshareLoading}
                             outline 
                             className={styles.copyButton}
                             onClick={handleCopyLink}
