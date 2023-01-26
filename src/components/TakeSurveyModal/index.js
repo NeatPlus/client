@@ -58,7 +58,7 @@ const QuestionGroupItem = props => {
     }, [index, onItemClick, isTouched]);
 
     return (
-        <p className={cs(styles.groupItem, {
+        <p tabIndex={index === 0 ? 1 : undefined} className={cs(styles.groupItem, {
             [styles.groupItemIncomplete]: isTouched && incompleteQuestionGroups.some(grp => grp.id === item.id),
             [styles.groupItemActive]: item.id===activeGroupId,
             [styles.groupItemActiveIncomplete]: item.id === activeGroupId && incompleteQuestionGroups.some(grp => grp.id === item.id),

@@ -17,6 +17,7 @@ import Api from 'services/api';
 import {_} from 'services/i18n';
 import Toast from 'services/toast';
 import * as dashboardActions from 'store/actions/dashboard';
+import * as surveyActions from 'store/actions/survey';
 
 import styles from './styles.scss';
 
@@ -156,7 +157,9 @@ const RestoreItemsModal = props => {
             await saveSurveyConfig(activeSurvey.id, {
                 config: JSON.stringify({removedItems: newRemovedItems}),
             });
+            const changedSurvey = await Api.getSurvey(activeSurvey?.id);
             dispatch(dashboardActions.applyRestoreItems(newRemovedItems));
+            dispatch(surveyActions.updateSurvey(changedSurvey));
             handleClose();
         } catch(error) {
             Toast.show(getErrorMessage(error), Toast.DANGER);

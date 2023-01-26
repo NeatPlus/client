@@ -38,16 +38,16 @@ const surveyReducer = (state=initialState, action) => {
     case actions.SET_ACTIVE_SURVEY:
         return {...state, activeSurvey: action.survey};
     case actions.SET_SURVEY_ANSWERS: {
-        const newSurveyAnswers = action.answers.filter(ans => !state.surveyAnswers.some(existingAnswer => {
-            return existingAnswer.survey === ans.survey;
+        const stateAnswersToPersist = state.surveyAnswers.filter(ans => !action.answers.some(updatedAnswer => {
+            return updatedAnswer.survey === ans.survey; 
         }));
-        return {...state, surveyAnswers: [...state.surveyAnswers, ...newSurveyAnswers]};
+        return {...state, surveyAnswers: [...stateAnswersToPersist, ...action.answers]};
     }
     case actions.SET_SURVEY_RESULTS: {
-        const newSurveyResults = action.results.filter(res => !state.surveyResults.some(existingResult => {
-            return existingResult.survey === res.survey;
+        const stateResultsToPersist = state.surveyResults.filter(res => !action.results.some(updatedResult => {
+            return updatedResult.survey === res.survey;
         }));
-        return {...state, surveyResults: [...state.surveyResults, ...newSurveyResults]};
+        return {...state, surveyResults: [...stateResultsToPersist, ...action.results]};
     }
     case actions.SET_ADVANCED_FEEDBACKS:
         return {...state, advancedFeedbacks: action.feedbacks};

@@ -23,6 +23,7 @@ import useInitActiveSurvey from 'hooks/useInitActiveSurvey';
 import Api from 'services/api';
 import Toast from 'services/toast';
 import {setEditMode, applyRemoveItems, setFilters} from 'store/actions/dashboard';
+import * as surveyActions from 'store/actions/survey';
 
 import SurveyTabs from './SurveyTabs';
 
@@ -167,6 +168,8 @@ const SurveyDashboard = () => {
             await saveSurveyConfig(activeSurvey.id, {
                 config: JSON.stringify({removedItems: newRemovedItems}),
             });
+            const changedSurvey = await Api.getSurvey(activeSurvey?.id);
+            dispatch(surveyActions.updateSurvey(changedSurvey));
             dispatch(applyRemoveItems(newRemovedItems));
 
         } catch (error) {

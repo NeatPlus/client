@@ -115,7 +115,6 @@ const Module = props => {
 
     const activeModule = useMemo(() => modules.find(mod => mod.code === code), [code, modules]);
 
-
     const getStatementData = useCallback(topic => {
         const topicResults = activeSurvey?.results.filter(res => res.topic === topic.id && res.module === activeModule?.id);
         return topicResults?.map(res => ({
