@@ -26,6 +26,9 @@ const useInitActiveSurvey = (surveyId) => {
             dispatch(setActiveSurvey(activeSurvey));
             dispatch(setRemovedItems(activeSurvey?.config?.removedItems || []));
         }
+        return () => {
+            dispatch(setRemovedItems([]));
+        };
     }, [surveyId, status, dispatch, surveys, fallbackId]);
 };
 

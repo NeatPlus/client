@@ -126,9 +126,13 @@
         }
 
         .tab-content {
-            scroll-margin-top: 3em;
+            scroll-margin-top: 20vh;
             min-height: max-content;
             margin-bottom: 24px;
+
+            &:last-child {
+                padding-bottom: 2rem;
+            }
         }
     }
 }
