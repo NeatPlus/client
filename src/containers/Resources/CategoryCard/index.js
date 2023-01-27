@@ -9,7 +9,9 @@ import {Localize} from '@ra/components/I18n';
 
 import styles from './styles.scss';
 
-const CategoryCard = ({title, description, videoUrl, attachment}) => {
+const CategoryCard = ({item}) => {
+    const {title, description, videoUrl, attachment} = item;
+
     const [showVideoModal, setShowVideoModal] = useState(false);
 
     const handleShowVideoModal = useCallback(() => setShowVideoModal(true), []);

@@ -26,7 +26,7 @@ const Contact = () => {
                                 <Localize>
                                     To continuously improve the NEAT+ and adapt it to user’s needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out
                                 </Localize>
-                                <a className={styles.innerLink} target="_blank" rel="noreferrer" href="https://forms.gle/tAQshsUyCHxtweGQ8"> <Localize>this NEAT+ user feedback form.</Localize> </a>
+                                <a className={styles.innerLink} target="_blank" rel="noreferrer" href="https://docs.google.com/forms/d/1yZ8Mz8jWQepk2DhGH13fKKNQ65QvUEPm7HoXq_uwJEw/viewform?edit_requested=true"> <Localize>this NEAT+ user feedback form.</Localize> </a>
                                 <Localize>
                                     All responses are confidential and anonymous.
                                 </Localize>
