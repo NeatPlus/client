@@ -1,15 +1,19 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState, useMemo} from 'react';
 import {BiSearch} from 'react-icons/bi';
 import {FiFilter} from 'react-icons/fi';
-// import {RiArrowDownSLine} from 'react-icons/ri';
 
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Input from '@ra/components/Form/Input';
+import List from '@ra/components/List';
+import {NeatLoader} from 'components/Loader';
 import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
 
+import cs from '@ra/cs';
 import Api from 'services/api';
+import usePromise from '@ra/hooks/usePromise';
+import {debounce} from '@ra/utils';
 
 import FilterTagButtons from '../FilterTagButtons';
 import SuggestedTagButtons from '../SuggestedTagButtons';
@@ -17,121 +21,76 @@ import CategoryCard from '../CategoryCard';
 
 import styles from './styles.scss';
 
+const idExtractor = item => item.id;
+
 const CategorySection = () => {
-    const [filtersClicked, setFiltersClicked] = useState(false);
-    const [clickedTags, setClickedTags] = useState([]);
-    const [allResources, setAllResources] = useState([]);
-    const [allResourcesSlice, setAllResourcesSlice] = useState(6);
-    const [requiredData, setRequiredData] = useState([]);
-    const [requiredDataSlice, setRequiredDataSlice] = useState(6);
-    const [allTags, setAllTags] = useState([]);
-    const [inputData, setInputData] = useState({
-        searchInput: '',
-    });
-    const [searchedData, setSearchedData] = useState([]);
-    const [tagsData, setTagsData] = useState([]);
+    const [{loading, result: resourceResult}, getResources] = usePromise(Api.getResources);
+    
+    const [{result: tagsData}, getResourceTags] = usePromise(Api.getResourceTags);
+    const tags = useMemo(() => tagsData?.results || [], [tagsData]);
+    const suggestedTags = useMemo(() => {
+        return tags.filter(tag => {
+            return ['How To', 'U-NEAT+', 'R-NEAT+', 'French', 'Video'].includes(tag.title);
+        });
+    }, [tags]);
+
+    const [loadMoreCount, setLoadMoreCount] = useState(0);
+    const handleLoadMore = useCallback(() => setLoadMoreCount(lmc => lmc + 1), []);
+
+    const [searchQuery, setSearchQuery] = useState('');
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const handleChangeSearchQuery = useCallback(debounce(({value}) => {
+        setLoadMoreCount(0);
+        setSearchQuery(value);
+    }, 750), []);
+
+    const [filtersActive, setFiltersActive] = useState(false);
+    const toggleFilters = useCallback(() => setFiltersActive(fa => !fa), []);
+
+    const [activeTagIds, setActiveTagIds] = useState([]);
+    const toggleActiveTag = useCallback((tag) => {
+        setLoadMoreCount(0);
+        setFiltersActive(true);
+        if(activeTagIds.includes(tag)) {
+            return setActiveTagIds(activeTagIds.filter(tagId => tagId !== tag));
+        }
+        return setActiveTagIds([...activeTagIds, tag]);
+    }, [activeTagIds]);
+
+    const handleClearActiveTags = useCallback(() => {
+        setLoadMoreCount(0);
+        setActiveTagIds([]);
+    }, []);
+
+    const [resources, setResources] = useState([]);
+
+    const loadResources = useCallback(async () => {
+        try {
+            const resourceData = await getResources({
+                limit: 6,
+                offset: loadMoreCount * 6,
+                search: searchQuery,
+                tags__in: activeTagIds.join(',')
+            });
+            if (resourceData?.results) {
+                if(loadMoreCount === 0) {
+                    return setResources(resourceData.results);
+                }
+                setResources(r => ([...r, ...resourceData.results]));
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }, [getResources, loadMoreCount, searchQuery, activeTagIds]);
 
     useEffect(() => {
-        async function fetchAllResources() {
-            const {results} = await Api.get('/resource/');
-            setAllResources([...results]);
-        }
-        async function fetchAllResourcesTag() {
-            const {results} = await Api.get('/resource-tag/');
-            setAllTags([...results]);
-        }
-        fetchAllResources();
-        fetchAllResourcesTag();
-    }, []);
+        getResourceTags({limit: -1});
+    }, [getResourceTags]);
 
-    const handleToggleFiltersClicked = useCallback(() => {
-        setFiltersClicked(!filtersClicked);
-    }, [filtersClicked]);
-
-    const handleToggleClickedTag = useCallback(
-        (val) => {
-            const value = parseInt(val);
-            const index = clickedTags.indexOf(value);
-            if (index < 0) {
-                setClickedTags([...clickedTags, value]);
-                const filteredArr = allResources.filter(
-                    (obj1) =>
-                        tagsData.every((obj2) => obj1.id !== obj2.id) &&
-                        obj1.tags.includes(value)
-                );
-                const mergeData = [
-                    ...new Set([...filteredArr, ...tagsData, ...searchedData]),
-                ];
-                setRequiredData([...mergeData]);
-                setTagsData([...filteredArr, ...tagsData]);
-            }
-            if (index > -1) {
-                clickedTags.splice(index, 1);
-                setClickedTags([...clickedTags]);
-                const filteredArr = tagsData.filter((data) =>
-                    clickedTags.some((tag) => data.tags.includes(tag))
-                );
-                const mergeData = [
-                    ...new Set([...filteredArr, ...searchedData]),
-                ];
-                setRequiredData([...mergeData]);
-                setTagsData([...filteredArr]);
-
-                if (requiredDataSlice > 6) {
-                    setRequiredDataSlice(requiredDataSlice - 6);
-                }
-            }
-            setAllResourcesSlice(6);
-        },
-        [clickedTags, allResources, requiredDataSlice, tagsData, searchedData]
-    );
-
-    const handleClearAll = useCallback(() => {
-        setClickedTags([]);
-        setRequiredData([]);
-        setRequiredDataSlice(6);
-    }, []);
-
-    const handleSuggestedTags = useCallback(
-        (value) => {
-            setFiltersClicked(true);
-            handleToggleClickedTag(value);
-        },
-        [handleToggleClickedTag]
-    );
-
-    const loadMore = useCallback(() => {
-        setAllResourcesSlice(allResourcesSlice + 6);
-    }, [allResourcesSlice]);
-
-    const loadMore2 = useCallback(() => {
-        setRequiredDataSlice(requiredDataSlice + 6);
-    }, [requiredDataSlice]);
-
-    const handleChange = useCallback(
-        ({name, value}) => {
-            setInputData({
-                ...inputData,
-                [name]: value,
-            });
-            if (value === '') {
-                setSearchedData([]);
-                setRequiredData([...tagsData]);
-            }
-            if (value !== '') {
-                const filteredData = allResources.filter((data) =>
-                    Object.values(data)
-                        .join('')
-                        .toLowerCase()
-                        .includes(value.toLowerCase())
-                );
-                const mergeData = [...new Set([...filteredData, ...tagsData])];
-                setRequiredData([...mergeData]);
-                setSearchedData([...filteredData]);
-            }
-        },
-        [inputData, allResources, tagsData]
-    );
+    useEffect(() => {
+        loadResources();
+    }, [loadResources]);
 
     return (
         <div className={styles.containerCategorySection}>
@@ -140,120 +99,65 @@ const CategorySection = () => {
                     <div className={styles.inputContainer2}>
                         <BiSearch size={25} className={styles.searchIcon} />
                         <Input
-                            type='search'
-                            name='searchInput'
-                            onChange={handleChange}
+                            type="search"
+                            name="searchInput"
+                            onChange={handleChangeSearchQuery}
                             className={styles.input}
                             placeholder={_('Search resources')}
                         />
                     </div>
                 </div>
-                <div className={styles.suggested}>
+                <div className={styles.content}>
                     <h2 className={styles.suggestedTitle}>
-                        <Localize>Suggested Categories/Tags:</Localize>
+                        <Localize>Suggested Categories/Tags</Localize>
                     </h2>
                     <SuggestedTagButtons
-                        handleSuggestedTags={handleSuggestedTags}
+                        suggestedTags={suggestedTags}
+                        onChange={toggleActiveTag}
+                        activeTagIds={activeTagIds}
                     />
-                    <div className={styles.allResources}>
-                        <h2>
-                            {!inputData.searchInput && requiredData.length === 0
-                                ? `${_('All Resources')} (${allResources.length})`
-                                : `${_('Showing Results')} (${requiredData.length})`}
+                    <div className={styles.resourcesControls}>
+                        <h2 className={styles.resourcesTitle}>
+                            {activeTagIds.length > 0 || searchQuery ? (
+                                <Localize>Showing Results</Localize>
+                            ) : (
+                                <Localize>All Resources</Localize>
+                            )}
+                            {!loading && ` (${resourceResult?.count || 0})`}
                         </h2>
                         <div className={styles.filterSort}>
-                            {/* <button className={styles.filters}>
-                                <Localize>Sort by</Localize> <RiArrowDownSLine size={20} />
-                            </button>
-                            todo sort resources */}
-                            <button
-                                className={`${styles.filters} ${
-                                    filtersClicked && styles.filtersClicked
-                                }`}
-                                onClick={handleToggleFiltersClicked}
-                            >
+                            <Button secondary outline className={cs(styles.filters, {[styles.filtersActive]: filtersActive})} onClick={toggleFilters}>
                                 <FiFilter size={20} />
                                 <Localize>Filters</Localize>
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
                 <FilterTagButtons
-                    clickedTags={clickedTags}
-                    handleToggleClickedTag={handleToggleClickedTag}
-                    handleClearAll={handleClearAll}
-                    filtersClicked={filtersClicked}
-                    filterTags={allTags}
+                    activeTagIds={activeTagIds}
+                    onToggle={toggleActiveTag}
+                    onClear={handleClearActiveTags}
+                    filterTags={tags}
+                    filtersActive={filtersActive}
                 />
-                <div className={styles.cards}>
-                    {!allResources.length ? (
-                        <p className={styles.fallbackText}>
-                            <Localize>There are no resources currently.</Localize>
-                        </p>
-                    ) : !requiredData.length ? (
-                        allResources
-                            .slice(0, allResourcesSlice)
-                            .map((data) => (
-                                <CategoryCard
-                                    key={data.id}
-                                    title={data.title}
-                                    description={data.description}
-                                    videoUrl={data.videoUrl}
-                                    attachment={data.attachment}
-                                />
-                            ))
-                    ) : (
-                        requiredData
-                            .slice(0, requiredDataSlice)
-                            .map((data) => (
-                                <CategoryCard
-                                    key={data.id}
-                                    title={
-                                        clickedTags.includes(5) && data.titleFr
-                                            ? data.titleFr
-                                            : clickedTags.includes(6) &&
-                                          data.titleEs
-                                                ? data.titleEs
-                                                : data.title
-                                    }
-                                    description={
-                                        clickedTags.includes(5) &&
-                                    data.descriptionFr
-                                            ? data.descriptionFr
-                                            : clickedTags.includes(6) &&
-                                          data.descriptionEs
-                                                ? data.descriptionEs
-                                                : data.description
-                                    }
-                                    videoUrl={data.videoUrl}
-                                    attachment={data.attachment}
-                                />
-                            ))
-                    )}
-                </div>
-                <div className={styles.loadMore}>
-                    <Button
-                        className={`${
-                            allResources.length >= allResourcesSlice &&
-                        !requiredData.length
-                                ? styles.loadMoreButton
-                                : styles.loadMoreButtonHide
-                        }`}
-                        onClick={loadMore}
-                    >
-                        <Localize>Load More</Localize>
-                    </Button>
-                    <Button
-                        className={`${
-                            requiredData.length <= requiredDataSlice
-                                ? styles.loadMoreButtonHide
-                                : styles.loadMoreButton
-                        }`}
-                        onClick={loadMore2}
-                    >
-                        <Localize>Load More</Localize>
-                    </Button>
-                </div>
+                <List
+                    loading={!resources.length && loading}
+                    className={styles.cards}
+                    data={resources}
+                    renderItem={CategoryCard}
+                    keyExtractor={idExtractor}
+                    EmptyComponent={<p className={styles.fallbackText}>
+                        <Localize>No resources found!</Localize>
+                    </p>}
+                    LoadingComponent={<NeatLoader />}
+                />
+                {resourceResult?.count > (loadMoreCount + 1) * 6 && (
+                    <div className={styles.loadMore}>
+                        <Button className={styles.loadMoreButton} onClick={handleLoadMore}>
+                            <Localize>Load More</Localize>
+                        </Button>
+                    </div>
+                )}
             </Container>
         </div>
     );

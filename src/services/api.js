@@ -513,6 +513,14 @@ class Api {
     activateDraftWeightages = (statementId, body) => {
         return this.post(`/statement/${statementId}/activate_draft_version/`, body);
     };
+
+    getResources = query => {
+        return this.get('/resource/', {query});
+    };
+
+    getResourceTags = query => {
+        return this.get('/resource-tag/', {query});
+    };
 }
 
 const ApiService = new Api();

@@ -48,7 +48,9 @@ const TopicItem  = ({item, activeModule, isBaselineFeedback}) => {
                     src={item.icon ?? topicIconPlaceholder}
                     width={20} 
                     title={item.title}
-                />
+                >
+                    <SVG className={styles.topicIcon} width={20} src={topicIconPlaceholder} title={item.title} />
+                </SVG>
                 <span className={styles.topicTitle}>{item.title}</span>
             </div>
             <FeedbackTopicTable

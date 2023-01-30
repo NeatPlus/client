@@ -1,50 +1,72 @@
+import {useCallback, useMemo} from 'react';
 import {BiCheck} from 'react-icons/bi';
 
+import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
+
+import cs from '@ra/cs';
 
 import styles from './styles.scss';
 
+const idExtractor = item => item.id;
+
+const TagButton = ({item, onToggle, activeTagIds}) => {
+    const isActive = useMemo(() => activeTagIds.includes(item.id), [activeTagIds, item]);
+
+    const handleToggle = useCallback(() => {
+        onToggle(item.id);
+    }, [onToggle, item]);
+    
+    return (
+        <button
+            className={cs(styles.tagButton, {
+                [styles.tagButtonClicked]: isActive
+            })}
+            value={item.id}
+            onClick={handleToggle}
+        >
+            {isActive && <BiCheck size={20} />}
+            {item.title}
+        </button>
+
+    );
+};
+
 const FilterTagButtons = ({
-    clickedTags,
-    handleToggleClickedTag,
-    handleClearAll,
-    filtersClicked,
+    activeTagIds,
+    onToggle,
+    onClear,
     filterTags,
+    filtersActive
 }) => {
+    const renderTagButton = useCallback(listProps => (
+        <TagButton {...listProps} onToggle={onToggle} activeTagIds={activeTagIds} />
+    ), [onToggle, activeTagIds]);
+
     return (
         <div
-            className={`${styles.container} ${
-                filtersClicked ? styles.containerShow : styles.containerHide
-            }`}
+            className={cs(styles.container, {
+                [styles.containerShow]: filtersActive,
+                [styles.containerHide]: !filtersActive
+            })}
         >
-            <div
-                className={`${styles.tagButtons} ${
-                    filtersClicked ? styles.tagButtonShow : styles.tagButtonHide
-                }`}
-            >
-                {filterTags.map((data) => (
-                    <button
-                        key={data.id}
-                        className={`${styles.tagButton} ${
-                            clickedTags.includes(data.id) &&
-                            styles.tagButtonClicked
-                        }`}
-                        value={data.id}
-                        onClick={(e) => handleToggleClickedTag(e.target.value)}
-                    >
-                        {clickedTags.includes(data.id) && <BiCheck size={20} />}
-                        {data.title}
-                    </button>
-                ))}
-            </div>
-            <button
-                className={`${styles.clearButton} ${
-                    !clickedTags.length && styles.clearButtonHide
-                }`}
-                onClick={handleClearAll}
-            >
-                <Localize>Clear all</Localize>
-            </button>
+            <List
+                className={cs(styles.tagButtons, {
+                    [styles.tagButtonShow]: filtersActive,
+                    [styles.tagButtonHide]: !filtersActive
+                })}
+                data={filterTags}
+                renderItem={renderTagButton}
+                keyExtractor={idExtractor}
+            />
+            {activeTagIds.length > 0 && (
+                <button
+                    className={styles.clearButton}
+                    onClick={onClear}
+                >
+                    <Localize>Clear all</Localize>
+                </button>
+            )}
         </div>
     );
 };
