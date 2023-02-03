@@ -1,8 +1,9 @@
 import {useCallback, useEffect, useState, useMemo} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
 
+import TakeSurveyModal from 'components/TakeSurveyModal';
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
 import Editable from 'components/Editable';
@@ -16,6 +17,9 @@ import useFilterItems from 'hooks/useFilterItems';
 import useSurveyModals from 'hooks/useSurveyModals';
 import {selectStatements} from 'store/selectors/statement';
 import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
+import {THRESHOLDS} from 'utils/severity';
+
+import * as questionActions from 'store/actions/question';
 
 import fillImage from 'assets/images/fill-questionnaire.svg';
 import devImage from 'assets/images/under-development.svg';
@@ -25,7 +29,25 @@ import StatementsContent from './Statements';
 import styles from './styles.scss';
 
 const FillQuestionnaire = props => {
-    const {activeSurvey, moduleCode} = props;
+    const {activeSurvey, moduleCode, hasResults} = props;
+
+    const dispatch = useDispatch();
+    const {activeProject} = useSelector(state => state.project);
+    const {questions} = useSelector(state => state.question);
+
+    const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+
+    const handleShowQuestionnaire = useCallback(() => {
+        dispatch(questionActions.setAnswers(activeSurvey?.answers.map(ans => (
+            {...ans, question: ans.question.id}
+        )).filter(ans => questions?.[moduleCode]?.some(ques => ques.id === ans.question))));
+        setShowQuestionnaire(true);
+    }, [activeSurvey, dispatch, questions, moduleCode]);
+
+    const handleCloseQuestionnaire = useCallback(() => {
+        dispatch(questionActions.setAnswers([]));
+        setShowQuestionnaire(false);
+    }, [dispatch]);
 
     const surveyModalsConfig = useSurveyModals(moduleCode, activeSurvey?.id);
 
@@ -33,17 +55,25 @@ const FillQuestionnaire = props => {
         <div className={styles.container}>
             <img className={styles.infoImage} src={fillImage} alt={_('Fill Questionnaire')} />
             <p className={styles.infoText}>
-                <Localize>Please fill up the questionnaire to view this analysis.</Localize>
+                {hasResults ? (
+                    <Localize>The questionnaire filled for this module did not result in any severity concerns.</Localize>
+                ) : (
+                    <Localize>Please fill up the questionnaire to view this analysis.</Localize>
+                )}
             </p>
             <Button 
                 outline 
-                onClick={surveyModalsConfig.handleShowDeleteDraft} 
+                onClick={hasResults ? handleShowQuestionnaire : surveyModalsConfig.handleShowDeleteDraft} 
                 className={styles.button}
             >
-                <BsPlus className={styles.buttonIcon} />
-                <Localize>Take Survey</Localize>
+                {!hasResults && <BsPlus className={styles.buttonIcon} />}
+                <Localize>{hasResults ? _('View Questionnaire') : _('Take Survey')}</Localize>
             </Button>
-            <SurveyModals {...surveyModalsConfig} />
+            {hasResults ? (
+                <TakeSurveyModal isVisible={showQuestionnaire} editable={false} onClose={handleCloseQuestionnaire} code={moduleCode} isNewEdit={activeProject?.isAdminOrOwner} />
+            ) : (
+                <SurveyModals {...surveyModalsConfig} />
+            )}
         </div>
     );
 };
@@ -110,28 +140,38 @@ const Module = props => {
         );
     }, [isEditMode, code]);
 
-    const filteredTopics = useFilterItems(topics, 'topic', code);
+    const selectedTopics = useFilterItems(topics, 'topic', code);
     const filteredStatements = useFilterItems(statements, 'statement', code);
 
     const activeModule = useMemo(() => modules.find(mod => mod.code === code), [code, modules]);
+    const moduleResults = useMemo(() => activeSurvey?.results.filter(res => {
+        return res.module === activeModule?.id;
+    }) || [], [activeSurvey, activeModule]);
+
+    const filteredTopics = useMemo(() => {
+        return selectedTopics.filter(tpc => {
+            return moduleResults.some(res => res.score >= THRESHOLDS.low && res.topic === tpc.id);
+        });
+    }, [selectedTopics, moduleResults]);
 
     const getStatementData = useCallback(topic => {
-        const topicResults = activeSurvey?.results.filter(res => res.topic === topic.id && res.module === activeModule?.id);
+        const topicResults = moduleResults.filter(res => res.topic === topic.id);
         return topicResults?.map(res => ({
             ...res,
             statement: filteredStatements.find(st => st.id === res.statement),
         })).sort((a, b) => b.score - a.score)
             .filter(el => el.statement) || [];
-    }, [activeSurvey, filteredStatements, activeModule]);
+    }, [moduleResults, filteredStatements]);
 
     const doModuleResultsExist = useMemo(() => {
-        return activeSurvey?.results?.some(res => res.module === activeModule?.id);
-    }, [activeSurvey, activeModule]);
+        return Boolean(moduleResults.length);
+    }, [moduleResults]);
 
     const renderTab = useCallback((topic, idx) => {
         const statementData = getStatementData(topic);
+        const filteredStatementData = statementData.filter(stData => stData.score >= THRESHOLDS.low);
 
-        if(!statementData.length) {
+        if(!filteredStatementData.length) {
             return null;
         }
 
@@ -145,7 +185,7 @@ const Module = props => {
                 <StatementsContent 
                     toggleExpand={toggleExpand}
                     expanded={expanded}
-                    statementData={statementData}
+                    statementData={filteredStatementData}
                     topic={topic}
                     index={idx}
                     moduleCode={code}
@@ -160,9 +200,12 @@ const Module = props => {
     }
     if(!AVAILABLE_SURVEY_MODULES.includes(code)) {
         return <UnderDevelopment />;
-    }
+    }  
     if(!doModuleResultsExist) {
         return <FillQuestionnaire activeSurvey={activeSurvey} moduleCode={code} />;
+    }
+    if(!moduleResults.some(res => res.score >= THRESHOLDS.low)) {
+        return <FillQuestionnaire activeSurvey={activeSurvey} moduleCode={code} hasResults />;
     }
 
     return (
