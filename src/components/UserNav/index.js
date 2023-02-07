@@ -137,7 +137,7 @@ const UserNav = ({searchQuery, onSearchQueryChange}) => {
                     openNotification={openNotification}
                     ref={notificationsRef}
                 />
-                <div className={styles.notificationsContainer} onClick={handleNotificationClick}>
+                <button type="button" className={styles.notificationsContainer} onClick={handleNotificationClick}>
                     <IoNotificationsOutline
                         size={20}
                         className={cs(styles.actionIcon, styles.notificationIcon)}
@@ -145,7 +145,7 @@ const UserNav = ({searchQuery, onSearchQueryChange}) => {
                     {hasUnreadNotifications && (
                         <div className={styles.notificationsIndicator} />
                     )}
-                </div>
+                </button>
                 <Dropdown
                     labelContainerClassName={styles.userAvatar}
                     renderLabel={getInitial}

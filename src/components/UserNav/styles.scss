@@ -65,10 +65,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            border: none;
+            background-color: transparent;
+            margin-right: 2rem;
 
             .notification-icon {
-                margin-right: 2rem;
-
                 path {
                     stroke-width: 42px;
                 }
@@ -77,7 +78,7 @@
             .notifications-indicator {
                 position: absolute;
                 top: -0.175rem;
-                right: 2rem;
+                right: 0;
                 width: 12px;
                 height: 12px;
                 border-radius: 6px;
