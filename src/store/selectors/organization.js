@@ -7,7 +7,7 @@ export const selectMyOrganizations = createSelector([
     getOrganizations,
     getUser,
 ], (organizations, user) => {
-    if(!user?.id) {
+    if(!user?.username) {
         return [];
     }
 
