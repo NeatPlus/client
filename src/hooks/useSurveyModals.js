@@ -7,6 +7,7 @@ import Api from 'services/api';
 
 const useSurveyModals = (module, surveyId) => {
     const {projectId} = useParams(); 
+    
     const {projectId: draftId, title} = useSelector(state => state.draft);
     const {questions} = useSelector(state => state.question);
 
@@ -48,6 +49,7 @@ const useSurveyModals = (module, surveyId) => {
     }, []);
 
     return {
+        module,
         surveyModals,
         handleShowTakeSurvey,
         handleShowDeleteDraft,

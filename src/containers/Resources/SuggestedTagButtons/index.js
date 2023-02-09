@@ -22,13 +22,14 @@ const TagButton = ({item, onToggle, activeTagIds}) => {
     );
 };
 
-const SuggestedTagButtons = ({suggestedTags, onChange}) => {
+const SuggestedTagButtons = ({suggestedTags, onChange, loading}) => {
     const renderTagButton = useCallback(listProps => (
         <TagButton {...listProps} onToggle={onChange} />
     ), [onChange]);
 
     return (
         <List
+            loading={loading}
             className={styles.suggestedTags}
             data={suggestedTags}
             renderItem={renderTagButton}

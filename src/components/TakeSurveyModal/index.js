@@ -590,6 +590,7 @@ const TakeSurveyModal = (props) => {
                 )}
             </div> 
             <DeleteDraftModal
+                module={moduleCode}
                 isVisible={showDeleteDraftModal}
                 onClose={handleCloseDeleteDraftModal}
                 onDelete={handleDeleteDraft}

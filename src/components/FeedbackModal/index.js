@@ -95,7 +95,7 @@ const FeedbackModal = (props) => {
             </div>
             <div className={styles.content}>
                 <p className={styles.contentText}>
-                    <Localize>Explain why you think this should have different severity score.</Localize>
+                    <Localize>Please share your expected severity for this module statement, as well as any additional information or comments.</Localize>
                 </p>
                 <div className={styles.inputContainer}>
                     <div className={styles.inputGroup}>
