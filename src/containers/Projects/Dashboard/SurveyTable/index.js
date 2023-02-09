@@ -11,6 +11,8 @@ import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import DeleteDraftModal from 'components/DeleteDraftModal';
 import Table from '@ra/components/Table';
 import {Localize} from '@ra/components/I18n';
+
+import Api from 'services/api';
 import {_} from 'services/i18n';
 
 import {initDraftAnswers} from 'utils/dispatch';
@@ -32,7 +34,8 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
 
     const {activeProject} = useSelector(state => state.project);
 
-    const {projectId: draftId, title} = useSelector(state => state.draft);
+    const {projectId: draftId, title, moduleCode, draftAnswers} = useSelector(state => state.draft);
+    const {questions} = useSelector(state => state.question);
 
     const [showSurveyModal, setShowSurveyModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -70,6 +73,15 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
         setShowDeleteDraftModal(false);
     }, []);
 
+    const handleResumeDraftSurvey = useCallback(() => {
+        dispatch(questionActions.setAnswers(draftAnswers));
+        if(!questions?.[moduleCode]?.length) {
+            Api.getQuestions(moduleCode);
+        }
+        setShowDeleteDraftModal(false);
+        setShowSurveyModal(true);
+    }, [dispatch, draftAnswers, moduleCode, questions]);
+
     const stopEventBubbling = useCallback(e => e.stopPropagation(), []);
 
     const hasEditAccess = useMemo(() => 
@@ -104,7 +116,9 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
                     isVisible={showDeleteModal}
                 />
                 <DeleteDraftModal
+                    module={moduleCode}
                     isVisible={showDeleteDraftModal}
+                    onResume={handleResumeDraftSurvey}
                     onClose={handleHideDeleteDraftModal}
                     onDelete={handleShowSurveyModal}
                 />

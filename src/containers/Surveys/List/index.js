@@ -8,6 +8,8 @@ import TakeSurveyModal from 'components/TakeSurveyModal';
 import DeleteSurveyModal from 'components/DeleteSurveyModal';
 import DeleteDraftModal from 'components/DeleteDraftModal';
 import {Localize} from '@ra/components/I18n';
+
+import Api from 'services/api';
 import {_} from 'services/i18n';
 
 import Table from '@ra/components/Table';
@@ -52,7 +54,7 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
     const dispatch = useDispatch();
 
     const {activeProject} = useSelector(state => state.project);
-    const {projectId: draftId, title} = useSelector(state => state.draft);
+    const {projectId: draftId, title, moduleCode, draftAnswers} = useSelector(state => state.draft);
     const {questions} = useSelector(state => state.question);
     
     const doesDraftExist = useMemo(() => draftId && title, [draftId, title]);
@@ -99,6 +101,15 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
         setShowDeleteDraftModal(false);
     }, []);
 
+    const handleResumeDraftSurvey = useCallback(() => {
+        dispatch(questionActions.setAnswers(draftAnswers));
+        if(!questions?.[moduleCode]?.length) {
+            Api.getQuestions(moduleCode);
+        }
+        setShowDeleteDraftModal(false);
+        setShowSurveyModal(true);
+    }, [dispatch, draftAnswers, moduleCode, questions]);
+
     if(column.Header===_('Name')) {
         return (
             <div className={styles.nameItem}>
@@ -140,7 +151,9 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
                     isVisible={showDeleteModal}
                 />
                 <DeleteDraftModal
+                    module={moduleCode}
                     isVisible={showDeleteDraftModal}
+                    onResume={handleResumeDraftSurvey}
                     onClose={handleHideDeleteDraftModal}
                     onDelete={handleShowSurveyModal}
                 />

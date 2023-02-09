@@ -1,7 +1,7 @@
 .modal {
     border-radius: 8px;
-    width: 32em;
-    max-width: 80vw;
+    width: 42rem;
+    max-width: 90vw;
     background-color: var(--color-light-alt);
 
     .header {
@@ -60,14 +60,19 @@
                 font-weight: 500;
                 color: var(--color-dark);
                 line-height: 1.5em;
+                text-align: center;
             }
         }
 
         .buttons {
             display: flex;
-            align-items: center;
-            justify-content: flex-end;
+            justify-content: center;
             gap: 15px;
+
+            .cancel-button:hover {
+                background-color: var(--color-white);
+                color: var(--color-primary);
+            }
         }
     }
 }

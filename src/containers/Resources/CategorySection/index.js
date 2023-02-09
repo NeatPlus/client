@@ -26,7 +26,7 @@ const idExtractor = item => item.id;
 const CategorySection = () => {
     const [{loading, result: resourceResult}, getResources] = usePromise(Api.getResources);
     
-    const [{result: tagsData}, getResourceTags] = usePromise(Api.getResourceTags);
+    const [{loading: loadingTags, result: tagsData}, getResourceTags] = usePromise(Api.getResourceTags);
     const tags = useMemo(() => tagsData?.results || [], [tagsData]);
     const suggestedTags = useMemo(() => {
         return tags.filter(tag => {
@@ -115,6 +115,7 @@ const CategorySection = () => {
                         suggestedTags={suggestedTags}
                         onChange={toggleActiveTag}
                         activeTagIds={activeTagIds}
+                        loading={loadingTags}
                     />
                     <div className={styles.resourcesControls}>
                         <h2 className={styles.resourcesTitle}>

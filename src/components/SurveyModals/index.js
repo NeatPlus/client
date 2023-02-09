@@ -9,6 +9,7 @@ const SurveyModals = ({
     handleShowTakeSurvey,
     hideModals,
     onDelete,
+    module,
 }) => {
     return (
         <>
@@ -18,8 +19,10 @@ const SurveyModals = ({
             />
             <DeleteDraftModal
                 isVisible={showDeleteDraftModal}
+                onResume={handleShowTakeSurvey}
                 onClose={hideModals}
                 onDelete={onDelete ?? handleShowTakeSurvey}
+                module={module}
             />
         </>
     );

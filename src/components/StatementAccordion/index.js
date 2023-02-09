@@ -89,7 +89,7 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                     <FiAlertTriangle className={styles.feedbackIcon} />
                                     <Localize>Conflicting score?</Localize>
                                     <span className={styles.link} onClick={handleShowFeedbackModal}>
-                                        <Localize>suggest us.</Localize>
+                                        <Localize>provide suggestions/feedback.</Localize>
                                     </span>
                                 </div>
                             </div>

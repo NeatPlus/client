@@ -105,6 +105,16 @@ const UserNav = ({searchQuery, onSearchQueryChange}) => {
         );
     }, [activeSurvey]);
 
+    const activeProjectTitle = useMemo(() => {
+        if(!activeProject?.title) {
+            return null;
+        }
+        if(activeProject.title?.length > 80) {
+            return activeProject.title.slice(0, 80) + '...';
+        }
+        return activeProject?.title || '';
+    }, [activeProject]);
+
     return (
         <nav className={styles.container}>
             <Link to='/'>
@@ -115,8 +125,8 @@ const UserNav = ({searchQuery, onSearchQueryChange}) => {
                     {activeSurvey?.title}
                 </h1>
             ) : isProjectPath ? (
-                <h1 className={styles.title}>
-                    {activeProject?.title}
+                <h1 className={styles.title} title={activeProject?.title || ''}>
+                    {activeProjectTitle}
                 </h1>
             ) : projectTableMatch ? (
                 <ProjectSearch query={searchQuery} onChange={onSearchQueryChange} />
