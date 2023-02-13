@@ -2,6 +2,7 @@ import {useCallback, useEffect, useState, useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
+import {FiAlertCircle} from 'react-icons/fi';
 
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import {NeatLoader} from 'components/Loader';
@@ -209,16 +210,21 @@ const Module = props => {
     }
 
     return (
-        <Tabs
-            className={styles.tabs}
-            renderHeader={renderTabsHeader}
-            headerClassName={cs(styles.tabsHeader, 'no-print')}
-            contentContainerClassName={styles.contentContainer}
-            defaultActiveTab={filteredTopics?.[0]?.code}
-            mode="scroll"
-        >
-            {filteredTopics.map(renderTab)}
-        </Tabs>
+        <div className={styles.tabsContainer}>
+            <Tabs
+                className={styles.tabs}
+                renderHeader={renderTabsHeader}
+                headerClassName={cs(styles.tabsHeader, 'no-print')}
+                contentContainerClassName={styles.contentContainer}
+                defaultActiveTab={filteredTopics?.[0]?.code}
+                mode="scroll"
+            >
+                {filteredTopics.map(renderTab)}
+            </Tabs>
+            <div className={styles.disclaimer}>
+                * The concern levels of statements with <FiAlertCircle className={styles.infoIcon} /> might vary by context.
+            </div>
+        </div>
     );
 };
 

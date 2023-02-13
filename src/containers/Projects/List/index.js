@@ -82,10 +82,13 @@ const ProjectTable = withNoProject(props => {
     const navigate = useNavigate();
 
     const handlePageChange = useCallback(({currentPage}) => {
+        localStorage.setItem('projectsPage', currentPage);
         setPage(currentPage);
     }, [setPage]);
     const handleMaxRowsChange = useCallback(({option}) => {
+        localStorage.setItem('projectsPage', 1);
         setPage(1);
+        localStorage.setItem('projectsRows', option.label);
         setMaxRows(option);
     }, [setMaxRows, setPage]);
 
@@ -176,9 +179,21 @@ const ProjectList = () => {
         }
     ]), []);
 
-    const [maxRows, setMaxRows] = useState(maxRowsOptions[0]);
+    const initialMaxRows = useMemo(() => {
+        if(maxRowsOptions.map(opt => opt.label).includes(localStorage.getItem('projectsRows'))) {
+            return maxRowsOptions.find(opt => {
+                return opt.label === localStorage.getItem('projectsRows');
+            }) || maxRowsOptions[0];
+        }
+        return maxRowsOptions[0];
+    }, []);
+
+    const [maxRows, setMaxRows] = useState(initialMaxRows);
 
     const initialPageValue = useMemo(() => {
+        if(!isNaN(localStorage.getItem('projectsPage'))) {
+            return Number(localStorage.getItem('projectsPage'));
+        }
         if(!result?.previous) {
             return 1;
         }
@@ -210,14 +225,11 @@ const ProjectList = () => {
     }, [getProjects, page, maxRows, tab, projectSearchQuery]); 
 
     useEffect(() => {
-        setPage(1);
-    }, [projectSearchQuery]);
-
-    useEffect(() => {
         fetchProjects();
     }, [fetchProjects]);
 
     const handleTabChange = useCallback(({activeTab}) => {
+        localStorage.setItem('projectsPage', 1);
         setPage(1);
         localStorage.setItem('activeProjectsTab', activeTab);
         setTab(activeTab);

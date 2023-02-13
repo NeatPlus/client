@@ -41,13 +41,15 @@ const CreateEditProjectModal = (props) => {
     const [url, setUrl] = useState('');
     const [method, setMethod] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
 
     const {organizations} = useSelector(state => state.organization);
     const {contexts} = useSelector(state => state.context);
     const {user} = useSelector(state => state.auth);
 
-    const [{loading}, createOrEditProject] = useRequest(url, {
+    const [{loading: loadingProject}, createOrEditProject] = useRequest(url, {
         method: method,
     });
     const [{data: projectUsers}, getProjectUsers] = useRequest(
@@ -114,6 +116,7 @@ const CreateEditProjectModal = (props) => {
 
     const handleProjectSubmit = useCallback(
         async (formData) => {
+            setLoading(true);
             setError(null);
             const {title, organization, description, users} = formData;
             if(!organization?.id && visibility==='public_within_organization') {
@@ -147,6 +150,7 @@ const CreateEditProjectModal = (props) => {
                 if (result && mode === 'create') {
                     Toast.show(_('Project successfully Created!'), Toast.SUCCESS);
                     onComplete();
+                    onClose();
                     navigate(`/projects/${result.id}/`);
                 }
 
@@ -159,6 +163,7 @@ const CreateEditProjectModal = (props) => {
                 setError(err);
                 console.log(err);
             }
+            setLoading(false);
         },
         [
             visibility, 
@@ -283,7 +288,7 @@ const CreateEditProjectModal = (props) => {
                     >
                         <Localize>Cancel</Localize>
                     </Button>
-                    <Button loading={loading} className={styles.button}>
+                    <Button loading={loading || loadingProject} className={styles.button}>
                         {mode === 'edit' ? _('Edit') : _('Create')}
                     </Button>
                 </div>
