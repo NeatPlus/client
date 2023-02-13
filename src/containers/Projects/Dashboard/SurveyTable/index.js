@@ -183,7 +183,9 @@ const SurveyTable = ({onTakeSurveyClick, clonable}) => {
                     </Button>
                 )}
             </div>
-            <p className={styles.subTitle}>{surveyData.length} <Localize>surveys</Localize></p>
+            <p className={styles.subTitle}>
+                <Localize text="1 survey" textPlural="{{ count }} surveys" count={surveyData.length} />
+            </p>
             <div className={styles.surveyTable}>
                 <Table 
                     loading={!activeProject || (activeProject.surveysCount > 0 && !surveyData.length)}

@@ -1,9 +1,9 @@
 module.exports = {
     componentPropsMap: {
         Localize: {
-            one: 'msgid',
-            many: 'msgid_plural',
-            context: 'msgctxt',
+            text: 'msgid',
+            textPlural: 'msgid_plural',
+            textContext: 'msgctxt',
             comment: 'comment',
         }
     },
