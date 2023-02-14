@@ -94,6 +94,7 @@
 
             .experimental-icon {
                 margin-right: 0.5em;
+                width: 1rem;
             }
 
             .accordion-title {
@@ -124,7 +125,7 @@
                 }
 
                 .span {
-                    font-size: 0.75em;
+                    font-size: var(--font-size-tiny);
                     font-weight: 500;
                     line-height: 1.67;
                     color: var(--color-primary);

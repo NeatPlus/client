@@ -1,7 +1,8 @@
 import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react';
-import {FiAlertTriangle, FiChevronRight} from 'react-icons/fi';
+import {FiAlertTriangle, FiChevronRight, FiAlertCircle} from 'react-icons/fi';
 
 import FeedbackModal from 'components/FeedbackModal';
+import InfoTooltip from 'components/InfoTooltip';
 import Editable from 'components/Editable';
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
@@ -94,11 +95,12 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                 </div>
                             </div>
                         )}
-                        <div className={styles.accordion} onClick={toggleAccordion}>
+                        <button type="button" className={styles.accordion} onClick={toggleAccordion}>
                             {item.statement.isExperimental && (
-                                <FiAlertTriangle
-                                    className={styles.experimentalIcon}
-                                    title={_('This statement is in experimental phase currently and may not give accurate result.')}
+                                <InfoTooltip
+                                    icon={FiAlertCircle}
+                                    iconClassName={styles.experimentalIcon}
+                                    message={_('This concern level of this statement might vary by context.')}
                                 />
                             )}
                             <div className={cs(
@@ -117,7 +119,7 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                 )}
                                 <FiChevronRight className={cs(styles.downIcon, open && styles.rotateUp)} />
                             </div>
-                        </div>
+                        </button>
                         <div
                             ref={content}
                             style={{maxHeight: `${contentHeight}`}}
@@ -129,14 +131,14 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                     </h3>
                                 )}
                                 {item.statement?.hints || ''}
-                                <h3 className={styles.listTitle}><Localize>MITIGATION</Localize></h3>
+                                <h3 className={styles.listTitle}><Localize>MITIGATIONS</Localize></h3>
                                 <List
                                     data={mitigations}
                                     component="ul"
                                     keyExtractor={keyExtractor}
                                     renderItem={renderListData}
                                 />
-                                <h3 className={styles.listTitle}><Localize>OPPORTUNITY</Localize></h3>
+                                <h3 className={styles.listTitle}><Localize>OPPORTUNITIES</Localize></h3>
                                 <List
                                     data={opportunities}
                                     component="ul"

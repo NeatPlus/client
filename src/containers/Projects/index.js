@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import {Outlet} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {AiOutlineFileText} from 'react-icons/ai';
@@ -15,7 +15,12 @@ const Projects = () => {
 
     const [projectSearchQuery, setProjectSearchQuery] = useState('');
     const handleSearchQueryChange = useCallback(query => {
+        localStorage.setItem('projectsPage', 1);
         setProjectSearchQuery(query);
+    }, []);
+
+    useEffect(() => {
+        return () => localStorage.setItem('projectsPage', 1);
     }, []);
 
     return (
