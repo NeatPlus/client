@@ -14,6 +14,7 @@ import {Localize} from '@ra/components/I18n';
 
 import Api from 'services/api';
 import {_} from 'services/i18n';
+import Toast from 'services/toast';
 
 import {initDraftAnswers} from 'utils/dispatch';
 import {checkEditAccess} from 'utils/permission';
@@ -29,7 +30,7 @@ const HeaderItem = ({column}) => {
     return column.Header;
 };
 
-export const DataItem = ({item, column, onClone, onDelete}) => {
+export const DataItem = ({item, column, clonable}) => {
     const dispatch = useDispatch();
 
     const {activeProject} = useSelector(state => state.project);
@@ -64,11 +65,14 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
     }, [dispatch]);
 
     const handleShowDeleteDraftModal = useCallback((survey) => {
+        if(!clonable) {
+            return Toast.show(_('Please wait until survey results are loaded before cloning!'), Toast.DANGER);
+        }
         if(doesDraftExist) {
             return setShowDeleteDraftModal(true);
         }
         handleShowSurveyModal();
-    }, [handleShowSurveyModal, doesDraftExist]);
+    }, [handleShowSurveyModal, doesDraftExist, clonable]);
     const handleHideDeleteDraftModal = useCallback(() => {
         setShowDeleteDraftModal(false);
     }, []);
@@ -128,7 +132,7 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
     return item[column.accessor];
 };
 
-const SurveyTable = ({onTakeSurveyClick}) => {
+const SurveyTable = ({onTakeSurveyClick, clonable}) => {
     const surveyColumns = useMemo(() => ([
         {
             Header: _('Name'),
@@ -160,7 +164,11 @@ const SurveyTable = ({onTakeSurveyClick}) => {
     const handleSurveyClick = useCallback(survey => {
         navigate(`surveys/${survey.id}/`);
     }, [navigate]);
-        
+
+    const renderDataItem = useCallback(tableProps => (
+        <DataItem {...tableProps} clonable={clonable} />
+    ), [clonable]);
+
     return (
         <div className={styles.surveys}>
             <div className={styles.surveyHeader}>
@@ -185,7 +193,7 @@ const SurveyTable = ({onTakeSurveyClick}) => {
                     columns={surveyColumns}
                     maxRows={10}
                     renderHeaderItem={HeaderItem}
-                    renderDataItem={DataItem}
+                    renderDataItem={renderDataItem}
                     headerClassName={styles.tableHeader}
                     headerRowClassName={styles.headerRow}
                     bodyClassName={styles.tableBody}

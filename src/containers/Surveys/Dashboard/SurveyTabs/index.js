@@ -22,7 +22,7 @@ const SurveyTabs = props => {
         if (activeTab==='overview' || publicMode) {
             return null;
         }
-        return <div className={styles.spacer} />;
+        return <div className={cs(styles.spacer, 'no-print')} />;
     }, [activeTab, publicMode]);
 
     const availableModules = useMemo(() => modules.filter(mod => {
@@ -47,6 +47,22 @@ const SurveyTabs = props => {
         );
     }, [publicMode, availablePublicModules]);
 
+    const renderHeader = useCallback(({active, title, className, activeClassName, ...otherProps}) => {
+        return (
+            <div className={cs(
+                styles.tabsHeaderItem,
+                className,
+                {
+                    [styles.tabsHeaderItemActive]: active,
+                    [activeClassName]: active,
+                    'no-print': !active,
+                }
+            )} {...otherProps}>
+                {title}
+            </div>
+        );
+    }, []);
+
     return (
         <Tabs 
             activeTab={activeTab}
@@ -54,10 +70,11 @@ const SurveyTabs = props => {
             className={styles.tabs}
             PreHeaderComponent={renderSpacer}
             PostHeaderComponent={renderHeaderControls}
-            headerContainerClassName={cs(styles.headerContainer, 'no-print')}
+            headerContainerClassName={styles.headerContainer}
             headerClassName={styles.tabsHeader}
-            tabItemClassName={styles.headerItem}
+            activeTabItemClassName="no-print"
             contentContainerClassName={styles.tabContent}
+            renderHeader={renderHeader}
             onChange={onTabChange}
         >
             <Tab label="overview" title={_('Overview')}>
