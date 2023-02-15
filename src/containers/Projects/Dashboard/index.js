@@ -99,7 +99,7 @@ const ProjectDashboard = withNoSurvey(() => {
             >
                 <Tab label="summary" title={_('Summary')}>
                     <div className={styles.summaryContainer}>
-                        <SurveyTable onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft} />
+                        <SurveyTable onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft} clonable={Boolean(projectResults.length)} />
                         <div className={styles.overview}>
                             <h3 className={styles.overviewTitle}><Localize>Overview</Localize></h3>
                             <div className={styles.overviewContent}>

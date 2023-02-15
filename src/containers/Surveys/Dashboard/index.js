@@ -187,7 +187,7 @@ const SurveyDashboard = () => {
 
         if(isEditMode) {
             return (
-                <div className={styles.headerControls}>
+                <div className={cs(styles.headerControls, 'no-print')}>
                     <Button 
                         className={styles.controlButton} 
                         onClick={toggleRestoreModal}
@@ -208,7 +208,7 @@ const SurveyDashboard = () => {
         }
 
         return (
-            <div className={styles.headerControls}>
+            <div className={cs(styles.headerControls, 'no-print')}>
                 <Button className={styles.controlButton} onClick={activateEditMode}>
                     <BiEditAlt size={20} className={styles.controlIcon} />
                     <Localize>Edit</Localize>

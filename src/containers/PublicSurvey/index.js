@@ -7,6 +7,7 @@ import {NeatLoader} from 'components/Loader';
 import SurveyTabs from 'containers/Surveys/Dashboard/SurveyTabs';
 import {_} from 'services/i18n';
 
+import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
 import Api from 'services/api';
 import {setActiveSurvey} from 'store/actions/survey';
@@ -99,7 +100,7 @@ const PublicSurvey = () => {
                     <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
                 </Link> 
                 <h1 className={styles.title}>{activeSurvey?.title}</h1>
-                <Button outline className={styles.button} onClick={handleNavButtonClick}>
+                <Button outline className={cs(styles.button, 'no-print')} onClick={handleNavButtonClick}>
                     {isAuthenticated ? _('Go to Projects') : _('Login')} 
                 </Button>
             </nav>
