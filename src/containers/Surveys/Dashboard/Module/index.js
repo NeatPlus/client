@@ -222,7 +222,10 @@ const Module = props => {
                 {filteredTopics.map(renderTab)}
             </Tabs>
             <div className={styles.disclaimer}>
-                * The concern levels of statements with <FiAlertCircle className={styles.infoIcon} /> might vary by context.
+                <Localize
+                    text="* The concern levels of statements with {{ alertIcon; }} might vary by context."
+                    alertIcon={<FiAlertCircle className={styles.infoIcon} />}
+                />
             </div>
         </div>
     );

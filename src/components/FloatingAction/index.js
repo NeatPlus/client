@@ -91,9 +91,10 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
                 [styles.draftActionVisible]: actionVisible,
             })}>
                 <p className={styles.draftDesc}>
-                    <span className={styles.surveyTitle}>
-                        {surveyTitle}
-                    </span> <Localize>survey has been saved in draft</Localize>
+                    <Localize
+                        text="{{ surveyTitle; }} survey has been saved in draft."
+                        surveyTitle={<span className={styles.surveyTitle}>{surveyTitle}</span>}
+                    />
                 </p>
                 <div className={styles.buttons}>
                     <Button onClick={showSurveyModal} className={styles.button}>

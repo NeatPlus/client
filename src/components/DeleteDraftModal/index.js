@@ -55,7 +55,12 @@ const DeleteDraftModal = (props) => {
                         alt='trash bin'
                     />
                     <p className={styles.deleteText}>
-                        Starting a new {newModuleTitle || ''} module survey will delete the draft survey <em>{title}</em> you have under the {draftModuleTitle || 'previous'} module. Please choose your action for the draft survey.
+                        <Localize
+                            text="Starting a new {{ newModule; }} module survey will delete the draft survey '{{ draftTitle; }}' you have under the {{ draftModule; }} module. Please choose your action for the draft survey."
+                            newModule={<span>{newModuleTitle || ''}</span>}
+                            draftTitle={<span>{title}</span>}
+                            draftModule={<span>{draftModuleTitle || ''}</span>}
+                        />
                     </p>
                 </div>
                 <div className={styles.buttons}>

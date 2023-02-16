@@ -4,5 +4,5 @@ for f in $FILES
 do
     filename=${f##*/}
     mkdir -p src/services/locale
-    yarn po2json -pF -f mf $f "src/services/locale/${filename%%.*}.json"
+    yarn po2json -pF -f raw $f "src/services/locale/${filename%%.*}.json"
 done

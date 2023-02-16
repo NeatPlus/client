@@ -29,9 +29,15 @@ const PartnerSection = () => {
             <Container jumbotron>
                 <div className={styles.container}>
                     <h1 className={styles.title}>
-                        <Localize>NEAT+ was developed with the support of</Localize>
-                        <a className={styles.joinLink} href="https://eecentre.org/2017/01/01/the-joint-initiative/" target="_blank" rel="noreferrer"> <Localize>Joint Initiative</Localize></a>
-                        * <Localize>partners</Localize>:
+                        <Localize
+                            text="NEAT+ was developed with the support of {{ link:Joint Initiative }}* partners"
+                            link={<a
+                                className={styles.joinLink}
+                                href="https://eecentre.org/2017/01/01/the-joint-initiative/"
+                                target="_blank"
+                                rel="noreferrer"
+                            />}
+                        />
                     </h1>
                     <div className={styles.partnersWrapper}>
                         {partners.map(item =>
@@ -40,7 +46,7 @@ const PartnerSection = () => {
                             </div>
                         )}
                     </div>
-                    <span className={styles.footerText}>* <Localize>a multi-stakeholder project aimed at improving collaboration between environmental and humanitarian actors</Localize></span>
+                    <span className={styles.footerText}><Localize>*a multi-stakeholder project aimed at improving collaboration between environmental and humanitarian actors</Localize></span>
                 </div>
             </Container>
         </section>

@@ -324,8 +324,11 @@ const StatementDetails = (props) => {
                             </p>
                             <div className={styles.infoRight}>
                                 <p className={styles.infoSelected}>
-                                    {selectedQuestions?.length}{' '}
-                                    <Localize>item(s) selected.</Localize>
+                                    <Localize
+                                        text="1 item selected."
+                                        textPlural="{{ count }} items selected."
+                                        count={selectedQuestions?.length || 0}
+                                    />
                                 </p>
                                 <Button
                                     onClick={handleNextClick}

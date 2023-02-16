@@ -6,8 +6,8 @@ import esTranslations from './locale/locale_es.json';
 
 export const translations = {
     en: {},
-    fr: frTranslations,
-    es: esTranslations,
+    fr: parseTranslations(frTranslations),
+    es: parseTranslations(esTranslations),
 };
 
 export const languages = [
@@ -21,3 +21,19 @@ export const _ = text => {
 
     return translator(text, currentLanguage, translations);
 };
+
+function parseTranslations(translationsObject) {
+    return Object.entries(translationsObject).reduce((acc, [key, value]) => {
+        if(key) {
+            if(Array.isArray(value)) {
+                acc[key] = value[1];
+                if(value[0]) {
+                    acc[value[0]] = value[2];
+                }
+            } else {
+                acc[key] = String(value);
+            }
+        }
+        return acc;
+    }, {});
+}

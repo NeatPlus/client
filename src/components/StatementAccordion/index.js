@@ -88,10 +88,13 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                 </span>
                                 <div className={cs(styles.feedbackControl, 'no-print')}>
                                     <FiAlertTriangle className={styles.feedbackIcon} />
-                                    <Localize>Conflicting score?</Localize>
-                                    <span className={styles.link} onClick={handleShowFeedbackModal}>
-                                        <Localize>provide suggestions/feedback.</Localize>
-                                    </span>
+                                    <Localize
+                                        text="Conflicting score? {{ link:provide suggestions/feedback }}."
+                                        link={<span
+                                            className={styles.link}
+                                            onClick={handleShowFeedbackModal}
+                                        />}
+                                    />
                                 </div>
                             </div>
                         )}

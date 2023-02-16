@@ -23,18 +23,21 @@ const Contact = () => {
                                 <Localize>Share your feedback with us</Localize>
                             </h1>
                             <p className={styles.heroPara}>
-                                <Localize>
-                                    To continuously improve the NEAT+ and adapt it to user’s needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out
-                                </Localize>
-                                <a className={styles.innerLink} target="_blank" rel="noreferrer" href="https://docs.google.com/forms/d/1yZ8Mz8jWQepk2DhGH13fKKNQ65QvUEPm7HoXq_uwJEw/viewform?edit_requested=true"> <Localize>this NEAT+ user feedback form.</Localize> </a>
-                                <Localize>
-                                    All responses are confidential and anonymous.
-                                </Localize>
+                                <Localize
+                                    text="To continuously improve the NEAT+ and adapt it to user's needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out this {{ formLink:NEAT+ user feedback form }}. All responses are confidential and anonymous"
+                                    formLink={<a
+                                        className={styles.innerLink}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://docs.google.com/forms/d/1yZ8Mz8jWQepk2DhGH13fKKNQ65QvUEPm7HoXq_uwJEw/viewform?edit_requested=true"
+                                    />}
+                                />
                             </p>
                             <p className={styles.heroPara}>
-                                <Localize>
-                                    If you have any further questions, comment or feedback, please contact the JEU</Localize> (
-                                <a className={styles.innerLink} href="mailto:ochaunep@un.org">ochaunep@un.org</a>).
+                                <Localize
+                                    text="If you have any further questions, comment or feedback, please contact the JEU ({{ link:ochaunep@un.org }})."
+                                    link={<a className={styles.innerLink} href="mailto:ochaunep@un.org" />}
+                                />
                             </p>
                         </div>
                     </div>
