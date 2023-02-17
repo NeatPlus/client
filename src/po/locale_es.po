@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Thu Feb 16 2023 11:03:49 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Fri Feb 17 2023 12:13:03 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -506,7 +506,7 @@ msgid "Rural NEAT+"
 msgstr ""
 
 #: src/components/Footer/index.js:92
-#: src/containers/Action/index.js:31
+#: src/containers/Action/index.js:32
 msgid "NEAT+ IN ACTION"
 msgstr ""
 
@@ -1419,20 +1419,21 @@ msgstr ""
 msgid "DESCRIPTION"
 msgstr ""
 
-#: src/containers/Action/index.js:34
+#: src/containers/Action/index.js:35
 msgid "NEAT+ Around the World"
 msgstr ""
 
-#: src/containers/Action/index.js:37
+#: src/containers/Action/index.js:38
 msgid ""
 "To date, the NEAT+ has been successfully tested and applied by over ten "
 "humanitarian organization in around 20 field operations worldwide. See "
 "examples and links to the findings of previous NEAT+ environment scoping "
 "missions on this page. If you would like to submit a case study for "
-"inclusion on this page, please let us know through the Contact page."
+"inclusion on this page, please let us know through the {{ link:Contact }} "
+"page."
 msgstr ""
 
-#: src/containers/Action/index.js:57
+#: src/containers/Action/index.js:59
 msgid ""
 "Applying the Nexus Environmental Assessment Tool (NEAT+) in humanitarian "
 "settings"
@@ -1709,7 +1710,7 @@ msgid ""
 "To continuously improve the NEAT+ and adapt it to user's needs, we would "
 "like to learn more about your experience as a user and the context in which "
 "you used the tool in. Take 10 minutes to fill out this {{ formLink:NEAT+ "
-"user feedback form }}. All responses are confidential and anonymous"
+"user feedback form }}. All responses are confidential and anonymous."
 msgstr ""
 
 #: src/containers/Contact/index.js:37
@@ -1954,7 +1955,7 @@ msgid "Number of issues of concern by location"
 msgstr ""
 
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:69
-msgid "Please wait until survey results are loaded before cloning!"
+msgid "Please wait until survey answers are loaded before cloning!"
 msgstr ""
 
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:98
