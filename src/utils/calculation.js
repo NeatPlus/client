@@ -125,10 +125,10 @@ export const calculateStatementScore = async ({
                     );
                     return (curOptionStatement?.weightage || 0) + optionAcc;
                 }, 0);
-            let den = (totalWeight - maxSelected) * (1 - maxSelected) || 1;
+            let den = totalWeight - maxSelected;
             const questionValue = (maxSelected + (
                 (sumSelected - maxSelected) / den
-            )) * cur.weightage;
+            ) * (1 - maxSelected) || 1) * cur.weightage;
             return (
                 acc.sum = acc.sum + cur.weightage,
                 acc.score = isNaN(questionValue) ? acc.score : acc.score + questionValue,

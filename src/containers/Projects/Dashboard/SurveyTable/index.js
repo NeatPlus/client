@@ -66,7 +66,7 @@ export const DataItem = ({item, column, clonable}) => {
 
     const handleShowDeleteDraftModal = useCallback((survey) => {
         if(!clonable) {
-            return Toast.show(_('Please wait until survey results are loaded before cloning!'), Toast.DANGER);
+            return Toast.show(_('Please wait until survey answers are loaded before cloning!'), Toast.DANGER);
         }
         if(doesDraftExist) {
             return setShowDeleteDraftModal(true);

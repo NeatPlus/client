@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import {Link} from 'react-router-dom';
 
 import VideoModal from 'components/VideoModal';
 import Footer from 'components/Footer';
@@ -34,9 +35,10 @@ const Action = () => {
                                 <Localize>NEAT+ Around the World</Localize>
                             </h1>
                             <p className={styles.heroDesc}>
-                                <Localize>
-                                    To date, the NEAT+ has been successfully tested and applied by over ten humanitarian organization in around 20 field operations worldwide. See examples and links to the findings of previous NEAT+ environment scoping missions on this page. If you would like to submit a case study for inclusion on this page, please let us know through the Contact page.
-                                </Localize>
+                                <Localize
+                                    text="To date, the NEAT+ has been successfully tested and applied by over ten humanitarian organization in around 20 field operations worldwide. See examples and links to the findings of previous NEAT+ environment scoping missions on this page. If you would like to submit a case study for inclusion on this page, please let us know through the {{ link:Contact }} page."
+                                    link={<Link className={styles.link} to="/contact" />}
+                                />
                             </p>
                         </div>
                         <img

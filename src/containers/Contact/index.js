@@ -24,7 +24,7 @@ const Contact = () => {
                             </h1>
                             <p className={styles.heroPara}>
                                 <Localize
-                                    text="To continuously improve the NEAT+ and adapt it to user's needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out this {{ formLink:NEAT+ user feedback form }}. All responses are confidential and anonymous"
+                                    text="To continuously improve the NEAT+ and adapt it to user's needs, we would like to learn more about your experience as a user and the context in which you used the tool in. Take 10 minutes to fill out this {{ formLink:NEAT+ user feedback form }}. All responses are confidential and anonymous."
                                     formLink={<a
                                         className={styles.innerLink}
                                         target="_blank"
