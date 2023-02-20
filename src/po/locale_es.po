@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Mon Feb 20 2023 15:07:15 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Tue Feb 21 2023 14:19:42 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -885,7 +885,7 @@ msgid "Previous"
 msgstr ""
 
 #: src/components/TakeSurveyModal/index.js:139
-#: src/containers/Administration/StatementDetails/index.js:331
+#: src/containers/Administration/StatementDetails/index.js:333
 msgid "Next"
 msgstr ""
 
@@ -1459,53 +1459,53 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:225
+#: src/containers/Administration/StatementDetails/index.js:227
 msgid "Please wait until the statement changes are loaded"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:232
+#: src/containers/Administration/StatementDetails/index.js:234
 msgid "Your changes have been successfully published!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:243
+#: src/containers/Administration/StatementDetails/index.js:245
 msgid "An error occured while publishing your changes!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:305
-#: src/containers/Administration/StatementDetails/index.js:377
+#: src/containers/Administration/StatementDetails/index.js:307
+#: src/containers/Administration/StatementDetails/index.js:379
 msgid "Publish"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:313
+#: src/containers/Administration/StatementDetails/index.js:315
 msgid "Select all relevant questions related to the above statement"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:319
+#: src/containers/Administration/StatementDetails/index.js:321
 msgid "1 item selected."
 msgid_plural "{{ count }} items selected."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/containers/Administration/StatementDetails/index.js:345
+#: src/containers/Administration/StatementDetails/index.js:347
 msgid "No questions found! Please wait..."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:366
+#: src/containers/Administration/StatementDetails/index.js:368
 msgid "Insights on correlation of categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:378
+#: src/containers/Administration/StatementDetails/index.js:380
 msgid "Publish changes?"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:383
+#: src/containers/Administration/StatementDetails/index.js:385
 msgid ""
 "If you publish the changes, all further calculations will use the new "
 "configuration."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:388
-msgid "Are you sure you want to publish these changes?"
+#: src/containers/Administration/StatementDetails/index.js:390
+msgid "Are you sure you want to publish your changes?"
 msgstr ""
 
 #: src/containers/Administration/Statements/index.js:34
@@ -1846,7 +1846,7 @@ msgstr ""
 msgid ""
 "See examples and findings of previous NEAT+ pilots and environmental "
 "scoping missions. If you have a report to submit, please contact the "
-"UNEP/OCHA Joint Environment Unit (JEU) (ochaunep@un.org)."
+"UNEP/OCHA Joint Environment Unit (JEU) ({{ link:ochaunep@un.org }})."
 msgstr ""
 
 #: src/containers/Home/FeedbackSection/index.js:25

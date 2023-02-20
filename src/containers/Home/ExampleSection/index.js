@@ -98,9 +98,10 @@ const ExampleSection = () => {
                                 </Localize>
                             </p>
                             <p className={styles.infoDesc}>
-                                <Localize>
-                                    See examples and findings of previous NEAT+ pilots and environmental scoping missions. If you have a report to submit, please contact the UNEP/OCHA Joint Environment Unit (JEU) (ochaunep@un.org).
-                                </Localize>
+                                <Localize
+                                    text="See examples and findings of previous NEAT+ pilots and environmental scoping missions. If you have a report to submit, please contact the UNEP/OCHA Joint Environment Unit (JEU) ({{ link:ochaunep@un.org }})."
+                                    link={<a className={styles.descLink} href="mailto:ochaunep@un.org" />}
+                                />
                             </p>
                         </div>
                         <div className={styles.content}>
