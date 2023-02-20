@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Fri Feb 17 2023 12:13:03 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Mon Feb 20 2023 15:07:15 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -675,7 +675,7 @@ msgstr ""
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:110
 #: src/components/OrganizationModals/ManageMembers/index.js:349
-#: src/containers/Administration/StatementWeightage/index.js:385
+#: src/containers/Administration/StatementWeightage/index.js:388
 #: src/containers/Surveys/Dashboard/index.js:204
 msgid "Save"
 msgstr ""
@@ -803,7 +803,6 @@ msgid "Restore"
 msgstr ""
 
 #: src/components/ShareSurvey/index.js:49
-#: src/containers/Administration/StatementWeightage/index.js:322
 msgid "An error occured"
 msgstr ""
 
@@ -886,7 +885,7 @@ msgid "Previous"
 msgstr ""
 
 #: src/components/TakeSurveyModal/index.js:139
-#: src/containers/Administration/StatementDetails/index.js:338
+#: src/containers/Administration/StatementDetails/index.js:331
 msgid "Next"
 msgstr ""
 
@@ -1445,67 +1444,67 @@ msgstr ""
 
 #: src/containers/Administration/StatementDetails/index.js:65
 #: src/containers/Administration/StatementDetails/index.js:88
-#: src/containers/Administration/StatementDetails/index.js:108
+#: src/containers/Administration/StatementDetails/index.js:106
 msgid "Select"
 msgstr ""
 
 #: src/containers/Administration/StatementDetails/index.js:81
-#: src/containers/Administration/StatementDetails/index.js:116
+#: src/containers/Administration/StatementDetails/index.js:114
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:53
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:125
 msgid "Questions"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:112
+#: src/containers/Administration/StatementDetails/index.js:110
 msgid "Categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:233
+#: src/containers/Administration/StatementDetails/index.js:225
 msgid "Please wait until the statement changes are loaded"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:240
+#: src/containers/Administration/StatementDetails/index.js:232
 msgid "Your changes have been successfully published!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:251
+#: src/containers/Administration/StatementDetails/index.js:243
 msgid "An error occured while publishing your changes!"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:313
-#: src/containers/Administration/StatementDetails/index.js:384
+#: src/containers/Administration/StatementDetails/index.js:305
+#: src/containers/Administration/StatementDetails/index.js:377
 msgid "Publish"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:321
+#: src/containers/Administration/StatementDetails/index.js:313
 msgid "Select all relevant questions related to the above statement"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:327
+#: src/containers/Administration/StatementDetails/index.js:319
 msgid "1 item selected."
 msgid_plural "{{ count }} items selected."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/containers/Administration/StatementDetails/index.js:352
+#: src/containers/Administration/StatementDetails/index.js:345
 msgid "No questions found! Please wait..."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:373
+#: src/containers/Administration/StatementDetails/index.js:366
 msgid "Insights on correlation of categories"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:385
+#: src/containers/Administration/StatementDetails/index.js:378
 msgid "Publish changes?"
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:390
+#: src/containers/Administration/StatementDetails/index.js:383
 msgid ""
 "If you publish the changes, all further calculations will use the new "
 "configuration."
 msgstr ""
 
-#: src/containers/Administration/StatementDetails/index.js:395
+#: src/containers/Administration/StatementDetails/index.js:388
 msgid "Are you sure you want to publish these changes?"
 msgstr ""
 
@@ -1584,40 +1583,36 @@ msgid "No feedbacks have been received."
 msgstr ""
 
 #: src/containers/Administration/StatementWeightage/index.js:308
-msgid "No changes to save!"
-msgstr ""
-
-#: src/containers/Administration/StatementWeightage/index.js:311
 msgid "Your changes have been successfully updated!"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:401
+#: src/containers/Administration/StatementWeightage/index.js:404
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:73
 msgid "Current"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:419
+#: src/containers/Administration/StatementWeightage/index.js:422
 msgid "Enter your function"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:423
+#: src/containers/Administration/StatementWeightage/index.js:426
 msgid "Write your custom function to manage weightage"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:435
+#: src/containers/Administration/StatementWeightage/index.js:438
 msgid "Unapplied changes!"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:447
+#: src/containers/Administration/StatementWeightage/index.js:450
 msgid "APPLY"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:468
-#: src/containers/Administration/StatementWeightage/index.js:482
+#: src/containers/Administration/StatementWeightage/index.js:471
+#: src/containers/Administration/StatementWeightage/index.js:485
 msgid "Insights"
 msgstr ""
 
-#: src/containers/Administration/StatementWeightage/index.js:495
+#: src/containers/Administration/StatementWeightage/index.js:498
 msgid "User feedbacks"
 msgstr ""
 

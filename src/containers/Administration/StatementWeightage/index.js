@@ -152,18 +152,29 @@ const StatementWeightage = props => {
     const {changedQuestions, changedOptions, baselineSurveyAnswers} = useSelector(state => state.admin);
     const {questions, options} = useSelector(state => state.question);
 
+    const selectedQuestions = useMemo(() => {
+        return location?.state?.selectedQuestions?.map(ques => {
+            return {
+                ...ques,
+                weightage: questionStatements.find(quesSt => {
+                    return quesSt.question === ques.id && quesSt.statement === +statementId;
+                })?.weightage,
+            };
+        }) || [];
+    }, [location, questionStatements, statementId]);
+
     const newQuestionStatements = useMemo(() => {
-        if(changedQuestions.length < 1) {
-            return questionStatements?.map(qst => ({question: qst.question, weightage: qst.weightage})) || [];
-        }
         const unchangedQuestionStatements = questionStatements.reduce((acc, cur) => {
             if(changedQuestions.some(chQues => chQues.question === cur.question)) {
+                return acc;
+            }
+            if(cur.statement === Number(statementId) && !selectedQuestions.some(selQues => selQues.id === cur.question)) {
                 return acc;
             }
             return [...acc, {question: cur.question, weightage: cur.weightage}];
         }, []);
         return [...changedQuestions, ...unchangedQuestionStatements];
-    }, [questionStatements, changedQuestions]);
+    }, [questionStatements, changedQuestions, statementId, selectedQuestions]);
 
     const newOptionStatements = useMemo(() => {
         if(changedOptions.length < 1) {
@@ -253,17 +264,6 @@ const StatementWeightage = props => {
         return statements.find(st => st.id === +statementId);
     }, [statementId, statements]);
 
-    const selectedQuestions = useMemo(() => {
-        return location?.state?.selectedQuestions?.map(ques => {
-            return {
-                ...ques,
-                weightage: questionStatements.find(quesSt => {
-                    return quesSt.question === ques.id && quesSt.statement === +statementId;
-                })?.weightage,
-            };
-        }) || [];
-    }, [location, questionStatements, statementId]);
-
     useEffect(() => {
         if(!selectedQuestions?.length > 0) {
             navigate(`/administration/statements/${statementId}/`);
@@ -296,16 +296,13 @@ const StatementWeightage = props => {
     const handleSaveClick = useCallback(async () => {
         try {
             let formData = {module: activeModule?.id, questionGroup: null};
-            const hasChangedWeightage = changedQuestions?.length > 0 || changedOptions?.length > 0;
             if(hasChangedFunction) {
                 formData.formula = runningFunctionCode;
                 formData.questions = newQuestionStatements;
                 formData.options = newOptionStatements;
-            } else if(hasChangedWeightage) {
+            } else {
                 formData.questions = newQuestionStatements;
                 formData.options = newOptionStatements;
-            } else {
-                return Toast.show(_('No changes to save!'), Toast.DANGER);
             }
             await uploadWeightages(statementId, formData);
             Toast.show(_('Your changes have been successfully updated!'), Toast.SUCCESS);
@@ -319,8 +316,16 @@ const StatementWeightage = props => {
             await submitBaselineFeedbacks(newFeedbacks);
             loadWeightages();
         } catch(error) {
-            Toast.show(getErrorMessage(error) ?? _('An error occured'), Toast.DANGER);
             console.log(error);
+            const questionError = error?.questions?.find(ques => ques?.weightage?.length > 0);
+            const optionError = error?.options?.find(opt => opt?.weightage?.length > 0);
+            if(questionError) {
+                return Toast.show(`Question weightage: ${String(questionError.weightage[0])}`, Toast.DANGER);
+            }
+            if(optionError) {
+                return Toast.show(`Option weightage: ${String(optionError.weightage[0])}`, Toast.DANGER);
+            }
+            Toast.show(getErrorMessage(error), Toast.DANGER);
         }
     }, [
         hasChangedFunction,
@@ -334,8 +339,6 @@ const StatementWeightage = props => {
         baselineFeedbackData,
         submitBaselineFeedbacks,
         activeModule,
-        changedQuestions,
-        changedOptions,
     ]);
 
     const renderHeaderControls = useCallback(() => {
@@ -402,7 +405,7 @@ const StatementWeightage = props => {
                                 <div className={styles.tablesContainer}>
                                     <QuestionsTable
                                         loading={loadingQuestionStatements}
-                                        selectedQuestions={selectedQuestions}
+                                        selectedQuestions={[...selectedQuestions.sort((a, b) => a.order - b.order)]}
                                         onQuestionClick={handleQuestionClick}
                                         activeQuestion={activeQuestion}
                                     />
