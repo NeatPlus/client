@@ -100,8 +100,6 @@ const DataItem = ({ item, column, selectedQuestions }) => {
 const StatementDetails = (props) => {
     const {activeContext, activeModule} = useOutletContext();
 
-    const { questionStatements = [] } = useSelector((state) => state.weightage);
-
     const columns = useMemo(
         () => [
             {
@@ -143,7 +141,7 @@ const StatementDetails = (props) => {
         return statements.find((st) => st.id === +statementId);
     }, [statementId, statements]);
 
-    const [{ result }, loadQuestionStatement] = usePromise(
+    const [{ result, loading: loadingWeightages }, loadQuestionStatement] = usePromise(
         Api.getQuestionStatements
     );
     const [{ loading: publishing }, publishDraft] = usePromise(
@@ -154,8 +152,8 @@ const StatementDetails = (props) => {
         if (activeStatement) {
             loadQuestionStatement({
                 statement: activeStatement?.id,
-                version: 'draft',
-                limit: 1,
+                version: 'latest',
+                limit: -1
             });
         }
     }, [loadQuestionStatement, activeStatement]);
@@ -174,17 +172,11 @@ const StatementDetails = (props) => {
     const initialSelectedQuestions = useMemo(() => {
         return moduleQuestions.filter(
             (mq) =>
-                questionStatements.some((qs) => {
-                    return (
-                        qs.statement === activeStatement?.id &&
-                        qs.question === mq.id
-                    );
-                }) ||
                 result?.results.some((qs) => {
                     return qs.question === mq.id;
                 })
         );
-    }, [moduleQuestions, questionStatements, activeStatement, result]);
+    }, [moduleQuestions, result]);
 
     const [selectedQuestions, setSelectedQuestions] = useState(
         initialSelectedQuestions
@@ -242,8 +234,8 @@ const StatementDetails = (props) => {
             );
             loadQuestionStatement({
                 statement: activeStatement.id,
-                version: 'draft',
-                limit: 1,
+                version: 'latest',
+                limit: -1
             });
         } catch (error) {
             Toast.show(
@@ -333,6 +325,7 @@ const StatementDetails = (props) => {
                                 <Button
                                     onClick={handleNextClick}
                                     className={styles.nextButton}
+                                    loading={loadingWeightages}
                                     disabled={selectedQuestions?.length === 0}
                                 >
                                     <Localize>Next</Localize>
