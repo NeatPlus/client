@@ -158,6 +158,8 @@ const StatementDetails = (props) => {
         }
     }, [loadQuestionStatement, activeStatement]);
 
+    const hasChanges = useMemo(() => result?.results?.some(qStatement => qStatement.version === 'draft'), [result]);
+
     const moduleQuestions = useMemo(() => {
         return (
             questions[activeModule?.code]?.map((ques) => ({
@@ -297,7 +299,7 @@ const StatementDetails = (props) => {
                             {activeStatement?.title}
                         </h2>
                     </div>
-                    {result?.results?.length > 0 && (
+                    {hasChanges && (
                         <Button
                             className={styles.headerButton}
                             onClick={handleShowPublish}
@@ -386,7 +388,7 @@ const StatementDetails = (props) => {
                         </p>
                         <p className={styles.modalText}>
                             <Localize>
-                                Are you sure you want to publish these changes?
+                                Are you sure you want to publish your changes?
                             </Localize>
                         </p>
                     </>

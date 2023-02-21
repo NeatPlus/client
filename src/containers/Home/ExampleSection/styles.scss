@@ -80,6 +80,11 @@
                 font-weight: 500;
                 line-height: 1.44;
                 color: var(--color-white);
+
+                .desc-link {
+                    color: var(--color-input-outline);
+                    text-decoration: underline;
+                }
             }
 
             .content {
