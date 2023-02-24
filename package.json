@@ -15,7 +15,7 @@
         "react-ga": "^3.3.1",
         "react-google-recaptcha-v3": "^1.10.1",
         "react-icons": "^4.7.1",
-        "react-inlinesvg": "^3.0.1",
+        "react-inlinesvg": "^3.0.2",
         "react-map-gl": "^6.1.21",
         "react-redux": "^8.0.5",
         "react-router-dom": "^6.8.1",
