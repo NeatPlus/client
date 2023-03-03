@@ -54,7 +54,7 @@ const ProjectDashboard = withNoSurvey(() => {
         return topics.map(topic => {
             const topicResults = projectResults.filter(res => res.topic === topic.id);
             const highCount = topicResults.filter(res => 
-                res.severity===_('High')
+                res.severity === _('High')
             ).length;
             const mediumCount = topicResults.filter(res => 
                 res.severity === _('Medium')
@@ -75,7 +75,9 @@ const ProjectDashboard = withNoSurvey(() => {
     }, [topics, projectResults]);
 
     const topConcerns = useMemo(() => 
-        concernsData?.sort((a, b) => b.highCount - a.highCount)?.slice(0, 4), 
+        concernsData?.sort((a, b) => {
+            return (b.highCount - a.highCount) || (b.mediumCount - a.mediumCount) || (b.lowCount - a.lowCount);
+        })?.slice(0, 4), 
     [concernsData]);
 
     const handleTabChange = useCallback(({activeTab}) => {
@@ -99,12 +101,19 @@ const ProjectDashboard = withNoSurvey(() => {
             >
                 <Tab label="summary" title={_('Summary')}>
                     <div className={styles.summaryContainer}>
-                        <SurveyTable onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft} clonable={Boolean(projectResults.length)} />
+                        <SurveyTable
+                            onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft}
+                            clonable={Boolean(projectResults.length)}
+                        />
                         <div className={styles.overview}>
-                            <h3 className={styles.overviewTitle}><Localize>Overview</Localize></h3>
+                            <h3 className={styles.overviewTitle}>
+                                <Localize>Overview</Localize>
+                            </h3>
                             <div className={styles.overviewContent}>
                                 <div className={styles.concerns}>
-                                    <h4 className={styles.concernsTitle}><Localize>Top concerns topics</Localize></h4>
+                                    <h4 className={styles.concernsTitle}>
+                                        <Localize>Top concerns topics</Localize>
+                                    </h4>
                                     <div className={styles.concernsTable}>
                                         <ConcernsTable 
                                             loading={!projectResults.length}
@@ -116,7 +125,9 @@ const ProjectDashboard = withNoSurvey(() => {
                                     </div>
                                 </div>
                                 <div className={styles.location}>
-                                    <h4 className={styles.locationTitle}><Localize>Number of issues of concern by location</Localize></h4>
+                                    <h4 className={styles.locationTitle}>
+                                        <Localize>Number of issues of concern by location</Localize>
+                                    </h4>
                                     <div className={styles.map}>
                                         <Map 
                                             project={activeProject} 

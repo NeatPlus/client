@@ -1,23 +1,19 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {FiUpload, FiChevronRight} from 'react-icons/fi';
-import {RiFileList3Line} from 'react-icons/ri';
-import {BsThreeDots} from 'react-icons/bs';
-import {BiMessageDots, BiMessageAltAdd} from 'react-icons/bi';
+import React, {useCallback, useMemo} from 'react';
+import {FiChevronRight} from 'react-icons/fi';
 
-import TakeSurveyModal from 'components/TakeSurveyModal';
+import ReportSizeTabs from 'components/SurveyModuleReport/ReportSizeTabs';
+import ExportPDFButton from 'components/SurveyModuleReport/HeaderControlButtons/ExportPDFButton';
+import ShowQuestionnairesButton from 'components/SurveyModuleReport/HeaderControlButtons/ShowQuestionnairesButton';
+import ReportOptionsDropdown from 'components/SurveyModuleReport//ReportOptionsDropdown';
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
 import List from '@ra/components/List';
-import Dropdown from '@ra/components/Dropdown';
 import {Localize} from '@ra/components/I18n';
 import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import {sleep} from '@ra/utils';
 import {getSeverityCounts} from 'utils/severity';
-import * as questionActions from 'store/actions/question';
 
 import styles from './styles.scss';
 
@@ -44,41 +40,10 @@ const StatementsContent = ({
     expanded,
     moduleCode,
     publicMode,
+    isCompact,
+    onChangeCompactTab,
 }) => {
-    const dispatch = useDispatch();
-    const {questions} = useSelector(state => state.question);
-    const {activeProject} = useSelector(state => state.project);
-    const {activeSurvey} = useSelector(state => state.survey);
-    const {user} = useSelector(state => state.auth);
-    
-    const [showQuestionnaire, setShowQuestionnaire] = useState(false);
-
-    const navigate = useNavigate();
-
-    const severityCounts = useMemo(() => getSeverityCounts(statementData), [statementData]);
-
-    const handleShowQuestionnaire = useCallback(() => {
-        dispatch(questionActions.setAnswers(activeSurvey?.answers.map(ans => (
-            {...ans, question: ans.question.id}
-        )).filter(ans => questions?.[moduleCode]?.some(ques => ques.id === ans.question))));
-        setShowQuestionnaire(true);
-    }, [activeSurvey, dispatch, questions, moduleCode]);
-
-    const handleCloseQuestionnaire = useCallback(() => {
-        dispatch(questionActions.setAnswers([]));
-        setShowQuestionnaire(false);
-    }, [dispatch]);
-
-    const handleFeedbacksClick = useCallback(() => {
-        navigate(`/projects/${activeProject?.id}/surveys/${activeSurvey?.id}/feedback/`, {state: {moduleCode}});
-    }, [navigate, activeProject, activeSurvey, moduleCode]);
-
-    const handleBaselineFeedbacksClick = useCallback(() => {
-        navigate(`/projects/${activeProject.id}/surveys/${activeSurvey?.id}/feedback/`, {state: {
-            moduleCode,
-            isBaseline: true,
-        }});
-    }, [navigate, activeProject, activeSurvey, moduleCode]);
+    const severityCounts = useMemo(() => getSeverityCounts(statementData, isCompact), [statementData, isCompact]);
 
     const renderConcernItem = useCallback(listProps => {
         const total = severityCounts.reduce((acc, cur) => acc + cur.count, 0);
@@ -105,68 +70,20 @@ const StatementsContent = ({
         window.print();
     }, [toggleExpand, expanded]);
 
-    const renderOptionsLabel = useCallback(() => {
-        return (
-            <BsThreeDots size={22} />
-        );
-    }, []);
-
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
                 <h3 className={styles.title}>{topic.title}</h3>
                 {index === 0 && (
                     <div className={cs(styles.headerButtons, 'no-print')}>
-                        <TakeSurveyModal 
-                            isVisible={showQuestionnaire} 
-                            editable={false}
-                            onClose={handleCloseQuestionnaire}
-                            code={moduleCode}
-                            isNewEdit={activeProject?.isAdminOrOwner}
+                        <ReportSizeTabs
+                            isCompact={isCompact}
+                            onChangeCompactTab={onChangeCompactTab}
                         />
-                        <div
-                            disabled={!activeSurvey?.answers?.length}
-                            onClick={handleShowQuestionnaire}
-                            className={styles.exports}
-                        >
-                            <RiFileList3Line />
-                            <span className={styles.exportsTitle}><Localize>Show Questionnaires</Localize></span>
-                        </div>
-                        <div onClick={handleExportPDF} className={cs(styles.exports, 'no-print')}>
-                            <FiUpload />
-                            <span className={styles.exportsTitle}><Localize>Export PDF</Localize></span>
-                        </div>
+                        <ShowQuestionnairesButton moduleCode={moduleCode} />
+                        <ExportPDFButton onClick={handleExportPDF} />
                         {!publicMode && (
-                            <Dropdown
-                                labelContainerClassName={styles.optionsLabel}
-                                renderLabel={renderOptionsLabel}
-                                align='right'
-                            >
-                                <div className={styles.dropdownOptions}>
-                                    <div className={styles.optionItem} onClick={handleFeedbacksClick}>
-                                        <BiMessageDots size={20} className={styles.optionIcon} />
-                                        <span className={styles.optionText}>
-                                            <Localize>Feedbacks</Localize>
-                                        </span>
-                                    </div>
-                                    {user.permissions?.some(per => per === 'summary.add_baseline_feedback') && (
-                                        <div className={styles.optionItem} onClick={handleBaselineFeedbacksClick}>
-                                            <BiMessageAltAdd size={32} className={styles.optionIcon} />
-                                            <span className={styles.optionText}>
-                                                <Localize>Add Baseline Feedbacks</Localize>
-                                            </span>
-                                        </div>
-                                    )}
-                                    {/* TODO: Help action
-                                    <div className={styles.optionItem}>
-                                        <BsQuestionCircle size={18} className={styles.optionIcon} />
-                                        <span className={styles.optionText}>
-                                            <Localize>Help</Localize>
-                                        </span>
-                                    </div>
-                                    */}
-                                </div>
-                            </Dropdown>
+                            <ReportOptionsDropdown moduleCode={moduleCode} />
                         )}
                     </div>
                 )}

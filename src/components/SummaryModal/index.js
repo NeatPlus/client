@@ -34,14 +34,18 @@ const StatementList = ({statements=[], severity}) => {
             data={statementData}
             keyExtractor={keyExtractor}
             renderItem={StatementItem}
+            EmptyComponent={
+                <p className={styles.listInfo}>
+                    <Localize>No statements found for this severity!</Localize>
+                </p>
+            }
         />
     );
 };
 
 const SummaryModal = props => {
-    const {isVisible, onClose, activeSeverity, setActiveSeverity} = props;
+    const {module, isVisible, onClose, activeSeverity, setActiveSeverity} = props;
 
-    const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
     const {statements} = useSelector(state => state.statement);
 
@@ -64,14 +68,13 @@ const SummaryModal = props => {
     }, [setActiveSeverity]);
 
     const statementData = useMemo(() => {
-        const sensitivityModule = modules.find(mod => mod.code === 'sens');
         return activeSurvey?.results?.filter(res => {
-            return res && res?.module === sensitivityModule?.id;
+            return res && res?.module === module?.id;
         }).map(res => ({
             ...res,
             statement: statements.find(st => st.id === res.statement),
         })) || [];
-    }, [activeSurvey, statements, modules]);
+    }, [activeSurvey, statements, module]);
 
     if(!isVisible) {
         return null;
@@ -80,7 +83,10 @@ const SummaryModal = props => {
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <h2 className={styles.title}>
-                    <Localize>Sensitivity Statements Severity Summary</Localize>
+                    <Localize
+                        text="{{ moduleTitle; }} Statements Severity Summary"
+                        moduleTitle={<span>{module?.title}</span>}
+                    />
                 </h2>
                 <div className={styles.closeContainer} onClick={onClose}>
                     <MdClose size={20} className={styles.closeIcon} />

@@ -1,0 +1,32 @@
+.tab-header {
+    border-bottom: none;
+    margin-bottom: 0;
+    border-radius: 32px;
+    background-color: var(--color-light-alt);
+    padding: 0.25rem;
+    max-width: max-content;
+
+    @media screen and (max-width: 767px) {
+        margin-bottom: 0.5rem;
+    }
+
+    .tab-header-item {
+        background-color: transparent;
+        padding: 0.325rem 0.675rem;
+        display: flex;
+        align-items: center;
+        font-size: var(--font-size-tiny);
+        border-bottom: none;
+        border-radius: 38px;
+        transition: background-color 0.2s ease;
+        color: var(--color-grey);
+        font-weight: 500;
+        min-width: 4.25rem;
+
+        &-active {
+            background-color: var(--color-white);
+            color: var(--color-primary);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+    }
+}

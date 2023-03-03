@@ -1,5 +1,5 @@
 import {useState, useCallback, useMemo} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {BiChevronLeft, BiEditAlt} from 'react-icons/bi';
 import {BsArrowCounterclockwise} from 'react-icons/bs';
@@ -118,7 +118,8 @@ const IssuesBox = ({showIssues, onClose}) => {
 
 const SurveyDashboard = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useInitActiveProject();
     useInitActiveSurvey();
@@ -139,20 +140,27 @@ const SurveyDashboard = () => {
     const [showIssues, setShowIssues] = useState(false);
 
     const handleTabChange = useCallback(payload => {
-        navigate(`#${payload.activeTab}`);
+        if(payload.activeTab === 'overview') {
+            searchParams.delete('module');
+            searchParams.delete('mode');
+        } else {
+            searchParams.set('module', payload.activeTab);
+            searchParams.set('mode', 'compact');
+        }
+        setSearchParams(searchParams);
         deactivateEditMode();
-    }, [deactivateEditMode, navigate]);
+    }, [deactivateEditMode, searchParams, setSearchParams]);
 
     const {activeProject} = useSelector(state => state.project);
     const {activeSurvey} = useSelector(state => state.survey);
 
     const activeTab = useMemo(() => {
-        if(!window.location.hash) {
+        const tabParam = searchParams.get('module');
+        if(!tabParam) {
             return 'overview';
         }
-        return window.location.hash.replace('#', '');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [window.location.hash]);
+        return tabParam;
+    }, [searchParams]);
 
     const toggleRestoreModal = useCallback(() => 
         setShowRestoreModal(!showRestoreModal), 
@@ -181,7 +189,7 @@ const SurveyDashboard = () => {
     const handleClearFilters = useCallback(() => dispatch(setFilters([])), [dispatch]);
 
     const renderHeaderControls = useCallback(tabHeaderProps => {
-        if(activeTab === 'overview') {
+        if(activeTab === 'overview' || searchParams.get('mode') === 'compact') {
             return null;
         }
 
@@ -211,7 +219,7 @@ const SurveyDashboard = () => {
             <div className={cs(styles.headerControls, 'no-print')}>
                 <Button className={styles.controlButton} onClick={activateEditMode}>
                     <BiEditAlt size={20} className={styles.controlIcon} />
-                    <Localize>Edit</Localize>
+                    <Localize>Edit Report</Localize>
                 </Button>
                 <Button 
                     className={cs(styles.controlButton, {
@@ -226,7 +234,7 @@ const SurveyDashboard = () => {
                     ) : (
                         <FiFilter size={18} className={styles.controlIcon} />
                     )}
-                    <Localize>Filters</Localize>
+                    <Localize>Topic</Localize>
                 </Button>
                 <IssuesBox onClose={toggleIssues} showIssues={showIssues} />
                 {filters?.length > 0 && (
@@ -248,6 +256,7 @@ const SurveyDashboard = () => {
         filters,
         handleClearFilters,
         loading,
+        searchParams
     ]);
 
     return (

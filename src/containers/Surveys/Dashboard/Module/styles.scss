@@ -10,6 +10,7 @@
 
     .info-image {
         margin-bottom: 0.75em;
+        max-width: 240px;
     }
 
     .info-text {
@@ -149,6 +150,11 @@
 
         .info-icon {
             margin-bottom: -0.125em;
+        }
+
+        @media print {
+            margin-bottom: 1rem;
+            font-size: var(--font-size-tiny);
         }
     }
 }

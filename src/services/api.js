@@ -264,7 +264,9 @@ class Api {
     async getStatements() {
         dispatch(statementActions.setStatus('loading'));
         try {
-            const data = await this.get('/statement/?limit=-1');
+            const data = await this.get(
+                '/statement/?limit=-1&expand=mitigations&expand=opportunities&omit=questions&omit=options'
+            );
             dispatch(statementActions.setStatements(data?.results || []));
             const topics = await this.get('/statement-topic/?limit=-1');
             dispatch(statementActions.setTopics(topics?.results || []));

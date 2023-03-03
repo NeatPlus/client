@@ -23,7 +23,7 @@
             overflow-x: auto;
             background-color: var(--color-white);
             padding: 4px;
-            margin-bottom: 12px;
+            margin-bottom: 0;
             border-radius: 6px;
             border: none;
 
@@ -40,6 +40,7 @@
                 cursor: pointer;
                 flex: 1;
                 user-select: none;
+                min-width: fit-content;
 
                 &:hover {
                     filter: brightness(115%);
@@ -49,6 +50,12 @@
                     background-color: var(--color-primary);
                     color: var(--color-white);
                     font-weight: 500;
+
+                    @media print {
+                        color: var(--color-dark);
+                        text-transform: uppercase;
+                        font-weight: 700;
+                    }
                 }
             }
 
@@ -56,6 +63,12 @@
                 flex: unset;
                 width: 100%;
                 max-width: calc(100vw - 75px);
+                margin-bottom: 12px;
+            }
+
+            @media print {
+                box-shadow: unset;
+                margin-bottom: 0.25rem;
             }
         }
     }
@@ -68,4 +81,8 @@
 .tab-content {
     margin: 16px 0;
     flex: 1;
+
+    @media print {
+        margin: 8px 0;
+    }
 }

@@ -1,9 +1,11 @@
 import {useCallback, useEffect, useState, useMemo} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {BsPlus} from 'react-icons/bs';
 import {FiAlertCircle} from 'react-icons/fi';
 
+import CompactReport from 'components/SurveyModuleReport/CompactReport';
 import TakeSurveyModal from 'components/TakeSurveyModal';
 import {NeatLoader} from 'components/Loader';
 import Button from 'components/Button';
@@ -16,7 +18,6 @@ import {_} from 'services/i18n';
 import cs from '@ra/cs';
 import useFilterItems from 'hooks/useFilterItems';
 import useSurveyModals from 'hooks/useSurveyModals';
-import {selectStatements} from 'store/selectors/statement';
 import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
 import {THRESHOLDS} from 'utils/severity';
 
@@ -24,6 +25,7 @@ import * as questionActions from 'store/actions/question';
 
 import fillImage from 'assets/images/fill-questionnaire.svg';
 import devImage from 'assets/images/under-development.svg';
+import noConcernsImage from 'assets/images/no-concerns.svg';
 import topicIconPlaceholder from 'assets/icons/topic-icon-placeholder.svg';
 
 import StatementsContent from './Statements';
@@ -54,10 +56,14 @@ const FillQuestionnaire = props => {
 
     return (
         <div className={styles.container}>
-            <img className={styles.infoImage} src={fillImage} alt={_('Fill Questionnaire')} />
+            <img
+                className={styles.infoImage}
+                src={hasResults ? noConcernsImage : fillImage}
+                alt={hasResults ? _('No Concerns') : _('Fill Questionnaire')}
+            />
             <p className={styles.infoText}>
                 {hasResults ? (
-                    <Localize>The questionnaire filled for this module did not result in any severity concerns.</Localize>
+                    <Localize>There are currently no environmental issues of concern for this module.</Localize>
                 ) : (
                     <Localize>Please fill up the questionnaire to view this analysis.</Localize>
                 )}
@@ -71,7 +77,13 @@ const FillQuestionnaire = props => {
                 <Localize>{hasResults ? _('View Questionnaire') : _('Take Survey')}</Localize>
             </Button>
             {hasResults ? (
-                <TakeSurveyModal isVisible={showQuestionnaire} editable={false} onClose={handleCloseQuestionnaire} code={moduleCode} isNewEdit={activeProject?.isAdminOrOwner} />
+                <TakeSurveyModal
+                    isVisible={showQuestionnaire}
+                    editable={false}
+                    onClose={handleCloseQuestionnaire}
+                    code={moduleCode}
+                    isNewEdit={activeProject?.isAdminOrOwner}
+                />
             ) : (
                 <SurveyModals {...surveyModalsConfig} />
             )}
@@ -94,9 +106,10 @@ const Module = props => {
     const {code, publicMode} = props;
 
     const [expanded, setExpanded] = useState(false);
+
+    const [searchParams, setSearchParams] = useSearchParams();
     
-    const statements = useSelector(selectStatements);
-    const {topics} = useSelector(state => state.statement);
+    const {topics, statements} = useSelector(state => state.statement);
     const {isEditMode} = useSelector(state => state.dashboard);
     const {activeSurvey} = useSelector(state => state.survey);
     const {modules} = useSelector(state => state.context);
@@ -132,7 +145,12 @@ const Module = props => {
                             width={20} 
                             title={title}
                         >
-                            <SVG className={styles.tabIcon} width={20}  src={topicIconPlaceholder} title={title} />
+                            <SVG
+                                className={styles.tabIcon}
+                                width={20} 
+                                src={topicIconPlaceholder}
+                                title={title}
+                            />
                         </SVG>
                         <span className={styles.tabLabel}>{title}</span>
                     </div>
@@ -161,21 +179,45 @@ const Module = props => {
             ...res,
             statement: filteredStatements.find(st => st.id === res.statement),
         })).sort((a, b) => b.score - a.score)
-            .filter(el => el.statement) || [];
+            .filter(el => el.statement && el.score >= THRESHOLDS.low) || [];
     }, [moduleResults, filteredStatements]);
 
     const doModuleResultsExist = useMemo(() => {
         return Boolean(moduleResults.length);
     }, [moduleResults]);
 
-    const renderTab = useCallback((topic, idx) => {
-        const statementData = getStatementData(topic);
-        const filteredStatementData = statementData.filter(stData => stData.score >= THRESHOLDS.low);
-
-        if(!filteredStatementData.length) {
-            return null;
+    const isCompact = useMemo(() => {
+        const modeParam = searchParams.get('mode');
+        if(!modeParam || !['compact', 'full'].includes(modeParam)) {
+            return true;
         }
+        return modeParam === 'compact';
+    }, [searchParams]);
 
+    const handleChangeCompactTab = useCallback(({activeTab}) => {
+        searchParams.set('mode', activeTab);
+        setSearchParams(searchParams);
+    }, [setSearchParams, searchParams]);
+
+    const topicsWithStatementsData = useMemo(() => {
+        const sortedStatementResults = moduleResults.sort((a, b) => b.score - a.score);
+        if(isCompact) {
+            return sortedStatementResults.map(res => {
+                return {
+                    ...res,
+                    statement: statements.find(st => st.id === res.statement),
+                };
+            }).filter(res => res.statement && res.score >= THRESHOLDS.low).slice(0, 10);
+        }
+        return filteredTopics.map(ft => {
+            return {
+                ...ft,
+                statementData: getStatementData(ft),
+            };
+        }).filter(ft => Boolean(ft.statementData.length));
+    }, [filteredTopics, moduleResults, isCompact, statements, getStatementData]);
+
+    const renderTab = useCallback((topic, idx) => {
         return (
             <Tab
                 key={topic.code}
@@ -186,15 +228,24 @@ const Module = props => {
                 <StatementsContent 
                     toggleExpand={toggleExpand}
                     expanded={expanded}
-                    statementData={filteredStatementData}
+                    statementData={topic.statementData}
                     topic={topic}
                     index={idx}
                     moduleCode={code}
                     publicMode={publicMode}
+                    isCompact={isCompact}
+                    onChangeCompactTab={handleChangeCompactTab}
                 />
             </Tab>
         );
-    }, [getStatementData, toggleExpand, expanded, code, publicMode]);
+    }, [
+        toggleExpand,
+        expanded,
+        code,
+        publicMode,
+        isCompact,
+        handleChangeCompactTab,
+    ]);
 
     if(!topics?.length) {
         return <NeatLoader />;
@@ -205,25 +256,35 @@ const Module = props => {
     if(!doModuleResultsExist) {
         return <FillQuestionnaire activeSurvey={activeSurvey} moduleCode={code} />;
     }
-    if(!moduleResults.some(res => res.score >= THRESHOLDS.low)) {
+    if(!isCompact && !topicsWithStatementsData.some(dt => dt.statementData.length)) {
         return <FillQuestionnaire activeSurvey={activeSurvey} moduleCode={code} hasResults />;
     }
 
     return (
         <div className={styles.tabsContainer}>
-            <Tabs
-                className={styles.tabs}
-                renderHeader={renderTabsHeader}
-                headerClassName={cs(styles.tabsHeader, 'no-print')}
-                contentContainerClassName={styles.contentContainer}
-                defaultActiveTab={filteredTopics?.[0]?.code}
-                mode="scroll"
-            >
-                {filteredTopics.map(renderTab)}
-            </Tabs>
+            {isCompact ? (
+                <CompactReport
+                    statements={topicsWithStatementsData}
+                    moduleCode={code}
+                    isCompact={isCompact}
+                    onChangeCompactTab={handleChangeCompactTab}
+                    publicMode={publicMode}
+                />
+            ) : (
+                <Tabs
+                    className={styles.tabs}
+                    renderHeader={renderTabsHeader}
+                    headerClassName={cs(styles.tabsHeader, 'no-print')}
+                    contentContainerClassName={styles.contentContainer}
+                    defaultActiveTab={filteredTopics?.[0]?.code}
+                    mode="scroll"
+                >
+                    {topicsWithStatementsData.map(renderTab)}
+                </Tabs>
+            )}
             <div className={styles.disclaimer}>
                 <Localize
-                    text="* The concern levels of statements with {{ alertIcon; }} might vary by context."
+                    text="*The concern levels of statements with {{ alertIcon; }} might vary by context."
                     alertIcon={<FiAlertCircle className={styles.infoIcon} />}
                 />
             </div>

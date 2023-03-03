@@ -117,20 +117,25 @@ const UserNav = ({searchQuery, onSearchQueryChange}) => {
 
     return (
         <nav className={styles.container}>
-            <Link to='/'>
-                <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
-            </Link>
-            {isSurveyPath ? (
-                <h1 className={styles.title}>
-                    {activeSurvey?.title}
-                </h1>
-            ) : isProjectPath ? (
-                <h1 className={styles.title} title={activeProject?.title || ''}>
-                    {activeProjectTitle}
-                </h1>
-            ) : projectTableMatch ? (
-                <ProjectSearch query={searchQuery} onChange={onSearchQueryChange} />
-            ) : null}
+            <div className={styles.leftContent}>
+                <Link to='/'>
+                    <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
+                </Link>
+            </div>
+            <div className={styles.centerContent}>
+                {isSurveyPath ? (
+                    <h1 className={styles.title}>
+                        {activeSurvey?.title}
+                    </h1>
+                ) : isProjectPath ? (
+                    <h1 className={styles.title} title={activeProject?.title || ''}>
+                        {activeProjectTitle}
+                    </h1>
+                ) : projectTableMatch ? (
+                    <ProjectSearch query={searchQuery} onChange={onSearchQueryChange} />
+                ) : null}
+            </div>
+            <div className={styles.rightSpacer} />
             <div className={cs(styles.rightContent, 'no-print')}>
                 {isSurveyPath && (
                     <Dropdown 

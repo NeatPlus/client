@@ -1,0 +1,36 @@
+.options-label {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-light-alt);
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.dropdown-options {
+    box-shadow: 0 5px 32px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    background-color: var(--color-white);
+    padding: 0.75em 0;
+    min-width: 150px;
+
+    .option-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75em;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ecf2f7;
+        }
+
+        .option-icon {
+            color: var(--color-grey-dark-alt);
+            margin-right: 0.625em;
+        }
+
+        .option-text {
+            color: var(--color-dark-alt);
+            font-size: var(--font-size-small);
+        }
+    }
+}
