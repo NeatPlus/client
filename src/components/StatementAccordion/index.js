@@ -55,8 +55,8 @@ const StatementAccordion = ({item, isExpanded, module}) => {
         <li className={styles.listItem}>{item.title}</li>,
     []);
 
-    const mitigations = useMemo(() => item.statement.mitigations, [item]);
-    const opportunities = useMemo(() => item.statement.opportunities, [item]);
+    const mitigations = useMemo(() => item.statement?.mitigations || [], [item]);
+    const opportunities = useMemo(() => item.statement?.opportunities || [], [item]);
 
     if(!item.severity) {
         return null;
@@ -69,7 +69,7 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                     module={module}
                     type="statement" 
                     accessor="id" 
-                    identifier={item.statement.id}
+                    identifier={item.statement?.id}
                 >
                     <div
                         className={cs(
@@ -98,8 +98,12 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                 </div>
                             </div>
                         )}
-                        <button type="button" className={styles.accordion} onClick={toggleAccordion}>
-                            {item.statement.isExperimental && (
+                        <button
+                            type="button"
+                            className={styles.accordion}
+                            onClick={toggleAccordion}
+                        >
+                            {item.statement?.isExperimental && (
                                 <InfoTooltip
                                     icon={FiAlertCircle}
                                     iconClassName={styles.experimentalIcon}
@@ -110,13 +114,13 @@ const StatementAccordion = ({item, isExpanded, module}) => {
                                 styles.accordionTitle, 
                                 open && styles.activeTitle
                             )}>
-                                {item.statement.title}
+                                {item.statement?.title}
                             </div>
                             <div className={styles.rightSection}>
                                 {!open && (
                                     <span className={styles.span}>
                                         <Localize>
-                                        Mitigations, Opportunities and more
+                                                Mitigations, Opportunities and more
                                         </Localize>
                                     </span>
                                 )}

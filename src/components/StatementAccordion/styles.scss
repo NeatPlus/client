@@ -43,20 +43,37 @@
                 text-transform: uppercase;
                 margin-bottom: 0.5em;
 
+                @media print {
+                    font-size: 0.675rem;
+                    padding: 0;
+                }
+
                 &__high {
                     color: var(--color-severity-high);
                     background-color: var(--color-severity-high-bg);
+
+                    @media print {
+                        background-color: transparent;
+                    }
                 }
 
                 &__medium {
                     color: var(--color-severity-medium);
                     background-color: var(--color-severity-medium-bg);
+
+                    @media print {
+                        background-color: transparent;
+                    }
                 }
 
                 &__low {
                     color: var(--color-severity-low);
                     background-color: var(--color-severity-low-bg);
                     filter: contrast(50%);
+
+                    @media print {
+                        background-color: transparent;
+                    }
                 }
             }
 
@@ -91,6 +108,11 @@
             text-align: left;
             transition: background-color 0.3s ease;
 
+            &-disabled {
+                cursor: default;
+                user-select: text;
+            }
+
             .experimental-icon {
                 margin-right: 0.5em;
                 width: 1rem;
@@ -102,6 +124,10 @@
                 font-size: var(--font-size-small);
                 font-weight: 500;
                 color: var(--color-text-dark);
+
+                @media print {
+                    font-size: var(--font-size-tiny);
+                }
 
                 @media screen and (max-width: 767px) {
                     padding-right: 0;
@@ -159,12 +185,20 @@
                 transition: 0.3s;
                 color: var(--color-text-dark-alt);
 
+                @media print {
+                    font-size: var(--font-size-tiny);
+                }
+
                 .list-title {
                     margin: 1.25em 0 0.25em;
                     font-size: 0.9em;
                     font-weight: 600;
                     color: var(--color-primary);
                     text-transform: uppercase;
+
+                    @media print {
+                        font-size: var(--font-size-tiny);
+                    }
                 }
 
                 .list-item {
@@ -173,6 +207,10 @@
                     font-size: var(--font-size-small);
                     line-height: 1.67;
                     color: #262626;
+
+                    @media print {
+                        font-size: var(--font-size-tiny);
+                    }
                 }
             }
         }

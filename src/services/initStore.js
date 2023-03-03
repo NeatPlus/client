@@ -36,8 +36,6 @@ export default async function initStore() {
     Api.getQuestionGroups();
     Api.getQuestions('sens');
     Api.getStatements();
-    Api.getMitigations();
-    Api.getOpportunities();
 
     Api.getStatementTags();
     Api.getSurveyWeightages();

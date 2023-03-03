@@ -1,4 +1,5 @@
 import {useCallback, useMemo} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import Tabs, {Tab} from 'components/Tabs';
@@ -15,15 +16,17 @@ import styles from './styles.scss';
 const SurveyTabs = props => {
     const {activeTab, onTabChange, renderHeaderControls, publicMode} = props;
 
+    const [searchParams] = useSearchParams();
+
     const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
 
     const renderSpacer = useCallback(() => {
-        if (activeTab==='overview' || publicMode) {
+        if (activeTab==='overview' || publicMode || searchParams.get('mode') === 'compact') {
             return null;
         }
         return <div className={cs(styles.spacer, 'no-print')} />;
-    }, [activeTab, publicMode]);
+    }, [activeTab, publicMode, searchParams]);
 
     const availableModules = useMemo(() => modules.filter(mod => {
         return AVAILABLE_SURVEY_MODULES.includes(mod.code);

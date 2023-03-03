@@ -7,22 +7,42 @@
     gap: 1rem;
     border-bottom: 1px solid var(--color-light);
 
-    .logo {
-        height: 27px;
+    .left-content {
+        flex: 1;
+
+        .logo {
+            height: 27px;
+        }
     }
 
-    .title {
-        flex: 1;
-        font-family: var(--font-family-header);
-        font-size: var(--font-size-medium-sm);
-        font-weight: 600;
-        color: var(--color-tertiary);
-        text-align: center;
+    .center-content {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+
+        .title {
+            font-family: var(--font-family-header);
+            font-size: var(--font-size-medium-sm);
+            font-weight: 600;
+            color: var(--color-tertiary);
+            text-align: center;
+        }
+    }
+
+    .right-spacer {
+        display: none;
+
+        @media print {
+            display: block;
+            flex: 1;
+        }
     }
 
     .right-content {
+        flex: 1;
         display: flex;
         flex-direction: row;
+        justify-content: flex-end;
         align-items: center;
 
         @media screen and (max-width: 767px) {

@@ -120,6 +120,13 @@
                         border-left: 3px solid var(--color-severity-low);
                     }
                 }
+
+                .list-info {
+                    margin-top: 1.5rem;
+                    text-align: center;
+                    color: var(--color-dark-alt);
+                    font-size: var(--font-size-base);
+                }
             }
         }
     }

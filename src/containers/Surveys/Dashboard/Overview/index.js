@@ -1,5 +1,6 @@
 import {useCallback, useState, useMemo} from 'react';
 import {useSelector} from 'react-redux';
+import SVG from 'react-inlinesvg';
 import {IoIosArrowRoundForward} from 'react-icons/io';
 
 import Map from 'components/Map';
@@ -14,10 +15,12 @@ import {_} from 'services/i18n';
 
 import cs from '@ra/cs';
 import {getSeverityCounts} from 'utils/severity';
+import iconPlaceholder from 'assets/icons/topic-icon-placeholder.svg';
 
 import styles from './styles.scss';
 
 const keyExtractor = item => item;
+const idExtractor = item => item.id;
 const severityExtractor = item => item.severity;
 
 const getLocaleDate = (dateStr) => {
@@ -37,10 +40,10 @@ const InfoItem = ({title, value}) => {
     );
 };
 
-const ConcernItem = ({item, onClick}) => {
+const ConcernItem = ({item, module, onClick}) => {
     const handleClick = useCallback(() => {
-        onClick && onClick(item.severity);
-    }, [item, onClick]);
+        onClick && onClick(item.severity, module);
+    }, [item, onClick, module]);
 
     return (
         <div 
@@ -52,8 +55,10 @@ const ConcernItem = ({item, onClick}) => {
             onClick={handleClick}
         >
             <p className={styles.concernNumber}>{item.count}</p>
-            <p className={styles.concernLabel}>{item.severity} <Localize>Concerns</Localize></p>
-            <IoIosArrowRoundForward size={24} className={styles.concernIcon} />
+            <div className={styles.concernDescription}>
+                <p className={styles.concernLabel}>{item.severity} <Localize>Concerns</Localize></p>
+                <IoIosArrowRoundForward size={20} className={styles.concernIcon} />
+            </div>
         </div>
     );
 };
@@ -71,20 +76,71 @@ const ImageItem = ({item, index, onClick}) => {
     );
 };
 
+const ActivityModuleCard = ({item, activeSurvey, renderConcernItem}) => {
+    const severityCountData = useMemo(() => {
+        return getSeverityCounts(activeSurvey?.results?.filter(res => {
+            return res && res.module === item?.id;
+        }) || []);
+    }, [activeSurvey, item]);
+
+    const renderActivityConcernItem = useCallback(listProps => renderConcernItem({...listProps, module: item}), [item, renderConcernItem]);
+
+    return (
+        <div className={styles.moduleCard}>
+            <div className={styles.moduleCardHeader}>
+                <SVG
+                    className={styles.moduleCardHeaderIcon}
+                    src={item.icon || iconPlaceholder}
+                    width={18}
+                    title={item.title}
+                >
+                    <SVG
+                        className={styles.moduleCardHeaderIcon}
+                        width={18}
+                        src={iconPlaceholder}
+                        title={item.title}
+                    />
+                </SVG>
+                <h5 className={styles.moduleCardTitle}>
+                    {item.title}
+                </h5>
+            </div>
+            <div className={styles.moduleDescription}>
+                {item.description}
+            </div>
+            {activeSurvey?.results?.some(res => res && res.module === item.id) ? (
+                <List
+                    className={styles.moduleConcerns}
+                    data={severityCountData}
+                    keyExtractor={severityExtractor}
+                    renderItem={renderActivityConcernItem}
+                />
+            ) : (
+                <div className={styles.noConcerns}>
+                    <Localize>No concerns</Localize>
+                </div>
+            )}
+        </div>
+    );
+};
+
 const Overview = () => {
     const {modules} = useSelector(state => state.context);
     const {activeSurvey} = useSelector(state => state.survey);
 
     const [showSummaryModal, setShowSummaryModal] = useState(false);
     const [activeSeverity, setActiveSeverity] = useState('high');
+    const [activeModule, setActiveModule] = useState(null);
 
-    const handleShowSummary = useCallback(severity => {
+    const handleShowSummary = useCallback((severity, module) => {
+        setActiveModule(module);
         setActiveSeverity(severity);
         setShowSummaryModal(true);
     }, []);
     const handleCloseSummaryModal = useCallback(() => {
+        setActiveModule(modules.find(mod => mod.code === 'sens'));
         setShowSummaryModal(false);
-    }, []);
+    }, [modules]);
 
     const [initialImageIndex, setInitialImageIndex] = useState(0);
     const [showImageViewer, setShowImageViewer] = useState(false);
@@ -139,6 +195,16 @@ const Overview = () => {
         }
         return null;
     }, [moreMediaCount, handleImageClick]);
+
+    const activityModules = useMemo(() => modules?.filter(mod => mod.code !== 'sens') || [], [modules]);
+
+    const renderActivityModuleCard = useCallback((listProps) => (
+        <ActivityModuleCard {...listProps} renderConcernItem={renderConcernItem} activeSurvey={activeSurvey} />
+    ), [renderConcernItem, activeSurvey]);
+
+    const renderSensitivityConcernItem = useCallback(listProps => {
+        return renderConcernItem({...listProps, module: modules.find(mod => mod.code === 'sens')});
+    }, [modules, renderConcernItem]);
 
     return (
         <div className={styles.container}>
@@ -207,11 +273,11 @@ const Overview = () => {
                     <h4 className={styles.statementTitle}>
                         <Localize>Sensitivity Statements Severity Summary</Localize>
                     </h4>
-                    <List 
+                    <List
                         className={styles.concerns}
                         data={severityCounts}
                         keyExtractor={severityExtractor}
-                        renderItem={renderConcernItem}
+                        renderItem={renderSensitivityConcernItem}
                     />
                     <h4 className={styles.statementTitle}><Localize>Location of Assessment</Localize></h4>
                     <div className={styles.map}>
@@ -222,7 +288,30 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
+            <div className={styles.activitiesSection}>
+                <h4 className={styles.activitiesSectionTitle}>
+                    <Localize>Activity Statements Severity Summary</Localize>
+                </h4>
+                <List
+                    className={styles.moduleCards}
+                    loading={!activeSurvey?.results?.length}
+                    keyExtractor={idExtractor}
+                    data={activityModules}
+                    renderItem={renderActivityModuleCard}
+                    LoadingComponent={
+                        <span className={styles.listInfo}>
+                            <Localize>Loading activity module results...</Localize>
+                        </span>
+                    }
+                    EmptyComponent={
+                        <span className={styles.listInfo}>
+                            <Localize>Could not load activity module summaries</Localize>
+                        </span>
+                    }
+                />
+            </div>
             <SummaryModal 
+                module={activeModule}
                 isVisible={showSummaryModal} 
                 onClose={handleCloseSummaryModal}
                 activeSeverity={activeSeverity}
