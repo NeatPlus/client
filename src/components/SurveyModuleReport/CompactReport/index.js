@@ -1,4 +1,5 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {FiAlertCircle} from 'react-icons/fi';
 
 import InfoTooltip from 'components/InfoTooltip';
@@ -6,9 +7,13 @@ import InfoTooltip from 'components/InfoTooltip';
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
 
+import Api from 'services/api';
 import cs from '@ra/cs';
 import {sleep} from '@ra/utils';
 import {_} from 'services/i18n';
+import {COMPACT_SENSITIVITY_MITIGATIONS_THRESHOLD_LTEQ} from 'utils/config';
+
+import usePromise from '@ra/hooks/usePromise';
 
 import ExportPDFButton from '../HeaderControlButtons/ExportPDFButton';
 import ShowQuestionnairesButton from '../HeaderControlButtons/ShowQuestionnairesButton';
@@ -34,13 +39,13 @@ const SensitivityStatementItem = ({item}) => {
 
     const highestPriorityMitigations = useMemo(() => {
         return (item.statement?.mitigations || []).filter(mitigation => {
-            return mitigation.rank && mitigation.rank <= 2; 
+            return mitigation.rank && mitigation.rank <= COMPACT_SENSITIVITY_MITIGATIONS_THRESHOLD_LTEQ; 
         });
     }, [item]);
 
     const highestPriorityOpportunities = useMemo(() => {
         return (item.statement?.opportunities || []).filter(opportunity => {
-            return opportunity.rank && opportunity.rank <= 2;
+            return opportunity.rank && opportunity.rank <= COMPACT_SENSITIVITY_MITIGATIONS_THRESHOLD_LTEQ;
         });
     }, [item]);
 
@@ -94,6 +99,61 @@ const SensitivityStatementItem = ({item}) => {
     );
 };
 
+const MitigationsOpportunitiesCard = ({
+    mitigationsData,
+    opportunitiesData,
+    loading,
+    mitigationsTitle,
+    opportunitiesTitle,
+    mitigationsEmptyComponent,
+    opportunitiesEmptyComponent
+}) => {
+    const renderListData = useCallback(({item}) =>
+        <li className={styles.cardListItem}>{item}</li>,
+    []);
+
+    return (
+        <div className={styles.mitigationsCard}>
+            <div className={styles.cardBodySection}>
+                <h5 className={styles.cardBodySectionTitle}>
+                    {mitigationsTitle}
+                </h5>
+                <List
+                    loading={loading}
+                    data={mitigationsData || []}
+                    component="ul"
+                    keyExtractor={idExtractor}
+                    renderItem={renderListData}
+                    EmptyComponent={mitigationsEmptyComponent}
+                    LoadingComponent={
+                        <span className={styles.listInfo}>
+                            <Localize>Loading...</Localize>
+                        </span>
+                    }
+                />
+            </div>
+            <div className={styles.cardBodySection}>
+                <h5 className={styles.cardBodySectionTitle}>
+                    {opportunitiesTitle}
+                </h5>
+                <List
+                    loading={loading}
+                    data={opportunitiesData || []}
+                    component="ul"
+                    keyExtractor={idExtractor}
+                    renderItem={renderListData}
+                    EmptyComponent={opportunitiesEmptyComponent}
+                    LoadingComponent={
+                        <span className={styles.listInfo}>
+                            <Localize>Loading...</Localize>
+                        </span>
+                    }
+                />
+            </div>
+        </div>
+    );
+};
+
 const CompactReport = ({
     statements,
     moduleCode,
@@ -101,14 +161,25 @@ const CompactReport = ({
     onChangeCompactTab,
     publicMode
 }) => {
+    const {activeSurvey} = useSelector(state => state.survey);
+    const {modules} = useSelector(state => state.context);
+
+    const activeModule = useMemo(() => modules.find(mod => {
+        return mod.code === moduleCode;
+    }), [modules, moduleCode]);
+
+    const [{loading: loadingInsights, result: insights}, getMitigationsOpportunitiesInsight] = usePromise(Api.getMitigationsOpportunitiesInsight);
+
+    useEffect(() => {
+        if(activeSurvey?.id && activeModule?.id && activeModule?.code !== 'sens') {
+            getMitigationsOpportunitiesInsight({survey: activeSurvey.id, module: activeModule.id});
+        }
+    }, [activeSurvey, activeModule, getMitigationsOpportunitiesInsight]);
+
     const handleExportPDF = useCallback(async () => {
         await sleep(200); //Allow all remaining renders to complete
         window.print();
     }, []);
-
-    const renderListData = useCallback(({item}) =>
-        <li className={styles.cardListItem}>{item.title}</li>,
-    []);
 
     return (
         <div className={styles.container}>
@@ -161,42 +232,23 @@ const CompactReport = ({
                                 The following are the highest ranked mitigations addressing the most significant Sensitivities identified in response to your U-NEAT+ assessment questions. Mitigations all relate to actions that can be undertaken by humanitarian responders. Most of these can be enacted in the field, whilst some should be referred to your regional or head office for action. Opportunities are all actions that you can put in place to support or enable development actions undertaken by others. You should view the full report for a longer list of mitigations and opportunities to review in order to select those most relevant to your activities.
                             </Localize>
                         </p>
-                        <div className={styles.mitigationsCard}>
-                            <div className={styles.cardBodySection}>
-                                <h5 className={styles.cardBodySectionTitle}>
-                                    <Localize>Highest priority humanitarian mitigations</Localize>
-                                </h5>
-                                <List
-                                    data={[]} // TODO: Get important mitigations
-                                    component="ul"
-                                    keyExtractor={idExtractor}
-                                    renderItem={renderListData}
-                                    EmptyComponent={
-                                        <span className={styles.listInfo}>
-                                            <Localize>This feature is currently under development. Please check back later!</Localize>
-                                            {/*TODO: After development <Localize>No mitigations data found!</Localize>*/}
-                                        </span>
-                                    }
-                                />
-                            </div>
-                            <div className={styles.cardBodySection}>
-                                <h5 className={styles.cardBodySectionTitle}>
-                                    <Localize>Highest priority potential development opportunities</Localize>
-                                </h5>
-                                <List
-                                    data={[]} // TODO: Get important opportunities
-                                    component="ul"
-                                    keyExtractor={idExtractor}
-                                    renderItem={renderListData}
-                                    EmptyComponent={
-                                        <span className={styles.listInfo}>
-                                            <Localize>This feature is currently under development. Please check back later!</Localize>
-                                            {/*TODO: After development <Localize>No opportunities data found!</Localize>*/}
-                                        </span>
-                                    }
-                                />
-                            </div>
-                        </div>
+                        <MitigationsOpportunitiesCard
+                            loading={loadingInsights}
+                            mitigationsData={insights?.mitigations?.important || []}
+                            opportunitiesData={insights?.opportunities?.important || []}
+                            mitigationsTitle={_('Highest priority humanitarian mitigations')}
+                            opportunitiesTitle={_('Highest priority potential development opportunities')}
+                            mitigationsEmptyComponent={
+                                <span className={styles.listInfo}>
+                                    <Localize>No mitigations data found!</Localize>
+                                </span>
+                            }
+                            opportunitiesEmptyComponent={
+                                <span className={styles.listInfo}>
+                                    <Localize>No opportunities data found!</Localize>
+                                </span>
+                            }
+                        />
                     </div>
                     <div className={styles.mitigationsCardContainer}>
                         <h2 className={styles.mitigationsSectionTitle}>
@@ -207,42 +259,23 @@ const CompactReport = ({
                                 The following mitigations are not the highest priority, but they have been identified multiple times in response to your assessment answers. Please consider whether you can implement some of them in your response.
                             </Localize>
                         </p>
-                        <div className={styles.mitigationsCard}>
-                            <div className={styles.cardBodySection}>
-                                <h5 className={styles.cardBodySectionTitle}>
-                                    <Localize>HUMANITARIAN MITIGATIONS</Localize>
-                                </h5>
-                                <List
-                                    data={[]} // TODO: Get recurring mitigations
-                                    component="ul"
-                                    keyExtractor={idExtractor}
-                                    renderItem={renderListData}
-                                    EmptyComponent={
-                                        <span className={styles.listInfo}>
-                                            <Localize>This feature is currently under development. Please check back later!</Localize>
-                                            {/*TODO: After development <Localize>No mitigations data found!</Localize>*/}
-                                        </span>
-                                    }
-                                />
-                            </div>
-                            <div className={styles.cardBodySection}>
-                                <h5 className={styles.cardBodySectionTitle}>
-                                    <Localize>DEVELOPMENT OPPORTUNITIES</Localize>
-                                </h5>
-                                <List
-                                    data={[]} // TODO: Get recurring opportunities
-                                    component="ul"
-                                    keyExtractor={idExtractor}
-                                    renderItem={renderListData}
-                                    EmptyComponent={
-                                        <span className={styles.listInfo}>
-                                            <Localize>This feature is currently under development. Please check back later!</Localize>
-                                            {/*TODO: After development <Localize>No opportunities data found!</Localize>*/}
-                                        </span>
-                                    }
-                                />
-                            </div>
-                        </div>
+                        <MitigationsOpportunitiesCard
+                            loading={loadingInsights}
+                            mitigationsData={insights?.mitigations?.repeated || []}
+                            opportunitiesData={insights?.opportunities?.repeated || []}
+                            mitigationsTitle={_('HUMANITARIAN MITIGATIONS')}
+                            opportunitiesTitle={_('DEVELOPMENT OPPORTUNITIES')}
+                            mitigationsEmptyComponent={
+                                <span className={styles.listInfo}>
+                                    <Localize>No mitigations data found!</Localize>
+                                </span>
+                            }
+                            opportunitiesEmptyComponent={
+                                <span className={styles.listInfo}>
+                                    <Localize>No opportunities data found!</Localize>
+                                </span>
+                            }
+                        />
                     </div>
                 </div>
             )}

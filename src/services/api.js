@@ -523,6 +523,10 @@ class Api {
     getResourceTags = query => {
         return this.get('/resource-tag/', {query});
     };
+
+    getMitigationsOpportunitiesInsight = query => {
+        return this.get('/mitigation-opportunity-insight/', {query});
+    };
 }
 
 const ApiService = new Api();
