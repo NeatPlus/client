@@ -18,7 +18,11 @@ import {_} from 'services/i18n';
 import cs from '@ra/cs';
 import useFilterItems from 'hooks/useFilterItems';
 import useSurveyModals from 'hooks/useSurveyModals';
-import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
+import {
+    AVAILABLE_SURVEY_MODULES,
+    MAX_NUM_COMPACT_SENSITIVITY_STATEMENTS,
+    MAX_NUM_COMPACT_ACTIVITY_STATEMENTS
+} from 'utils/config';
 import {THRESHOLDS} from 'utils/severity';
 
 import * as questionActions from 'store/actions/question';
@@ -207,7 +211,8 @@ const Module = props => {
                     ...res,
                     statement: statements.find(st => st.id === res.statement),
                 };
-            }).filter(res => res.statement && res.score >= THRESHOLDS.low).slice(0, 10);
+            }).filter(res => res.statement && res.score >= THRESHOLDS.low)
+                .slice(0, code === 'sens' ? MAX_NUM_COMPACT_SENSITIVITY_STATEMENTS : MAX_NUM_COMPACT_ACTIVITY_STATEMENTS);
         }
         return filteredTopics.map(ft => {
             return {
@@ -215,7 +220,7 @@ const Module = props => {
                 statementData: getStatementData(ft),
             };
         }).filter(ft => Boolean(ft.statementData.length));
-    }, [filteredTopics, moduleResults, isCompact, statements, getStatementData]);
+    }, [filteredTopics, moduleResults, isCompact, statements, getStatementData, code]);
 
     const renderTab = useCallback((topic, idx) => {
         return (
