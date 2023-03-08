@@ -1,4 +1,4 @@
-import {useCallback, useState, useMemo} from 'react';
+import React, {useCallback, useState, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {IoIosArrowRoundForward} from 'react-icons/io';
@@ -12,6 +12,7 @@ import {Localize} from '@ra/components/I18n';
 import Image from '@ra/components/Image';
 
 import {_} from 'services/i18n';
+import store from 'store';
 
 import cs from '@ra/cs';
 import {getSeverityCounts} from 'utils/severity';
@@ -63,7 +64,7 @@ const ConcernItem = ({item, module, onClick}) => {
     );
 };
 
-const ImageItem = ({item, index, onClick}) => {
+const ImageItem = React.memo(({item, index, onClick}) => {
     const handleClick = useCallback(() => onClick?.(index), [index, onClick]);
 
     return (
@@ -74,7 +75,7 @@ const ImageItem = ({item, index, onClick}) => {
             onClick={handleClick}
         />
     );
-};
+});
 
 const ActivityModuleCard = ({item, activeSurvey, renderConcernItem}) => {
     const severityCountData = useMemo(() => {
@@ -82,6 +83,10 @@ const ActivityModuleCard = ({item, activeSurvey, renderConcernItem}) => {
             return res && res.module === item?.id;
         }) || []);
     }, [activeSurvey, item]);
+
+    const hasNoConcerns = useMemo(() => {
+        return severityCountData.every(dt => dt.count === 0);
+    }, [severityCountData]);
 
     const renderActivityConcernItem = useCallback(listProps => renderConcernItem({...listProps, module: item}), [item, renderConcernItem]);
 
@@ -108,25 +113,38 @@ const ActivityModuleCard = ({item, activeSurvey, renderConcernItem}) => {
             <div className={styles.moduleDescription}>
                 {item.description}
             </div>
-            {activeSurvey?.results?.some(res => res && res.module === item.id) ? (
+            {hasNoConcerns ? (
+                <div className={styles.noConcerns}>
+                    {activeSurvey?.results?.some(res => res && res.module === item.id) ? (
+                        <Localize>No concerns</Localize>
+                    ) : (
+                        <Localize>Not completed</Localize>
+                    )}
+                </div>
+            ) : (
                 <List
                     className={styles.moduleConcerns}
                     data={severityCountData}
                     keyExtractor={severityExtractor}
                     renderItem={renderActivityConcernItem}
                 />
-            ) : (
-                <div className={styles.noConcerns}>
-                    <Localize>No concerns</Localize>
-                </div>
             )}
         </div>
     );
 };
 
+const getSurveyAnswerFromCode = (code, formatted) => {
+    const {survey: {activeSurvey}} = store.getState();
+    const answer = activeSurvey?.answers?.find(ans => ans.question.code === code)?.[formatted ? 'formattedAnswer' : 'answer'];
+    if(answer) {
+        return answer;
+    }
+    return '';
+};
+
 const Overview = () => {
     const {modules} = useSelector(state => state.context);
-    const {activeSurvey} = useSelector(state => state.survey);
+    const {activeSurvey={}} = useSelector(state => state.survey);
 
     const [showSummaryModal, setShowSummaryModal] = useState(false);
     const [activeSeverity, setActiveSeverity] = useState('high');
@@ -153,31 +171,12 @@ const Overview = () => {
     }, []);
     const handleCloseImageViewer = useCallback(() => setShowImageViewer(false), []);
 
-    const getSurveyAnswerFromCode = useCallback((code, formatted) => {
-        const answer = activeSurvey?.answers?.find(ans => ans.question.code === code)?.[formatted ? 'formattedAnswer' : 'answer'];
-        if(answer) {
-            return answer;
-        }
-        return '';
-    }, [activeSurvey]);
-
     const severityCounts = useMemo(() => {
         const sensitivityModule = modules.find(mod => mod.code === 'sens');
         return getSeverityCounts(activeSurvey?.results?.filter(res => {
             return res && res.module === sensitivityModule?.id;
         }) || []);
     }, [activeSurvey, modules]);
-
-    const [mediaData, moreMediaCount, allMedia] = useMemo(() => {
-        let images = getSurveyAnswerFromCode('s3q2', true);
-        if(images && typeof images === 'string') {
-            images = [images];
-        }
-        if(images?.length > 5) {
-            return [images.slice(0, 5), images.length - 5, images];
-        }
-        return [images, 0];
-    }, [getSurveyAnswerFromCode]);
 
     const renderConcernItem = useCallback(listProps => (
         <ConcernItem {...listProps} onClick={handleShowSummary} />
@@ -188,6 +187,18 @@ const Overview = () => {
             <ImageItem {...listProps} onClick={handleImageClick} />
         );
     }, [handleImageClick]);
+
+    const [mediaData, moreMediaCount, allMedia] = useMemo(() => {
+        let images = getSurveyAnswerFromCode('s3q2', true);
+        if(images && typeof images === 'string') {
+            images = [images];
+        }
+        if(images?.length > 5) {
+            return [images.slice(0, 5), images.length - 5, images];
+        }
+        return [images, 0];
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeSurvey?.id]);
 
     const MediaCount = useMemo(() => {
         if(moreMediaCount > 0) {
