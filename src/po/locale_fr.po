@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Wed Mar 08 2023 22:27:17 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Thu Mar 09 2023 10:43:02 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -183,6 +183,8 @@ msgstr ""
 #: src/containers/Administration/StatementWeightage/FeedbackList/index.js:56
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:34
 #: src/containers/Projects/Dashboard/index.js:57
+#: src/containers/Surveys/Dashboard/Module/index.js:228
+#: src/containers/Surveys/Dashboard/Module/index.js:229
 #: src/containers/Surveys/Dashboard/Overview/index.js:53
 #: src/utils/severity.js:11
 #: src/utils/severity.js:19
@@ -218,6 +220,8 @@ msgstr ""
 #: src/containers/Administration/StatementWeightage/FeedbackList/index.js:57
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:35
 #: src/containers/Projects/Dashboard/index.js:60
+#: src/containers/Surveys/Dashboard/Module/index.js:233
+#: src/containers/Surveys/Dashboard/Module/index.js:234
 #: src/containers/Surveys/Dashboard/Overview/index.js:54
 #: src/utils/severity.js:12
 #: src/utils/severity.js:20
@@ -237,6 +241,8 @@ msgstr ""
 #: src/containers/Administration/StatementWeightage/FeedbackList/index.js:58
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:36
 #: src/containers/Projects/Dashboard/index.js:63
+#: src/containers/Surveys/Dashboard/Module/index.js:238
+#: src/containers/Surveys/Dashboard/Module/index.js:239
 #: src/containers/Surveys/Dashboard/Overview/index.js:55
 #: src/utils/severity.js:13
 #: src/utils/severity.js:21
@@ -644,7 +650,7 @@ msgstr ""
 
 #: src/components/NoSurvey/index.js:44
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:182
-#: src/containers/Surveys/Dashboard/Module/index.js:81
+#: src/containers/Surveys/Dashboard/Module/index.js:85
 msgid "Take Survey"
 msgstr ""
 
@@ -2216,35 +2222,35 @@ msgstr ""
 msgid "Back to Surveys"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:66
+#: src/containers/Surveys/Dashboard/Module/index.js:70
 msgid "No Concerns"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:66
+#: src/containers/Surveys/Dashboard/Module/index.js:70
 msgid "Fill Questionnaire"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:70
+#: src/containers/Surveys/Dashboard/Module/index.js:74
 msgid "There are currently no environmental issues of concern for this module."
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:72
+#: src/containers/Surveys/Dashboard/Module/index.js:76
 msgid "Please complete the questionnaire to view this analysis."
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:81
+#: src/containers/Surveys/Dashboard/Module/index.js:85
 msgid "View Questionnaire"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:101
+#: src/containers/Surveys/Dashboard/Module/index.js:105
 msgid "Under Development"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:103
+#: src/containers/Surveys/Dashboard/Module/index.js:107
 msgid "This module is under development. Please check back later."
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:291
+#: src/containers/Surveys/Dashboard/Module/index.js:310
 msgid ""
 "*The concern levels of statements with {{ alertIcon; }} might vary by "
 "context."
