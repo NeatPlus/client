@@ -11,7 +11,7 @@ import Api from 'services/api';
 import cs from '@ra/cs';
 import {sleep} from '@ra/utils';
 import {_} from 'services/i18n';
-import {COMPACT_SENSITIVITY_MITIGATIONS_THRESHOLD_LTEQ} from 'utils/config';
+import {COMPACT_SENSITIVITY_MITIGATIONS_RANK_THRESHOLD_LTEQ} from 'utils/config';
 
 import usePromise from '@ra/hooks/usePromise';
 
@@ -39,13 +39,13 @@ const SensitivityStatementItem = ({item}) => {
 
     const highestPriorityMitigations = useMemo(() => {
         return (item.statement?.mitigations || []).filter(mitigation => {
-            return mitigation.rank && mitigation.rank <= COMPACT_SENSITIVITY_MITIGATIONS_THRESHOLD_LTEQ; 
+            return mitigation.rank && mitigation.rank <= COMPACT_SENSITIVITY_MITIGATIONS_RANK_THRESHOLD_LTEQ; 
         });
     }, [item]);
 
     const highestPriorityOpportunities = useMemo(() => {
         return (item.statement?.opportunities || []).filter(opportunity => {
-            return opportunity.rank && opportunity.rank <= COMPACT_SENSITIVITY_MITIGATIONS_THRESHOLD_LTEQ;
+            return opportunity.rank && opportunity.rank <= COMPACT_SENSITIVITY_MITIGATIONS_RANK_THRESHOLD_LTEQ;
         });
     }, [item]);
 
