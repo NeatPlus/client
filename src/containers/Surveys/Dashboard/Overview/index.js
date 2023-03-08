@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import SVG from 'react-inlinesvg';
 import {IoIosArrowRoundForward} from 'react-icons/io';
 
+import {NeatLoader} from 'components/Loader';
 import Map from 'components/Map';
 import SummaryModal from 'components/SummaryModal';
 import ImageViewerModal from 'components/ImageViewerModal';
@@ -142,24 +143,7 @@ const getSurveyAnswerFromCode = (code, formatted) => {
     return '';
 };
 
-const Overview = () => {
-    const {modules} = useSelector(state => state.context);
-    const {activeSurvey={}} = useSelector(state => state.survey);
-
-    const [showSummaryModal, setShowSummaryModal] = useState(false);
-    const [activeSeverity, setActiveSeverity] = useState('high');
-    const [activeModule, setActiveModule] = useState(null);
-
-    const handleShowSummary = useCallback((severity, module) => {
-        setActiveModule(module);
-        setActiveSeverity(severity);
-        setShowSummaryModal(true);
-    }, []);
-    const handleCloseSummaryModal = useCallback(() => {
-        setActiveModule(modules.find(mod => mod.code === 'sens'));
-        setShowSummaryModal(false);
-    }, [modules]);
-
+const MediaItem = ({activeSurvey}) => {
     const [initialImageIndex, setInitialImageIndex] = useState(0);
     const [showImageViewer, setShowImageViewer] = useState(false);
 
@@ -170,17 +154,6 @@ const Overview = () => {
         setShowImageViewer(true);
     }, []);
     const handleCloseImageViewer = useCallback(() => setShowImageViewer(false), []);
-
-    const severityCounts = useMemo(() => {
-        const sensitivityModule = modules.find(mod => mod.code === 'sens');
-        return getSeverityCounts(activeSurvey?.results?.filter(res => {
-            return res && res.module === sensitivityModule?.id;
-        }) || []);
-    }, [activeSurvey, modules]);
-
-    const renderConcernItem = useCallback(listProps => (
-        <ConcernItem {...listProps} onClick={handleShowSummary} />
-    ), [handleShowSummary]);
 
     const renderMedia = useCallback(listProps => {
         return (
@@ -207,6 +180,63 @@ const Overview = () => {
         return null;
     }, [moreMediaCount, handleImageClick]);
 
+    if(!mediaData?.length) {
+        return null;
+    }
+
+    return (
+        <>
+            <p className={cs(styles.infoTitle, styles.infoTitleMedia)}>
+                <Localize>Media</Localize>
+            </p>
+            <List
+                className={styles.mediaList}
+                data={mediaData}
+                keyExtractor={keyExtractor}
+                renderItem={renderMedia}
+                FooterComponent={MediaCount}
+                contentContainerClassName={styles.mediaListContainer}
+            />
+            <ImageViewerModal
+                images={allMedia ?? mediaData}
+                initialIndex={initialImageIndex}
+                isVisible={showImageViewer}
+                onClose={handleCloseImageViewer}
+            />
+        </>
+
+    );
+};
+
+const Overview = () => {
+    const {modules} = useSelector(state => state.context);
+    const {activeSurvey={}} = useSelector(state => state.survey);
+
+    const [showSummaryModal, setShowSummaryModal] = useState(false);
+    const [activeSeverity, setActiveSeverity] = useState('high');
+    const [activeModule, setActiveModule] = useState(null);
+
+    const handleShowSummary = useCallback((severity, module) => {
+        setActiveModule(module);
+        setActiveSeverity(severity);
+        setShowSummaryModal(true);
+    }, []);
+    const handleCloseSummaryModal = useCallback(() => {
+        setActiveModule(modules.find(mod => mod.code === 'sens'));
+        setShowSummaryModal(false);
+    }, [modules]);
+
+    const severityCounts = useMemo(() => {
+        const sensitivityModule = modules.find(mod => mod.code === 'sens');
+        return getSeverityCounts(activeSurvey?.results?.filter(res => {
+            return res && res.module === sensitivityModule?.id;
+        }) || []);
+    }, [activeSurvey, modules]);
+
+    const renderConcernItem = useCallback(listProps => (
+        <ConcernItem {...listProps} onClick={handleShowSummary} />
+    ), [handleShowSummary]);
+
     const activityModules = useMemo(() => modules?.filter(mod => mod.code !== 'sens') || [], [modules]);
 
     const renderActivityModuleCard = useCallback((listProps) => (
@@ -225,60 +255,44 @@ const Overview = () => {
                     <p className={styles.description}>
                         {getSurveyAnswerFromCode('overview')}
                     </p>
-                    <div className={styles.surveyInformation}>
-                        <h4 className={styles.infoHeader}><Localize>Survey Information</Localize></h4>
-                        <div className={styles.infoContent}>
-                            <InfoItem 
-                                title={_('Name')}
-                                value={getSurveyAnswerFromCode('nickname')} 
-                            />
-                            <InfoItem 
-                                title={_('Location')}
-                                value={getSurveyAnswerFromCode('place')} 
-                            />
-                            <InfoItem 
-                                title={_('Organization')}
-                                value={getSurveyAnswerFromCode('org') } 
-                            />
-                            <InfoItem 
-                                title={_('Surveyed by')}
-                                value={getSurveyAnswerFromCode('usrname')}
-                            />
-                            <InfoItem 
-                                title={_('Programme Scale')}
-                                value={getSurveyAnswerFromCode('scale')}
-                            />
-                            <InfoItem 
-                                title={_('Created on')}
-                                value={getLocaleDate(activeSurvey?.createdAt)}
-                            />
-                            <InfoItem 
-                                title={_('Modified on')}
-                                value={getLocaleDate(activeSurvey?.modifiedAt)}
-                            />
-                            {mediaData?.length > 0 && (
-                                <>
-                                    <p className={cs(styles.infoTitle, styles.infoTitleMedia)}>
-                                        <Localize>Media</Localize>
-                                    </p>
-                                    <List
-                                        className={styles.mediaList}
-                                        data={mediaData}
-                                        keyExtractor={keyExtractor}
-                                        renderItem={renderMedia}
-                                        FooterComponent={MediaCount}
-                                        contentContainerClassName={styles.mediaListContainer}
-                                    />
-                                    <ImageViewerModal
-                                        images={allMedia ?? mediaData}
-                                        initialIndex={initialImageIndex}
-                                        isVisible={showImageViewer}
-                                        onClose={handleCloseImageViewer}
-                                    />
-                                </>
-                            )}
+                    {activeSurvey?.answers?.length > 0 ? (
+                        <div className={styles.surveyInformation}>
+                            <h4 className={styles.infoHeader}><Localize>Survey Information</Localize></h4>
+                            <div className={styles.infoContent}>
+                                <InfoItem 
+                                    title={_('Name')}
+                                    value={getSurveyAnswerFromCode('nickname')} 
+                                />
+                                <InfoItem 
+                                    title={_('Location')}
+                                    value={getSurveyAnswerFromCode('place')} 
+                                />
+                                <InfoItem 
+                                    title={_('Organization')}
+                                    value={getSurveyAnswerFromCode('org') } 
+                                />
+                                <InfoItem 
+                                    title={_('Surveyed by')}
+                                    value={getSurveyAnswerFromCode('usrname')}
+                                />
+                                <InfoItem 
+                                    title={_('Programme Scale')}
+                                    value={getSurveyAnswerFromCode('scale')}
+                                />
+                                <InfoItem 
+                                    title={_('Created on')}
+                                    value={getLocaleDate(activeSurvey?.createdAt)}
+                                />
+                                <InfoItem 
+                                    title={_('Modified on')}
+                                    value={getLocaleDate(activeSurvey?.modifiedAt)}
+                                />
+                                <MediaItem activeSurvey={activeSurvey} />
+                            </div>
                         </div>
-                    </div>
+                    ): (
+                        <NeatLoader medium />
+                    )}
                 </div>
                 <div className={styles.statementSummary}>
                     <h4 className={styles.statementTitle}>

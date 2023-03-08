@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Wed Mar 08 2023 14:22:04 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Wed Mar 08 2023 16:32:58 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -183,7 +183,7 @@ msgstr ""
 #: src/containers/Administration/StatementWeightage/FeedbackList/index.js:56
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:34
 #: src/containers/Projects/Dashboard/index.js:57
-#: src/containers/Surveys/Dashboard/Overview/index.js:52
+#: src/containers/Surveys/Dashboard/Overview/index.js:53
 #: src/utils/severity.js:11
 #: src/utils/severity.js:19
 msgid "High"
@@ -218,7 +218,7 @@ msgstr ""
 #: src/containers/Administration/StatementWeightage/FeedbackList/index.js:57
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:35
 #: src/containers/Projects/Dashboard/index.js:60
-#: src/containers/Surveys/Dashboard/Overview/index.js:53
+#: src/containers/Surveys/Dashboard/Overview/index.js:54
 #: src/utils/severity.js:12
 #: src/utils/severity.js:20
 msgid "Medium"
@@ -237,7 +237,7 @@ msgstr ""
 #: src/containers/Administration/StatementWeightage/FeedbackList/index.js:58
 #: src/containers/Administration/StatementWeightage/InsightsTable/index.js:36
 #: src/containers/Projects/Dashboard/index.js:63
-#: src/containers/Surveys/Dashboard/Overview/index.js:54
+#: src/containers/Surveys/Dashboard/Overview/index.js:55
 #: src/utils/severity.js:13
 #: src/utils/severity.js:21
 msgid "Low"
@@ -308,7 +308,7 @@ msgstr ""
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:138
 #: src/containers/Projects/List/index.js:59
 #: src/containers/Projects/List/TableItems/index.js:64
-#: src/containers/Surveys/Dashboard/Overview/index.js:232
+#: src/containers/Surveys/Dashboard/Overview/index.js:263
 #: src/containers/Surveys/List/index.js:113
 #: src/containers/Surveys/List/index.js:170
 msgid "Name"
@@ -320,7 +320,7 @@ msgstr ""
 #: src/containers/Projects/List/index.js:62
 #: src/containers/Projects/List/TableItems/index.js:71
 #: src/containers/Register/index.js:191
-#: src/containers/Surveys/Dashboard/Overview/index.js:240
+#: src/containers/Surveys/Dashboard/Overview/index.js:271
 msgid "Organization"
 msgstr ""
 
@@ -2072,7 +2072,7 @@ msgstr ""
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:142
 #: src/containers/Projects/List/index.js:68
 #: src/containers/Projects/List/TableItems/index.js:81
-#: src/containers/Surveys/Dashboard/Overview/index.js:252
+#: src/containers/Surveys/Dashboard/Overview/index.js:283
 #: src/containers/Surveys/List/index.js:124
 #: src/containers/Surveys/List/index.js:182
 msgid "Created on"
@@ -2248,7 +2248,7 @@ msgid ""
 msgstr ""
 
 #: src/containers/Surveys/Dashboard/Module/Statements/index.js:29
-#: src/containers/Surveys/Dashboard/Overview/index.js:60
+#: src/containers/Surveys/Dashboard/Overview/index.js:61
 msgid "Concerns"
 msgstr ""
 
@@ -2260,61 +2260,61 @@ msgstr ""
 msgid "Expand All"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:119
+#: src/containers/Surveys/Dashboard/Overview/index.js:120
 msgid "No concerns"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:121
+#: src/containers/Surveys/Dashboard/Overview/index.js:122
 msgid "Not completed"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:229
+#: src/containers/Surveys/Dashboard/Overview/index.js:190
+msgid "Media"
+msgstr ""
+
+#: src/containers/Surveys/Dashboard/Overview/index.js:260
 msgid "Survey Information"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:236
+#: src/containers/Surveys/Dashboard/Overview/index.js:267
 #: src/containers/Surveys/List/index.js:120
 #: src/containers/Surveys/List/index.js:174
 msgid "Location"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:244
+#: src/containers/Surveys/Dashboard/Overview/index.js:275
 #: src/containers/Surveys/List/index.js:128
 #: src/containers/Surveys/List/index.js:178
 msgid "Surveyed by"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:248
+#: src/containers/Surveys/Dashboard/Overview/index.js:279
 msgid "Programme Scale"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:256
+#: src/containers/Surveys/Dashboard/Overview/index.js:287
 #: src/containers/Surveys/List/index.js:124
 #: src/containers/Surveys/List/index.js:186
 msgid "Modified on"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:262
-msgid "Media"
-msgstr ""
-
-#: src/containers/Surveys/Dashboard/Overview/index.js:285
+#: src/containers/Surveys/Dashboard/Overview/index.js:299
 msgid "Sensitivity Statements Severity Summary"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:293
+#: src/containers/Surveys/Dashboard/Overview/index.js:307
 msgid "Location of Assessment"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:304
+#: src/containers/Surveys/Dashboard/Overview/index.js:318
 msgid "Activity Statements Severity Summary"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:314
+#: src/containers/Surveys/Dashboard/Overview/index.js:328
 msgid "Loading activity module results..."
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Overview/index.js:319
+#: src/containers/Surveys/Dashboard/Overview/index.js:333
 msgid "Could not load activity module summaries"
 msgstr ""
 
