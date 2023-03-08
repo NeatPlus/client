@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Wed Mar 08 2023 16:32:58 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Wed Mar 08 2023 16:36:59 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -303,7 +303,6 @@ msgstr ""
 
 #: src/components/CreateEditProjectModal/index.js:200
 #: src/components/OrganizationModals/AddEditOrganization/index.js:74
-#: src/components/TakeSurveyModal/InitSurvey/index.js:51
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:95
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:138
 #: src/containers/Projects/List/index.js:59
@@ -640,7 +639,7 @@ msgid "No Surveys"
 msgstr ""
 
 #: src/components/NoSurvey/index.js:38
-msgid "No surveys found"
+msgid "No surveys have been completed for this project."
 msgstr ""
 
 #: src/components/NoSurvey/index.js:44
@@ -908,16 +907,16 @@ msgstr ""
 
 #: src/components/SurveyModuleReport/CompactReport/index.js:188
 msgid ""
-"The following is short report summarising only the highest priority "
-"sensitivities, mitigations and opportunities identified in response to your "
-"U-NEAT assessment answers."
+"The following report summarises only the highest priority sensitivities, "
+"mitigations and opportunities identified in response to your U-NEAT "
+"assessment answers."
 msgstr ""
 
 #: src/components/SurveyModuleReport/CompactReport/index.js:192
 msgid ""
-"To see a longer report containing medium and high priority sensitivities, "
-"mitigations and opportunities, that are still important, please click on "
-"the “Full” button."
+"To see a longer report including all high, medium and low priority "
+"sensitivities, mitigations and opportunities, please click on the "
+"“Detailed” report button."
 msgstr ""
 
 #: src/components/SurveyModuleReport/CompactReport/index.js:228
@@ -990,12 +989,12 @@ msgstr ""
 msgid "Add Baseline Feedbacks"
 msgstr ""
 
-#: src/components/SurveyModuleReport/ReportSizeTabs/index.js:21
-msgid "Compact"
+#: src/components/SurveyModuleReport/ReportSizeTabs/index.js:23
+msgid "Summarized"
 msgstr ""
 
-#: src/components/SurveyModuleReport/ReportSizeTabs/index.js:22
-msgid "Full"
+#: src/components/SurveyModuleReport/ReportSizeTabs/index.js:24
+msgid "Detailed"
 msgstr ""
 
 #: src/components/TakeSurveyModal/index.js:131
@@ -1071,6 +1070,10 @@ msgstr ""
 
 #: src/components/TakeSurveyModal/InitSurvey/index.js:39
 msgid "Take a survey"
+msgstr ""
+
+#: src/components/TakeSurveyModal/InitSurvey/index.js:51
+msgid "Survey Name"
 msgstr ""
 
 #: src/components/TakeSurveyModal/Question/index.js:128
@@ -2226,7 +2229,7 @@ msgid "There are currently no environmental issues of concern for this module."
 msgstr ""
 
 #: src/containers/Surveys/Dashboard/Module/index.js:72
-msgid "Please fill up the questionnaire to view this analysis."
+msgid "Please complete the questionnaire to view this analysis."
 msgstr ""
 
 #: src/containers/Surveys/Dashboard/Module/index.js:81

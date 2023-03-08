@@ -11,16 +11,19 @@ const ReportSizeTabs = ({
     onChangeCompactTab,
 }) => {
     return (
-        <Tabs
-            headerClassName={styles.tabHeader}
-            tabItemClassName={styles.tabHeaderItem}
-            activeTabItemClassName={styles.tabHeaderItemActive}
-            activeTab={isCompact ? 'compact' : 'full'}
-            onChange={onChangeCompactTab}
-        >
-            <Tab label="compact" title={_('Compact')} />
-            <Tab label="full" title={_('Full')} />
-        </Tabs>
+        <>
+            <label className={styles.label}>Report Type:</label>
+            <Tabs
+                headerClassName={styles.tabHeader}
+                tabItemClassName={styles.tabHeaderItem}
+                activeTabItemClassName={styles.tabHeaderItemActive}
+                activeTab={isCompact ? 'compact' : 'full'}
+                onChange={onChangeCompactTab}
+            >
+                <Tab label="compact" title={_('Summarized')} />
+                <Tab label="full" title={_('Detailed')} />
+            </Tabs>
+        </>
     );
 };
 

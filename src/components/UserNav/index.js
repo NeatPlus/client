@@ -118,7 +118,7 @@ const UserNav = ({searchQuery, onSearchQueryChange}) => {
     return (
         <nav className={styles.container}>
             <div className={styles.leftContent}>
-                <Link to='/'>
+                <Link to='/projects'>
                     <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
                 </Link>
             </div>

@@ -15,7 +15,7 @@
         padding: 0.325rem 0.675rem;
         display: flex;
         align-items: center;
-        font-size: var(--font-size-tiny);
+        font-size: var(--font-size-small);
         border-bottom: none;
         border-radius: 38px;
         transition: background-color 0.2s ease;
@@ -24,9 +24,15 @@
         min-width: 4.25rem;
 
         &-active {
-            background-color: var(--color-white);
-            color: var(--color-primary);
+            background-color: var(--color-primary);
+            color: var(--color-white);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
         }
     }
+}
+
+.label {
+    font-size: var(--font-size-small);
+    color: var(--color-grey-dark);
+    font-weight: 500;
 }

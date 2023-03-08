@@ -186,11 +186,11 @@ const CompactReport = ({
             <p className={styles.introText}>
                 <span>
                     <Localize>
-                        The following is short report summarising only the highest priority sensitivities, mitigations and opportunities identified in response to your U-NEAT assessment answers.
+                        The following report summarises only the highest priority sensitivities, mitigations and opportunities identified in response to your U-NEAT assessment answers.
                     </Localize>
                 </span> <span className="no-print">
                     <Localize>
-                        To see a longer report containing medium and high priority sensitivities, mitigations and opportunities, that are still important, please click on the “Full” button.
+                        To see a longer report including all high, medium and low priority sensitivities, mitigations and opportunities, please click on the “Detailed” report button.
                     </Localize>
                 </span>
             </p>

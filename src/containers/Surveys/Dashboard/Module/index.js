@@ -69,7 +69,7 @@ const FillQuestionnaire = props => {
                 {hasResults ? (
                     <Localize>There are currently no environmental issues of concern for this module.</Localize>
                 ) : (
-                    <Localize>Please fill up the questionnaire to view this analysis.</Localize>
+                    <Localize>Please complete the questionnaire to view this analysis.</Localize>
                 )}
             </p>
             <Button 
