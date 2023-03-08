@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Fri Mar 03 2023 17:10:48 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Tue Mar 07 2023 14:23:26 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -786,7 +786,7 @@ msgid "Topics"
 msgstr ""
 
 #: src/components/RestoreItemsModal/index.js:133
-#: src/components/SurveyModuleReport/CompactReport/index.js:129
+#: src/components/SurveyModuleReport/CompactReport/index.js:200
 #: src/containers/Administration/Statements/index.js:24
 #: src/containers/Surveys/Dashboard/Module/Statements/index.js:104
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:106
@@ -856,7 +856,7 @@ msgid "Conflicting score? {{ link:provide suggestions/feedback }}."
 msgstr ""
 
 #: src/components/StatementAccordion/index.js:110
-#: src/components/SurveyModuleReport/CompactReport/index.js:54
+#: src/components/SurveyModuleReport/CompactReport/index.js:59
 msgid "This concern level of this statement might vary by context."
 msgstr ""
 
@@ -884,41 +884,47 @@ msgstr ""
 msgid "{{ moduleTitle; }} Statements Severity Summary"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:63
+#: src/components/SurveyModuleReport/CompactReport/index.js:68
 msgid "Highest priority mitigations"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:72
+#: src/components/SurveyModuleReport/CompactReport/index.js:77
 msgid "No mitigations of high priority found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:79
+#: src/components/SurveyModuleReport/CompactReport/index.js:84
 msgid "Highest priority opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:88
+#: src/components/SurveyModuleReport/CompactReport/index.js:93
 msgid "No opportunities of high priority found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:117
+#: src/components/SurveyModuleReport/CompactReport/index.js:130
+#: src/components/SurveyModuleReport/CompactReport/index.js:148
+#: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:179
+msgid "Loading..."
+msgstr ""
+
+#: src/components/SurveyModuleReport/CompactReport/index.js:188
 msgid ""
 "The following is short report summarising only the highest priority "
 "sensitivities, mitigations and opportunities identified in response to your "
 "U-NEAT assessment answers."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:121
+#: src/components/SurveyModuleReport/CompactReport/index.js:192
 msgid ""
 "To see a longer report containing medium and high priority sensitivities, "
 "mitigations and opportunities, that are still important, please click on "
 "the “Full” button."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:157
+#: src/components/SurveyModuleReport/CompactReport/index.js:228
 msgid "Highest Ranked Mitigations and Opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:160
+#: src/components/SurveyModuleReport/CompactReport/index.js:231
 msgid ""
 "The following are the highest ranked mitigations addressing the most "
 "significant Sensitivities identified in response to your U-NEAT+ assessment "
@@ -931,37 +937,40 @@ msgid ""
 "order to select those most relevant to your activities."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:167
+#: src/components/SurveyModuleReport/CompactReport/index.js:239
 msgid "Highest priority humanitarian mitigations"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:176
-#: src/components/SurveyModuleReport/CompactReport/index.js:193
-#: src/components/SurveyModuleReport/CompactReport/index.js:222
-#: src/components/SurveyModuleReport/CompactReport/index.js:239
-msgid "This feature is currently under development. Please check back later!"
-msgstr ""
-
-#: src/components/SurveyModuleReport/CompactReport/index.js:184
+#: src/components/SurveyModuleReport/CompactReport/index.js:240
 msgid "Highest priority potential development opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:203
+#: src/components/SurveyModuleReport/CompactReport/index.js:243
+#: src/components/SurveyModuleReport/CompactReport/index.js:270
+msgid "No mitigations data found!"
+msgstr ""
+
+#: src/components/SurveyModuleReport/CompactReport/index.js:248
+#: src/components/SurveyModuleReport/CompactReport/index.js:275
+msgid "No opportunities data found!"
+msgstr ""
+
+#: src/components/SurveyModuleReport/CompactReport/index.js:255
 msgid "Recurring Mitigations and Opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:206
+#: src/components/SurveyModuleReport/CompactReport/index.js:258
 msgid ""
 "The following mitigations are not the highest priority, but they have been "
 "identified multiple times in response to your assessment answers. Please "
 "consider whether you can implement some of them in your response."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:213
+#: src/components/SurveyModuleReport/CompactReport/index.js:266
 msgid "HUMANITARIAN MITIGATIONS"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:230
+#: src/components/SurveyModuleReport/CompactReport/index.js:267
 msgid "DEVELOPMENT OPPORTUNITIES"
 msgstr ""
 
@@ -1790,10 +1799,6 @@ msgstr ""
 
 #: src/containers/Administration/StatementWeightage/OptionsTable/index.js:124
 msgid "No options found."
-msgstr ""
-
-#: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:179
-msgid "Loading..."
 msgstr ""
 
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:182

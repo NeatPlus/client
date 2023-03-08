@@ -108,7 +108,7 @@ const StatementsTable = props => {
             return statements;
         }
         return statements.map(st => {
-            const statementInsight = insightsResult.find(res => res.surveyResult_Statement === st.id);
+            const statementInsight = insightsResult.find(res => res.statement === st.id);
             const difference = statementInsight?.difference;
             const sumOfSquare = statementInsight?.sumOfSquare;
             const standardDeviation = statementInsight?.standardDeviation;
