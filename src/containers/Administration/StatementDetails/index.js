@@ -153,10 +153,11 @@ const StatementDetails = (props) => {
             loadQuestionStatement({
                 statement: activeStatement?.id,
                 version: 'latest',
-                limit: -1
+                limit: -1,
+                question__group__module: activeModule?.id,
             });
         }
-    }, [loadQuestionStatement, activeStatement]);
+    }, [loadQuestionStatement, activeStatement, activeModule]);
 
     const hasChanges = useMemo(() => result?.results?.some(qStatement => qStatement.version === 'draft'), [result]);
 
