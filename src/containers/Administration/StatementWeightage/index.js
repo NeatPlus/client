@@ -122,11 +122,13 @@ const StatementWeightage = props => {
             version: 'latest',
             statement: statementId,
             limit: -1,
+            question__group__module: activeModule?.id,
         });
         loadOptionStatements({
             version: 'latest',
             statement: statementId,
             limit: -1,
+            option__question__group__module: activeModule?.id,
         });
         loadStatementFunctions({
             version: 'latest',
