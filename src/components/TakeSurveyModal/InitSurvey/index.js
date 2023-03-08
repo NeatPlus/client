@@ -48,7 +48,7 @@ const InitSurvey = props => {
                     required
                     component={TextInput}
                     className={styles.input}
-                    label={_('Name')}
+                    label={_('Survey Name')}
                     labelClassName={styles.inputLabel}
                     containerClassName={styles.inputGroup}
                 />

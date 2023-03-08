@@ -35,7 +35,7 @@ const NoSurveys = () => {
             <main className={styles.content}>
                 <div className={styles.takeSurveyBox}>
                     <img src={noSurveyImage} alt={_('No Surveys')} className={styles.infoImage} />
-                    <p className={styles.infoText}><Localize>No surveys found</Localize></p>
+                    <p className={styles.infoText}><Localize>No surveys have been completed for this project.</Localize></p>
                     {hasEditAccess && (
                         <Button 
                             className={styles.button} 
