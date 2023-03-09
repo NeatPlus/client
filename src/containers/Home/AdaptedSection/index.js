@@ -42,15 +42,13 @@ const AdaptedSection = () => {
                         <ToolCard
                             image={urban}
                             title={_('For urban environments')}
-                            desc={_('The tool gathers data directly through this web application or KoBo Toolbox(a mobile data collection application already in use by many humanitarian organizations), and produces the report in the exportable (pdf, excel) or online form.')}
+                            desc={_('The tool gathers data directly through this web application and produces a report in the application, which can then be exported (using pdf).')}
                         />
                     </div>
                     <div className={styles.describedContent}>
                         <div>
                             <p className={styles.para}>
-                                <Localize>
-                                    As an initial rapid screening tool, the NEAT+ helps humanitarian actors determine whether a more comprehensive environmental assessment should be carried out. The tool produces results in an easy to read and understand format and does not require expertise in environmental topics. The suggested mitigations can be prioritised to strengthen projects against environmental vulnerabilities and reduce harmful project impacts on the environment.
-                                </Localize>
+                                <Localize>As an initial rapid screening tool, the NEAT+ helps humanitarian actors determine whether a more comprehensive environmental assessment should be carried out. The tool produces results in an easy to read and understand format and does not require expertise in environmental topics. The suggested mitigations can be prioritised to strengthen projects against environmental vulnerabilities and reduce harmful project impacts on the environment.</Localize>
                             </p>
                             <p className={styles.para}>Additionally, the results can be used to start discussions, compare trends (over time or between projects), incorporated into geospatial analysis, and can be shared with donors and stakeholders for accountability and fundraising.</p>
                         </div>

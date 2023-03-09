@@ -74,7 +74,7 @@ const Access = () => {
                             <img src={question} className={styles.questionMark} alt="question-mark" />
                             <NeatCard
                                 title={_('Urban NEAT+')}
-                                description={_('The Urban NEAT+ has been developed to address the needs of humanitarian operations in urban settings. Currently, only the Environmental Sensitivity Survey, Mitigations and Opportunities are available for users. You can access the U-NEAT+, create an account, and share your findings all within the browser application.')}
+                                description={_('The Urban NEAT+ has been developed to address the needs of humanitarian operations in urban settings. Once an initial Environmental Sensitivity module survey has been completed, users can proceed with one or more of the optional sectoral activity modules. You can access the U-NEAT+, create an account, and share your findings all within the browser application.')}
                                 image={urban}
                                 fileImage={urbanFile}
                                 buttonTitle={_('Access it here')}
@@ -82,14 +82,10 @@ const Access = () => {
                             />
                         </div>
                         <p className={styles.heroDesc}>
-                            <Localize>
-                                The NEAT+ has been designed as a simple, user-friendly method for non-environmentalists to identify environmental concerns in humanitarian operations. The language of the tool is geared towards humanitarian response and cluster coordination, including the Activity Modules: Shelter, WASH, Food Security & Livelihoods. The Environmental Sensitivity Module must be completed before the  Activity Modules. The ES module includes questions about the affected community, climate, and biodiversity. The UNEP/OCHA Joint Environment Unit has been supporting the development of the NEAT+ since its intial launch in 2018.
-                            </Localize>
+                            <Localize>The NEAT+ has been designed as a simple, user-friendly method for non-environmentalists to identify environmental concerns in humanitarian operations. The language of the tool is geared towards humanitarian response and cluster coordination, including the Activity Modules: Shelter, WASH, Food Security & Livelihoods. The Environmental Sensitivity (ES) Module must be completed before the Activity Modules. The ES module includes questions about the affected community, climate, and biodiversity.</Localize>
                         </p>
                         <p className={styles.heroDesc}>
-                            <Localize>
-                                The original NEAT+ was designed for camp settings, peri-urban or rural non-camp settings or informal camp settings. In 2021, based on feedback from partners and stakeholders, the NEAT+ received significant updates including an urban adaptation on a lighter, cloud-based platform. Whilst the Rural NEAT+ (R-NEAT+) uses Kobo Toolbox and Excel to complete the analysis, the Urban NEAT (U-NEAT+) can be completed entirely in the browser application. From this page, you can download the R-NEAT+ package, including all guidance documents, in English French or Spanish, or access the U-NEAT+ Environmental Sensitivity Module.
-                            </Localize>
+                            <Localize>The UNEP/OCHA Joint Environment Unit has been supporting the development of the NEAT+ since its intial launch in 2018. The original NEAT+ (now Rural NEAT+) was designed for camp settings, peri-urban or rural non-camp settings or informal camp settings. In 2021, based on feedback from partners and stakeholders, the NEAT+ received significant updates, including an urban adaptation on a lighter, cloud-based platform. While the Rural NEAT+ (R-NEAT+) uses Kobo Toolbox and Excel to complete the analysis, the Urban NEAT (U-NEAT+) can be completed entirely in the browser application. From this page, you can download the R-NEAT+ package, including all guidance documents, in English, French or Spanish, or access the latest update of U-NEAT+.</Localize>
                         </p>
                     </Container>
                 </div>

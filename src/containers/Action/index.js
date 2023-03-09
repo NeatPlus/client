@@ -36,7 +36,7 @@ const Action = () => {
                             </h1>
                             <p className={styles.heroDesc}>
                                 <Localize
-                                    text="To date, the NEAT+ has been successfully tested and applied by over ten humanitarian organization in around 20 field operations worldwide. See examples and links to the findings of previous NEAT+ environment scoping missions on this page. If you would like to submit a case study for inclusion on this page, please let us know through the {{ link:Contact }} page."
+                                    text="To date, the NEAT+ has been successfully tested and applied in multiple field operations worldwide. See examples and links to the findings of previous NEAT+ environment scoping missions on this page. If you would like to submit a case study for inclusion on this page, please let us know through the Contact page."
                                     link={<Link className={styles.link} to="/contact" />}
                                 />
                             </p>
