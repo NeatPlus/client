@@ -26,8 +26,7 @@ const About = () => {
                             </Localize>
                         </p>
                         <p className={styles.heroDesc}>
-                            <Localize>
-                                The NEAT+ was specifically designed to address the needs of humanitarian actors and to provide a creative and practical approach to integrating more sustainable environmental practices into humanitarian aid. The NEAT+ is a fully developed and proven tool, available in English, French, and Spanish. In 2021, an urban adaptation (U-NEAT+) is under development, with the sensitivities module available from this site from July 2021. There are plans to migrate the R-NEAT to this format at a later stage.  
+                            <Localize>The NEAT+ was specifically designed to address the needs of humanitarian actors and to provide a creative and practical approach to integrating more sustainable environmental practices into humanitarian aid. The Rural NEAT+ is available for use in Excel and KoBo Toolbox, while the Urban NEAT+ is available for use in this web application. There are plans to merge Rural and Urban NEAT+ into one application that can be used online and offline.
                             </Localize>
                         </p>
                     </div>

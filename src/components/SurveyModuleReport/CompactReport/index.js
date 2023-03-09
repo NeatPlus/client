@@ -196,9 +196,16 @@ const CompactReport = ({
             </p>
             <div className={styles.statementsSection}>
                 <div className={styles.statementsHeader}>
-                    <h2 className={styles.statementsTitle}>
-                        <Localize>Statements</Localize>
-                    </h2>
+                    <div>
+                        <h2 className={styles.statementsHeading}>
+                            <Localize>Highest priority sensitivity statements, mitigations and opportunities</Localize>
+                        </h2>
+                        {moduleCode !== 'sens' && (
+                            <h2 className={styles.statementsTitle}>
+                                <Localize>Sensitivity statements</Localize>
+                            </h2>
+                        )}
+                    </div>
                     <div className={cs(styles.reportControls, 'no-print')}>
                         <ReportSizeTabs
                             isCompact={isCompact}

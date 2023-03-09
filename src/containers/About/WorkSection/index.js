@@ -45,9 +45,7 @@ const WorkSection = () => {
                     </Localize>
                 </p>
                 <p className={styles.workDesc}>
-                    <Localize>
-                        The NEAT+ works by collecting data through a questionnaire, answered by users who should be familiar with the project area, including the planned intervention, the local and host communities, and environmental surroundings.
-                    </Localize>
+                    <Localize>A set of humanitarian mitigation measures, together with links to potential development opportunities, allow users to effectively prioritize areas of concern relevant to their organization or operation.</Localize>
                 </p>
                 <Tabs 
                     defaultActiveTab="step-1" 
@@ -65,7 +63,7 @@ const WorkSection = () => {
                             </h2>
                             <p className={styles.accessDesc}>
                                 <Localize
-                                    text='Decide whether you wish to use the Urban or Rural version of the NEAT+. You can decide using the "Access the NEAT+" page of this website. The analysis of the Rural NEAT+ is completely performed in Excel, the files for which can be downloaded on this page. Kobo Toolbox can be optionally used to more easily collect data offline and to aggregate data at a project or organizational level. The Urban NEAT+ can be accessed directly from this site on "{{ link:Access the NEAT+ }}". Currently, only the Environmental Sensitivity module is available for the U-NEAT+ users.'
+                                    text='Decide whether you wish to use the Urban or Rural version of the NEAT+. You can decide using the "Access the NEAT+" page of this website. The analysis of the Rural NEAT+ is completely performed in Excel, the files for which can be downloaded on this page. Kobo Toolbox can be optionally used to more easily collect data offline and to aggregate data at a project or organizational level. The Urban NEAT+ can be accessed directly from this site on "{{ link:Access the NEAT+ }}".'
                                     link={<Link className={styles.links} to="/access" />}
                                 />
                             </p>
@@ -83,9 +81,7 @@ const WorkSection = () => {
                                 <Localize>Complete Environmental Sensitivity Module</Localize>
                             </h2>
                             <p className={styles.accessDesc}>
-                                <Localize>
-                                The Environmental Sensitivity Module consists of questions about the activity area, and should take 30 minutes - 1 hour to complete. It must be completed before the Activity Modules. When completed, the ES Module generates a summary report including risks of high, medium, and low concern, humanitarian environmental mitigation tips, relevant resources and linked potential development opportunities.
-                                </Localize>
+                                <Localize>The Environmental Sensitivity Module consists of questions about the activity area, and should take 30 minutes - 1 hour to complete. It must be completed before the Activity Modules. When completed, the ES Module generates a summary report including risks of high, medium, and low concern, humanitarian environmental mitigation tips, relevant resources and linked potential development opportunities. In Urban NEAT+, the summary report is available in a summarized and detailed view.</Localize>
                             </p>
                         </div>
                         <div className={styles.accessImageWrapper}>
@@ -99,13 +95,11 @@ const WorkSection = () => {
                             </span>
                             <h2 className={styles.accessTitle}>
                                 <Localize>
-                                    Complete Activity Module(s) (optional and currently only available for R-NEAT+)
+                                    Complete Activity Module(s) (optional)
                                 </Localize>
                             </h2>
                             <p className={styles.accessDesc}>
-                                <Localize>
-                                Rural NEAT+ currently has activity modules for Shelter, WASH and Food Security. For Urban NEAT+ additional Livelihoods and Health activity modules are being developed. Within the Activity Modules you can select a number of mostly optional sub-modules. For example, within WASH sub-modules include latrines, water supply, and shower design. Each sub-module consists of 10-20 questions and should take the user 30 minutes - 1 hour to complete. When these are completed an Activity Impact Report is generated, which uses the output from the Environmental Sensitivity Report and the answers provided in the activity sub-modules to assess the potential environmental impacts of the activity, and suggest humanitarian environmental mitigation tips, relevant resources and potential development opportunities.
-                                </Localize>
+                                <Localize>Rural and Urban NEAT+ currently have activity modules for Shelter, WASH and Food Security. Urban NEAT+ has an additional active Livelihood module, and Health and Waste activity modules are still being developed. Within the Activity Modules, you can select which optional sub-modules to complete; each sub-module consists of 10-20 questions. When these are completed, an activity summary report is generated, which uses the output from the environmental sensitivity report and the answers provided in the activity sub-modules to assess the potential environmental impacts of the activity and suggest humanitarian environmental mitigation tips, relevant resources and potential development opportunities. In the Urban NEAT+, the activity summary reports are available in a summarized and detailed view.</Localize>
                             </p>
                         </div>
                         <div className={styles.accessImageWrapper}>

@@ -94,7 +94,7 @@ const ExampleSection = () => {
                             </h1>
                             <p className={styles.infoDesc}>
                                 <Localize>
-                                    The NEAT+ has been successfully used and applied by over fifteen humanitarian organizations in over 30 field operations worldwide. With the latest update, the Rural NEAT+ will now be expanding into French- and Spanish-speaking operations in 2021.
+                                    The NEAT+ has been successfully used and applied in multiple field operations worldwide. The Rural NEAT+ is also available for use in French-, Spanish- and Arab-speaking operations.
                                 </Localize>
                             </p>
                             <p className={styles.infoDesc}>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Thu Mar 09 2023 10:43:02 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Thu Mar 09 2023 17:14:04 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -608,8 +608,8 @@ msgid "Login"
 msgstr ""
 
 #: src/components/NavBar/index.js:69
-#: src/containers/About/WorkSection/index.js:58
-#: src/containers/About/WorkSection/index.js:64
+#: src/containers/About/WorkSection/index.js:56
+#: src/containers/About/WorkSection/index.js:62
 #: src/containers/Home/index.js:37
 msgid "Access the NEAT+"
 msgstr ""
@@ -791,7 +791,6 @@ msgid "Topics"
 msgstr ""
 
 #: src/components/RestoreItemsModal/index.js:133
-#: src/components/SurveyModuleReport/CompactReport/index.js:200
 #: src/containers/Administration/Statements/index.js:24
 #: src/containers/Surveys/Dashboard/Module/Statements/index.js:104
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:106
@@ -925,11 +924,19 @@ msgid ""
 "“Detailed” report button."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:228
+#: src/components/SurveyModuleReport/CompactReport/index.js:201
+msgid "Highest priority sensitivity statements, mitigations and opportunities"
+msgstr ""
+
+#: src/components/SurveyModuleReport/CompactReport/index.js:205
+msgid "Sensitivity statements"
+msgstr ""
+
+#: src/components/SurveyModuleReport/CompactReport/index.js:235
 msgid "Highest Ranked Mitigations and Opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:231
+#: src/components/SurveyModuleReport/CompactReport/index.js:238
 msgid ""
 "The following are the highest ranked mitigations addressing the most "
 "significant Sensitivities identified in response to your U-NEAT+ assessment "
@@ -942,40 +949,40 @@ msgid ""
 "order to select those most relevant to your activities."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:239
+#: src/components/SurveyModuleReport/CompactReport/index.js:246
 msgid "Highest priority humanitarian mitigations"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:240
+#: src/components/SurveyModuleReport/CompactReport/index.js:247
 msgid "Highest priority potential development opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:243
-#: src/components/SurveyModuleReport/CompactReport/index.js:270
+#: src/components/SurveyModuleReport/CompactReport/index.js:250
+#: src/components/SurveyModuleReport/CompactReport/index.js:277
 msgid "No mitigations data found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:248
-#: src/components/SurveyModuleReport/CompactReport/index.js:275
+#: src/components/SurveyModuleReport/CompactReport/index.js:255
+#: src/components/SurveyModuleReport/CompactReport/index.js:282
 msgid "No opportunities data found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:255
+#: src/components/SurveyModuleReport/CompactReport/index.js:262
 msgid "Recurring Mitigations and Opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:258
+#: src/components/SurveyModuleReport/CompactReport/index.js:265
 msgid ""
 "The following mitigations are not the highest priority, but they have been "
 "identified multiple times in response to your assessment answers. Please "
 "consider whether you can implement some of them in your response."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:266
+#: src/components/SurveyModuleReport/CompactReport/index.js:273
 msgid "HUMANITARIAN MITIGATIONS"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:267
+#: src/components/SurveyModuleReport/CompactReport/index.js:274
 msgid "DEVELOPMENT OPPORTUNITIES"
 msgstr ""
 
@@ -1205,11 +1212,10 @@ msgstr ""
 msgid ""
 "The NEAT+ was specifically designed to address the needs of humanitarian "
 "actors and to provide a creative and practical approach to integrating more "
-"sustainable environmental practices into humanitarian aid. The NEAT+ is a "
-"fully developed and proven tool, available in English, French, and Spanish. "
-"In 2021, an urban adaptation (U-NEAT+) is under development, with the "
-"sensitivities module available from this site from July 2021. There are "
-"plans to migrate the R-NEAT to this format at a later stage."
+"sustainable environmental practices into humanitarian aid. The Rural NEAT+ "
+"is available for use in Excel and KoBo Toolbox, while the Urban NEAT+ is "
+"available for use in this web application. There are plans to merge Rural "
+"and Urban NEAT+ into one application that can be used online and offline."
 msgstr ""
 
 #: src/containers/About/MeasureSection/index.js:16
@@ -1340,17 +1346,16 @@ msgstr ""
 
 #: src/containers/About/WorkSection/index.js:48
 msgid ""
-"The NEAT+ works by collecting data through a questionnaire, answered by "
-"users who should be familiar with the project area, including the planned "
-"intervention, the local and host communities, and environmental "
-"surroundings."
+"A set of humanitarian mitigation measures, together with links to potential "
+"development opportunities, allow users to effectively prioritize areas of "
+"concern relevant to their organization or operation."
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:61
+#: src/containers/About/WorkSection/index.js:59
 msgid "STEP 1"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:67
+#: src/containers/About/WorkSection/index.js:65
 msgid ""
 "Decide whether you wish to use the Urban or Rural version of the NEAT+. You "
 "can decide using the \"Access the NEAT+\" page of this website. The "
@@ -1358,57 +1363,54 @@ msgid ""
 "which can be downloaded on this page. Kobo Toolbox can be optionally used "
 "to more easily collect data offline and to aggregate data at a project or "
 "organizational level. The Urban NEAT+ can be accessed directly from this "
-"site on \"{{ link:Access the NEAT+ }}\". Currently, only the Environmental "
-"Sensitivity module is available for the U-NEAT+ users."
+"site on \"{{ link:Access the NEAT+ }}\"."
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:77
-#: src/containers/About/WorkSection/index.js:83
+#: src/containers/About/WorkSection/index.js:75
+#: src/containers/About/WorkSection/index.js:81
 msgid "Complete Environmental Sensitivity Module"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:80
+#: src/containers/About/WorkSection/index.js:78
 msgid "STEP 2"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:86
+#: src/containers/About/WorkSection/index.js:84
 msgid ""
 "The Environmental Sensitivity Module consists of questions about the "
 "activity area, and should take 30 minutes - 1 hour to complete. It must be "
 "completed before the Activity Modules. When completed, the ES Module "
 "generates a summary report including risks of high, medium, and low "
 "concern, humanitarian environmental mitigation tips, relevant resources and "
-"linked potential development opportunities."
+"linked potential development opportunities. In Urban NEAT+, the summary "
+"report is available in a summarized and detailed view."
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:95
+#: src/containers/About/WorkSection/index.js:91
 msgid "Complete Activity Module(s)"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:98
+#: src/containers/About/WorkSection/index.js:94
 msgid "STEP 3"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:101
-msgid ""
-"Complete Activity Module(s) (optional and currently only available for "
-"R-NEAT+)"
+#: src/containers/About/WorkSection/index.js:97
+msgid "Complete Activity Module(s) (optional)"
 msgstr ""
 
-#: src/containers/About/WorkSection/index.js:106
+#: src/containers/About/WorkSection/index.js:102
 msgid ""
-"Rural NEAT+ currently has activity modules for Shelter, WASH and Food "
-"Security. For Urban NEAT+ additional Livelihoods and Health activity "
-"modules are being developed. Within the Activity Modules you can select a "
-"number of mostly optional sub-modules. For example, within WASH sub-modules "
-"include latrines, water supply, and shower design. Each sub-module consists "
-"of 10-20 questions and should take the user 30 minutes - 1 hour to "
-"complete. When these are completed an Activity Impact Report is generated, "
-"which uses the output from the Environmental Sensitivity Report and the "
-"answers provided in the activity sub-modules to assess the potential "
-"environmental impacts of the activity, and suggest humanitarian "
-"environmental mitigation tips, relevant resources and potential development "
-"opportunities."
+"Rural and Urban NEAT+ currently have activity modules for Shelter, WASH and "
+"Food Security. Urban NEAT+ has an additional active Livelihood module, and "
+"Health and Waste activity modules are still being developed. Within the "
+"Activity Modules, you can select which optional sub-modules to complete; "
+"each sub-module consists of 10-20 questions. When these are completed, an "
+"activity summary report is generated, which uses the output from the "
+"environmental sensitivity report and the answers provided in the activity "
+"sub-modules to assess the potential environmental impacts of the activity "
+"and suggest humanitarian environmental mitigation tips, relevant resources "
+"and potential development opportunities. In the Urban NEAT+, the activity "
+"summary reports are available in a summarized and detailed view."
 msgstr ""
 
 #: src/containers/Access/index.js:69
@@ -1426,10 +1428,10 @@ msgstr ""
 #: src/containers/Access/index.js:77
 msgid ""
 "The Urban NEAT+ has been developed to address the needs of humanitarian "
-"operations in urban settings. Currently, only the Environmental Sensitivity "
-"Survey, Mitigations and Opportunities are available for users. You can "
-"access the U-NEAT+, create an account, and share your findings all within "
-"the browser application."
+"operations in urban settings. Once an initial Environmental Sensitivity "
+"module survey has been completed, users can proceed with one or more of the "
+"optional sectoral activity modules. You can access the U-NEAT+, create an "
+"account, and share your findings all within the browser application."
 msgstr ""
 
 #: src/containers/Access/index.js:80
@@ -1442,27 +1444,27 @@ msgid ""
 "non-environmentalists to identify environmental concerns in humanitarian "
 "operations. The language of the tool is geared towards humanitarian "
 "response and cluster coordination, including the Activity Modules: Shelter, "
-"WASH, Food Security & Livelihoods. The Environmental Sensitivity Module "
-"must be completed before the  Activity Modules. The ES module includes "
-"questions about the affected community, climate, and biodiversity. The "
-"UNEP/OCHA Joint Environment Unit has been supporting the development of the "
-"NEAT+ since its intial launch in 2018."
+"WASH, Food Security & Livelihoods. The Environmental Sensitivity (ES) "
+"Module must be completed before the Activity Modules. The ES module "
+"includes questions about the affected community, climate, and biodiversity."
 msgstr ""
 
-#: src/containers/Access/index.js:90
+#: src/containers/Access/index.js:88
 msgid ""
-"The original NEAT+ was designed for camp settings, peri-urban or rural "
-"non-camp settings or informal camp settings. In 2021, based on feedback "
-"from partners and stakeholders, the NEAT+ received significant updates "
-"including an urban adaptation on a lighter, cloud-based platform. Whilst "
-"the Rural NEAT+ (R-NEAT+) uses Kobo Toolbox and Excel to complete the "
-"analysis, the Urban NEAT (U-NEAT+) can be completed entirely in the browser "
+"The UNEP/OCHA Joint Environment Unit has been supporting the development of "
+"the NEAT+ since its intial launch in 2018. The original NEAT+ (now Rural "
+"NEAT+) was designed for camp settings, peri-urban or rural non-camp "
+"settings or informal camp settings. In 2021, based on feedback from "
+"partners and stakeholders, the NEAT+ received significant updates, "
+"including an urban adaptation on a lighter, cloud-based platform. While the "
+"Rural NEAT+ (R-NEAT+) uses Kobo Toolbox and Excel to complete the analysis, "
+"the Urban NEAT (U-NEAT+) can be completed entirely in the browser "
 "application. From this page, you can download the R-NEAT+ package, "
-"including all guidance documents, in English French or Spanish, or access "
-"the U-NEAT+ Environmental Sensitivity Module."
+"including all guidance documents, in English, French or Spanish, or access "
+"the latest update of U-NEAT+."
 msgstr ""
 
-#: src/containers/Access/index.js:99
+#: src/containers/Access/index.js:95
 msgid "FAQs"
 msgstr ""
 
@@ -1552,12 +1554,11 @@ msgstr ""
 
 #: src/containers/Action/index.js:38
 msgid ""
-"To date, the NEAT+ has been successfully tested and applied by over ten "
-"humanitarian organization in around 20 field operations worldwide. See "
-"examples and links to the findings of previous NEAT+ environment scoping "
-"missions on this page. If you would like to submit a case study for "
-"inclusion on this page, please let us know through the {{ link:Contact }} "
-"page."
+"To date, the NEAT+ has been successfully tested and applied in multiple "
+"field operations worldwide. See examples and links to the findings of "
+"previous NEAT+ environment scoping missions on this page. If you would like "
+"to submit a case study for inclusion on this page, please let us know "
+"through the Contact page."
 msgstr ""
 
 #: src/containers/Action/index.js:59
@@ -1824,17 +1825,17 @@ msgid "Share your feedback with us"
 msgstr ""
 
 #: src/containers/Contact/index.js:26
-#: src/containers/Home/FeedbackSection/index.js:14
 msgid ""
 "To continuously improve the NEAT+ and adapt it to user's needs, we would "
 "like to learn more about your experience as a user and the context in which "
-"you used the tool in. Take 10 minutes to fill out this {{ formLink:NEAT+ "
-"user feedback form }}. All responses are confidential and anonymous."
+"you used the tool in. Take less than 5 minutes to fill out this {{ "
+"formLink:NEAT+ user feedback form }}. All responses are confidential and "
+"anonymous."
 msgstr ""
 
 #: src/containers/Contact/index.js:37
 msgid ""
-"If you have any further questions, comment or feedback, please contact the "
+"If you have any further questions, comments or feedback, please contact the "
 "JEU ({{ link:ochaunep@un.org }})."
 msgstr ""
 
@@ -1933,10 +1934,8 @@ msgstr ""
 
 #: src/containers/Home/AdaptedSection/index.js:45
 msgid ""
-"The tool gathers data directly through this web application or KoBo "
-"Toolbox(a mobile data collection application already in use by many "
-"humanitarian organizations), and produces the report in the exportable "
-"(pdf, excel) or online form."
+"The tool gathers data directly through this web application and produces a "
+"report in the application, which can then be exported (using pdf)."
 msgstr ""
 
 #: src/containers/Home/AdaptedSection/index.js:51
@@ -1960,10 +1959,9 @@ msgstr ""
 
 #: src/containers/Home/ExampleSection/index.js:96
 msgid ""
-"The NEAT+ has been successfully used and applied by over fifteen "
-"humanitarian organizations in over 30 field operations worldwide. With the "
-"latest update, the Rural NEAT+ will now be expanding into French- and "
-"Spanish-speaking operations in 2021."
+"The NEAT+ has been successfully used and applied in multiple field "
+"operations worldwide. The Rural NEAT+ is also available for use in French-, "
+"Spanish- and Arab-speaking operations."
 msgstr ""
 
 #: src/containers/Home/ExampleSection/index.js:101
@@ -1971,6 +1969,14 @@ msgid ""
 "See examples and findings of previous NEAT+ pilots and environmental "
 "scoping missions. If you have a report to submit, please contact the "
 "UNEP/OCHA Joint Environment Unit (JEU) ({{ link:ochaunep@un.org }})."
+msgstr ""
+
+#: src/containers/Home/FeedbackSection/index.js:14
+msgid ""
+"To continuously improve the NEAT+ and adapt it to user's needs, we would "
+"like to learn more about your experience as a user and the context in which "
+"you used the tool in. Take 10 minutes to fill out this {{ formLink:NEAT+ "
+"user feedback form }}. All responses are confidential and anonymous."
 msgstr ""
 
 #: src/containers/Home/FeedbackSection/index.js:25
