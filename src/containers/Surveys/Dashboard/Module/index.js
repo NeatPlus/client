@@ -35,6 +35,10 @@ import topicIconPlaceholder from 'assets/icons/topic-icon-placeholder.svg';
 import StatementsContent from './Statements';
 import styles from './styles.scss';
 
+const getNumSeverityConcerns = (statementData=[], severity) => {
+    return statementData.filter(stDatum => stDatum.severity === severity).length;
+};
+
 const FillQuestionnaire = props => {
     const {activeSurvey, moduleCode, hasResults} = props;
 
@@ -219,7 +223,22 @@ const Module = props => {
                 ...ft,
                 statementData: getStatementData(ft),
             };
-        }).filter(ft => Boolean(ft.statementData.length));
+        }).filter(ft => Boolean(ft.statementData.length))
+            .sort((topicA, topicB) => {
+                const highConcernsTopicA = getNumSeverityConcerns(topicA.statementData, _('High'));
+                const highConcernsTopicB = getNumSeverityConcerns(topicB.statementData, _('High'));
+                if(highConcernsTopicB - highConcernsTopicA) {
+                    return highConcernsTopicB - highConcernsTopicA;
+                }
+                const mediumConcernsTopicA = getNumSeverityConcerns(topicA.statementData, _('Medium'));
+                const mediumConcernsTopicB = getNumSeverityConcerns(topicB.statementData, _('Medium'));
+                if(mediumConcernsTopicB - mediumConcernsTopicA) {
+                    return mediumConcernsTopicB - mediumConcernsTopicA;
+                }
+                const lowConcernsTopicA = getNumSeverityConcerns(topicA.statementData, _('Low'));
+                const lowConcernsTopicB = getNumSeverityConcerns(topicB.statementData, _('Low'));
+                return lowConcernsTopicB - lowConcernsTopicA;
+            });
     }, [filteredTopics, moduleResults, isCompact, statements, getStatementData, code]);
 
     const renderTab = useCallback((topic, idx) => {
