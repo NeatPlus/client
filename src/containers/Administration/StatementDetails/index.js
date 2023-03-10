@@ -230,16 +230,19 @@ const StatementDetails = (props) => {
             );
         }
         try {
-            await publishDraft(activeStatement.id);
+            await publishDraft(activeStatement.id, {
+                module: activeModule?.id
+            });
+            await loadQuestionStatement({
+                statement: activeStatement.id,
+                question__group__module: activeModule?.id,
+                version: 'latest',
+                limit: -1
+            });
             Toast.show(
                 _('Your changes have been successfully published!'),
                 Toast.SUCCESS
             );
-            loadQuestionStatement({
-                statement: activeStatement.id,
-                version: 'latest',
-                limit: -1
-            });
         } catch (error) {
             Toast.show(
                 getErrorMessage(error) ||
@@ -248,7 +251,7 @@ const StatementDetails = (props) => {
             );
         }
         setShowConfirmPublish(false);
-    }, [activeStatement, publishDraft, loadQuestionStatement]);
+    }, [activeStatement, publishDraft, loadQuestionStatement, activeModule]);
 
     const renderHeaderItem = useCallback(
         (tableProps) => {

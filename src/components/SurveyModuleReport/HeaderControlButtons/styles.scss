@@ -9,6 +9,7 @@
     border-radius: 4px;
     border: none;
     background-color: var(--color-white);
+    min-width: fit-content;
 
     &:hover {
         filter: brightness(120%);
@@ -21,7 +22,6 @@
         margin-left: 1em;
         margin-bottom: 1em;
     }
-
 
     .button-text {
         margin-left: 0.4em;
