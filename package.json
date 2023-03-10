@@ -73,7 +73,7 @@
         "eslint-plugin-css-modules": "^2.11.0",
         "eslint-plugin-react": "^7.32.2",
         "husky": "^8.0.3",
-        "lint-staged": "^13.1.2",
+        "lint-staged": "^13.2.0",
         "react-gettext-parser": "^1.16.0",
         "stylelint": "^15.2.0",
         "stylelint-config-standard": "^30.0.1",
