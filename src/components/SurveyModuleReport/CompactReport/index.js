@@ -196,7 +196,7 @@ const CompactReport = ({
             </p>
             <div className={styles.statementsSection}>
                 <div className={styles.statementsHeader}>
-                    <div>
+                    <div className={styles.statementsHeaderContent}>
                         <h2 className={styles.statementsHeading}>
                             <Localize>Highest priority sensitivity statements, mitigations and opportunities</Localize>
                         </h2>

@@ -18,34 +18,55 @@
 
         .statements-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             margin-bottom: 1rem;
+            flex-flow: wrap-reverse;
+            gap: 1rem;
 
-            .statements-heading {
-                font-size: var(--font-size-medium);
-                line-height: 1.27em;
-                color: var(--color-primary);
-                font-weight: 500;
-            }
+            .statements-header-content {
+                flex: 1 1 45%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-self: stretch;
 
-            .statements-title {
-                margin-top: 0.5em;
-                font-size: var(--font-size-medium);
-                line-height: 1.27em;
-                color: var(--color-dark);
-                font-weight: 700;
+                @media screen and (max-width: 767px) {
+                    flex: 1 1 100%;
+                }
 
-                @media print {
-                    font-size: var(--font-size-base);
+                .statements-heading {
+                    font-size: var(--font-size-medium);
+                    line-height: 1.27em;
+                    color: var(--color-primary);
+                    font-weight: 500;
+
+                    @media print {
+                        font-size: var(--font-size-normal);
+                    }
+                }
+
+                .statements-title {
+                    margin-top: 0.5rem;
+                    font-size: var(--font-size-medium);
+                    line-height: 1.27em;
+                    color: var(--color-dark);
+                    font-weight: 700;
+
+                    @media print {
+                        font-size: var(--font-size-base);
+                    }
                 }
             }
 
             .report-controls {
+                align-self: flex-end;
                 margin-left: auto;
                 display: flex;
                 align-items: center;
+                flex-flow: wrap;
                 gap: 1rem;
+                justify-content: flex-end;
             }
         }
 

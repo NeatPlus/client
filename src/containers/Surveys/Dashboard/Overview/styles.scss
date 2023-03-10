@@ -82,6 +82,7 @@
                                 margin-right: 5px;
                                 transition: 0.3s ease;
                                 cursor: pointer;
+                                object-fit: cover;
 
                                 &:hover {
                                     filter: brightness(90%);
