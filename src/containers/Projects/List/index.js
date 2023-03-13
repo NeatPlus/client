@@ -228,6 +228,14 @@ const ProjectList = () => {
         fetchProjects();
     }, [fetchProjects]);
 
+    useEffect(() => {
+        const pageFromStorage = localStorage.getItem('projectsPage');
+        if(Number(pageFromStorage !== page)) {
+            setPage(Number(pageFromStorage));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [projectSearchQuery]);
+
     const handleTabChange = useCallback(({activeTab}) => {
         localStorage.setItem('projectsPage', 1);
         setPage(1);

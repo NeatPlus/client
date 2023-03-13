@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Fri Mar 10 2023 17:03:39 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Mon Mar 13 2023 15:57:27 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -376,7 +376,7 @@ msgstr ""
 
 #: src/components/CreateEditProjectModal/index.js:292
 #: src/components/NoProject/index.js:47
-#: src/containers/Projects/List/index.js:254
+#: src/containers/Projects/List/index.js:262
 msgid "Create"
 msgstr ""
 
@@ -603,7 +603,7 @@ msgid "Contact"
 msgstr ""
 
 #: src/components/NavBar/index.js:60
-#: src/containers/PublicSurvey/index.js:104
+#: src/containers/PublicSurvey/index.js:124
 msgid "Login"
 msgstr ""
 
@@ -1103,7 +1103,7 @@ msgstr ""
 
 #: src/components/UserNav/index.js:122
 #: src/containers/Login/index.js:80
-#: src/containers/PublicSurvey/index.js:100
+#: src/containers/PublicSurvey/index.js:118
 #: src/containers/Register/index.js:106
 msgid "Neat+ Logo"
 msgstr ""
@@ -1113,7 +1113,7 @@ msgid "Administration"
 msgstr ""
 
 #: src/components/UserNav/index.js:190
-#: src/containers/Projects/List/index.js:244
+#: src/containers/Projects/List/index.js:252
 msgid "Projects"
 msgstr ""
 
@@ -2105,7 +2105,7 @@ msgstr ""
 msgid "My Projects"
 msgstr ""
 
-#: src/containers/PublicSurvey/index.js:104
+#: src/containers/PublicSurvey/index.js:124
 msgid "Go to Projects"
 msgstr ""
 

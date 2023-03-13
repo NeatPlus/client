@@ -9,8 +9,12 @@
         padding: 17px 25px;
         border-bottom: 1px solid var(--color-light);
 
-        .logo {
-            height: 1.68em;
+        .logo-container {
+            flex: 0 0 25%;
+
+            .logo {
+                height: 1.68em;
+            }
         }
 
         .title {
@@ -19,12 +23,36 @@
             font-weight: 600;
             color: var(--color-tertiary);
             margin: 0 auto;
+            flex: 1;
+            text-align: center;
+            display: flex;
+            justify-content: center;
         }
 
-        .button {
-            padding: 0.625em 1.5em;
-            font-size: 0.925em;
-            font-weight: 500;
+        .button-container {
+            flex: 0 0 25%;
+            display: flex;
+            justify-content: flex-end;
+
+            .button {
+                width: fit-content;
+                padding: 0.625em 1.5em;
+                font-size: 0.925em;
+                font-weight: 500;
+            }
+
+            @media print {
+                display: none;
+            }
+        }
+
+        .spacer {
+            display: none;
+            flex: 0 0 25%;
+
+            @media print {
+                display: block;
+            }
         }
     }
 
