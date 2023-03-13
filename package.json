@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@craco/craco": "^7.0.0",
+        "@craco/craco": "^7.1.0",
         "@uiw/react-textarea-code-editor": "^2.1.1",
         "d3": "^7.8.2",
         "html-react-parser": "^3.0.12",
