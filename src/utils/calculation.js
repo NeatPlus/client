@@ -96,7 +96,7 @@ export const calculateStatementScore = async ({
                     return optSt.option === opt.id;
                 })?.weightage || 0);
             const maxOptionWeight = Math.max(...allOptionWeights);
-            const optionScores = curQuestionAnswer?.options.map(opt => {
+            const optionScores = curQuestionAnswer?.options?.map(opt => {
                 return relevantOptionStatements.find(optSt => 
                     optSt.option === opt
                 )?.weightage;
