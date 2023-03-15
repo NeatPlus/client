@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {useParams, useNavigate, Link} from 'react-router-dom';
+import {useParams, useNavigate, Link, useSearchParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Button from 'components/Button';
@@ -7,7 +7,6 @@ import {NeatLoader} from 'components/Loader';
 import SurveyTabs from 'containers/Surveys/Dashboard/SurveyTabs';
 import {_} from 'services/i18n';
 
-import cs from '@ra/cs';
 import usePromise from '@ra/hooks/usePromise';
 import Api from 'services/api';
 import {setActiveSurvey} from 'store/actions/survey';
@@ -38,6 +37,24 @@ const PublicSurvey = () => {
     const allQuestions = useMemo(() => {
         return Object.values(questions)?.flatMap(el => el) || [];
     }, [questions]);
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = useMemo(() => {
+        const tabParam = searchParams.get('module');
+        if(!tabParam) {
+            return 'overview';
+        }
+        return tabParam;
+    }, [searchParams]);
+
+    const handleTabChange = useCallback(payload => {
+        if(payload.activeTab === 'overview') {
+            searchParams.delete('module');
+        } else {
+            searchParams.set('module', payload.activeTab);
+        }
+        setSearchParams(searchParams);
+    }, [searchParams, setSearchParams]);
 
     const getSurvey = useCallback(async () => {
         if(!isDataReady) {
@@ -96,19 +113,28 @@ const PublicSurvey = () => {
     return (
         <div className={styles.container}>
             <nav className={styles.navbar}>
-                <Link to='/'>
-                    <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
-                </Link> 
+                <div className={styles.logoContainer}>
+                    <Link to='/'>
+                        <img className={styles.logo} src={logo} alt={_('Neat+ Logo')} />
+                    </Link> 
+                </div>
                 <h1 className={styles.title}>{activeSurvey?.title}</h1>
-                <Button outline className={cs(styles.button, 'no-print')} onClick={handleNavButtonClick}>
-                    {isAuthenticated ? _('Go to Projects') : _('Login')} 
-                </Button>
+                <div className={styles.buttonContainer}>
+                    <Button outline className={styles.button} onClick={handleNavButtonClick}>
+                        {isAuthenticated ? _('Go to Projects') : _('Login')} 
+                    </Button>
+                </div>
+                <div className={styles.spacer} />
             </nav>
             {(loading || !isDataReady) ? (
                 <NeatLoader containerClassName={styles.container} />
             ) : (
                 <div className={styles.tabsContainer}>
-                    <SurveyTabs publicMode />
+                    <SurveyTabs
+                        publicMode
+                        activeTab={activeTab} 
+                        onTabChange={handleTabChange}
+                    />
                 </div>
             )}
         </div>
