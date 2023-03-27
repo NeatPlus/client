@@ -1,5 +1,3 @@
-import ReactGA from 'react-ga';
-
 import 'styles/_base.scss';
 
 import store from 'store';
@@ -15,8 +13,6 @@ const tokenRefresh = async () => {
 };
 
 export const bootstrapApp = async () => {
-    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID, {testMode: process.env.NODE_ENV === 'test'});
-
     await tokenRefresh();
     setInterval(tokenRefresh, 240*1000);
 
