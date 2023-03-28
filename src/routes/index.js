@@ -33,16 +33,12 @@ import ProjectList from 'containers/Projects/List';
 import SurveyDashboard from 'containers/Surveys/Dashboard';
 import SurveyFeedback from 'containers/Surveys/Feedback';
 
-import usePageViews from 'hooks/usePageViews';
-
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
     const {pathname} = useLocation();
     const {showExpiryModal} = useSelector(state => state.ui);
-
-    usePageViews();
 
     useEffect(() => {
         window.scrollTo({top: 0, behavior: 'smooth'});
