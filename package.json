@@ -74,7 +74,7 @@
         "husky": "^8.0.3",
         "lint-staged": "^13.2.0",
         "react-gettext-parser": "^1.16.0",
-        "stylelint": "^15.2.0",
+        "stylelint": "^15.6.1",
         "stylelint-config-standard": "^30.0.1",
         "stylelint-config-standard-scss": "^7.0.1"
     },
