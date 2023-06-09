@@ -64,7 +64,7 @@
         "@svgr/webpack": "6.5.1"
     },
     "devDependencies": {
-        "@babel/eslint-parser": "^7.19.1",
+        "@babel/eslint-parser": "^7.22.5",
         "@testing-library/jest-dom": "^5.16.5",
         "babel-eslint": "^10.1.0",
         "babel-plugin-transform-remove-console": "^6.9.4",
