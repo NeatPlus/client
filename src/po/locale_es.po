@@ -1,19 +1,25 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=utf-8\n"
 "POT-Creation-Date: Mon Mar 27 2023 20:33:08 GMT+0545 (Nepal Time)\n"
+"PO-Revision-Date: 2024-01-19 18:00+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/neatplus/"
+"frontend/es/>\n"
+"Language: es\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: src/components/AuthModals/ConfirmPasswordModal/index.js:39
 msgid "Confirm your password"
-msgstr ""
+msgstr "Confirme su contraseña"
 
 #: src/components/AuthModals/ConfirmPasswordModal/index.js:51
 #: src/containers/Account/index.js:53
 #: src/containers/Login/index.js:104
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: src/components/AuthModals/ConfirmPasswordModal/index.js:62
 #: src/components/CloneProjectModal/index.js:98
@@ -27,147 +33,153 @@ msgstr ""
 #: src/components/RestoreItemsModal/index.js:207
 #: src/components/TakeSurveyModal/InitSurvey/index.js:62
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/components/AuthModals/ConfirmPasswordModal/index.js:68
 #: src/components/AuthModals/ForgotPasswordModal/index.js:91
 #: src/components/TakeSurveyModal/InitSurvey/index.js:69
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:69
 msgid "Invalid Code !"
-msgstr ""
+msgstr "¡Código no válido !"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:80
 #: src/components/AuthModals/VerifyEmailModal/index.js:57
 msgid "Successfully resent confirmation mail!"
-msgstr ""
+msgstr "¡Se ha reenviado correctamente el correo de confirmación!"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:85
 #: src/components/ShareSurvey/index.js:62
 #: src/components/ShareSurvey/index.js:73
 msgid "An error occured!"
-msgstr ""
+msgstr "¡Se ha producido un error!"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:98
 msgid "OK, You got a code"
-msgstr ""
+msgstr "Bien, tienes un código"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:106
 #: src/components/AuthModals/VerifyEmailModal/index.js:102
 msgid "Enter a verification code we just sent to your email address"
 msgstr ""
+"Introduzca el código de verificación que acabamos de enviarle a su dirección "
+"de correo electrónico"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:109
 #: src/components/AuthModals/VerifyEmailModal/index.js:105
 msgid "Enter the code"
-msgstr ""
+msgstr "Introduzca el código"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:120
 #: src/components/AuthModals/VerifyEmailModal/index.js:117
 msgid "Didn't get a code?"
-msgstr ""
+msgstr "¿No has recibido un código?"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:122
 #: src/components/AuthModals/VerifyEmailModal/index.js:118
 msgid "Resend"
-msgstr ""
+msgstr "Volver a enviar"
 
 #: src/components/AuthModals/EnterCodeModal/index.js:127
 #: src/components/AuthModals/VerifyEmailModal/index.js:128
 msgid "Done"
-msgstr ""
+msgstr "Listo"
 
 #: src/components/AuthModals/ForgotPasswordModal/index.js:44
 msgid "Email is required!"
-msgstr ""
+msgstr "¡El correo electrónico es obligatorio!"
 
 #: src/components/AuthModals/ForgotPasswordModal/index.js:55
 msgid "Invalid Email!"
-msgstr ""
+msgstr "¡Correo electrónico no válido!"
 
 #: src/components/AuthModals/ForgotPasswordModal/index.js:68
 #: src/containers/Account/UpdatePassword/index.js:86
 #: src/containers/Login/index.js:122
 msgid "Forgot Password?"
-msgstr ""
+msgstr "¿Olvidó su contraseña?"
 
 #: src/components/AuthModals/ForgotPasswordModal/index.js:74
 msgid "We will send a code to your email to reset your password."
 msgstr ""
+"Le enviaremos un código a su correo electrónico para restablecer su "
+"contraseña."
 
 #: src/components/AuthModals/ForgotPasswordModal/index.js:87
 msgid "Return to Log in"
-msgstr ""
+msgstr "Volver al inicio de sesión"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:45
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Las contraseñas no coinciden"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:56
 msgid "Password Reset Successfull!"
-msgstr ""
+msgstr "¡Contraseña restablecida con éxito!"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:61
 msgid "Invalid Password"
-msgstr ""
+msgstr "Contraseña incorrecta"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:77
 msgid "Reset Password"
-msgstr ""
+msgstr "Restablecer la contraseña"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:83
 msgid "Please set a new password for your account"
-msgstr ""
+msgstr "Por favor, establezca una nueva contraseña para su cuenta"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:96
 #: src/containers/Account/UpdatePassword/index.js:102
 msgid "Verify New Password"
-msgstr ""
+msgstr "Verificar la nueva contraseña"
 
 #: src/components/AuthModals/ResetPasswordModal/index.js:107
 msgid "Set Password"
-msgstr ""
+msgstr "Configurar la contraseña"
 
 #: src/components/AuthModals/VerifyEmailModal/index.js:59
 msgid "An error occured while sending email. Please try again!"
 msgstr ""
+"Se ha producido un error al enviar el correo electrónico. ¡Por favor, "
+"inténtelo de nuevo!"
 
 #: src/components/AuthModals/VerifyEmailModal/index.js:77
 msgid "Could not verify email!"
-msgstr ""
+msgstr "¡No se ha podido verificar el correo electrónico!"
 
 #: src/components/AuthModals/VerifyEmailModal/index.js:95
 msgid "Verify your email"
-msgstr ""
+msgstr "Verifique su correo electrónico"
 
 #: src/components/CloneProjectModal/index.js:54
 msgid "Project successfully Cloned!"
-msgstr ""
+msgstr "¡Proyecto clonado con éxito!"
 
 #: src/components/CloneProjectModal/index.js:59
 #: src/components/DeleteProjectModal/index.js:33
 #: src/components/DeleteSurveyModal/index.js:37
 msgid "Something Went Wrong!"
-msgstr ""
+msgstr "¡Algo salió mal!"
 
 #: src/components/CloneProjectModal/index.js:79
 msgid "Clone Project"
-msgstr ""
+msgstr "Clonar el proyecto"
 
 #: src/components/CloneProjectModal/index.js:87
 msgid "Name the Cloned Project"
-msgstr ""
+msgstr "Nombre del proyecto clonado"
 
 #: src/components/CloneProjectModal/index.js:101
 #: src/components/OptionsDropdown/index.js:24
 msgid "Clone"
-msgstr ""
+msgstr "Clonar"
 
 #: src/components/Concerns/Chart/index.js:37
 msgid "High Concerns"
-msgstr ""
+msgstr "Gran preocupación"
 
 #: src/components/Concerns/Chart/index.js:43
 #: src/components/Concerns/Table/index.js:16
@@ -189,23 +201,23 @@ msgstr ""
 #: src/utils/severity.js:11
 #: src/utils/severity.js:19
 msgid "High"
-msgstr ""
+msgstr "Alta"
 
 #: src/components/Concerns/Chart/index.js:46
 msgid "Concern"
-msgstr ""
+msgstr "Inquietud"
 
 #: src/components/Concerns/Chart/index.js:54
 msgid "High Concern"
-msgstr ""
+msgstr "Inquietud alta"
 
 #: src/components/Concerns/Chart/index.js:55
 msgid "Medium Concern"
-msgstr ""
+msgstr "Inquietud media"
 
 #: src/components/Concerns/Chart/index.js:56
 msgid "Low Concern"
-msgstr ""
+msgstr "Inquietud baja"
 
 #: src/components/Concerns/Table/index.js:19
 #: src/components/Concerns/Table/index.js:63
@@ -226,7 +238,7 @@ msgstr ""
 #: src/utils/severity.js:12
 #: src/utils/severity.js:20
 msgid "Medium"
-msgstr ""
+msgstr "Medio"
 
 #: src/components/Concerns/Table/index.js:22
 #: src/components/Concerns/Table/index.js:67
@@ -247,65 +259,67 @@ msgstr ""
 #: src/utils/severity.js:13
 #: src/utils/severity.js:21
 msgid "Low"
-msgstr ""
+msgstr "Bajo"
 
 #: src/components/Concerns/Table/index.js:29
 #: src/components/Concerns/Table/index.js:55
 #: src/containers/Surveys/Dashboard/index.js:237
 msgid "Topic"
-msgstr ""
+msgstr "Tema"
 
 #: src/components/Concerns/Table/index.js:71
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: src/components/ConfirmationModal/index.js:29
 msgid "Are you sure?"
-msgstr ""
+msgstr "¿Estás seguro?"
 
 #: src/components/ConfirmationModal/index.js:40
 msgid "Confirm action"
-msgstr ""
+msgstr "Confirme la acción"
 
 #: src/components/ConfirmationModal/index.js:45
 msgid "Please confirm that you want to carry out this action."
-msgstr ""
+msgstr "Por favor, confirme que desea llevar a cabo esta acción."
 
 #: src/components/ConfirmationModal/index.js:54
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmar"
 
 #: src/components/CreateEditProjectModal/index.js:72
 msgid "Create a project"
-msgstr ""
+msgstr "Crear un proyecto"
 
 #: src/components/CreateEditProjectModal/index.js:74
 msgid "Edit project"
-msgstr ""
+msgstr "Editar un proyecto"
 
 #: src/components/CreateEditProjectModal/index.js:110
 #: src/components/OrganizationModals/ManageMembers/index.js:211
 msgid "Please enter more than 3 characters to search"
-msgstr ""
+msgstr "Por favor, itroduzca más de 3 caracteres para buscar"
 
 #: src/components/CreateEditProjectModal/index.js:113
 #: src/components/OrganizationModals/ManageMembers/index.js:214
 msgid "No result found for given input"
-msgstr ""
+msgstr "No se ha encontrado ningún resultado para la entrada"
 
 #: src/components/CreateEditProjectModal/index.js:124
 msgid ""
 "Visibility cannot be 'Public within organization' with no organization "
 "selected"
 msgstr ""
+"La visibilidad no puede ser \"Pública dentro de la organización\" si no se "
+"ha seleccionado ninguna organización"
 
 #: src/components/CreateEditProjectModal/index.js:151
 msgid "Project successfully Created!"
-msgstr ""
+msgstr "¡Proyecto creado con éxito!"
 
 #: src/components/CreateEditProjectModal/index.js:160
 msgid "Project successfully Edited!"
-msgstr ""
+msgstr "¡Proyecto editado con éxito!"
 
 #: src/components/CreateEditProjectModal/index.js:200
 #: src/components/OrganizationModals/AddEditOrganization/index.js:74
@@ -317,7 +331,7 @@ msgstr ""
 #: src/containers/Surveys/List/index.js:113
 #: src/containers/Surveys/List/index.js:170
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: src/components/CreateEditProjectModal/index.js:210
 #: src/components/Map/Popup/index.js:21
@@ -327,62 +341,62 @@ msgstr ""
 #: src/containers/Register/index.js:191
 #: src/containers/Surveys/Dashboard/Overview/index.js:271
 msgid "Organization"
-msgstr ""
+msgstr "Organización"
 
 #: src/components/CreateEditProjectModal/index.js:215
 msgid "Select An Organization"
-msgstr ""
+msgstr "Seleccione una organización"
 
 #: src/components/CreateEditProjectModal/index.js:226
 #: src/components/OrganizationModals/AddEditOrganization/index.js:85
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: src/components/CreateEditProjectModal/index.js:234
 #: src/containers/Projects/List/index.js:71
 #: src/containers/Projects/List/TableItems/index.js:118
 msgid "Visibility"
-msgstr ""
+msgstr "Visibilidad"
 
 #: src/components/CreateEditProjectModal/index.js:241
 #: src/containers/Projects/List/index.js:178
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: src/components/CreateEditProjectModal/index.js:248
 #: src/containers/Projects/List/TableItems/index.js:130
 msgid "Public within organization"
-msgstr ""
+msgstr "Público dentro de la organización"
 
 #: src/components/CreateEditProjectModal/index.js:257
 #: src/containers/Projects/List/TableItems/index.js:136
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: src/components/CreateEditProjectModal/index.js:269
 #: src/components/OrganizationModals/ManageMembers/index.js:334
 msgid "Select Users"
-msgstr ""
+msgstr "Seleccionar usuarios"
 
 #: src/components/CreateEditProjectModal/index.js:274
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
 
 #: src/components/CreateEditProjectModal/index.js:292
 #: src/components/OptionsDropdown/index.js:19
 #: src/containers/Organizations/OrganizationCard/index.js:52
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/components/CreateEditProjectModal/index.js:292
 #: src/components/NoProject/index.js:47
 #: src/containers/Projects/List/index.js:262
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: src/components/DeleteDraftModal/index.js:45
 msgid "Draft survey actions"
-msgstr ""
+msgstr "Proyecto de encuestas"
 
 #: src/components/DeleteDraftModal/index.js:58
 msgid ""
@@ -390,405 +404,415 @@ msgid ""
 "'{{ draftTitle; }}' you have under the {{ draftModule; }} module. Please "
 "choose your action for the draft survey."
 msgstr ""
+"Al iniciar una nueva encuesta del módulo {{ newModule; }} se eliminará el "
+"borrador de la encuesta '{{ draftTitle; }}' que tienes en el módulo {{ "
+"draftModule; }}. Por favor, elija su acción para el borrador de la encuesta."
 
 #: src/components/DeleteDraftModal/index.js:72
 msgid "Resume draft"
-msgstr ""
+msgstr "Reanudar el borrador"
 
 #: src/components/DeleteDraftModal/index.js:76
 msgid "Delete draft and continue"
-msgstr ""
+msgstr "Borrar borrador y continuar"
 
 #: src/components/DeleteProjectModal/index.js:28
 msgid "Project successfully Deleted!"
-msgstr ""
+msgstr "¡Proyecto eliminado con éxito!"
 
 #: src/components/DeleteProjectModal/index.js:44
 msgid "Delete Project"
-msgstr ""
+msgstr "Borrar proyecto"
 
 #: src/components/DeleteProjectModal/index.js:57
 msgid "Are you sure you want to delete the project?"
-msgstr ""
+msgstr "¿Estás seguro que quieres borrar el proyecto?"
 
 #: src/components/DeleteProjectModal/index.js:65
 #: src/components/DeleteSurveyModal/index.js:69
 #: src/components/FloatingAction/index.js:109
 #: src/components/OptionsDropdown/index.js:29
 msgid "Delete"
-msgstr ""
+msgstr "Borrar"
 
 #: src/components/DeleteSurveyModal/index.js:32
 msgid "Survey successfully deleted!"
-msgstr ""
+msgstr "¡Encuesta eliminada con éxito!"
 
 #: src/components/DeleteSurveyModal/index.js:48
 msgid "Delete Survey"
-msgstr ""
+msgstr "Borrar encuesta"
 
 #: src/components/DeleteSurveyModal/index.js:61
 msgid "Are you sure you want to delete the survey?"
-msgstr ""
+msgstr "¿Estás seguro de que quieres borrar la encuesta?"
 
 #: src/components/FeedbackModal/index.js:45
 msgid "Your feedback has been submitted!"
-msgstr ""
+msgstr "¡Su opinión ha sido enviada!"
 
 #: src/components/FeedbackModal/index.js:49
 msgid "Something went wrong!"
-msgstr ""
+msgstr "¡Algo ha salido mal!"
 
 #: src/components/FeedbackModal/index.js:91
 msgid "Suggest expected severity"
-msgstr ""
+msgstr "Sugerir la inquietud esperada"
 
 #: src/components/FeedbackModal/index.js:98
 msgid ""
 "Please share your expected severity for this module statement, as well as "
 "any additional information or comments."
 msgstr ""
+"Por favor, comparta su severidad esperada para la declaración de este "
+"módulo, así como cualquier información o comentario adicional."
 
 #: src/components/FeedbackModal/index.js:134
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:75
 msgid "Write a comment"
-msgstr ""
+msgstr "Escriba su comentario"
 
 #: src/components/FeedbackModal/index.js:143
 #: src/components/OrganizationModals/AddEditOrganization/index.js:110
 #: src/containers/Surveys/Feedback/index.js:180
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: src/components/FloatingAction/index.js:54
 msgid "draft has been deleted"
-msgstr ""
+msgstr "El borrador ha sido eliminado"
 
 #: src/components/FloatingAction/index.js:87
 msgid "You have got a draft survey."
-msgstr ""
+msgstr "Tiene un proyecto de encuesta."
 
 #: src/components/FloatingAction/index.js:94
 msgid "{{ surveyTitle; }} survey has been saved in draft."
-msgstr ""
+msgstr "{{ surveyTitle; }} la encuesta se ha guardado en borrador."
 
 #: src/components/FloatingAction/index.js:101
 msgid "Resume"
-msgstr ""
+msgstr "Resumen"
 
 #: src/components/Footer/index.js:56
 msgid "ABOUT"
-msgstr ""
+msgstr "ACERCA DE"
 
 #: src/components/Footer/index.js:59
 msgid "Why Environmental Assessments in Humanitarian Operations?"
 msgstr ""
+"¿Por qué las evaluaciones medioambientales en las operaciones humanitarias?"
 
 #: src/components/Footer/index.js:64
 #: src/containers/Home/AboutSection/index.js:21
 msgid "About NEAT+"
-msgstr ""
+msgstr "Acerca de NEAT+"
 
 #: src/components/Footer/index.js:69
 msgid "Rural and Urban NEAT+"
-msgstr ""
+msgstr "NEAT+ rural y urbano"
 
 #: src/components/Footer/index.js:74
 msgid "History of the NEAT+"
-msgstr ""
+msgstr "Historia de NEAT+"
 
 #: src/components/Footer/index.js:79
 msgid "ACCESS THE NEAT+"
-msgstr ""
+msgstr "ACCEDER A NEAT+"
 
 #: src/components/Footer/index.js:82
 #: src/containers/Access/index.js:76
 msgid "Urban NEAT+"
-msgstr ""
+msgstr "NEAT+ urbano"
 
 #: src/components/Footer/index.js:87
 #: src/containers/Access/index.js:68
 msgid "Rural NEAT+"
-msgstr ""
+msgstr "NEAT+ rural"
 
 #: src/components/Footer/index.js:92
 #: src/containers/Action/index.js:32
 msgid "NEAT+ IN ACTION"
-msgstr ""
+msgstr "NEAT+ EN ACCIÓN"
 
 #: src/components/Footer/index.js:95
 msgid "Scoping Videos and Reports"
-msgstr ""
+msgstr "Vídeos e informes"
 
 #: src/components/Footer/index.js:100
 msgid "RESOURCE AND SUPPORT"
-msgstr ""
+msgstr "RECURSOS Y AYUDA"
 
 #: src/components/Footer/index.js:103
 msgid "Videos and Guidance"
-msgstr ""
+msgstr "Vídeos y guías"
 
 #: src/components/Inputs/ImageInput/index.js:51
 msgid "File is invalid"
-msgstr ""
+msgstr "El archivo no es válido"
 
 #: src/components/Inputs/ImageInput/index.js:121
 msgid "Drag & drop images here or click to upload"
-msgstr ""
+msgstr "Arrastre y suelte las imágenes aquí o haga clic para cargarlas"
 
 #: src/components/Inputs/ImageInput/index.js:134
 #: src/containers/Surveys/Dashboard/index.js:112
 msgid "Clear"
-msgstr ""
+msgstr "Limpiar"
 
 #: src/components/Inputs/LocationInput/index.js:146
 msgid "Latitude (x.y °)"
-msgstr ""
+msgstr "Latitud (x.y °)"
 
 #: src/components/Inputs/LocationInput/index.js:155
 msgid "Value must be between -90 and 90"
-msgstr ""
+msgstr "El valor debe estar comprendido entre -90 y 90"
 
 #: src/components/Inputs/LocationInput/index.js:159
 msgid "Longitude (x.y °)"
-msgstr ""
+msgstr "Longitud (x.y °)"
 
 #: src/components/Inputs/LocationInput/index.js:170
 #: src/containers/Surveys/Dashboard/index.js:242
 msgid "Clear All"
-msgstr ""
+msgstr "Limpiar todo"
 
 #: src/components/Inputs/LocationInput/index.js:177
 msgid "Search places"
-msgstr ""
+msgstr "Buscar lugares"
 
 #: src/components/Loader/index.js:23
 msgid "Loading"
-msgstr ""
+msgstr "Cargando"
 
 #: src/components/LoggedOutModal/index.js:26
 #: src/components/LoggedOutModal/index.js:36
 msgid "Session Expired"
-msgstr ""
+msgstr "Sesión caducada"
 
 #: src/components/LoggedOutModal/index.js:39
 msgid "Your session has expired, and you have been logged out."
-msgstr ""
+msgstr "Su sesión ha expirado y ha sido desconectado."
 
 #: src/components/LoggedOutModal/index.js:44
 msgid "OK"
-msgstr ""
+msgstr "De acuerdo"
 
 #: src/components/Map/Popup/index.js:20
 msgid "Project Name"
-msgstr ""
+msgstr "Nombre del proyecto"
 
 #: src/components/Map/Popup/index.js:24
 msgid "Submission Date"
-msgstr ""
+msgstr "Fecha de entrega"
 
 #: src/components/NavBar/index.js:53
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: src/components/NavBar/index.js:54
 msgid "NEAT+ in Action"
-msgstr ""
+msgstr "NEAT+ en acción"
 
 #: src/components/NavBar/index.js:55
 msgid "Resources and Support"
-msgstr ""
+msgstr "Recursos y ayuda"
 
 #: src/components/NavBar/index.js:56
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: src/components/NavBar/index.js:60
 #: src/containers/PublicSurvey/index.js:124
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #: src/components/NavBar/index.js:69
 #: src/containers/About/WorkSection/index.js:56
 #: src/containers/About/WorkSection/index.js:62
 #: src/containers/Home/index.js:37
 msgid "Access the NEAT+"
-msgstr ""
+msgstr "Acceder a NEAT+"
 
 #: src/components/NoOrganization/index.js:35
 msgid "No Organizations"
-msgstr ""
+msgstr "Sin organizaciones"
 
 #: src/components/NoOrganization/index.js:39
 msgid "You haven't been added to any organization"
-msgstr ""
+msgstr "No has sido añadido a ninguna organización"
 
 #: src/components/NoOrganization/index.js:46
 #: src/components/OrganizationModals/JoinOrganization/index.js:118
 msgid "Join Organization"
-msgstr ""
+msgstr "Unirse a la organización"
 
 #: src/components/NoProject/index.js:38
 msgid "Hi"
-msgstr ""
+msgstr "Hola"
 
 #: src/components/NoProject/index.js:40
 msgid "Let's get started by creating a new project"
-msgstr ""
+msgstr "Empecemos por crear un nuevo proyecto"
 
 #: src/components/NoSurvey/index.js:33
 #: src/containers/Projects/Dashboard/index.js:93
 msgid "Back to Projects"
-msgstr ""
+msgstr "Regresar a los proyectos"
 
 #: src/components/NoSurvey/index.js:37
 msgid "No Surveys"
-msgstr ""
+msgstr "Sin encuestas"
 
 #: src/components/NoSurvey/index.js:38
 msgid "No surveys have been completed for this project."
-msgstr ""
+msgstr "No se han realizado encuestas para este proyecto."
 
 #: src/components/NoSurvey/index.js:44
 #: src/containers/Projects/Dashboard/SurveyTable/index.js:182
 #: src/containers/Surveys/Dashboard/Module/index.js:85
 msgid "Take Survey"
-msgstr ""
+msgstr "Realizar la encuesta"
 
 #: src/components/Notice/index.js:49
 msgid "Learn more"
-msgstr ""
+msgstr "Más información"
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:34
 msgid "Organization sucessfully edited!"
-msgstr ""
+msgstr "¡Organización editada con éxito!"
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:35
 msgid "Request to create organization has been made!"
-msgstr ""
+msgstr "¡Se ha solicitado la creación de una organización!"
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:57
 msgid "Edit Organization"
-msgstr ""
+msgstr "Editar organización"
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:57
 msgid "Request to add an organization"
-msgstr ""
+msgstr "Solicitud para añadir una organización"
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:95
 msgid "Point of Contact"
-msgstr ""
+msgstr "Punto de contacto"
 
 #: src/components/OrganizationModals/AddEditOrganization/index.js:110
 #: src/components/OrganizationModals/ManageMembers/index.js:349
 #: src/containers/Administration/StatementWeightage/index.js:390
 #: src/containers/Surveys/Dashboard/index.js:212
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:59
 msgid "Logo"
-msgstr ""
+msgstr "Logotipo"
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:70
 #: src/containers/Organizations/index.js:68
 msgid "Join"
-msgstr ""
+msgstr "Únete a"
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:125
 msgid ""
 "Please choose an organization you want to join. The organization admin "
 "should accept your join invitation to be added to that organization."
 msgstr ""
+"Por favor, elija una organización a la que desee unirse. El administrador de "
+"la organización debe aceptar tu invitación para unirte a ella."
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:134
 msgid "Search Organizations"
-msgstr ""
+msgstr "Buscar organizaciones"
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:140
 msgid "Suggested Organizations"
-msgstr ""
+msgstr "Organizaciones recomendadas"
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:152
 msgid "No results found. Make sure your search is spelled correctly."
 msgstr ""
+"No se han encontrado resultados. Asegúrese de que su búsqueda está escrita "
+"correctamente."
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:156
 msgid "Should this be added to NEAT+? Appeal to add an organization"
-msgstr ""
+msgstr "¿Debería añadirse a NEAT+? Llamamiento para añadir una organización"
 
 #: src/components/OrganizationModals/JoinOrganization/index.js:164
 msgid "Add Organization"
-msgstr ""
+msgstr "Añadir organización"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:81
 #: src/components/OrganizationModals/ManageMembers/index.js:96
 msgid "User role successfully updated!"
-msgstr ""
+msgstr "¡Rol de usuario actualizado correctamente!"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:125
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:130
 msgid "Member"
-msgstr ""
+msgstr "Miembro"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:147
 msgid "Request approved!"
-msgstr ""
+msgstr "¡Solicitud aprobada!"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:158
 msgid "Request rejected!"
-msgstr ""
+msgstr "¡Solicitud rechazada!"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:172
 msgid "wants to join this organization."
-msgstr ""
+msgstr "quiere unirse a esta organización."
 
 #: src/components/OrganizationModals/ManageMembers/index.js:179
 msgid "Approve"
-msgstr ""
+msgstr "Aprobar"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:187
 #: src/components/UserNav/Notification/Invitation/index.js:75
 msgid "Decline"
-msgstr ""
+msgstr "Rechazar"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:260
 msgid "Changes saved!"
-msgstr ""
+msgstr "¡Cambios guardados!"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:290
 msgid "Respond to requests"
-msgstr ""
+msgstr "Responder a las peticiones"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:290
 msgid "Manage Members"
-msgstr ""
+msgstr "Gestionar miembros"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:309
 msgid "Member Requests"
-msgstr ""
+msgstr "Solicitudes de los miembros"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:316
 msgid "Respond to all requests"
-msgstr ""
+msgstr "Responder a todas las solicitudes"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:322
 msgid "Add New Members"
-msgstr ""
+msgstr "Añadir nuevos miembros"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:353
 msgid "Admins"
-msgstr ""
+msgstr "Administradores"
 
 #: src/components/OrganizationModals/ManageMembers/index.js:365
 msgid "Members"
-msgstr ""
+msgstr "Miembros"
 
 #: src/components/RestoreItemsModal/index.js:129
 msgid "Topics"
-msgstr ""
+msgstr "Temas"
 
 #: src/components/RestoreItemsModal/index.js:133
 #: src/containers/Administration/Statements/index.js:24
@@ -796,101 +820,102 @@ msgstr ""
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:106
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:143
 msgid "Statements"
-msgstr ""
+msgstr "Declaraciones"
 
 #: src/components/RestoreItemsModal/index.js:188
 msgid "Restore Items"
-msgstr ""
+msgstr "Restaurar elementos"
 
 #: src/components/RestoreItemsModal/index.js:214
 #: src/containers/Surveys/Dashboard/index.js:204
 msgid "Restore"
-msgstr ""
+msgstr "Restaurar"
 
 #: src/components/ShareSurvey/index.js:49
 msgid "An error occured"
-msgstr ""
+msgstr "Ha ocurrido un error"
 
 #: src/components/ShareSurvey/index.js:60
 msgid "The survey can no longer be accessed publicly"
-msgstr ""
+msgstr "Ya no se puede acceder públicamente a la encuesta"
 
 #: src/components/ShareSurvey/index.js:70
 msgid "Link has been copied to clipboard!"
-msgstr ""
+msgstr "¡El enlace se ha copiado en el portapapeles!"
 
 #: src/components/ShareSurvey/index.js:86
 msgid "Share Insight"
-msgstr ""
+msgstr "Compartir la información"
 
 #: src/components/ShareSurvey/index.js:86
 msgid "Share Link"
-msgstr ""
+msgstr "Compartir enlace"
 
 #: src/components/ShareSurvey/index.js:92
 msgid "Everyone with this link can view on the Web"
-msgstr ""
+msgstr "Todo el mundo con este enlace puede ver en la web"
 
 #: src/components/ShareSurvey/index.js:104
 msgid "Stop Sharing"
-msgstr ""
+msgstr "Dejar de compartir"
 
 #: src/components/ShareSurvey/index.js:115
 msgid "Copy Link"
-msgstr ""
+msgstr "Copiar enlace"
 
 #: src/components/ShareSurvey/index.js:120
 msgid "This link has been shared publicly"
-msgstr ""
+msgstr "Este enlace ha sido compartido públicamente"
 
 #: src/components/ShareSurvey/index.js:127
 msgid "Everyone with public link can view on the Web"
-msgstr ""
+msgstr "Todo el mundo con enlace público puede ver la web"
 
 #: src/components/ShareSurvey/index.js:134
 msgid "Get Public Link"
-msgstr ""
+msgstr "Obtenga un enlace público"
 
 #: src/components/StatementAccordion/index.js:87
 msgid "concern"
-msgstr ""
+msgstr "inquietud"
 
 #: src/components/StatementAccordion/index.js:91
 msgid "Conflicting score? {{ link:provide suggestions/feedback }}."
-msgstr ""
+msgstr "¿Puntuación contradictoria? {{ link:provide suggestions/feedback }}."
 
 #: src/components/StatementAccordion/index.js:110
 #: src/components/SurveyModuleReport/CompactReport/index.js:59
 msgid "This concern level of this statement might vary by context."
 msgstr ""
+"El nivel de inquietud de esta afirmación puede variar según el contexto."
 
 #: src/components/StatementAccordion/index.js:122
 msgid "Mitigations, Opportunities and more"
-msgstr ""
+msgstr "Mitigación, oportunidades y más"
 
 #: src/components/StatementAccordion/index.js:137
 msgid "ADDITIONAL INFORMATION"
-msgstr ""
+msgstr "INFORMACIÓN COMPLEMENTARIA"
 
 #: src/components/StatementAccordion/index.js:141
 msgid "MITIGATIONS"
-msgstr ""
+msgstr "MEDIDAS"
 
 #: src/components/StatementAccordion/index.js:148
 msgid "OPPORTUNITIES"
-msgstr ""
+msgstr "OPORTUNIDADES"
 
 #: src/components/SummaryModal/index.js:39
 msgid "No statements found for this severity!"
-msgstr ""
+msgstr "¡No se han encontrado declaraciones para esta inquietud!"
 
 #: src/components/SummaryModal/index.js:86
 msgid "{{ moduleTitle; }} Statements Severity Summary"
-msgstr ""
+msgstr "{{ moduleTitle; }} Resumen de la gravedad de las declaraciones"
 
 #: src/components/SurveyModuleReport/CompactReport/index.js:68
 msgid "Highest priority mitigations"
-msgstr ""
+msgstr "Mitigación de máxima prioridad"
 
 #: src/components/SurveyModuleReport/CompactReport/index.js:77
 msgid "No mitigations of high priority found!"
