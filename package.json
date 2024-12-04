@@ -30,7 +30,7 @@
         "sass": "^1.81.0",
         "typescript": "^5.7.2",
         "web-vitals": "^4.2.4",
-        "whatwg-fetch": "^3.6.2",
+        "whatwg-fetch": "^3.6.20",
         "yet-another-abortcontroller-polyfill": "^0.0.4"
     },
     "scripts": {
