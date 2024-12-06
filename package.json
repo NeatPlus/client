@@ -8,7 +8,7 @@
         "@uiw/react-textarea-code-editor": "^3.1.0",
         "d3": "^7.9.0",
         "gl-matrix": "^3.4.3",
-        "html-react-parser": "^5.1.18",
+        "html-react-parser": "^5.2.0",
         "mapbox-gl": "^3.8.0",
         "po2json": "^0.4.5",
         "postcss": "^8.4.49",
