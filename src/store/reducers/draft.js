@@ -1,28 +1,38 @@
 import * as actions from 'store/actions/draft';
 
 const initialState = {
-    projectId: null,
-    title: '',
-    draftAnswers: [],
-    moduleCode: 'sens',
-    surveyId: null,
+    drafts: []
 };
 
 const draftReducer = (state = initialState, action) => {
     switch(action.type) {
-    case actions.SET_PROJECT_ID:
-        return {...state, projectId: action.id};
+    case actions.ADD_DRAFT_SURVEY:
+        state.drafts = [...state.drafts, action.draft];
+        return state;
     case actions.SET_TITLE:
-        return {...state, title: action.title};
+        return updateStateDraftPropertyByIndex(state, action.draftIndex, 'title', action.title);
     case actions.SET_DRAFT_ANSWERS:
-        return {...state, draftAnswers: action.answers};
-    case actions.SET_DRAFT_MODULE:
-        return {...state, moduleCode: action.code};
+        return updateStateDraftPropertyByIndex(state, action.draftIndex, 'answers', action.answers);
     case actions.SET_SURVEY_ID:
-        return {...state, surveyId: action.id};
+        return updateStateDraftPropertyByIndex(state, action.draftIndex, 'surveyId', action.surveyId);
     default:
         return state;
     }
 };
 
 export default draftReducer;
+
+function updateStateDraftPropertyByIndex(state, index, key, value) {
+    if(isNaN(index) || index < 0) {
+        return state;
+    }
+    return {
+        ...state,
+        drafts: state.drafts.slice(0, index).concat(
+            [{
+                ...state.drafts[index],
+                [key]: value
+            }, ...state.drafts.slice(index + 1)]
+        )
+    };
+}

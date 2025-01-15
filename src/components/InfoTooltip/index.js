@@ -10,11 +10,12 @@ const InfoTooltip = ({
     message,
     iconClassName,
     iconSize=20,
-    tooltipClassName
+    tooltipClassName,
+    ...iconProps
 }) => {
     return (
         <span className={styles.container}>
-            <Icon className={cs(styles.icon, iconClassName)} size={iconSize} />
+            <Icon className={cs(styles.icon, iconClassName)} size={iconSize} {...iconProps} />
             <div className={cs(styles.tooltipContent, tooltipClassName)}>
                 {message}
             </div>

@@ -32,6 +32,9 @@ const ProjectDashboard = withNoSurvey(() => {
     const surveyModalsConfig = useSurveyModals('sens');
 
     const {activeProject} = useSelector(state => state.project);
+
+    const hasDraftSurveysOnly = useMemo(() => activeProject?.surveysCount && activeProject?.draftSurveysCount && activeProject.surveysCount === activeProject.draftSurveysCount, [activeProject]);
+
     const surveys = useSelector(getFormattedSurveys);
     const {topics} = useSelector(state => state.statement);
 
@@ -92,60 +95,64 @@ const ProjectDashboard = withNoSurvey(() => {
             <Link to="/projects" className={styles.backLink}>
                 <BiChevronLeft size={22} className={styles.backIcon} /> <Localize>Back to Projects</Localize>
             </Link>
-            <Tabs
-                activeTab={location.pathname.includes('surveys') ? 'surveys' : 'summary'}
-                secondary
-                className={styles.tabs}
-                headerClassName={styles.tabsHeader}
-                onChange={handleTabChange}
-            >
-                <Tab label="summary" title={_('Summary')}>
-                    <div className={styles.summaryContainer}>
-                        <SurveyTable
-                            onTakeSurveyClick={surveyModalsConfig.handleShowDeleteDraft}
-                            clonable={Boolean(projectResults.length)}
-                        />
-                        <div className={styles.overview}>
-                            <h3 className={styles.overviewTitle}>
-                                <Localize>Overview</Localize>
-                            </h3>
-                            <div className={styles.overviewContent}>
-                                <div className={styles.concerns}>
-                                    <h4 className={styles.concernsTitle}>
-                                        <Localize>Top concerns topics</Localize>
-                                    </h4>
-                                    <div className={styles.concernsTable}>
-                                        <ConcernsTable
-                                            loading={!projectResults.length}
-                                            concerns={topConcerns}
-                                        />
+            {hasDraftSurveysOnly ? (
+                <SurveyList />
+            ) : (
+                <Tabs
+                    activeTab={location.pathname.includes('surveys') ? 'surveys' : 'summary'}
+                    secondary
+                    className={styles.tabs}
+                    headerClassName={styles.tabsHeader}
+                    onChange={handleTabChange}
+                >
+                    <Tab label="summary" title={_('Summary')}>
+                        <div className={styles.summaryContainer}>
+                            <SurveyTable
+                                onTakeSurveyClick={surveyModalsConfig.handleShowTakeSurvey}
+                                clonable={Boolean(projectResults.length)}
+                            />
+                            <div className={styles.overview}>
+                                <h3 className={styles.overviewTitle}>
+                                    <Localize>Overview</Localize>
+                                </h3>
+                                <div className={styles.overviewContent}>
+                                    <div className={styles.concerns}>
+                                        <h4 className={styles.concernsTitle}>
+                                            <Localize>Top concerns topics</Localize>
+                                        </h4>
+                                        <div className={styles.concernsTable}>
+                                            <ConcernsTable
+                                                loading={!projectResults.length}
+                                                concerns={topConcerns}
+                                            />
+                                        </div>
+                                        <div className={styles.concernsChart}>
+                                            <ConcernsChart concerns={concernsData} />
+                                        </div>
                                     </div>
-                                    <div className={styles.concernsChart}>
-                                        <ConcernsChart concerns={concernsData} />
-                                    </div>
-                                </div>
-                                <div className={styles.location}>
-                                    <h4 className={styles.locationTitle}>
-                                        <Localize>Number of issues of concern by location</Localize>
-                                    </h4>
-                                    <div className={styles.map}>
-                                        <Map
-                                            project={activeProject}
-                                            features={projectLocations}
-                                            showPopup
-                                            width={400}
-                                            height={500}
-                                        />
+                                    <div className={styles.location}>
+                                        <h4 className={styles.locationTitle}>
+                                            <Localize>Number of issues of concern by location</Localize>
+                                        </h4>
+                                        <div className={styles.map}>
+                                            <Map
+                                                project={activeProject}
+                                                features={projectLocations}
+                                                showPopup
+                                                width={400}
+                                                height={500}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </Tab>
-                <Tab label="surveys" title={_('Surveys')}>
-                    <SurveyList />
-                </Tab>
-            </Tabs>
+                    </Tab>
+                    <Tab label="surveys" title={_('Surveys')}>
+                        <SurveyList />
+                    </Tab>
+                </Tabs>
+            )}
             <SurveyModals {...surveyModalsConfig} />
         </div>
     );

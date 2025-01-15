@@ -47,7 +47,7 @@ const getInputComponent = question => {
 };
 
 const Question = forwardRef((props, ref) => {
-    const {item, showRequired, editable} = props;
+    const {item, showRequired, editable, surveyModuleId} = props;
 
     const dispatch = useDispatch();
     const {options, answers} = useSelector(state => state.question);
@@ -71,6 +71,7 @@ const Question = forwardRef((props, ref) => {
         const answer = {
             answerType: item.answerType,
             question: item.id,
+            surveyModule: surveyModuleId,
         };
         if(item.answerType === 'single_option' || 
             item.answerType === 'multiple_option') {
@@ -95,7 +96,7 @@ const Question = forwardRef((props, ref) => {
             return dispatch(questionActions.setAnswers([...newAnswers]));
         }
         dispatch(questionActions.setAnswers([...answers, answer]));
-    }, [item, answers, dispatch, editable]);
+    }, [item, answers, dispatch, editable, surveyModuleId]);
 
     const answerItem = useMemo(() => {
         return answers.find(ans => {

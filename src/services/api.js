@@ -201,7 +201,9 @@ class Api {
         dispatch(surveyActions.setStatus('loading'));
         try {
             const data = await this.get('/survey/', {query});
+            const moduleData = await this.get('/survey-module/');
             dispatch(surveyActions.setSurveys(data?.results || []));
+            dispatch(surveyActions.setSurveyModules(moduleData?.results || []));
             dispatch(surveyActions.setStatus('complete'));
         } catch(error) {
             dispatch(surveyActions.setStatus('failed'));
@@ -347,6 +349,13 @@ class Api {
         return this.get(`/survey/${surveyId}/`);  
     };
 
+    createSurvey = async ({projectId, title, modules}) => {
+        return this.post(`/project/${projectId}/create_survey/`, {
+            title,
+            modules
+        });
+    };
+
     getUsers = async (searchValue) => {
         return this.get('/user/',
             {
@@ -445,6 +454,10 @@ class Api {
 
     patchSurvey = (surveyId, body) => {
         return this.patch(`/survey/${surveyId}/`, body);
+    };
+
+    addSurveyAnswers = (surveyId, surveyAnswers) => {
+        return this.post(`/survey/${surveyId}/add_answers/`, surveyAnswers);
     };
 
     getNotice = () => {

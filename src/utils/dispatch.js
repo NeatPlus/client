@@ -19,8 +19,6 @@ export const dispatchLogin = async (accessToken, refreshToken, user) => {
 
 export const initDraftAnswers = (projectId, moduleCode='sens', surveyId) => {
     dispatch(draftActions.setTitle(''));
-    dispatch(draftActions.setDraftModule(moduleCode));
-    dispatch(draftActions.setProjectId(projectId));
     dispatch(draftActions.setDraftAnswers([]));
     dispatch(draftActions.setSurveyId(surveyId ?? null));
 };

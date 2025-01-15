@@ -1,25 +1,20 @@
-export const SET_PROJECT_ID = 'SET_PROJECT_ID';
+export const ADD_DRAFT_SURVEY = 'ADD_DRAFT_SURVEY';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_DRAFT_ANSWERS = 'SET_DRAFT_ANSWERS';
-export const SET_DRAFT_MODULE = 'SET_DRAFT_MODULE';
 export const SET_SURVEY_ID = 'SET_SURVEY_ID';
 
-export function setProjectId(id) {
-    return {type: SET_PROJECT_ID, id};
+export function addDraftSurvey(draft) {
+    return {type: ADD_DRAFT_SURVEY, draft};
 }
 
-export function setTitle(title) {
-    return {type: SET_TITLE, title};
+export function setDraftAnswers(answers, draftIndex) {
+    return {type: SET_DRAFT_ANSWERS, answers, draftIndex};
 }
 
-export function setDraftAnswers(answers) {
-    return {type: SET_DRAFT_ANSWERS, answers};
+export function setTitle(title, draftIndex) {
+    return {type: SET_TITLE, title, draftIndex};
 }
 
-export function setDraftModule(code) {
-    return {type: SET_DRAFT_MODULE, code};
-}
-
-export function setSurveyId(id) {
-    return {type: SET_SURVEY_ID, id};
+export function setSurveyId(id, draftIndex) {
+    return {type: SET_SURVEY_ID, id, draftIndex};
 }

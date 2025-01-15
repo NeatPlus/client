@@ -1,56 +1,67 @@
-import {useCallback, useState, useMemo} from 'react';
-import {useParams} from 'react-router';
+import {useCallback, useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
-import {initDraftAnswers} from 'utils/dispatch';
 import Api from 'services/api';
 
-const useSurveyModals = (module, surveyId) => {
-    const {projectId} = useParams();
-
-    const {projectId: draftId, title} = useSelector(state => state.draft);
+const initialState = {
+    showCreateSurveyModal: false,
+    showTakeSurveyModal: false,
+    showDeleteDraftModal: false,
+};
+const useSurveyModals = (moduleCode) => {
     const {questions} = useSelector(state => state.question);
 
-    const doesDraftExist = useMemo(() => draftId && title, [draftId, title]);
+    const [surveyModals, setSurveyModals] = useState(initialState);
+    const [survey, setSurvey] = useState(null);
+    const [surveyModuleId, setSurveyModuleId] = useState(null);
 
-    const [surveyModals, setSurveyModals] = useState({
-        showTakeSurveyModal: false,
-        showDeleteDraftModal: false,
-    });
-
-    const handleShowTakeSurvey = useCallback((reset=true) => {
-        if(reset) {
-            initDraftAnswers(+projectId, module, surveyId);
-        }
-        if(!questions?.[module]?.length) {
-            Api.getQuestions(module);
-        }
+    const handleCreateNewSurvey = useCallback(() => {
         setSurveyModals({
-            showTakeSurveyModal: true,
-            showDeleteDraftModal: false,
+            showCreateSurveyModal: true, 
+            showTakeSurveyModal: false, 
+            showDeleteDraftModal: false
         });
-    }, [projectId, module, questions, surveyId]);
+    }, []);
 
-    const handleShowDeleteDraft = useCallback(() => {
-        if(doesDraftExist) {
-            return setSurveyModals({
-                showTakeSurveyModal: false,
-                showDeleteDraftModal: true,
-            });
-        }
-        handleShowTakeSurvey();
-    }, [doesDraftExist, handleShowTakeSurvey]);
-
-    const hideModals = useCallback(() => {
+    const handleShowTakeSurvey = useCallback((surveyData, surveyModuleIdData) => {
+        console.log('SHOWING TAKE SURVEY', surveyData, surveyModuleIdData);
+        setSurvey(surveyData);
+        setSurveyModuleId(surveyModuleIdData);
+        // if(!questions?.[moduleCode]?.length) {
+        //     Api.getQuestions(moduleCode);
+        // }
         setSurveyModals({
-            showTakeSurveyModal: false,
+            showCreateSurveyModal: false,
+            showTakeSurveyModal: true,
             showDeleteDraftModal: false,
         });
     }, []);
 
+    const handleShowDeleteDraft = useCallback(() => {
+        setSurveyModals({
+            showCreateSurveyModal: false,
+            showTakeSurveyModal: false,
+            showDeleteDraftModal: true,
+        });
+    }, []);
+
+    const hideModals = useCallback(() => {
+        setSurveyModals(initialState);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            setSurvey(null);
+            setSurveyModuleId(null);
+        };
+    }, []);
+
     return {
-        module,
+        module: moduleCode,
+        surveyModuleId,
+        survey,
         surveyModals,
+        handleCreateNewSurvey,
         handleShowTakeSurvey,
         handleShowDeleteDraft,
         hideModals,

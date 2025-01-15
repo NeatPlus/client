@@ -78,7 +78,7 @@ const FillQuestionnaire = props => {
             </p>
             <Button
                 outline
-                onClick={hasResults ? handleShowQuestionnaire : surveyModalsConfig.handleShowDeleteDraft}
+                onClick={hasResults ? handleShowQuestionnaire : surveyModalsConfig.handleShowTakeSurvey}
                 className={styles.button}
             >
                 {!hasResults && <BsPlus className={styles.buttonIcon} />}

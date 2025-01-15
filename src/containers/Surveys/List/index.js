@@ -56,6 +56,14 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
     const {activeProject} = useSelector(state => state.project);
     const {projectId: draftId, title, moduleCode, draftAnswers} = useSelector(state => state.draft);
     const {questions} = useSelector(state => state.question);
+    const {modules} = useSelector(state => state.context);
+
+    const hasDraftModule = useMemo(() => item.surveyModules.some(surveyModule => surveyModule.status==='draft'), [item]);
+    const isSensitivityModuleInDraft = useMemo(() => {
+        return hasDraftModule && item.surveyModules.some(surveyModule => {
+            return surveyModule.status === 'draft' && modules.find(module => module.id === surveyModule.module)?.code === 'sens';
+        });
+    }, [hasDraftModule, item, modules]);
 
     const doesDraftExist = useMemo(() => draftId && title, [draftId, title]);
     const itemAnswers = useMemo(() => item.answers.map(sur => (
@@ -113,7 +121,7 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
     if(column.Header===_('Name')) {
         return (
             <div className={styles.nameItem}>
-                {item[column.accessor]}
+                {item[column.accessor]}{hasDraftModule ? '(Draft)' : ''}
             </div>
         );
     }
@@ -137,7 +145,7 @@ export const DataItem = ({item, column, onClone, onDelete}) => {
             <div onClick={stopEventBubbling}>
                 <OptionsDropdown
                     className={styles.optionsItem}
-                    onClone={handleShowDeleteDraftModal}
+                    onClone={isSensitivityModuleInDraft ? undefined : handleShowDeleteDraftModal}
                     onDelete={handleShowDeleteSurveyModal}
                 />
                 <TakeSurveyModal

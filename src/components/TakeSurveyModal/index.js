@@ -1,22 +1,20 @@
 import {useCallback, useState, useMemo, useRef, useEffect} from 'react';
-import {useParams} from 'react-router';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {MdClose} from 'react-icons/md';
-import {BsArrowLeft, BsArrowRight, BsCheck} from 'react-icons/bs';
+import {MdClose, MdOutlineCheckCircle, MdOutlineCloudUpload} from 'react-icons/md';
+import {BsArrowLeft, BsArrowRight} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 import {IoIosArrowDropright, IoIosArrowDropleft} from 'react-icons/io';
 
 import Button from 'components/Button';
-import DeleteDraftModal from 'components/DeleteDraftModal';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
 import withVisibleCheck from '@ra/components/WithVisibleCheck';
 
 import {_} from 'services/i18n';
+import Toast from 'services/toast';
 
-import useRequest from 'hooks/useRequest';
 import useSize from '@ra/hooks/useSize';
 import usePromise from '@ra/hooks/usePromise';
 
@@ -25,20 +23,16 @@ import NoSurveyImage from 'assets/images/no-survey.svg';
 
 import cs from '@ra/cs';
 import {getErrorMessage} from '@ra/utils/error';
-import {calculateSurveyResults} from 'utils/calculation';
-import {initDraftAnswers} from 'utils/dispatch';
-import {AVAILABLE_SURVEY_MODULES} from 'utils/config';
 import {parseSkipLogic} from 'utils/skipLogic';
 import {formatTime} from 'utils/time';
 
 import Api from 'services/api';
-import Toast from 'services/toast';
 import * as questionActions from 'store/actions/question';
-import * as draftActions from 'store/actions/draft';
 
 import Question from './Question';
-import InitSurvey from './InitSurvey';
 import styles from './styles.scss';
+import Loader from 'components/Loader';
+import InfoTooltip from 'components/InfoTooltip';
 
 const keyExtractor = item => item.id;
 
@@ -74,6 +68,7 @@ const GroupContent = props => {
     const {answers} = useSelector(state => state.question);
 
     const {
+        surveyModuleId,
         activeGroup,
         questions,
         onPreviousClick,
@@ -103,17 +98,17 @@ const GroupContent = props => {
     const renderQuestion = useCallback(listProps => {
         return (
             <Question
+                surveyModuleId={surveyModuleId}
                 ref={el => questionsRef.current[listProps.index] = el}
                 editable={editable}
                 showRequired={showRequired}
                 {...listProps}
             />
         );
-    }, [showRequired, editable]);
+    }, [showRequired, editable, surveyModuleId]);
 
     return (
         <>
-            <div className={styles.languageSelect}>English</div>
             <h3 className={styles.contentTitle}>{activeGroup?.title}</h3>
             <List
                 data={questions}
@@ -150,36 +145,31 @@ const TakeSurveyModal = (props) => {
     const contentRef = useRef();
 
     const dispatch = useDispatch();
-    const {activeSurvey} = useSelector(state => state.survey);
     const {modules = []} = useSelector(state => state.context);
-    const {
-        title: surveyTitle,
-        projectId: draftProjectId,
-        moduleCode: draftCode,
-        surveyId: draftSurveyId,
-    } = useSelector(state => state.draft);
-
-    const doesDraftExist = useMemo(() => draftProjectId && surveyTitle, [draftProjectId, surveyTitle]);
 
     const {
-        isVisible,
+        survey,
+        surveyModuleId,
         onClose,
         editable: isEditable = true,
-        clone,
-        code,
-        isNewEdit,
+        moduleCode,
     } = props;
 
-    const params = useParams();
+    useEffect(() => {
+        if(!survey || !surveyModuleId) {
+            Toast.show(_('There was an error loading the survey questionnaire. Please try again later!', Toast.ERROR));
+            onClose();
+        }
+    }, [survey, surveyModuleId, onClose]);
 
-    const [editMode, setEditMode] = useState(false);
+    const [editMode] = useState(false);
     const editable = useMemo(() => isEditable || editMode, [editMode, isEditable]);
 
     const {
         questionGroups: allQuestionGroups,
         questions,
-        status,
-        answers
+        answers,
+        // status
     } = useSelector(state => state.question);
 
     const [{loading: loadingQuestionGroups}, getQuestionGroups] = usePromise(Api.getQuestionGroups);
@@ -190,55 +180,33 @@ const TakeSurveyModal = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getQuestionGroups]);
 
-    const [showDeleteDraftModal, setShowDeleteDraftModal] = useState(false);
+    // const initializeNewDraft = useCallback(() => {
 
-    const handleCloseDeleteDraftModal = useCallback(() => {
-        setShowDeleteDraftModal(false);
-    }, []);
+    // dispatch(draftActions.setTitle(activeSurvey?.title));
+    // dispatch(draftActions.setDraftAnswers(answers));
+    // dispatch(draftActions.setProjectId(+params.projectId));
+    // dispatch(draftActions.setSurveyId(activeSurvey?.id));
+    // dispatch(draftActions.setDraftModule(code));
+    // }, []);
 
-    const initializeNewDraft = useCallback(() => {
-        dispatch(draftActions.setTitle(activeSurvey?.title));
-        dispatch(draftActions.setDraftAnswers(answers));
-        dispatch(draftActions.setProjectId(+params.projectId));
-        dispatch(draftActions.setSurveyId(activeSurvey?.id));
-        dispatch(draftActions.setDraftModule(code));
-    }, [params, answers, activeSurvey, code, dispatch]);
+    // const handleEditButtonClick = useCallback(() => {
+    // if(doesDraftExist) {
+    //     return setShowDeleteDraftModal(true);
+    // }
+    // initializeNewDraft();
+    // setEditMode(true);
+    // }, []);
 
-    const handleDeleteDraft = useCallback(() => {
-        initializeNewDraft();
-        handleCloseDeleteDraftModal();
-        setEditMode(true);
-    }, [initializeNewDraft, handleCloseDeleteDraftModal]);
-
-    const handleEditButtonClick = useCallback(() => {
-        if(doesDraftExist) {
-            return setShowDeleteDraftModal(true);
-        }
-        initializeNewDraft();
-        setEditMode(true);
-    }, [doesDraftExist, initializeNewDraft]);
-
-    const moduleCode = useMemo(() => !editable ? code : draftCode ?? code, [editable, draftCode, code]);
     const activeModule = useMemo(() => modules.find(mod => mod.code === moduleCode), [modules, moduleCode]);
 
-    useEffect(() => {
-        if(!surveyTitle && moduleCode!=='sens') {
-            dispatch(draftActions.setTitle(activeSurvey?.title));
-        }
-    }, [activeSurvey, dispatch, moduleCode, isVisible, surveyTitle]);
-
-    const [{loading}, createSurvey] = useRequest(
-        `/project/${draftProjectId}/create_survey/`,
-        {method: 'POST'}
-    );
-    const [{loading: addingAnswers}, addSurveyAnswers] = useRequest(
-        `/survey/${draftSurveyId}/add_answers/`,
-        {method: 'POST'}
-    );
-    const [{loading: addingResults}, addSurveyResults] = useRequest(
-        `/survey/${draftSurveyId}/add_results/`,
-        {method: 'POST'}
-    );
+    // const [{loading: addingAnswers}, addSurveyAnswers] = useRequest(
+    //     `/survey/${draftSurveyId}/add_answers/`,
+    //     {method: 'POST'}
+    // );
+    // const [{loading: addingResults}, addSurveyResults] = useRequest(
+    //     `/survey/${draftSurveyId}/add_results/`,
+    //     {method: 'POST'}
+    // );
 
     const questionGroups = useMemo(() => {
         return allQuestionGroups.filter(group => {
@@ -259,12 +227,34 @@ const TakeSurveyModal = (props) => {
         setCollapsed(!collapsed);
     }, [collapsed]);
 
-    const [error, setError] = useState(null);
+    const [error] = useState(null);
 
     const activeGroup = questionGroups[activeGroupIndex];
     const activeQuestions = useMemo(() => questions[moduleCode]?.filter(ques =>
         ques.group === activeGroup?.id
     ) || [], [questions, activeGroup, moduleCode]);
+
+    const [isSynced, setIsSynced] = useState(true);
+    const [{loading: savingDraft}, saveDraftAnswersPromise] = usePromise(Api.addSurveyAnswers);
+    
+    const filteredAnswers = useMemo(() => answers.filter(ans => {
+        const questionItem = (questions[moduleCode] || []).find(ques => ques.id === ans.question);
+        return questionGroups.some(grp => questionItem && grp.id === questionItem.group);
+    }), [answers, questions, moduleCode, questionGroups]);
+    
+    const handleSaveDraftAnswers = useCallback(async () => {
+        try {
+            await saveDraftAnswersPromise(survey?.id, filteredAnswers);
+            setIsSynced(true);
+        } catch(err) {
+            Toast.show(_('An error occurred while saving draft!', Toast.DANGER));
+        }
+    }, [saveDraftAnswersPromise, survey, filteredAnswers]);
+    useEffect(() => {
+        if(filteredAnswers.length) {
+            setIsSynced(false);
+        }
+    }, [filteredAnswers]);
 
     const handlePreviousClick = useCallback(() =>
         setActiveGroupIndex(activeGroupIndex - 1),
@@ -281,18 +271,19 @@ const TakeSurveyModal = (props) => {
             }
             setShowRequired(true);
         }
-        if(!clone && editable) {
-            dispatch(draftActions.setDraftAnswers(answers));
-        }
+        handleSaveDraftAnswers();
+
+        // if(!clone && editable) {
+        //     dispatch(draftActions.setDraftAnswers(answers, activeDraftIndex));
+        // }
         setActiveGroupIndex(activeGroupIndex + 1);
         contentRef.current.scrollTo({top: 0, behavior: 'smooth'});
     }, [
+        handleSaveDraftAnswers,
         activeGroupIndex,
         activeQuestions,
         answers,
         editable,
-        dispatch,
-        clone,
     ]);
 
     const isFormIncomplete = useMemo(() => {
@@ -322,70 +313,57 @@ const TakeSurveyModal = (props) => {
     }, [activeGroupIndex, editable]);
 
     const handleClose = useCallback(() => {
-        if(editable) {
-            dispatch(draftActions.setDraftAnswers(answers));
-        }
+        // if(editable) {
+        //     dispatch(draftActions.setDraftAnswers(answers, activeDraftIndex));
+        // }
         dispatch(questionActions.setAnswers([]));
         onClose && onClose();
-    }, [onClose, editable, dispatch, answers]);
+    }, [onClose, dispatch]);
 
-    const handleValidate = useCallback(async () => {
-        setError(null);
-        try {
-            const filteredAnswers = answers.filter(ans => {
-                const questionItem = (questions[moduleCode] || []).find(ques => ques.id === ans.question);
-                return questionGroups.some(grp => questionItem && grp.id === questionItem.group);
-            });
-            const results = await calculateSurveyResults(filteredAnswers, moduleCode);
-            const project = draftProjectId;
-            const submissionAnswers = filteredAnswers.map(ans => {
-                if(ans.formattedAnswer) {
-                    delete ans.formattedAnswer;
-                }
-                if(ans.answerType==='single_option' || ans.answerType==='multiple_option') {
-                    return {...ans, answer: null};
-                }
-                return ans;
-            });
-            if(moduleCode==='sens' && !draftSurveyId) {
-                const response  = await createSurvey({
-                    title: surveyTitle,
-                    answers: submissionAnswers,
-                    project,
-                    results,
-                });
-                Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
-            } else {
-                await addSurveyAnswers(filteredAnswers);
-                const response = await addSurveyResults(results);
-                Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
-            }
-            dispatch(questionActions.setAnswers([]));
-            handleClose();
-            if(params.projectId) {
-                Api.getSurveys({project: params.projectId});
-                Api.getSurveyDetails(+params.projectId);
-            }
-            initDraftAnswers(null);
-        } catch(err) {
-            setError(err);
-            console.log(err);
-        }
-    }, [
-        answers,
-        questions,
-        questionGroups,
-        createSurvey,
-        handleClose,
-        dispatch,
-        draftProjectId,
-        draftSurveyId,
-        surveyTitle,
-        params,
-        moduleCode,
-        addSurveyAnswers,
-        addSurveyResults
-    ]);
+    // const handleValidate = useCallback(async () => {
+    //     setError(null);
+    //     try {
+    // const results = await calculateSurveyResults(filteredAnswers, code);
+    // const project = projectId;
+    // const submissionAnswers = filteredAnswers.map(ans => {
+    //     if(ans.formattedAnswer) {
+    //         delete ans.formattedAnswer;
+    //     }
+    //     if(ans.answerType==='single_option' || ans.answerType==='multiple_option') {
+    //         return {...ans, answer: null};
+    //     }
+    //     return ans;
+    // });
+    // if(code==='sens') {
+    //     const response  = await createSurvey({
+    //         title: surveyTitle,
+    //         answers: submissionAnswers,
+    //         project,
+    //         results,
+    //     });
+    //     Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
+    // } else {
+    //     await addSurveyAnswers(filteredAnswers);
+    //     const response = await addSurveyResults(results);
+    //     Toast.show(response?.detail || _('Survey complete!'), Toast.SUCCESS);
+    // }
+    // dispatch(questionActions.setAnswers([]));
+    // handleClose();
+    // if(params.projectId) {
+    //     Api.getSurveys({project: params.projectId});
+    //     Api.getSurveyDetails(+params.projectId);
+    // }
+    // initDraftAnswers(null);
+    //     } catch(err) {
+    //         setError(err);
+    //         console.log(err);
+    //     }
+    // }, [
+    //     filteredAnswers,
+    //     questions,
+    //     questionGroups,
+    //     code,
+    // ]);
 
     const incompleteQuestionGroups = useMemo(() => {
         if(!editable) {
@@ -447,30 +425,20 @@ const TakeSurveyModal = (props) => {
         />
     ), [touchedGroupIndexes, activeGroup, incompleteQuestionGroups, handleQuestionGroupClick, maxTouchedGroupIndex]);
 
-    if(!surveyTitle && editable && moduleCode==='sens') {
-        return (
-            <InitSurvey
-                clone={clone}
-                questionsStatus={status}
-                isVisible={!surveyTitle}
-                onClose={onClose}
-            />
-        );
-    }
-
     return (
         <Modal className={styles.modal}>
             <div className={styles.header}>
                 <div>
                     <h2 className={styles.title}>
-                        {editable ? surveyTitle : activeSurvey?.title}
+                        {survey?.title}
+                        {/* editable ? surveyTitle : activeSurvey?.title */}
                     </h2>
                     <h3 className={styles.subTitle}>
                         {totalQuestions} Questions | Estimated Time: {estimatedTime}
                     </h3>
                 </div>
                 <div className={styles.headerRight}>
-                    {isNewEdit && (
+                    {/*isNewEdit && (
                         <>
                             {!editable ? (
                                 <Button onClick={handleEditButtonClick} className={styles.editButton}>
@@ -482,7 +450,7 @@ const TakeSurveyModal = (props) => {
                                 </Button>
                             )}
                         </>
-                    )}
+                    )*/}
                     <div className={styles.closeContainer} onClick={handleClose}>
                         <MdClose size={20} className={styles.closeIcon} />
                     </div>
@@ -519,6 +487,28 @@ const TakeSurveyModal = (props) => {
                     />
                 </div>
                 <div ref={contentRef} className={styles.content}>
+                    <div className={styles.contentHeader}>
+                        <div onClick={handleSaveDraftAnswers}>
+                            {savingDraft ? (
+                                <Loader color="var(--color-primary)" />
+                            ) : isSynced ? (
+                                <InfoTooltip 
+                                    size={28}
+                                    icon={MdOutlineCheckCircle}
+                                    fill="var(--color-primary)"
+                                    message={_('Draft synced!')}
+                                />
+                            ) : (
+                                <InfoTooltip 
+                                    icon={MdOutlineCloudUpload} 
+                                    iconSize={28} 
+                                    message={_('Save draft')}
+                                    fill="var(--color-primary)"
+                                />
+                            )}
+                        </div>
+                        <div className={styles.languageSelect}>English</div>
+                    </div>
                     {activeGroupIndex === questionGroups?.length ? (
                         <>
                             <div className={styles.contentMessage}>
@@ -558,7 +548,8 @@ const TakeSurveyModal = (props) => {
                                     <BsArrowLeft size={22} className={styles.buttonIconLeft} />
                                     <Localize>Previous</Localize>
                                 </Button>
-                                {editable && (
+                                {/*
+                                    editable && (
                                     <Button
                                         disabled={
                                             isFormIncomplete
@@ -573,11 +564,13 @@ const TakeSurveyModal = (props) => {
 
                                         <Localize>Calculate</Localize>
                                     </Button>
-                                )}
+                                )
+                                */}
                             </div>
                         </>
                     ) : (
                         <GroupContent
+                            surveyModuleId={surveyModuleId}
                             editable={editable}
                             activeGroup={activeGroup}
                             questions={activeQuestions}
@@ -603,12 +596,6 @@ const TakeSurveyModal = (props) => {
                     </div>
                 )}
             </div>
-            <DeleteDraftModal
-                module={moduleCode}
-                isVisible={showDeleteDraftModal}
-                onClose={handleCloseDeleteDraftModal}
-                onDelete={handleDeleteDraft}
-            />
         </Modal>
     );
 };

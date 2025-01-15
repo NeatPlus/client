@@ -14,15 +14,16 @@ import * as questionActions from 'store/actions/question';
 import styles from './styles.scss';
 
 const DeleteDraftModal = (props) => {
-    const {isVisible, onClose, onDelete, onResume, module} = props;
+    const {isVisible, onClose, onDelete, onResume, module, activeDraftIndex} = props;
 
     const dispatch = useDispatch();
 
     const {modules} = useSelector(state => state.context);
-    const {title, moduleCode, draftAnswers} = useSelector(state => state.draft);
+    const {drafts} = useSelector(state => state.draft);
+    const activeDraft = useMemo(() => drafts?.[activeDraftIndex], [drafts, activeDraftIndex]);
 
     const newModuleTitle = useMemo(() => modules.find(mod => mod.code === module)?.title, [module, modules]);
-    const draftModuleTitle = useMemo(() => modules.find(mod => mod.code === moduleCode)?.title, [moduleCode, modules]);
+    const draftModuleTitle = useMemo(() => modules.find(mod => mod.code === activeDraft?.moduleCode)?.title, [activeDraft, modules]);
 
     const handleDeleteDraft = useCallback(async () => {
         initDraftAnswers();
@@ -31,9 +32,9 @@ const DeleteDraftModal = (props) => {
     }, [onClose, onDelete]);
 
     const handleResumeDraft = useCallback(() => {
-        dispatch(questionActions.setAnswers(draftAnswers));
+        dispatch(questionActions.setAnswers(activeDraft?.answers));
         onResume(false);
-    }, [dispatch, draftAnswers, onResume]);
+    }, [dispatch, activeDraft, onResume]);
 
     if (!isVisible) {
         return null;
@@ -58,7 +59,7 @@ const DeleteDraftModal = (props) => {
                         <Localize
                             text="Starting a new {{ newModule; }} module survey will delete the draft survey '{{ draftTitle; }}' you have under the {{ draftModule; }} module. Please choose your action for the draft survey."
                             newModule={<span>{newModuleTitle || ''}</span>}
-                            draftTitle={<span>{title}</span>}
+                            draftTitle={<span>{activeDraft?.title}</span>}
                             draftModule={<span>{draftModuleTitle || ''}</span>}
                         />
                     </p>

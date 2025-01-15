@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, useRef} from 'react';
+import {useCallback, useEffect, useState, useRef, useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux'; 
 
 import Button from 'components/Button';
@@ -13,12 +13,28 @@ import {initDraftAnswers} from 'utils/dispatch';
 import * as questionActions from 'store/actions/question';
 
 import styles from './styles.scss';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const FloatingAction = ({icon: Icon, surveyTitle}) => {
     const actionRef = useRef();
     const dispatch = useDispatch();
 
-    const {draftAnswers, moduleCode, surveyId} = useSelector(state => state.draft);
+    const {projectId, surveyId} = useParams();
+    const [searchParams] = useSearchParams();
+    const moduleCode = useMemo(() => {
+        if(searchParams.has('module')) {
+            const moduleParam = searchParams.get('module');
+            return moduleParam === 'sensitivity' ? 'sens' : moduleParam;
+        }
+        return 'sens';
+    }, [searchParams]);
+
+    const {drafts} = useSelector(state => state.draft);
+
+    const existingDraftIndex = useMemo(() => drafts?.findIndex(draft => {
+        return draft.projectId === +projectId && String(draft.surveyId) === String(surveyId) && draft.moduleCode === moduleCode;
+    }), [drafts, projectId, surveyId, moduleCode]);
+    const activeDraft = useMemo(() => drafts?.[existingDraftIndex], [drafts, existingDraftIndex]);
 
     const surveyModalsConfig = useSurveyModals(moduleCode, surveyId);
 
@@ -45,9 +61,9 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
 
     const showSurveyModal = useCallback(() => {
         hideAction();
-        dispatch(questionActions.setAnswers(draftAnswers));
+        dispatch(questionActions.setAnswers(activeDraft?.answers || []));
         surveyModalsConfig.handleShowTakeSurvey(false);
-    }, [hideAction, draftAnswers, dispatch, surveyModalsConfig]);
+    }, [hideAction, activeDraft, dispatch, surveyModalsConfig]);
 
     const handleDelete = useCallback(() => {
         initDraftAnswers();
@@ -62,13 +78,13 @@ const FloatingAction = ({icon: Icon, surveyTitle}) => {
     }, [collapseAction]);
 
     useEffect(() => {
-        if(draftAnswers.length > 0) {
+        if(activeDraft) {
             expandAction();
             return () => {
                 clearTimeout(collapseAction);
             };
         }
-    }, [draftAnswers, expandAction, collapseAction]);
+    }, [activeDraft, expandAction, collapseAction]);
 
     useEffect(() => {
         setTimeout(collapseAction, 6000);

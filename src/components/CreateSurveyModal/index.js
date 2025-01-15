@@ -1,32 +1,47 @@
 import {useCallback} from 'react';
+import { useSelector } from 'react-redux';
 import {MdClose} from 'react-icons/md';
-import {useDispatch} from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import Button from 'components/Button';
 import Modal from '@ra/components/Modal';
 import TextInput from '@ra/components/Form/TextInput';
 import Form, {InputField} from '@ra/components/Form';
 import {Localize} from '@ra/components/I18n';
-import {_} from 'services/i18n';
 
-import * as draftActions from 'store/actions/draft';
+import {_} from 'services/i18n';
+import Toast from 'services/toast';
+import ApiService from 'services/api';
+
+import usePromise from '@ra/hooks/usePromise';
+import { getErrorMessage } from '@ra/utils/error';
 
 import styles from './styles.scss';
 
-const InitSurvey = props => {
+const CreateSurveyModal = props => {
     const {
-        questionsStatus,
         isVisible,
         onClose,
         clone,
+        onSurveyCreateComplete,
     } = props;
 
-    const dispatch = useDispatch();
+    const {projectId} = useParams();
 
-    const handleSetSurveyTitle = useCallback(({title}) => 
-        dispatch(draftActions.setTitle(title)), 
-    [dispatch]
-    );
+    const [{loading}, createDraftSurvey] = usePromise(ApiService.createSurvey);
+    const {modules} = useSelector(state => state.context);
+
+    const handleCreateSurvey = useCallback(async ({title}) => {
+        try {
+            const sensitivityModuleId = modules.find(module => module.code === 'sens')?.id;
+            const surveyResponse = await createDraftSurvey({projectId, title, modules: [sensitivityModuleId]});
+            const {modules: surveyModules, ...survey} = surveyResponse;
+            onSurveyCreateComplete(survey, surveyModules[0]);
+        } catch(err) {
+            console.log(err);
+            Toast.show(getErrorMessage(err), Toast.ERROR);
+        }
+    }, [createDraftSurvey, projectId, modules, onSurveyCreateComplete]);
 
     if(!isVisible) {
         return null;
@@ -42,7 +57,7 @@ const InitSurvey = props => {
                     <MdClose size={20} className={styles.closeIcon} />
                 </div>
             </div>
-            <Form onSubmit={handleSetSurveyTitle} className={styles.content}>
+            <Form onSubmit={handleCreateSurvey} className={styles.content}>
                 <InputField 
                     name="title"
                     required
@@ -62,9 +77,8 @@ const InitSurvey = props => {
                         <Localize>Cancel</Localize>
                     </Button>
                     <Button 
-                        loading={questionsStatus!=='complete'} 
+                        loading={loading} 
                         className={styles.button}
-                        onClick={handleSetSurveyTitle}
                     >
                         <Localize>Continue</Localize>
                     </Button>
@@ -74,4 +88,4 @@ const InitSurvey = props => {
     );
 };
 
-export default InitSurvey;
+export default CreateSurveyModal;

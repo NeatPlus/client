@@ -33,10 +33,10 @@
             display: flex;
             align-items: center;
 
-            .edit-button {
-                padding: 0.5em 1.25em;
-                font-size: var(--font-size-small);
-            }
+            // .edit-button {
+            //     padding: 0.5em 1.25em;
+            //     font-size: var(--font-size-small);
+            // }
 
             .close-container {
                 width: 30px;
@@ -165,11 +165,17 @@
             overflow-y: auto;
             max-height: 80vh;
 
-            .language-select {
-                align-self: flex-end;
-                font-size: 0.8rem;
-                line-height: 1.5em;
-                color: var(--color-dark-alt);
+            .content-header {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .language-select {
+                    margin-left: 1rem;
+                    font-size: var(--font-size-small);
+                    line-height: 1.5em;
+                    color: var(--color-dark-alt);
+                }
             }
 
             .content-message {

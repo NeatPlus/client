@@ -39,7 +39,7 @@ const NoSurveys = () => {
                     {hasEditAccess && (
                         <Button
                             className={styles.button}
-                            onClick={surveyModalsConfig.handleShowDeleteDraft}
+                            onClick={surveyModalsConfig.handleCreateNewSurvey}
                         >
                             <BsPlus size={24} className={styles.buttonIcon} /><Localize>Take Survey</Localize>
                         </Button>

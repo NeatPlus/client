@@ -3,18 +3,20 @@ import {createSelector} from 'reselect';
 import {getSeverityFromScore} from 'utils/severity';
 
 const getSurveys = state => state.survey.surveys;
+const getSurveyModules = state => state.survey.surveyModules;
 const getSurveyAnswers = state => state.survey.surveyAnswers;
 const getSurveyResults = state => state.survey.surveyResults;
 const getQuestions = state => state.question.questions;
 const getStatements = state => state.statement.statements;
 
 export const getFormattedSurveys = createSelector([
-    getSurveys, 
+    getSurveys,
+    getSurveyModules,
     getSurveyAnswers,
     getSurveyResults,
     getQuestions,
     getStatements,
-], (surveys, surveyAnswers, surveyResults, questions, statements) => {
+], (surveys, surveyModules, surveyAnswers, surveyResults, questions, statements) => {
     if(!statements.length) {
         return [];
     }
@@ -22,6 +24,7 @@ export const getFormattedSurveys = createSelector([
     return surveys?.map(survey => ({
         ...survey, 
         config: typeof survey.config === 'string' ? JSON.parse(survey.config) : survey.config,
+        surveyModules: surveyModules.filter(surveyModule => surveyModule.survey === survey.id),
         answers: surveyAnswers
             .filter(sur => survey && sur.survey === survey?.id)
             .map(srv => {

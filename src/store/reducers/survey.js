@@ -6,6 +6,7 @@ const initialState = {
     activeSurvey: null,
     surveyAnswers: [],
     surveyResults: [],
+    surveyModules: [],
     advancedFeedbacks: [],
 };
 
@@ -37,6 +38,8 @@ const surveyReducer = (state=initialState, action) => {
     }
     case actions.SET_ACTIVE_SURVEY:
         return {...state, activeSurvey: action.survey};
+    case actions.SET_SURVEY_MODULES:
+        return {...state, surveyModules: action.surveyModules};
     case actions.SET_SURVEY_ANSWERS: {
         const stateAnswersToPersist = state.surveyAnswers.filter(ans => !action.answers.some(updatedAnswer => {
             return updatedAnswer.survey === ans.survey; 

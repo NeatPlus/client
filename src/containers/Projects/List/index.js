@@ -94,6 +94,9 @@ const ProjectTable = withNoProject(props => {
 
     const handleRowClick = useCallback(project => {
         const projectSurveys = surveys.filter(srv => srv.project === project.id);
+        if(project.surveysCount === project.draftSurveysCount) {
+            return navigate(`/projects/${project.id}/surveys`);
+        }
         if(project.surveysCount !== projectSurveys.length) {
             Api.getSurveys({project: project.id});
         }
