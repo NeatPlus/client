@@ -47,7 +47,7 @@
                         width: 20%;
                     }
 
-                    &:nth-child(n):not(:first-child):not(:last-child) {
+                    &:nth-child(n):not(:first-child, :last-child) {
                         width: 20%;
                     }
 

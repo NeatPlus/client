@@ -50,7 +50,7 @@
                         text-align: left;
                     }
 
-                    &:nth-child(n):not(:first-child):not(:last-child) {
+                    &:nth-child(n):not(:first-child, :last-child) {
                         width: 8%;
                         text-align: right;
                     }

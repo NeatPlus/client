@@ -19,6 +19,7 @@ const ConfirmationModal = (props) => {
         confirmButtonText,
         cancelButtonText,
         confirmButtonProps,
+        imageSrc=confirmImg,
         ...modalProps
     } = props;
     
@@ -36,7 +37,7 @@ const ConfirmationModal = (props) => {
                 <div className={styles.contentMain}>
                     <img
                         className={styles.image}
-                        src={confirmImg}
+                        src={imageSrc}
                         alt={_('Confirm action')}
                     />
                     <p className={styles.description}>
