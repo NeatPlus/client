@@ -18,7 +18,7 @@ import * as surveyActions from 'store/actions/survey';
 
 import styles from './styles.scss';
 
-const ShareSurvey = props => {
+const ShareSurvey = () => {
     const dispatch = useDispatch();
     const {activeSurvey} = useSelector(state => state.survey);
 

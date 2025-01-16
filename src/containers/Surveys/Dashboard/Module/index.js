@@ -99,7 +99,7 @@ const FillQuestionnaire = props => {
     );
 };
 
-const UnderDevelopment = props => {
+const UnderDevelopment = () => {
     return (
         <div className={styles.container}>
             <img className={styles.infoImage} src={devImage} alt={_('Under Development')} />
@@ -259,6 +259,9 @@ const Module = props => {
                     publicMode={publicMode}
                     isCompact={isCompact}
                     onChangeCompactTab={handleChangeCompactTab}
+                    topicsWithStatementsData={topicsWithStatementsData}
+                    activeSurvey={activeSurvey}
+                    activeModule={activeModule}
                 />
             </Tab>
         );
@@ -269,6 +272,9 @@ const Module = props => {
         publicMode,
         isCompact,
         handleChangeCompactTab,
+        topicsWithStatementsData,
+        activeSurvey,
+        activeModule
     ]);
 
     if(!topics?.length) {
