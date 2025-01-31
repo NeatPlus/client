@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Fri Jan 03 2025 15:59:33 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Thu Jan 30 2025 21:26:02 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -792,7 +792,7 @@ msgstr ""
 
 #: src/components/RestoreItemsModal/index.js:133
 #: src/containers/Administration/Statements/index.js:24
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:104
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:124
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:106
 #: src/containers/Surveys/Feedback/FeedbackTable/index.js:143
 msgid "Statements"
@@ -860,7 +860,7 @@ msgid "Conflicting score? {{ link:provide suggestions/feedback }}."
 msgstr ""
 
 #: src/components/StatementAccordion/index.js:110
-#: src/components/SurveyModuleReport/CompactReport/index.js:59
+#: src/components/SurveyModuleReport/CompactReport/index.js:60
 msgid "This concern level of this statement might vary by context."
 msgstr ""
 
@@ -869,14 +869,17 @@ msgid "Mitigations, Opportunities and more"
 msgstr ""
 
 #: src/components/StatementAccordion/index.js:137
+#: src/utils/docx.js:419
 msgid "ADDITIONAL INFORMATION"
 msgstr ""
 
 #: src/components/StatementAccordion/index.js:141
+#: src/utils/docx.js:439
 msgid "MITIGATIONS"
 msgstr ""
 
 #: src/components/StatementAccordion/index.js:148
+#: src/utils/docx.js:466
 msgid "OPPORTUNITIES"
 msgstr ""
 
@@ -888,55 +891,62 @@ msgstr ""
 msgid "{{ moduleTitle; }} Statements Severity Summary"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:68
+#: src/components/SurveyModuleReport/CompactReport/index.js:69
+#: src/utils/config.js:25
 msgid "Highest priority mitigations"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:77
+#: src/components/SurveyModuleReport/CompactReport/index.js:78
 msgid "No mitigations of high priority found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:84
+#: src/components/SurveyModuleReport/CompactReport/index.js:85
+#: src/utils/config.js:26
 msgid "Highest priority opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:93
+#: src/components/SurveyModuleReport/CompactReport/index.js:94
 msgid "No opportunities of high priority found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:130
-#: src/components/SurveyModuleReport/CompactReport/index.js:148
+#: src/components/SurveyModuleReport/CompactReport/index.js:131
+#: src/components/SurveyModuleReport/CompactReport/index.js:149
 #: src/containers/Administration/StatementWeightage/QuestionsTable/index.js:179
 msgid "Loading..."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:188
+#: src/components/SurveyModuleReport/CompactReport/index.js:199
+#: src/utils/config.js:19
 msgid ""
 "The following report summarises only the highest priority sensitivities, "
 "mitigations and opportunities identified in response to your U-NEAT "
 "assessment answers."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:192
+#: src/components/SurveyModuleReport/CompactReport/index.js:203
 msgid ""
 "To see a longer report including all high, medium and low priority "
 "sensitivities, mitigations and opportunities, please click on the "
 "“Detailed” report button."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:201
+#: src/components/SurveyModuleReport/CompactReport/index.js:212
+#: src/utils/config.js:20
 msgid "Highest priority sensitivity statements, mitigations and opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:205
+#: src/components/SurveyModuleReport/CompactReport/index.js:216
+#: src/utils/docx.js:202
 msgid "Sensitivity statements"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:235
+#: src/components/SurveyModuleReport/CompactReport/index.js:249
+#: src/utils/config.js:30
 msgid "Highest Ranked Mitigations and Opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:238
+#: src/components/SurveyModuleReport/CompactReport/index.js:252
+#: src/utils/config.js:21
 msgid ""
 "The following are the highest ranked mitigations addressing the most "
 "significant Sensitivities identified in response to your U-NEAT+ assessment "
@@ -949,41 +959,61 @@ msgid ""
 "order to select those most relevant to your activities."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:246
+#: src/components/SurveyModuleReport/CompactReport/index.js:260
+#: src/utils/config.js:31
 msgid "Highest priority humanitarian mitigations"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:247
+#: src/components/SurveyModuleReport/CompactReport/index.js:261
+#: src/utils/config.js:32
 msgid "Highest priority potential development opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:250
-#: src/components/SurveyModuleReport/CompactReport/index.js:277
+#: src/components/SurveyModuleReport/CompactReport/index.js:264
+#: src/components/SurveyModuleReport/CompactReport/index.js:291
+#: src/utils/config.js:35
 msgid "No mitigations data found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:255
-#: src/components/SurveyModuleReport/CompactReport/index.js:282
+#: src/components/SurveyModuleReport/CompactReport/index.js:269
+#: src/components/SurveyModuleReport/CompactReport/index.js:296
+#: src/utils/config.js:36
 msgid "No opportunities data found!"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:262
+#: src/components/SurveyModuleReport/CompactReport/index.js:276
+#: src/utils/config.js:27
 msgid "Recurring Mitigations and Opportunities"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:265
+#: src/components/SurveyModuleReport/CompactReport/index.js:279
+#: src/utils/config.js:22
 msgid ""
 "The following mitigations are not the highest priority, but they have been "
 "identified multiple times in response to your assessment answers. Please "
 "consider whether you can implement some of them in your response."
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:273
+#: src/components/SurveyModuleReport/CompactReport/index.js:287
+#: src/utils/config.js:28
 msgid "HUMANITARIAN MITIGATIONS"
 msgstr ""
 
-#: src/components/SurveyModuleReport/CompactReport/index.js:274
+#: src/components/SurveyModuleReport/CompactReport/index.js:288
+#: src/utils/config.js:29
 msgid "DEVELOPMENT OPPORTUNITIES"
+msgstr ""
+
+#: src/components/SurveyModuleReport/ExportOptionsDrowpdown/index.js:13
+msgid "Export"
+msgstr ""
+
+#: src/components/SurveyModuleReport/ExportOptionsDrowpdown/index.js:34
+msgid "PDF"
+msgstr ""
+
+#: src/components/SurveyModuleReport/ExportOptionsDrowpdown/index.js:45
+msgid "DOCX"
 msgstr ""
 
 #: src/components/SurveyModuleReport/HeaderControlButtons/ExportPDFButton.js:14
@@ -2250,22 +2280,22 @@ msgstr ""
 msgid "This module is under development. Please check back later."
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/index.js:310
+#: src/containers/Surveys/Dashboard/Module/index.js:316
 msgid ""
 "*The concern levels of statements with {{ alertIcon; }} might vary by "
 "context."
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:29
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:31
 #: src/containers/Surveys/Dashboard/Overview/index.js:61
 msgid "Concerns"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:107
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:127
 msgid "Collapse All"
 msgstr ""
 
-#: src/containers/Surveys/Dashboard/Module/Statements/index.js:107
+#: src/containers/Surveys/Dashboard/Module/Statements/index.js:127
 msgid "Expand All"
 msgstr ""
 
@@ -2406,4 +2436,16 @@ msgstr ""
 #: src/services/api.js:110
 #: src/services/api.js:124
 msgid "Request Error"
+msgstr ""
+
+#: src/utils/config.js:38
+msgid "* This concern level of this statement might vary by context."
+msgstr ""
+
+#: src/utils/config.js:39
+msgid "* The concern levels of statements with ℹ might vary by contex."
+msgstr ""
+
+#: src/utils/docx.js:371
+msgid "STATEMENTS"
 msgstr ""

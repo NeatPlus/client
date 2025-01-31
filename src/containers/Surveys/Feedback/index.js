@@ -63,7 +63,7 @@ const TopicItem  = ({item, activeModule, isBaselineFeedback}) => {
     );
 };
 
-const SurveyFeedback = props => {
+const SurveyFeedback = () => {
     useInitActiveProject();
     useInitActiveSurvey();
 

@@ -1,10 +1,12 @@
 import React, {useCallback, useMemo} from 'react';
 import {FiChevronRight} from 'react-icons/fi';
+import { Packer } from 'docx';
 
 import ReportSizeTabs from 'components/SurveyModuleReport/ReportSizeTabs';
-import ExportPDFButton from 'components/SurveyModuleReport/HeaderControlButtons/ExportPDFButton';
+import ExportOptionsDropdown from 'components/SurveyModuleReport/ExportOptionsDrowpdown';
 import ShowQuestionnairesButton from 'components/SurveyModuleReport/HeaderControlButtons/ShowQuestionnairesButton';
 import ReportOptionsDropdown from 'components/SurveyModuleReport//ReportOptionsDropdown';
+import { createDocxDocumentForSurveyDetailed } from 'utils/exportSurvey';
 import StatementAccordion from 'components/StatementAccordion';
 import ConcernCounter from 'components/Concerns/Chart/counter';
 import List from '@ra/components/List';
@@ -42,6 +44,9 @@ const StatementsContent = ({
     publicMode,
     isCompact,
     onChangeCompactTab,
+    topicsWithStatementsData,
+    activeSurvey,
+    activeModule,
 }) => {
     const severityCounts = useMemo(() => getSeverityCounts(statementData, isCompact), [statementData, isCompact]);
 
@@ -70,6 +75,16 @@ const StatementsContent = ({
         window.print();
     }, [toggleExpand, expanded]);
 
+    const handleExportDocx = useCallback(async () => {
+        const docx = createDocxDocumentForSurveyDetailed(topicsWithStatementsData, activeSurvey, activeModule);
+        const buffer = await Packer.toBuffer(docx);
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${activeSurvey?.title}.docx`;
+        link.click();
+    }, [topicsWithStatementsData, activeSurvey, activeModule]);
+
     return (
         <section className={styles.section}>
             <div className={styles.sectionHeader}>
@@ -81,7 +96,12 @@ const StatementsContent = ({
                             onChangeCompactTab={onChangeCompactTab}
                         />
                         <ShowQuestionnairesButton moduleCode={moduleCode} />
-                        <ExportPDFButton onClick={handleExportPDF} />
+
+                        <ExportOptionsDropdown
+                            onExportPDF={handleExportPDF}
+                            onExportDocx={handleExportDocx}
+                        />
+
                         {!publicMode && (
                             <ReportOptionsDropdown moduleCode={moduleCode} />
                         )}

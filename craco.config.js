@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path'); //eslint-disable-line @typescript-eslint/no-var-requires
 const cssLoader = require.resolve('css-loader');
 
@@ -48,6 +49,12 @@ module.exports = {
 
                 return rule;
             });
+            webpackConfig.plugins = (webpackConfig.plugins || []).concat([
+                new webpack.ProvidePlugin({
+                    process: 'process/browser',
+                    Buffer: ['buffer', 'Buffer']
+                })
+            ]);
 
             return webpackConfig;
         }

@@ -188,7 +188,7 @@ const SurveyDashboard = () => {
 
     const handleClearFilters = useCallback(() => dispatch(setFilters([])), [dispatch]);
 
-    const renderHeaderControls = useCallback(tabHeaderProps => {
+    const renderHeaderControls = useCallback(() => {
         if(activeTab === 'overview' || searchParams.get('mode') === 'compact') {
             return null;
         }

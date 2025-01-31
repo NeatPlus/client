@@ -1,6 +1,7 @@
 import React, {useCallback, useMemo, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {FiAlertCircle} from 'react-icons/fi';
+import { Packer } from 'docx';
 
 import InfoTooltip from 'components/InfoTooltip';
 
@@ -12,10 +13,10 @@ import cs from '@ra/cs';
 import {sleep} from '@ra/utils';
 import {_} from 'services/i18n';
 import {COMPACT_SENSITIVITY_MITIGATIONS_RANK_THRESHOLD_LTEQ} from 'utils/config';
+import createDocxDocumentForSurveyCompact from 'utils/exportSurvey';
 
 import usePromise from '@ra/hooks/usePromise';
-
-import ExportPDFButton from '../HeaderControlButtons/ExportPDFButton';
+import ExportOptionsDropdown from '../ExportOptionsDrowpdown';
 import ShowQuestionnairesButton from '../HeaderControlButtons/ShowQuestionnairesButton';
 import ReportOptionsDropdown from '../ReportOptionsDropdown';
 import ReportSizeTabs from '../ReportSizeTabs';
@@ -181,6 +182,16 @@ const CompactReport = ({
         window.print();
     }, []);
 
+    const handleExportDocx = useCallback(async () => {
+        const docx = createDocxDocumentForSurveyCompact(activeSurvey, statements, insights, activeModule);
+        const buffer = await Packer.toBuffer(docx);
+        const blob = new Blob([buffer], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${activeSurvey?.title}.docx`;
+        link.click();
+    }, [statements, activeSurvey, insights, activeModule]);
+
     return (
         <div className={styles.container}>
             <p className={styles.introText}>
@@ -212,7 +223,10 @@ const CompactReport = ({
                             onChangeCompactTab={onChangeCompactTab}
                         />
                         <ShowQuestionnairesButton moduleCode={moduleCode} />
-                        <ExportPDFButton onClick={handleExportPDF} />
+                        <ExportOptionsDropdown
+                            onExportPDF={handleExportPDF}
+                            onExportDocx={handleExportDocx}
+                        />
                         {!publicMode && (
                             <ReportOptionsDropdown moduleCode={moduleCode} />
                         )}
