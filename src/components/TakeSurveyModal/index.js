@@ -2,13 +2,15 @@ import {useCallback, useState, useMemo, useRef, useEffect} from 'react';
 import {useParams} from 'react-router';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {MdClose} from 'react-icons/md';
+import {MdClose, MdOutlineCheckCircle, MdOutlineSave} from 'react-icons/md';
 import {BsArrowLeft, BsArrowRight, BsCheck} from 'react-icons/bs';
 import {RiSkipBackLine, RiSkipForwardLine} from 'react-icons/ri';
 import {IoIosArrowDropright, IoIosArrowDropleft} from 'react-icons/io';
 
 import Button from 'components/Button';
 import DeleteDraftModal from 'components/DeleteDraftModal';
+import InfoTooltip from 'components/InfoTooltip';
+import Loader from 'components/Loader';
 import Modal from '@ra/components/Modal';
 import List from '@ra/components/List';
 import {Localize} from '@ra/components/I18n';
@@ -39,6 +41,7 @@ import * as draftActions from 'store/actions/draft';
 import Question from './Question';
 import InitSurvey from './InitSurvey';
 import styles from './styles.scss';
+
 
 const keyExtractor = item => item.id;
 
@@ -113,7 +116,6 @@ const GroupContent = props => {
 
     return (
         <>
-            <div className={styles.languageSelect}>English</div>
             <h3 className={styles.contentTitle}>{activeGroup?.title}</h3>
             <List
                 data={questions}
@@ -270,6 +272,30 @@ const TakeSurveyModal = (props) => {
         setActiveGroupIndex(activeGroupIndex - 1),
     [activeGroupIndex]
     );
+
+    const draftTooltipRef = useRef();
+
+    const [isSynced, setIsSynced] = useState(true);
+    const [isSyncInProgress, setIsSyncInProgress] = useState(false); 
+    const handleSaveDraftAnswers = useCallback(() => {
+        if(!isSynced && editable) {
+            setIsSyncInProgress(true);
+            dispatch(draftActions.setDraftAnswers(answers));
+            setTimeout(() => {
+                setIsSyncInProgress(false);
+                setIsSynced(true);
+                if(draftTooltipRef.current) {
+                    draftTooltipRef.current.showMessage(3000);
+                }
+            }, 1500); // FIXME: Just for simulating loading
+        }
+    }, [dispatch, answers, editable, isSynced]);
+    useEffect(() => {
+        if(answers.length) {
+            setIsSynced(false);
+        }
+    }, [answers]);
+
     const handleNextClick = useCallback((scrollTop) => {
         if(editable && activeQuestions.some(ques =>
             ques.isRequired &&
@@ -281,8 +307,8 @@ const TakeSurveyModal = (props) => {
             }
             setShowRequired(true);
         }
-        if(!clone && editable) {
-            dispatch(draftActions.setDraftAnswers(answers));
+        if(!clone) {
+            handleSaveDraftAnswers();
         }
         setActiveGroupIndex(activeGroupIndex + 1);
         contentRef.current.scrollTo({top: 0, behavior: 'smooth'});
@@ -291,8 +317,8 @@ const TakeSurveyModal = (props) => {
         activeQuestions,
         answers,
         editable,
-        dispatch,
         clone,
+        handleSaveDraftAnswers
     ]);
 
     const isFormIncomplete = useMemo(() => {
@@ -519,6 +545,30 @@ const TakeSurveyModal = (props) => {
                     />
                 </div>
                 <div ref={contentRef} className={styles.content}>
+                    <div className={styles.contentHeader}>
+                        <div 
+                            onClick={handleSaveDraftAnswers}>
+                            {isSyncInProgress ? (
+                                <Loader color="var(--color-primary)" />
+                            ) : isSynced ? (
+                                <InfoTooltip 
+                                    size={28}
+                                    ref={draftTooltipRef}
+                                    icon={MdOutlineCheckCircle}
+                                    fill="var(--color-primary)"
+                                    message={_('Draft saved!')}
+                                />
+                            ) : (
+                                <InfoTooltip
+                                    icon={MdOutlineSave} 
+                                    iconSize={28} 
+                                    message={_('Save draft')}
+                                    fill="var(--color-primary)"
+                                />
+                            )}
+                        </div>
+                        <div className={styles.languageSelect}>English</div>
+                    </div>
                     {activeGroupIndex === questionGroups?.length ? (
                         <>
                             <div className={styles.contentMessage}>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
-"POT-Creation-Date: Thu Jan 30 2025 21:26:02 GMT+0545 (Nepal Time)\n"
+"POT-Creation-Date: Fri Feb 28 2025 17:04:11 GMT+0545 (Nepal Time)\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -1040,70 +1040,78 @@ msgstr ""
 msgid "Detailed"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:132
-#: src/components/TakeSurveyModal/index.js:559
+#: src/components/TakeSurveyModal/index.js:134
+#: src/components/TakeSurveyModal/index.js:609
 msgid "Previous"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:140
+#: src/components/TakeSurveyModal/index.js:142
 #: src/containers/Administration/StatementDetails/index.js:337
 msgid "Next"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:357
-#: src/components/TakeSurveyModal/index.js:361
+#: src/components/TakeSurveyModal/index.js:383
+#: src/components/TakeSurveyModal/index.js:387
 msgid "Survey complete!"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:477
+#: src/components/TakeSurveyModal/index.js:503
 msgid "Enable Edit"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:481
+#: src/components/TakeSurveyModal/index.js:507
 msgid "Editing..."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:514
+#: src/components/TakeSurveyModal/index.js:540
 msgid "QUESTION GROUPS"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:528
+#: src/components/TakeSurveyModal/index.js:559
+msgid "Draft saved!"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:565
+msgid "Save draft"
+msgstr ""
+
+#: src/components/TakeSurveyModal/index.js:578
 msgid "Task Incomplete"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:528
+#: src/components/TakeSurveyModal/index.js:578
 msgid "Task Complete"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:533
+#: src/components/TakeSurveyModal/index.js:583
 msgid "You have not filled in all the required fields in the form."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:534
+#: src/components/TakeSurveyModal/index.js:584
 msgid ""
 "You have now completed all modules and sub-modules that you previously "
 "selected in the initial NEAT+ survey page."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:541
+#: src/components/TakeSurveyModal/index.js:591
 msgid "Please go back and complete the form in order to continue."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:542
+#: src/components/TakeSurveyModal/index.js:592
 msgid ""
 "Please follow the provided instructions for how to download and analyse "
 "this information."
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:574
+#: src/components/TakeSurveyModal/index.js:624
 msgid "Calculate"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:597
+#: src/components/TakeSurveyModal/index.js:647
 msgid "Back to the beginning"
 msgstr ""
 
-#: src/components/TakeSurveyModal/index.js:601
+#: src/components/TakeSurveyModal/index.js:651
 msgid "Go to the end"
 msgstr ""
 
