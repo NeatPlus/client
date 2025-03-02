@@ -26,7 +26,7 @@
         color: #8a898b;
         transition: color 0.2s;
 
-        &:hover {
+        &__visible, &:hover {
             color: #666;
 
             & + .tooltip-content {
