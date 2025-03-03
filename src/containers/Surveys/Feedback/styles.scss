@@ -58,6 +58,43 @@
                 }
             }
         }
+
+        .controls {
+            display: flex;
+
+            .update-results-toggle {
+                margin-right: 1rem;
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+
+                .checkbox {
+                    border-color: var(--color-grey-dark-alt);
+
+                    &__checked {
+                        border-color: var(--color-primary);
+                    }
+                }
+
+                .checkbox-label {
+                    font-size: var(--font-size-small);
+                    line-height: 1.57em;
+                    font-weight: 500;
+                    color: var(--color-dark-alt);
+                    cursor: pointer;
+                }
+
+                .update-tooltip {
+                    color: var(--color-grey-dark-alt);
+                    cursor: pointer;
+
+                    &__content {
+                        right: 0;
+                        left: unset;
+                    }
+                }
+            }
+        }
     }
 
     .topic-item {

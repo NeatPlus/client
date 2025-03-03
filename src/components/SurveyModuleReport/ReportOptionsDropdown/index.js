@@ -56,13 +56,13 @@ const ReportOptionsDropdown = ({moduleCode}) => {
                     </div>
                 )}
                 {/* TODO: Help action
-                                    <div className={styles.optionItem}>
-                                        <BsQuestionCircle size={18} className={styles.optionIcon} />
-                                        <span className={styles.optionText}>
-                                            <Localize>Help</Localize>
-                                        </span>
-                                    </div>
-                                    */}
+                    <div className={styles.optionItem}>
+                        <BsQuestionCircle size={18} className={styles.optionIcon} />
+                        <span className={styles.optionText}>
+                            <Localize>Help</Localize>
+                        </span>
+                    </div>
+                */}
             </div>
         </Dropdown>
 

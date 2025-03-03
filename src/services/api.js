@@ -459,6 +459,10 @@ class Api {
             console.log(error);
         }
     }
+    
+    addSurveyResults = (surveyId, results) => {
+        return this.post(`/survey/${surveyId}/add_results/`, results);
+    };
 
     shareSurveyLink = surveyId => {
         return this.post(`/survey/${surveyId}/share_link/`);

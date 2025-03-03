@@ -31,7 +31,6 @@ const Option = ({option, checked, setChecked, multiple}) => {
                 </div>
             </div>
         </div>
-
     );
 };
 
