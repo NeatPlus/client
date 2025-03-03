@@ -7,7 +7,7 @@
         "@math.gl/web-mercator": "^4.1.0",
         "@uiw/react-textarea-code-editor": "^3.1.0",
         "d3": "^7.9.0",
-        "docx": "^9.1.1",
+        "docx": "^9.2.0",
         "gl-matrix": "^3.4.3",
         "html-react-parser": "^5.2.2",
         "mapbox-gl": "^3.9.3",
