@@ -11,9 +11,6 @@
 # production
 /build
 
-# submodule
-/src/vendor
-
 # misc
 .DS_Store
 .env
